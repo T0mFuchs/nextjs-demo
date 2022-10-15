@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
 dotenv.config()
-import config from "./src/config/mikro-orm"
+import config from "./mikro-orm"
 
 export default config

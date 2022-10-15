@@ -16,12 +16,24 @@ export default function Index({ posts }: { posts: any }) {
             padding: 1rem;
         `}
       >
-        <div css={css`font-size: 2rem; font-weight: 900;`}>posts from api/posts</div>
+        <div 
+          css={css`font-size: 2rem; font-weight: 900;`}
+        >
+          posts from api/posts
+        </div>
+        <div
+          css={css`color: grey; font-size: .8rem;`}
+        >
+          querried with mikro-orm from mongodb free tier cluster</div>
         {posts.map((post: any) => (
           <div key={post.id}>
             <h3>{post.title}</h3>
             <p>{post.body}</p>
-            <div>{post.id}</div>
+            <div
+              css={css`color: grey; font-size: .6rem;`}
+            >
+              _id: {post.id}
+            </div>
           </div>
         ))}
       </div>

@@ -5,7 +5,7 @@
     "useTsNode": true,
     "tsConfigPath": "./tsconfig.orm.json",
     "configPaths": [
-      "./src/config/mikro-orm.ts"
+      "./src/config/mikro-orm.config.ts"
     ]
   },
   "scripts": {

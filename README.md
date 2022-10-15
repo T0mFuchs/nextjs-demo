@@ -1,6 +1,6 @@
-# nextjs ssr 
+# ``nextjs ssr``
 
-## mikro-orm & mongodb atlas
+##  nextjs api utilizing mikro-orm & mongodb (atlas)
 
 ```
 

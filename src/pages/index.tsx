@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { css } from "@emotion/react"
 
 export async function getServerSideProps(){
   const baseUrl = process.env.BASE_URL
@@ -8,11 +9,8 @@ export async function getServerSideProps(){
 function Home({ baseUrl }: { baseUrl: string }) {
   return (
     <>
-      <h2>{baseUrl}</h2>
-      <p className="errorLink">
-        <Link href={"/error"}>404 resets/reloads site & state</Link>
-      </p>
-
+      <h2>pages/index</h2>
+      <div></div>
     </>
   )
 }

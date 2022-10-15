@@ -6,12 +6,12 @@ import { css } from "@emotion/react"
 import "../styles/global.css"
 import type { AppProps } from "next/app"
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (<PageShell><Component {...pageProps} /></PageShell>)
 }
 
 
-export default MyApp
+export default App
 
 
 function PageShell({ children }: { children: React.ReactNode }) {
@@ -26,10 +26,15 @@ function PageShell({ children }: { children: React.ReactNode }) {
           <div className={`theme-${theme}`}>
             <Layout>
               <Sidebar>
+                <div css={css`padding-top: .5rem; padding-bottom: .25rem;`}>
+                  <Icon icon="logos:nextjs" fontSize={20}/>
+                </div>
                 <SidebarContent />
               </Sidebar>
               <Content>
-                time elapsed: <TimeElapsed />
+                <div css={css`color: grey; font-size: .8rem;`}>
+                  time elapsed: <TimeElapsed />
+                </div>
                 <ThemeSwitch />
                 {children}
               </Content>
@@ -88,10 +93,9 @@ function Content({ children }: { children: React.ReactNode }) {
     <div
       css={css`
         flex: 85%;
-        padding: 0.25rem;
-        padding-left: 1.5rem;
-        padding-right: 0.5rem;
-        border-left: 0.05rem solid rgba(61, 62, 61, 1);
+        padding: 0.5rem;
+        padding-left: 1rem;
+        border-left: 0.05rem solid rgba(60, 60, 60, 1);
         min-height: 100vh;
       `}
     >
@@ -149,6 +153,9 @@ function SidebarContent() {
     <>
       <Link href="/">
         <a className="sidebarLink">home</a>
+      </Link>
+      <Link href="/about">
+        <a className="sidebarLink">/about</a>
       </Link>
       <Link href="/posts">
         <a className="sidebarLink">/posts</a>

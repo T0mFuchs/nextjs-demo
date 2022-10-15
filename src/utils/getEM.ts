@@ -4,7 +4,7 @@ const getEM = () => {
   const em = RequestContext.getEntityManager()
   if (!em)
     throw new Error(
-      "Entity manager not found. Are you in a 'withORM'-wrapped Context?"
+      " [getORM.ts]: em not found. are you within a 'withORM'-wrapped context? "
     )
   return em
 }
