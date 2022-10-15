@@ -1,8 +1,8 @@
 import { NextApiHandler } from "next"
 import "reflect-metadata"
-import { Post } from "../../entities"
-import getEM from "../../utils/getEM"
-import withORM from "../../utils/withORM"
+import { Post } from "../../../entities"
+import getEM from "../../../utils/getEM"
+import withORM from "../../../utils/withORM"
 
 const handler: NextApiHandler = async (req, res) => {
   const em = getEM()

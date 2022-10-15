@@ -1,16 +1,20 @@
 import Link from "next/link"
 import { css } from "@emotion/react"
 
-export async function getServerSideProps(){
-  const baseUrl = process.env.BASE_URL
-  return { props: { baseUrl } }
+export async function getServerSideProps() {
+  const url = process.env.BASE_URL
+  return { props: { url } }
 }
 
-function Home({ baseUrl }: { baseUrl: string }) {
+function Home({ url }: { url: string }) {
   return (
     <>
-      <h2>pages/index</h2>
-      <div></div>
+      <h2>
+        {"<h2>"} {`"/"`} {"</h2>"}
+      </h2>
+      <div>
+        {"<div>"} {url} {"</div>"}
+      </div>
     </>
   )
 }

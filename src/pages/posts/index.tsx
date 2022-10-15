@@ -1,4 +1,5 @@
 import ky from "ky-universal"
+import Link from "next/link"
 import { css } from "@emotion/react"
 
 export async function getServerSideProps() {
@@ -10,27 +11,37 @@ export async function getServerSideProps() {
 export default function Index({ posts }: { posts: any }) {
   return (
     <>
-      <div 
+      <div
         className="posts"
         css={css`
-            padding: 1rem;
+          padding: 1rem;
         `}
       >
-        <div 
-          css={css`font-size: 2rem; font-weight: 900;`}
+        <div
+          css={css`
+            font-size: 2rem;
+            font-weight: 900;
+          `}
         >
           posts from api/posts
         </div>
         <div
-          css={css`color: grey; font-size: .8rem;`}
+          css={css`
+            color: grey;
+            font-size: 0.8rem;
+          `}
         >
-          querried with mikro-orm from mongodb free tier cluster</div>
+          querried with mikro-orm from mongodb free tier cluster
+        </div>
         {posts.map((post: any) => (
           <div key={post.id}>
-            <h3>{post.title}</h3>
+            <h3><Link href={`/posts/${post.id}`}>{post.title}</Link></h3>
             <p>{post.body}</p>
             <div
-              css={css`color: grey; font-size: .6rem;`}
+              css={css`
+                color: grey;
+                font-size: 0.6rem;
+              `}
             >
               _id: {post.id}
             </div>

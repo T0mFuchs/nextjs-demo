@@ -7,12 +7,14 @@ import "../styles/global.css"
 import type { AppProps } from "next/app"
 
 function App({ Component, pageProps }: AppProps) {
-  return (<PageShell><Component {...pageProps} /></PageShell>)
+  return (
+    <PageShell>
+      <Component {...pageProps} />
+    </PageShell>
+  )
 }
 
-
 export default App
-
 
 function PageShell({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState("dark")
@@ -26,13 +28,23 @@ function PageShell({ children }: { children: React.ReactNode }) {
           <div className={`theme-${theme}`}>
             <Layout>
               <Sidebar>
-                <div css={css`padding-top: .5rem; padding-bottom: .25rem;`}>
-                  <Icon icon="logos:nextjs" fontSize={20}/>
+                <div
+                  css={css`
+                    padding-top: 0.5rem;
+                    padding-bottom: 0.25rem;
+                  `}
+                >
+                  <Icon icon="logos:nextjs" fontSize={20} />
                 </div>
                 <SidebarContent />
               </Sidebar>
               <Content>
-                <div css={css`color: grey; font-size: .8rem;`}>
+                <div
+                  css={css`
+                    color: grey;
+                    font-size: 0.8rem;
+                  `}
+                >
                   time elapsed: <TimeElapsed />
                 </div>
                 <ThemeSwitch />
@@ -152,13 +164,25 @@ function SidebarContent() {
   return (
     <>
       <Link href="/">
-        <a className="sidebarLink">home</a>
+        <a className="sidebarLink">
+          <text>
+            <Icon icon="line-md:home-simple" fontSize={17} /> home
+          </text>
+        </a>
       </Link>
       <Link href="/about">
-        <a className="sidebarLink">/about</a>
+        <a className="sidebarLink">
+          <text>
+            <Icon icon="line-md:list" fontSize={17} /> /about
+          </text>
+        </a>
       </Link>
       <Link href="/posts">
-        <a className="sidebarLink">/posts</a>
+        <a className="sidebarLink">
+          <text>
+            <Icon icon="line-md:text-box" fontSize={17} /> /posts
+          </text>
+        </a>
       </Link>
       <a
         css={css`
@@ -166,7 +190,7 @@ function SidebarContent() {
           bottom: 2.25rem;
         `}
         className="sidebarLink"
-        href="https://github.com/T0mFuchs/next.custom"
+        href="https://github.com/T0mFuchs/nextssr"
       >
         <div
           css={css`
