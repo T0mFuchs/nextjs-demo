@@ -9,11 +9,8 @@
     ]
   },
   "scripts": {
-    "dev": "cross-env BASE_URL=http://localhost:3000 next dev",
-    "vercel-dev": "cross-env BASE_URL=https://nextjs.ssr.vercel.app next dev",
-    "build": "next build",
-    "start": "next start",
-    "prod": "pnpm build && cross-env BASE_URL=http://localhost:3000 pnpm start",
+    "dev": "next dev",
+    "prod": "next build && next start",
     "p": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
   "devDependencies": {
@@ -25,7 +22,6 @@
     "@types/node": "18.11.0",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
-    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
