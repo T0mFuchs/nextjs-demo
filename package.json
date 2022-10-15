@@ -1,24 +1,42 @@
 {
-  "name": "next.js",
-  "version": "0.1.0",
-  "private": true,
+  "name": "app",
+  "type": "module",
+  "mikro-orm": {
+    "useTsNode": true,
+    "tsConfigPath": "./tsconfig.orm.json",
+    "configPaths": [
+      "./src/config/mikro-orm.ts"
+    ]
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env BASE_URL=http://localhost:3000 next dev",
+    "vercel-dev": "cross-env BASE_URL=https://nextjs.ssr.vercel.app next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.3.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "prod": "pnpm build && cross-env BASE_URL=http://localhost:3000 pnpm start",
+    "p": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
   "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@emotion/react": "^11.10.4",
+    "@iconify/react": "^4.0.0",
+    "@mikro-orm/core": "^5.4.2",
+    "@mikro-orm/mongodb": "^5.4.2",
     "@types/node": "18.11.0",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
+    "ky": "^0.31.4",
+    "ky-universal": "^0.11.0",
+    "next": "12.3.1",
+    "prettier": "^2.7.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.9.1",
     "typescript": "4.8.4"
   }
 }
