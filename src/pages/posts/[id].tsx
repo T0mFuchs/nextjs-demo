@@ -1,9 +1,11 @@
 import ky from "ky-universal"
-import Link from "next/link"
 import { css } from "@emotion/react"
+import { GetServerSideProps, GetServerSidePropsContext } from "next"
 
-export async function getServerSideProps(req: any) {
-  const { id } = req.query.id
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const id = context.params
   const baseUrl = process.env.BASE_URL
   const post = await ky.get(`${baseUrl}/api/posts/${id}`).json()
   return { props: { post } }
@@ -18,9 +20,10 @@ export default function Index({ post }: { post: any }) {
           padding: 1rem;
         `}
       >
-        <h2>{post.title} from api/posts/{post.id}</h2>
+        <h3>/api/posts/{post.id}</h3>
+        <h3>{post.title}</h3>
         <p>{post.body}</p>
-        <text>{post.id}</text>
+        <span>{post.id}</span>
       </div>
     </>
   )

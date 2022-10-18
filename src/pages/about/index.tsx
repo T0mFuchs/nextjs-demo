@@ -39,7 +39,7 @@ function About({
             {`  `}
             <Icon icon="fluent-emoji:star" />
             {`  `}
-            <text>{JSON.stringify(jsonNext.stargazers_count)}</text>
+            <span>{JSON.stringify(jsonNext.stargazers_count)}</span>
           </li>
           <li>
             <Link href="https://mikro-orm.io">mikro-orm</Link>
@@ -48,7 +48,7 @@ function About({
             {`  `}
             <Icon icon="fluent-emoji:star" />
             {`  `}
-            <text>{JSON.stringify(jsonMikroOrm.stargazers_count)}</text>
+            <span>{JSON.stringify(jsonMikroOrm.stargazers_count)}</span>
           </li>
         </ul>
       </div>

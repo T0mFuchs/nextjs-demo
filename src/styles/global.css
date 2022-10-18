@@ -7,20 +7,21 @@ body {
 }
   
 .theme-dark {
-  color: rgb(251, 249, 225);
-  background-color: rgb(25,25,15);    
+  color: #f9f4da;
+  background-color: #19190f;    
 }
   
 .theme-light {
-  color: rgb(15,13,14);
-  background-color: rgb(244,244,244);
+  color: #0f0d0e;
+  background-color: #f9f4da;
 }
   
 .themeIcon { border: none; padding: 0; background-color: inherit; }
   
 .sidebarLink { 
   color: rgb(55, 125, 255);
-  font-size: 1.44rem;
+  font-size: 1.25rem;
+  line-height: 2rem;
   font-weight: 900;
   text-decoration: none;
 }

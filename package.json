@@ -1,6 +1,5 @@
 {
   "name": "app",
-  "type": "module",
   "mikro-orm": {
     "useTsNode": true,
     "tsConfigPath": "./tsconfig.orm.json",
@@ -11,14 +10,22 @@
   "scripts": {
     "dev": "next dev",
     "prod": "next build && next start",
+    "preinstall": "npx only-allow pnpm",
     "p": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@iconify/react": "^4.0.0",
     "@mikro-orm/core": "^5.4.2",
     "@mikro-orm/mongodb": "^5.4.2",
+    "@radix-ui/react-accordion": "^1.0.1",
+    "@radix-ui/react-alert-dialog": "^1.0.2",
+    "@radix-ui/react-dialog": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.0.1",
+    "@radix-ui/react-toast": "^1.1.1",
+    "@radix-ui/react-tooltip": "^1.0.2",
     "@types/node": "18.11.0",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",

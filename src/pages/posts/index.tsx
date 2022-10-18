@@ -23,10 +23,20 @@ export default function Index({ posts }: { posts: any }) {
             font-weight: 900;
           `}
         >
-          posts from api/posts
+          posts from{" "}
+          <Link href="/api/posts">
+            <a
+              css={css`
+                font-size: 1.9rem;
+              `}
+            >
+              /api/posts
+            </a>
+          </Link>
         </div>
         <div
           css={css`
+            padding-top: 0.25rem;
             color: grey;
             font-size: 0.8rem;
           `}
@@ -35,16 +45,18 @@ export default function Index({ posts }: { posts: any }) {
         </div>
         {posts.map((post: any) => (
           <div key={post.id}>
-            <h3><Link href={`/posts/${post.id}`}>{post.title}</Link></h3>
+            <h3>
+              <Link href={`/posts/${post.id}`}>{post.title}</Link>
+            </h3>
             <p>{post.body}</p>
-            <div
+            <span
               css={css`
                 color: grey;
                 font-size: 0.6rem;
               `}
             >
               _id: {post.id}
-            </div>
+            </span>
           </div>
         ))}
       </div>

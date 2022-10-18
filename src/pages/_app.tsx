@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from "react"
-import Link from "next/link"
+import { SidebarContent } from "../components/SidebarContent"
+import type { AppProps } from "next/app"
 import { Icon } from "@iconify/react"
 import { css } from "@emotion/react"
-
 import "../styles/global.css"
-import type { AppProps } from "next/app"
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -19,7 +18,7 @@ export default App
 function PageShell({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState("dark")
   const [icon, setIcon] = useState(
-    <Icon icon="emojione-v1:crescent-moon" fontSize={40} />
+    <Icon icon="line-md:moon-filled-alt-loop" fontSize={38} color="#fbf9e1" />
   )
   return (
     <React.StrictMode>
@@ -30,23 +29,16 @@ function PageShell({ children }: { children: React.ReactNode }) {
               <Sidebar>
                 <div
                   css={css`
-                    padding-top: 0.5rem;
+                    padding-top: 0.1rem;
                     padding-bottom: 0.25rem;
                   `}
                 >
-                  <Icon icon="logos:nextjs" fontSize={20} />
+                  <Icon icon="logos:nextjs" fontSize={18} />
                 </div>
                 <SidebarContent />
               </Sidebar>
               <Content>
-                <div
-                  css={css`
-                    color: grey;
-                    font-size: 0.8rem;
-                  `}
-                >
-                  time elapsed: <TimeElapsed />
-                </div>
+                time elapsed: <TimeElapsed />
                 <ThemeSwitch />
                 {children}
               </Content>
@@ -72,7 +64,12 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       css={css`
-        display: flex;
+        display: grid;
+        grid-template-columns: 0.25fr 0.75fr;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        text-align: center;
+        height: 100vh;
       `}
     >
       {children}
@@ -84,18 +81,12 @@ function Sidebar({ children }: { children: React.ReactNode }) {
   return (
     <div
       css={css`
-        padding: 0.67rem;
-        padding-top: 1rem;
-        padding-right: 0.75rem;
-        flex-shrink: 0;
-        display: flex;
-        flex: 15%;
-        flex-direction: column;
-        align-items: center;
-        line-height: 2rem;
+        padding: 0.25rem;
+        overflow: hidden;
+        overflow-y: scroll;
       `}
     >
-      {children}
+      <>{children}</>
     </div>
   )
 }
@@ -104,14 +95,11 @@ function Content({ children }: { children: React.ReactNode }) {
   return (
     <div
       css={css`
-        flex: 85%;
-        padding: 0.5rem;
-        padding-left: 1rem;
-        border-left: 0.05rem solid rgba(60, 60, 60, 1);
-        min-height: 100vh;
+        border-left: 1px solid #3c3c3c;
+        overflow: hidden;
       `}
     >
-      {children}
+      <>{children}</>
     </div>
   )
 }
@@ -123,9 +111,9 @@ function ThemeSwitch() {
   return (
     <div
       css={css`
+        top: 0.2rem;
+        right: 0.3rem;
         position: fixed;
-        top: 0.5rem;
-        right: 0.7rem;
       `}
     >
       <button
@@ -134,10 +122,18 @@ function ThemeSwitch() {
         onClick={() => {
           if (theme === "dark") {
             setTheme("light")
-            setIcon(<Icon icon="emojione:sun" fontSize={40} />)
+            setIcon(
+              <Icon icon="line-md:sunny-filled" fontSize={38} color="#ffce31" />
+            )
           } else {
             setTheme("dark")
-            setIcon(<Icon icon="emojione-v1:crescent-moon" fontSize={40} />)
+            setIcon(
+              <Icon
+                icon="line-md:moon-filled-alt-loop"
+                fontSize={38}
+                color="#fbf9e1"
+              />
+            )
           }
         }}
       >
@@ -158,57 +154,4 @@ function TimeElapsed() {
   }, [])
 
   return <>{count}</>
-}
-
-function SidebarContent() {
-  return (
-    <>
-      <Link href="/">
-        <a className="sidebarLink">
-          <text>
-            <Icon icon="line-md:home-simple" fontSize={17} /> home
-          </text>
-        </a>
-      </Link>
-      <Link href="/about">
-        <a className="sidebarLink">
-          <text>
-            <Icon icon="line-md:list" fontSize={17} /> /about
-          </text>
-        </a>
-      </Link>
-      <Link href="/posts">
-        <a className="sidebarLink">
-          <text>
-            <Icon icon="line-md:text-box" fontSize={17} /> /posts
-          </text>
-        </a>
-      </Link>
-      <a
-        css={css`
-          position: fixed;
-          bottom: 2.25rem;
-        `}
-        className="sidebarLink"
-        href="https://github.com/T0mFuchs/nextssr"
-      >
-        <div
-          css={css`
-            position: fixed;
-            left: 0.15rem;
-          `}
-        >
-          <Icon icon="line-md:github-loop" fontSize={30} />
-        </div>
-        <text
-          css={css`
-            position: fixed;
-            left: 2.05rem;
-          `}
-        >
-          repo
-        </text>
-      </a>
-    </>
-  )
 }
