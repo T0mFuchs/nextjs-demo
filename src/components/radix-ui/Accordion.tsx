@@ -16,5 +16,5 @@ export const AccordionContent = styled(A.Content)`
   font-weight: 900;
   color: #377dff;
   background-color: #f9f4da;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 `

@@ -9,9 +9,7 @@ const StyledContent = styled(P.Content)`
 export function ContentTop({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <StyledContent side="top">
-        {children}
-      </StyledContent>
+      <StyledContent side="top">{children}</StyledContent>
     </>
   )
 }
@@ -25,8 +23,6 @@ export const PopoverTrigger = styled(P.Trigger)`
 `
 
 export const PopoverContentTop = ContentTop
-
-
 
 // optional components
 

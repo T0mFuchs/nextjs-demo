@@ -10,7 +10,7 @@ export const TabsTrigger = styled(T.Trigger)`
   &[data-state="active"] {
     color: #377dff;
     background-color: #f9f4da;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
   }
   &[data-state="inactive"] {
     color: #323330;
@@ -18,6 +18,6 @@ export const TabsTrigger = styled(T.Trigger)`
 `
 export const TabsContent = styled(T.Content)`
   background-color: #377dff;
-  border-radius: .5rem;
-  padding: .2rem;
+  border-radius: 0.5rem;
+  padding: 0.2rem;
 `

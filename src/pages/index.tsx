@@ -116,9 +116,7 @@ function Home({ url }: { url: string }) {
             ``toast trigger``
           </button>
           <ToastRoot open={open} onOpenChange={setOpen}>
-            <ToastTitle>         
-                ``  swipe right  ``
-            </ToastTitle>
+            <ToastTitle>`` swipe right ``</ToastTitle>
             <ToastDescription>`toast`</ToastDescription>
             <ToastAction altText="undo toast">
               <Icon icon="line-md:close" color="#d24e59" fontSize={20} />
