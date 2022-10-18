@@ -61,10 +61,14 @@ function Home({ url }: { url: string }) {
       </h2>
       <div
         css={css`
-          padding-top: 7rem;
+          padding-top: 3rem;
         `}
       >
-        <div>
+        <div
+          css={css`
+            padding: 0.7rem;
+          `}
+        >
           <Popover>
             <PopoverTrigger>popover 👆</PopoverTrigger>
             <PopoverContentTop>
@@ -79,66 +83,84 @@ function Home({ url }: { url: string }) {
             </PopoverContentTop>
           </Popover>
         </div>
-        <Dialog>
-          <DialogTrigger>``dialog trigger``</DialogTrigger>
-          <div>
-            <DialogContent>
-              <h3>accordion {`type="single"`}</h3>
-              <Accordion type="single" defaultValue="item1">
-                <AccordionItem value="item1">
-                  <AccordionTrigger>item1.trigger1</AccordionTrigger>
-                  <AccordionContent>item1.content1</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item2">
-                  <AccordionTrigger>item2.trigger2</AccordionTrigger>
-                  <AccordionContent>item2.content3</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item3">
-                  <AccordionTrigger>item3.trigger3</AccordionTrigger>
-                  <AccordionContent>item3.content3</AccordionContent>
-                </AccordionItem>
-              </Accordion>
-              <DialogClose>
-                <Icon icon="line-md:close" fontSize={25} />
-              </DialogClose>
-            </DialogContent>
-          </div>
-        </Dialog>
-        <Toast>
-          <button
-            onClick={() => setOpen(true)}
-            css={css`
-              border: none;
-              background-color: inherit;
-              color: inherit;
-            `}
-          >
-            ``toast trigger``
-          </button>
-          <ToastRoot open={open} onOpenChange={setOpen}>
-            <ToastTitle>`` swipe right ``</ToastTitle>
-            <ToastDescription>`toast`</ToastDescription>
-            <ToastAction altText="undo toast">
-              <Icon icon="line-md:close" color="#d24e59" fontSize={20} />
-            </ToastAction>
-          </ToastRoot>
-          <ToastViewport />
-        </Toast>
-        <AlertDialog>
-          <AlertDialogTrigger>alert dialog trigger</AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogTitle>interactivity blocked</AlertDialogTitle>
-            <AlertDialogDescription>
-              ``alert description``
-            </AlertDialogDescription>
-            <AlertDialogCancel>
-              <Icon icon="line-md:close" color="#d24e59" fontSize={40} />
-            </AlertDialogCancel>
-            <AlertDialogAction>
-              <Icon icon="line-md:confirm" color="#148700" fontSize={40} />
-            </AlertDialogAction>
-          </AlertDialogContent>
-        </AlertDialog>
+        <div
+          css={css`
+            padding: 0.7rem;
+          `}
+        >
+          <Dialog>
+            <DialogTrigger>``dialog trigger``</DialogTrigger>
+            <div>
+              <DialogContent>
+                <h3>accordion {`type="single"`}</h3>
+                <Accordion type="single" defaultValue="item1">
+                  <AccordionItem value="item1">
+                    <AccordionTrigger>item1.trigger1</AccordionTrigger>
+                    <AccordionContent>item1.content1</AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item2">
+                    <AccordionTrigger>item2.trigger2</AccordionTrigger>
+                    <AccordionContent>item2.content3</AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item3">
+                    <AccordionTrigger>item3.trigger3</AccordionTrigger>
+                    <AccordionContent>item3.content3</AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+                <DialogClose>
+                  <Icon icon="line-md:close" fontSize={25} />
+                </DialogClose>
+              </DialogContent>
+            </div>
+          </Dialog>
+        </div>
+        <div
+          css={css`
+            padding: 0.7rem;
+          `}
+        >
+          <Toast>
+            <button
+              onClick={() => setOpen(true)}
+              css={css`
+                border: none;
+                background-color: inherit;
+                color: inherit;
+              `}
+            >
+              ``toast trigger``
+            </button>
+            <ToastRoot open={open} onOpenChange={setOpen}>
+              <ToastTitle>`` swipe right ``</ToastTitle>
+              <ToastDescription>`toast`</ToastDescription>
+              <ToastAction altText="undo toast">
+                <Icon icon="line-md:close" color="#d24e59" fontSize={20} />
+              </ToastAction>
+            </ToastRoot>
+            <ToastViewport />
+          </Toast>
+        </div>
+        <div
+          css={css`
+            padding: 0.7rem;
+          `}
+        >
+          <AlertDialog>
+            <AlertDialogTrigger>alert dialog trigger</AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogTitle>interactivity blocked</AlertDialogTitle>
+              <AlertDialogDescription>
+                ``alert description``
+              </AlertDialogDescription>
+              <AlertDialogCancel>
+                <Icon icon="line-md:close" color="#d24e59" fontSize={40} />
+              </AlertDialogCancel>
+              <AlertDialogAction>
+                <Icon icon="line-md:confirm" color="#148700" fontSize={40} />
+              </AlertDialogAction>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </div>
     </>
   )

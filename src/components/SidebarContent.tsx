@@ -1,40 +1,42 @@
 import { Icon } from "@iconify/react"
+import styled from "@emotion/styled"
 import { css } from "@emotion/react"
 import Link from "next/link"
 
 export { SidebarContent }
 
+const StyledA = styled.a`
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 2rem;
+  text-decoration: none;
+`
+
 function SidebarContent() {
   return (
     <>
-      <div>
+      <div className="sidebarLink">
         <Link href="/">
-          <a className="sidebarLink">
-            <text>
-              <Icon icon="line-md:home-simple" fontSize={17} /> home
-            </text>
-          </a>
+          <StyledA>
+            <Icon icon="line-md:home-simple" fontSize={17} /> home
+          </StyledA>
         </Link>
       </div>
-      <div>
+      <div className="sidebarLink">
         <Link href="/about">
-          <a className="sidebarLink">
-            <text>
-              <Icon icon="line-md:list" fontSize={17} /> /about
-            </text>
-          </a>
+          <StyledA>
+            <Icon icon="line-md:list" fontSize={17} /> /about
+          </StyledA>
         </Link>
       </div>
-      <div>
+      <div className="sidebarLink">
         <Link href="/posts">
-          <a className="sidebarLink">
-            <text>
-              <Icon icon="line-md:text-box" fontSize={17} /> /posts
-            </text>
-          </a>
+          <StyledA>
+            <Icon icon="line-md:text-box" fontSize={17} /> /posts
+          </StyledA>
         </Link>
       </div>
-      <a
+      <StyledA
         css={css`
           bottom: 2.25rem;
           position: fixed;
@@ -50,15 +52,15 @@ function SidebarContent() {
         >
           <Icon icon="line-md:github-loop" fontSize={30} />
         </div>
-        <text
+        <span
           css={css`
             left: 2.05rem;
             position: fixed;
           `}
         >
           repo
-        </text>
-      </a>
+        </span>
+      </StyledA>
     </>
   )
 }

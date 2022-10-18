@@ -4,6 +4,7 @@ import styled from "@emotion/styled"
 const StyledContent = styled(P.Content)`
   color: inherit;
   background-color: inherit;
+  padding-bottom: 0.3rem;
 `
 
 export function ContentTop({ children }: { children: React.ReactNode }) {

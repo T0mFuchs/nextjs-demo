@@ -18,23 +18,8 @@ body {
   
 .themeIcon { border: none; padding: 0; background-color: inherit; }
   
-.sidebarLink { 
-  color: rgb(55, 125, 255);
-  font-size: 1.25rem;
-  line-height: 2rem;
-  font-weight: 900;
-  text-decoration: none;
-}
+.sidebarLink { color: rgb(55, 125, 255); }
   
-.sidebarLink:hover {
-  text-decoration: underline !important;
-  text-shadow: 0 0rem 4rem;
-}
+.sidebarLink:hover { text-decoration: underline !important; text-shadow: 0 0rem 4rem; }
   
-.sidebarLink:active {
-  color: #e0cf35
-}
-  
-.errorLink:hover {
-  font-weight: 900;
-}
+.sidebarLink:active { color: #e0cf35 }
