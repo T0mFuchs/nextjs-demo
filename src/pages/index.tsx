@@ -2,11 +2,6 @@ import React from "react"
 import { Icon } from "@iconify/react"
 import { css } from "@emotion/react"
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "../components/radix-ui/Tooltip"
-import {
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -41,6 +36,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../components/radix-ui/AlertDialog"
+import {
+  Popover,
+  PopoverContentTop,
+  PopoverTrigger,
+} from "../components/radix-ui/Popover"
 
 export async function getServerSideProps() {
   const url = process.env.BASE_URL
@@ -64,29 +64,24 @@ function Home({ url }: { url: string }) {
           padding-top: 7rem;
         `}
       >
-        <Tooltip>
-          <TooltipTrigger>
-            tooltip trigger (does this even work on mobile ?)
-          </TooltipTrigger>
-          <TooltipContent sideOffset={10}>
-            <Tabs defaultValue="tab1">
-              <TabsContent value="tab1">tab1.content = tooltip 1</TabsContent>
-              <TabsContent value="tab2">tab2.content = tooltip 2</TabsContent>
-              <TabsList aria-label="tabs component">
-                <TabsTrigger value="tab1">tab1.trigger</TabsTrigger>
-                <TabsTrigger value="tab2">tab2.trigger</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </TooltipContent>
-        </Tooltip>
+        <div>
+          <Popover>
+            <PopoverTrigger>popover 👆</PopoverTrigger>
+            <PopoverContentTop>
+              <Tabs defaultValue="tab1">
+                <TabsContent value="tab1">tab1.content</TabsContent>
+                <TabsContent value="tab2">tab2.content</TabsContent>
+                <TabsList aria-label="tabs component">
+                  <TabsTrigger value="tab1">tab1.trigger</TabsTrigger>
+                  <TabsTrigger value="tab2">tab2.trigger</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </PopoverContentTop>
+          </Popover>
+        </div>
         <Dialog>
           <DialogTrigger>``dialog trigger``</DialogTrigger>
-          <div
-            css={css`
-              box-shadow: #0000000d 0px 0px 0px 1px,
-                #d1d5db 0px 0px 0px 1px inset;
-            `}
-          >
+          <div>
             <DialogContent>
               <h3>accordion {`type="single"`}</h3>
               <Accordion type="single" defaultValue="item1">
@@ -121,22 +116,8 @@ function Home({ url }: { url: string }) {
             ``toast trigger``
           </button>
           <ToastRoot open={open} onOpenChange={setOpen}>
-            <ToastTitle>
-              <span
-                css={css`
-                  color: #148700;
-                `}
-              >
-                swipe right
-              </span>{" "}
-              or{" "}
-              <span
-                css={css`
-                  color: #c3602c;
-                `}
-              >
-                click x to dismiss
-              </span>
+            <ToastTitle>         
+                ``  swipe right  ``
             </ToastTitle>
             <ToastDescription>`toast`</ToastDescription>
             <ToastAction altText="undo toast">

@@ -29,11 +29,11 @@ function PageShell({ children }: { children: React.ReactNode }) {
               <Sidebar>
                 <div
                   css={css`
-                    padding-top: 0.1rem;
-                    padding-bottom: 0.25rem;
+                    padding-top: 1rem;
+                    padding-bottom: 0.5rem;
                   `}
                 >
-                  <Icon icon="logos:nextjs" fontSize={18} />
+                  <Icon icon="file-icons:nextjs" fontSize={64} />
                 </div>
                 <SidebarContent />
               </Sidebar>

@@ -14,5 +14,7 @@ export const AccordionTrigger = styled(A.Trigger)`
 
 export const AccordionContent = styled(A.Content)`
   font-weight: 900;
-  background-color: #3f403fc9;
+  color: #377dff;
+  background-color: #f9f4da;
+  border-radius: .25rem;
 `
