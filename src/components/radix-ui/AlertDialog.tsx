@@ -12,6 +12,9 @@ export const AlertDialogTrigger = styled(A.Trigger)`
   border: none;
   background-color: inherit;
   color: inherit;
+  :hover {
+    color: #377dff;
+  }
 `
 
 export const AlertDialogContent = styled(A.Content)`
@@ -20,7 +23,6 @@ export const AlertDialogContent = styled(A.Content)`
   top: 50%;
   left: 50%;
   max-wdith: 500px;
-
   padding: 1rem;
 `
 

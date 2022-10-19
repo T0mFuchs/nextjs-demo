@@ -6,19 +6,14 @@ import {
   DialogTrigger,
   DialogContent,
   DialogClose,
-} from "../components/radix-ui/Dialog"
+} from "../components"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../components/radix-ui/Accordion"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../components/radix-ui/Tabs"
+} from "../components"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components"
 import {
   Toast,
   ToastAction,
@@ -26,7 +21,7 @@ import {
   ToastRoot,
   ToastTitle,
   ToastViewport,
-} from "../components/radix-ui/Toast"
+} from "../components"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -35,12 +30,9 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../components/radix-ui/AlertDialog"
-import {
-  Popover,
-  PopoverContentTop,
-  PopoverTrigger,
-} from "../components/radix-ui/Popover"
+} from "../components"
+import { Popover, PopoverContentTop, PopoverTrigger } from "../components"
+import { Spacer } from "../components"
 
 export async function getServerSideProps() {
   const url = process.env.BASE_URL
@@ -64,11 +56,7 @@ function Home({ url }: { url: string }) {
           padding-top: 3rem;
         `}
       >
-        <div
-          css={css`
-            padding: 0.7rem;
-          `}
-        >
+        <Spacer>
           <Popover>
             <PopoverTrigger>popover 👆</PopoverTrigger>
             <PopoverContentTop>
@@ -82,12 +70,8 @@ function Home({ url }: { url: string }) {
               </Tabs>
             </PopoverContentTop>
           </Popover>
-        </div>
-        <div
-          css={css`
-            padding: 0.7rem;
-          `}
-        >
+        </Spacer>
+        <Spacer>
           <Dialog>
             <DialogTrigger>``dialog trigger``</DialogTrigger>
             <div>
@@ -113,12 +97,8 @@ function Home({ url }: { url: string }) {
               </DialogContent>
             </div>
           </Dialog>
-        </div>
-        <div
-          css={css`
-            padding: 0.7rem;
-          `}
-        >
+        </Spacer>
+        <Spacer>
           <Toast>
             <button
               onClick={() => setOpen(true)}
@@ -126,6 +106,9 @@ function Home({ url }: { url: string }) {
                 border: none;
                 background-color: inherit;
                 color: inherit;
+                :hover {
+                  color: #377dff;
+                }
               `}
             >
               ``toast trigger``
@@ -139,12 +122,8 @@ function Home({ url }: { url: string }) {
             </ToastRoot>
             <ToastViewport />
           </Toast>
-        </div>
-        <div
-          css={css`
-            padding: 0.7rem;
-          `}
-        >
+        </Spacer>
+        <Spacer>
           <AlertDialog>
             <AlertDialogTrigger>alert dialog trigger</AlertDialogTrigger>
             <AlertDialogContent>
@@ -160,7 +139,7 @@ function Home({ url }: { url: string }) {
               </AlertDialogAction>
             </AlertDialogContent>
           </AlertDialog>
-        </div>
+        </Spacer>
       </div>
     </>
   )

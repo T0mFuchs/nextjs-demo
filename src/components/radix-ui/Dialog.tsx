@@ -7,6 +7,9 @@ export const DialogTrigger = styled(D.Trigger)`
   color: inherit;
   background-color: inherit;
   border: none;
+  :hover {
+    color: #377dff;
+  }
 `
 
 export const DialogContent = styled(D.Content)`
@@ -17,6 +20,7 @@ export const DialogContent = styled(D.Content)`
 `
 
 export const DialogClose = styled(D.Close)`
+  padding: 0.5rem;
   color: #d24e59;
   background-color: inherit;
   border: none;

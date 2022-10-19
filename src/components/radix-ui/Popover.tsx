@@ -2,6 +2,7 @@ import * as P from "@radix-ui/react-popover"
 import styled from "@emotion/styled"
 
 const StyledContent = styled(P.Content)`
+  box-shadow: #32325d40 0px 13px 27px -5px, #0000004d 0px 8px 16px -8px;
   color: inherit;
   background-color: inherit;
   padding-bottom: 0.3rem;
@@ -21,6 +22,9 @@ export const PopoverTrigger = styled(P.Trigger)`
   border: none;
   background-color: inherit;
   color: inherit;
+  :hover {
+    color: #377dff;
+  }
 `
 
 export const PopoverContentTop = ContentTop
