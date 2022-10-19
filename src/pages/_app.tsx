@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { SidebarContent } from "../components/SidebarContent";
+import { SidebarContent, Spacer } from "../components";
 import type { AppProps } from "next/app";
 import { Icon } from "@iconify/react";
 import { css } from "@emotion/react";
@@ -28,6 +28,11 @@ function PageShell({ children }: { children: React.ReactNode }) {
             <Layout>
               <Sidebar>
                 <SidebarContent />
+                <Spacer
+                  css={css`
+                    padding-top: 66rem;
+                  `}
+                />
               </Sidebar>
               <Content>
                 time elapsed: <TimeElapsed />
@@ -58,8 +63,6 @@ function Layout({ children }: { children: React.ReactNode }) {
       css={css`
         display: grid;
         grid-template-columns: 0.25fr 0.75fr;
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
         text-align: center;
         height: 100vh;
       `}
@@ -74,8 +77,10 @@ function Sidebar({ children }: { children: React.ReactNode }) {
     <div
       css={css`
         padding: 0.25rem;
-        overflow: hidden;
+        scrollbar-width: thin;
         overflow-y: scroll;
+        overflow-x: hidden;
+        overflow: auto;
       `}
     >
       <>{children}</>
@@ -88,7 +93,10 @@ function Content({ children }: { children: React.ReactNode }) {
     <div
       css={css`
         border-left: 1px solid #3c3c3c;
-        overflow: hidden;
+        scrollbar-width: thin;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        overflow: auto;
       `}
     >
       <>{children}</>
@@ -103,8 +111,8 @@ function ThemeSwitch() {
   return (
     <div
       css={css`
-        top: 0.2rem;
-        right: 0.3rem;
+        top: -0.2rem;
+        right: -0.4rem;
         position: fixed;
       `}
     >

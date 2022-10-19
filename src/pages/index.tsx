@@ -2,35 +2,16 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { css } from "@emotion/react";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogClose,
-  Popover,
-  PopoverContentTop,
-  PopoverTrigger,
   Spacer,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
   Toast,
   ToastAction,
   ToastDescription,
   ToastRoot,
   ToastTitle,
   ToastViewport,
+  DialogAccordion,
+  FreezeInteraction,
+  PopoverTabs,
 } from "../components";
 
 export async function getServerSideProps() {
@@ -52,50 +33,14 @@ function Home({ url }: { url: string }) {
       </h2>
       <div
         css={css`
-          padding-top: 3rem;
+          padding-top: 5rem;
         `}
       >
         <Spacer>
-          <Popover>
-            <PopoverTrigger>popover 👆</PopoverTrigger>
-            <PopoverContentTop>
-              <Tabs defaultValue="tab1">
-                <TabsContent value="tab1">tab1.content</TabsContent>
-                <TabsContent value="tab2">tab2.content</TabsContent>
-                <TabsList aria-label="tabs component">
-                  <TabsTrigger value="tab1">tab1.trigger</TabsTrigger>
-                  <TabsTrigger value="tab2">tab2.trigger</TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </PopoverContentTop>
-          </Popover>
+          <PopoverTabs />
         </Spacer>
         <Spacer>
-          <Dialog>
-            <DialogTrigger>``dialog trigger``</DialogTrigger>
-            <div>
-              <DialogContent>
-                <h3>accordion {`type="single"`}</h3>
-                <Accordion type="single" defaultValue="item1">
-                  <AccordionItem value="item1">
-                    <AccordionTrigger>item1.trigger1</AccordionTrigger>
-                    <AccordionContent>item1.content1</AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item2">
-                    <AccordionTrigger>item2.trigger2</AccordionTrigger>
-                    <AccordionContent>item2.content3</AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item3">
-                    <AccordionTrigger>item3.trigger3</AccordionTrigger>
-                    <AccordionContent>item3.content3</AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-                <DialogClose>
-                  <Icon icon="line-md:close" fontSize={25} />
-                </DialogClose>
-              </DialogContent>
-            </div>
-          </Dialog>
+          <DialogAccordion />
         </Spacer>
         <Spacer>
           <Toast>
@@ -123,22 +68,13 @@ function Home({ url }: { url: string }) {
           </Toast>
         </Spacer>
         <Spacer>
-          <AlertDialog>
-            <AlertDialogTrigger>alert dialog trigger</AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogTitle>interactivity blocked</AlertDialogTitle>
-              <AlertDialogDescription>
-                ``alert description``
-              </AlertDialogDescription>
-              <AlertDialogCancel>
-                <Icon icon="line-md:close" color="#d24e59" fontSize={40} />
-              </AlertDialogCancel>
-              <AlertDialogAction>
-                <Icon icon="line-md:confirm" color="#148700" fontSize={40} />
-              </AlertDialogAction>
-            </AlertDialogContent>
-          </AlertDialog>
+          <FreezeInteraction />
         </Spacer>
+        <Spacer
+          css={css`
+            padding-top: 70rem;
+          `}
+        />
       </div>
     </>
   );
