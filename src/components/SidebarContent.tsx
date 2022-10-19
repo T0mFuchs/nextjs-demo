@@ -39,9 +39,14 @@ function SidebarContent() {
         </Link>
       </div>
       <div className="sidebarLink">
-        <Link href="/about">
+        <Link href="/test">
           <StyledA>
-            <Icon icon="line-md:list" fontSize={17} /> /about
+            <Icon icon="fluent-mdl2:test-beaker-solid" fontSize={16} /> /test
+            <span
+              css={css`
+                padding-left: 0.5rem;
+              `}
+            />
           </StyledA>
         </Link>
       </div>

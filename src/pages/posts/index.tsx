@@ -27,7 +27,7 @@ export default function Index({ posts }: { posts: any }) {
           <Link href="/api/posts">
             <a
               css={css`
-                font-size: 1.9rem;
+                color: #377dff;
               `}
             >
               /api/posts
@@ -44,9 +44,25 @@ export default function Index({ posts }: { posts: any }) {
           querried with mikro-orm from mongodb free tier cluster
         </div>
         {posts.map((post: any) => (
-          <div key={post.id}>
+          <div
+            key={post.id}
+            css={css`
+              box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+                rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+                rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+            `}
+          >
             <h3>
-              <Link href={`/posts/${post.id}`}>{post.title}</Link>
+              <Link href={`/posts/${post.id}`}>
+                <div
+                  css={css`
+                    color: #377dff;
+                    text-decoration: underline;
+                  `}
+                >
+                  {post.title}
+                </div>
+              </Link>
             </h3>
             <p>{post.body}</p>
             <span

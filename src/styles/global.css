@@ -6,10 +6,6 @@ body {
   
 }
 
-body::-webkit-scollbar {
-  width: 2px;
-}
-  
 .theme-dark {
   color: #f9f4da;
   background-image: linear-gradient(

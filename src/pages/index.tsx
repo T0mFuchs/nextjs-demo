@@ -19,7 +19,7 @@ export async function getServerSideProps() {
   return { props: { url } };
 }
 
-function Home({ url }: { url: string }) {
+function Index({ url }: { url: string }) {
   const [open, setOpen] = React.useState(false);
   return (
     <>
@@ -80,4 +80,4 @@ function Home({ url }: { url: string }) {
   );
 }
 
-export default Home;
+export default Index;
