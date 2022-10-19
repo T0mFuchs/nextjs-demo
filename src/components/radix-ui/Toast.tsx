@@ -15,7 +15,7 @@ export const ToastDescription = styled(T.Description)`
 export const ToastAction = styled(T.Action)`
   border: none;
   background-color: inherit;
-  color: inherit;
+  color: #d24e59;
 `;
 export const ToastViewport = styled(T.Viewport)`
   background-image: inherit;

@@ -62,7 +62,7 @@ function Index({ url }: { url: string }) {
               <ToastTitle>`` swipe right ``</ToastTitle>
               <ToastDescription>`` toast ``</ToastDescription>
               <ToastAction altText="undo toast">
-                <Icon icon="line-md:close" color="#d24e59" fontSize={20} />
+                swipe right
               </ToastAction>
             </ToastRoot>
             <ToastViewport />
