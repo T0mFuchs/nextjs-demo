@@ -15,7 +15,6 @@ export const StyledTrigger = styled(A.Trigger)`
   border: none;
   background-color: inherit;
   color: inherit;
-  text-decoration: underline;
 `
 
 export const StyledHeader = styled.div`
