@@ -4,9 +4,9 @@ import { Icon } from "@iconify/react";
 import styled from "@emotion/styled";
 
 export const Accordion = styled(A.Root)`
-  max-width: 50%;
+  max-width: 75%;
   position: relative;
-  left: 25%;
+  left: 15%;
 `;
 
 export const AccordionItem = styled(A.Item)``;
