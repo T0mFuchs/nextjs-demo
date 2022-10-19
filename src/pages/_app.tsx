@@ -18,7 +18,12 @@ export default App;
 function PageShell({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState("dark");
   const [icon, setIcon] = useState(
-    <Icon icon="line-md:moon-filled-alt-loop" fontSize={38} color="#fbf9e1" />
+    <Icon
+      icon="line-md:moon-filled-alt-loop"
+      fontSize={38}
+      color="#fbf9e1"
+      aria-hidden
+    />
   );
   return (
     <React.StrictMode>
@@ -127,7 +132,12 @@ function ThemeSwitch() {
           if (theme === "dark") {
             setTheme("light");
             setIcon(
-              <Icon icon="line-md:sunny-filled" fontSize={38} color="#ffce31" />
+              <Icon
+                icon="line-md:sunny-filled"
+                fontSize={38}
+                color="#ffce31"
+                aria-hidden
+              />
             );
           } else {
             setTheme("dark");
@@ -136,6 +146,7 @@ function ThemeSwitch() {
                 icon="line-md:moon-filled-alt-loop"
                 fontSize={38}
                 color="#fbf9e1"
+                aria-hidden
               />
             );
           }

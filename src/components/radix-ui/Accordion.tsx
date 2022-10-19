@@ -12,12 +12,15 @@ export const Accordion = styled(A.Root)`
 export const AccordionItem = styled(A.Item)``;
 
 export const StyledTrigger = styled(A.Trigger)`
-  box-shadow: #00000030 0px 10px 20px, #0000003b 0px 6px 6px;
   border: none;
   background-color: inherit;
   color: inherit;
   &[data-state="closed"] {
-    color: #323330;
+    color: #555555;
+  }
+  :hover {
+    color: #377dff;
+    font-weight: 900;
   }
 `;
 
@@ -41,7 +44,7 @@ export function AccordionTrigger({
         <StyledTrigger {...props}>
           {children}
           <StyledIcon aria-hidden>
-            <Icon icon="line-md:chevron-down" />
+            <Icon icon="line-md:double-arrow-vertical" />
           </StyledIcon>
         </StyledTrigger>
       </StyledHeader>

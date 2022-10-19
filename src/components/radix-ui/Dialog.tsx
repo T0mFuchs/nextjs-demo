@@ -13,7 +13,6 @@ export const DialogTrigger = styled(D.Trigger)`
 `;
 
 export const DialogContent = styled(D.Content)`
-  box-shadow: #00000073 0px 25px 20px -20px;
   postion: fixed;
   top: 50%;
   left: 50%;

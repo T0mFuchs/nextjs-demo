@@ -9,10 +9,12 @@ import {
   ToastRoot,
   ToastTitle,
   ToastViewport,
+} from "../components";
+import {
   DialogAccordion,
   FreezeInteraction,
   PopoverTabs,
-} from "../components";
+} from "../components/demo";
 
 export async function getServerSideProps() {
   const url = process.env.BASE_URL;
@@ -26,10 +28,9 @@ function Index({ url }: { url: string }) {
       <h2
         css={css`
           font-size: 1.33rem;
-          font-weight: 900;
         `}
       >
-        {`${url}/`}
+        {url}
       </h2>
       <div
         css={css`
@@ -59,7 +60,7 @@ function Index({ url }: { url: string }) {
             </button>
             <ToastRoot open={open} onOpenChange={setOpen}>
               <ToastTitle>`` swipe right ``</ToastTitle>
-              <ToastDescription>`toast`</ToastDescription>
+              <ToastDescription>`` toast ``</ToastDescription>
               <ToastAction altText="undo toast">
                 <Icon icon="line-md:close" color="#d24e59" fontSize={20} />
               </ToastAction>
