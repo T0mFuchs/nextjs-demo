@@ -27,14 +27,6 @@ function PageShell({ children }: { children: React.ReactNode }) {
           <div className={`theme-${theme}`}>
             <Layout>
               <Sidebar>
-                <div
-                  css={css`
-                    padding-top: 1rem;
-                    padding-bottom: 0.5rem;
-                  `}
-                >
-                  <Icon icon="file-icons:nextjs" fontSize={64} />
-                </div>
                 <SidebarContent />
               </Sidebar>
               <Content>
@@ -119,6 +111,10 @@ function ThemeSwitch() {
       <button
         type="button"
         className="themeIcon"
+        css={css`
+          border: none;
+          background-color: inherit;
+        `}
         onClick={() => {
           if (theme === "dark") {
             setTheme("light")

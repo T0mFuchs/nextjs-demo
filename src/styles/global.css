@@ -1,6 +1,5 @@
 html,
 body {
-  padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -15,11 +14,3 @@ body {
   color: #0f0d0e;
   background-color: #f9f4da;
 }
-  
-.themeIcon { border: none; padding: 0; background-color: inherit; }
-  
-.sidebarLink { color: rgb(55, 125, 255); }
-  
-.sidebarLink:hover { text-decoration: underline !important; text-shadow: 0 0rem 4rem; }
-  
-.sidebarLink:active { color: #e0cf35 }

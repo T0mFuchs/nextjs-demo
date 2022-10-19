@@ -10,11 +10,27 @@ const StyledA = styled.a`
   font-weight: 900;
   line-height: 2rem;
   text-decoration: none;
+  color: #377dff;
+  :hover {
+    text-decoration: underline !important;
+    text-shadow: 0 0rem 4rem;
+  }
+  :active {
+    color: #e0cf35;
+  }
 `
 
 function SidebarContent() {
   return (
     <>
+      <div
+        css={css`
+          padding-top: 1rem;
+          padding-bottom: 0.5rem;
+        `}
+      >
+        <Icon icon="file-icons:nextjs" fontSize={64} />
+      </div>
       <div className="sidebarLink">
         <Link href="/">
           <StyledA>
