@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 export const Accordion = styled(A.Root)`
   max-width: 75%;
   position: relative;
-  left: 15%;
+  left: 13.5%;
 `;
 
 export const AccordionItem = styled(A.Item)``;
