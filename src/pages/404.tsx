@@ -1,4 +1,4 @@
-import { css } from "@emotion/react"
+import { css } from "@emotion/react";
 
 export default function Custom404() {
   return (
@@ -11,5 +11,5 @@ export default function Custom404() {
       <hr />
       <h2>Not Found {":("}</h2>
     </div>
-  )
+  );
 }

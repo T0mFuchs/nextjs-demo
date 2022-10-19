@@ -1,25 +1,25 @@
-import { css } from "@emotion/react"
-import { Icon } from "@iconify/react"
-import Link from "next/link"
-import ky from "ky-universal"
+import { css } from "@emotion/react";
+import { Icon } from "@iconify/react";
+import Link from "next/link";
+import ky from "ky-universal";
 
 export async function getServerSideProps() {
   const jsonNext = await ky
     .get("https://api.github.com/repos/vercel/next.js")
-    .json()
+    .json();
   const jsonMikroOrm = await ky
     .get("https://api.github.com/repos/mikro-orm/mikro-orm")
-    .json()
+    .json();
 
-  return { props: { jsonNext, jsonMikroOrm } }
+  return { props: { jsonNext, jsonMikroOrm } };
 }
 
 function About({
   jsonNext,
   jsonMikroOrm,
 }: {
-  jsonNext: any
-  jsonMikroOrm: any
+  jsonNext: any;
+  jsonMikroOrm: any;
 }) {
   return (
     <>
@@ -53,7 +53,7 @@ function About({
         </ul>
       </div>
     </>
-  )
+  );
 }
 
-export default About
+export default About;

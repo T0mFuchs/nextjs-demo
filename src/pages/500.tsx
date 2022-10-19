@@ -1,4 +1,4 @@
-import { css } from "@emotion/react"
+import { css } from "@emotion/react";
 
 export default function Custom500() {
   return (
@@ -11,5 +11,5 @@ export default function Custom500() {
       <hr />
       <h2>Server-side error occurred {":("}</h2>
     </div>
-  )
+  );
 }

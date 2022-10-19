@@ -1,15 +1,15 @@
-import ky from "ky-universal"
-import { css } from "@emotion/react"
-import { GetServerSideProps, GetServerSidePropsContext } from "next"
+import ky from "ky-universal";
+import { css } from "@emotion/react";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const id = context.params
-  const baseUrl = process.env.BASE_URL
-  const post = await ky.get(`${baseUrl}/api/posts/${id}`).json()
-  return { props: { post } }
-}
+  const id = context.params;
+  const baseUrl = process.env.BASE_URL;
+  const post = await ky.get(`${baseUrl}/api/posts/${id}`).json();
+  return { props: { post } };
+};
 
 export default function Index({ post }: { post: any }) {
   return (
@@ -26,5 +26,5 @@ export default function Index({ post }: { post: any }) {
         <span>{post.id}</span>
       </div>
     </>
-  )
+  );
 }

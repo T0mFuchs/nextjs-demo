@@ -1,9 +1,9 @@
-import styled from "@emotion/styled"
+import styled from "@emotion/styled";
 
-export * from "./radix-ui"
+export * from "./radix-ui";
 
-export * from "./SidebarContent"
+export * from "./SidebarContent";
 
 export const Spacer = styled.div`
   padding: 0.7rem;
-`
+`;

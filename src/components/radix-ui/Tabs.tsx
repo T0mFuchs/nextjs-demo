@@ -1,8 +1,8 @@
-import * as T from "@radix-ui/react-tabs"
-import styled from "@emotion/styled"
+import * as T from "@radix-ui/react-tabs";
+import styled from "@emotion/styled";
 
-export const Tabs = styled(T.Root)``
-export const TabsList = styled(T.List)``
+export const Tabs = styled(T.Root)``;
+export const TabsList = styled(T.List)``;
 export const TabsTrigger = styled(T.Trigger)`
   border: none;
   background-color: inherit;
@@ -15,9 +15,9 @@ export const TabsTrigger = styled(T.Trigger)`
   &[data-state="inactive"] {
     color: #323330;
   }
-`
+`;
 export const TabsContent = styled(T.Content)`
   background-color: #377dff;
   border-radius: 0.5rem;
   padding: 0.2rem;
-`
+`;

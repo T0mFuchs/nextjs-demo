@@ -1,9 +1,9 @@
-import { Icon } from "@iconify/react"
-import styled from "@emotion/styled"
-import { css } from "@emotion/react"
-import Link from "next/link"
+import { Icon } from "@iconify/react";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import Link from "next/link";
 
-export { SidebarContent }
+export { SidebarContent };
 
 const StyledA = styled.a`
   font-size: 1.25rem;
@@ -18,7 +18,7 @@ const StyledA = styled.a`
   :active {
     color: #e0cf35;
   }
-`
+`;
 
 function SidebarContent() {
   return (
@@ -78,5 +78,5 @@ function SidebarContent() {
         </span>
       </StyledA>
     </>
-  )
+  );
 }

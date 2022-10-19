@@ -1,28 +1,11 @@
-import React from "react"
-import { Icon } from "@iconify/react"
-import { css } from "@emotion/react"
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogClose,
-} from "../components"
+import React from "react";
+import { Icon } from "@iconify/react";
+import { css } from "@emotion/react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../components"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components"
-import {
-  Toast,
-  ToastAction,
-  ToastDescription,
-  ToastRoot,
-  ToastTitle,
-  ToastViewport,
-} from "../components"
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -30,17 +13,33 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../components"
-import { Popover, PopoverContentTop, PopoverTrigger } from "../components"
-import { Spacer } from "../components"
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogClose,
+  Popover,
+  PopoverContentTop,
+  PopoverTrigger,
+  Spacer,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Toast,
+  ToastAction,
+  ToastDescription,
+  ToastRoot,
+  ToastTitle,
+  ToastViewport,
+} from "../components";
 
 export async function getServerSideProps() {
-  const url = process.env.BASE_URL
-  return { props: { url } }
+  const url = process.env.BASE_URL;
+  return { props: { url } };
 }
 
 function Home({ url }: { url: string }) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
   return (
     <>
       <h2
@@ -142,7 +141,7 @@ function Home({ url }: { url: string }) {
         </Spacer>
       </div>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

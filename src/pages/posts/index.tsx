@@ -1,11 +1,11 @@
-import ky from "ky-universal"
-import Link from "next/link"
-import { css } from "@emotion/react"
+import ky from "ky-universal";
+import Link from "next/link";
+import { css } from "@emotion/react";
 
 export async function getServerSideProps() {
-  const baseUrl = process.env.BASE_URL
-  const posts = await ky.get(`${baseUrl}/api/posts`).json()
-  return { props: { posts } }
+  const baseUrl = process.env.BASE_URL;
+  const posts = await ky.get(`${baseUrl}/api/posts`).json();
+  return { props: { posts } };
 }
 
 export default function Index({ posts }: { posts: any }) {
@@ -61,5 +61,5 @@ export default function Index({ posts }: { posts: any }) {
         ))}
       </div>
     </>
-  )
+  );
 }

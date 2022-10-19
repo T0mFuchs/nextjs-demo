@@ -1,5 +1,5 @@
-import { Options, ReflectMetadataProvider } from "@mikro-orm/core"
-import { Post } from "../entities"
+import { Options, ReflectMetadataProvider } from "@mikro-orm/core";
+import { Post } from "../entities";
 
 const options: Options = {
   type: "mongo",
@@ -7,6 +7,6 @@ const options: Options = {
   clientUrl: process.env.MONGO_URL,
   metadataProvider: ReflectMetadataProvider,
   debug: true, // * enable/disable logger * //
-}
+};
 
-export default options
+export default options;

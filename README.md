@@ -1,4 +1,4 @@
-# `nextjs ssr`
+# `nextjs ssr demo app`
 
 ## nextjs api utilizing mikro-orm & mongodb (atlas)
 
