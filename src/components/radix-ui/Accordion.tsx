@@ -12,9 +12,13 @@ export const Accordion = styled(A.Root)`
 export const AccordionItem = styled(A.Item)``
 
 export const StyledTrigger = styled(A.Trigger)`
+  box-shadow: #00000030 0px 10px 20px, #0000003b 0px 6px 6px;
   border: none;
   background-color: inherit;
   color: inherit;
+  &[data-state="closed"]  {
+    color: #323330
+  }
 `
 
 export const StyledHeader = styled.div`
@@ -48,6 +52,7 @@ export function AccordionTrigger({
 export const AccordionContent = styled(A.Content)`
   font-weight: 900;
   color: #377dff;
-  background-color: #f9f4da;
+  background-color: inherit;
+  box-shadow: #00000030 0px 10px 20px, #0000003b 0px 6px 6px;
   border-radius: 0.25rem;
 `
