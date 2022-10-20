@@ -1,18 +1,13 @@
 import "reflect-metadata";
-import {
-  NextApiHandler,
-  NextApiRequest,
-  NextApiResponse,
-} from "next";
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { Post } from "../../../entities";
-import getEM from "../../../utils/getEM";
-import withORM from "../../../utils/withORM";
+import { getEM, withORM } from "../../../utils";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ) => {
-  const { id } = req.query
+  const { id } = req.query;
   const em = getEM(); // @ts-ignore
   const post = await em.findOne(Post, { id: id });
 

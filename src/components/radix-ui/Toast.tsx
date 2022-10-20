@@ -26,7 +26,7 @@ export const ToastViewport = styled(T.Viewport)`
   bottom: -0.5rem;
   right: 1rem;
   flex-direction: column;
-
   padding-right: 2rem;
+
   font-size: 1.25rem;
 `;

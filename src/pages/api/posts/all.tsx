@@ -5,7 +5,7 @@ import { getEM, withORM } from "../../../utils";
 
 const handler: NextApiHandler = async (req, res: NextApiResponse) => {
   const em = getEM();
-  const posts = await em.find(Post, {}, { limit: 5 });
+  const posts = await em.find(Post, {});
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");

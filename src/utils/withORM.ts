@@ -17,4 +17,4 @@ const withORM =
     return RequestContext.createAsync(orm.em, async () => handler(req, res));
   };
 
-export default withORM;
+export { withORM };

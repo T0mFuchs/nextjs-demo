@@ -1,5 +1,7 @@
 import { RequestContext } from "@mikro-orm/core";
 
+export { getEM };
+
 const getEM = () => {
   const em = RequestContext.getEntityManager();
   if (!em)
@@ -9,4 +11,4 @@ const getEM = () => {
   return em;
 };
 
-export default getEM;
+

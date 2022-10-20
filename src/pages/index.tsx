@@ -1,5 +1,4 @@
 import React from "react";
-import { Icon } from "@iconify/react";
 import { css } from "@emotion/react";
 import {
   Spacer,
@@ -61,7 +60,11 @@ function Index({ url }: { url: string }) {
             <ToastRoot open={open} onOpenChange={setOpen}>
               <ToastTitle>`` swipe right ``</ToastTitle>
               <ToastDescription>`` toast ``</ToastDescription>
-              <ToastAction altText="undo toast">swipe right</ToastAction>
+              <ToastAction altText="undo toast">
+                <div css={css`font-weight: 900; font-size: 1.25rem;`}>
+                  <Countdown />
+                </div>
+              </ToastAction>
             </ToastRoot>
             <ToastViewport />
           </Toast>
@@ -80,3 +83,16 @@ function Index({ url }: { url: string }) {
 }
 
 export default Index;
+
+function Countdown() {
+  const [count, setCount] = React.useState(5);
+
+  React.useEffect(() => {
+    const timeout = setInterval(() => {
+      setCount((c) => c - 1);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return <>{count}</>;
+}

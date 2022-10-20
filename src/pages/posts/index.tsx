@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export async function getServerSideProps() {
   const baseUrl = process.env.BASE_URL;
-  const posts = await ky.get(`${baseUrl}/api/posts`).json();
+  const posts = await ky.get(`${baseUrl}/api/posts/all`).json();
   return { props: { posts } };
 }
 
@@ -64,7 +64,7 @@ export default function Index({ posts }: { posts: any }) {
             `}
           >
             <h3>
-              <Link href={{ pathname: `/post/[id]`, query: { id: post.id }}}>
+              <Link href={{ pathname: `/post/[id]`, query: { id: post.id } }}>
                 <div
                   css={css`
                     color: #377dff;
