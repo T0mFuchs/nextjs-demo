@@ -5,6 +5,7 @@ import getEM from "../../../utils/getEM";
 import withORM from "../../../utils/withORM";
 
 const handler: NextApiHandler = async (req, res: NextApiResponse) => {
+
   const em = getEM();
   const posts = await em.find(Post, {});
 

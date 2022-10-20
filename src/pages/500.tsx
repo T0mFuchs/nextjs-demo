@@ -9,7 +9,7 @@ export default function Custom500() {
     >
       <h1>500</h1>
       <hr />
-      <h2>Server-side error occurred {":("}</h2>
+      <h2>Server-side error occurred</h2>
     </div>
   );
 }

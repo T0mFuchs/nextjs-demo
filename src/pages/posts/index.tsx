@@ -64,7 +64,7 @@ export default function Index({ posts }: { posts: any }) {
             `}
           >
             <h3>
-              <Link href={`/posts/${post.id}`}>
+              <Link href={{ pathname: `/post/[id]`, query: { id: post.id }}}>
                 <div
                   css={css`
                     color: #377dff;
