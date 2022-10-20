@@ -18,10 +18,6 @@ export const StyledTrigger = styled(A.Trigger)`
   &[data-state="closed"] {
     color: #555555;
   }
-  :hover {
-    color: #377dff;
-    font-weight: 900;
-  }
 `;
 
 export const StyledHeader = styled.div`
