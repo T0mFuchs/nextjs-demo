@@ -79,10 +79,10 @@ function Layout({ children }: { children: React.ReactNode }) {
 
 function Sidebar({ children }: { children: React.ReactNode }) {
   return (
-    <div
+    <div className="scrollable"
       css={css`
         padding: 0.25rem;
-        scrollbar-width: thin;
+        scrollbar-width: none;
         overflow-y: scroll;
         overflow-x: hidden;
         overflow: auto;
@@ -95,10 +95,10 @@ function Sidebar({ children }: { children: React.ReactNode }) {
 
 function Content({ children }: { children: React.ReactNode }) {
   return (
-    <div
+    <div className="scrollable"
       css={css`
         border-left: 1px solid #3c3c3c;
-        scrollbar-width: thin;
+        scrollbar-width: none;
         overflow-y: scroll;
         overflow-x: hidden;
         overflow: auto;

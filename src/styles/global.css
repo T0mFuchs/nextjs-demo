@@ -23,3 +23,11 @@ body {
     #f9f4dc 100%
   ); 
 }
+
+::-webkit-scrollbar {
+  background: inherit;
+}
+
+::-webkit-scrollbar-thumb {
+  background: inherit;
+}
