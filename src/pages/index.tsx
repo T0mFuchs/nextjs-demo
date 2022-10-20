@@ -61,9 +61,7 @@ function Index({ url }: { url: string }) {
             <ToastRoot open={open} onOpenChange={setOpen}>
               <ToastTitle>`` swipe right ``</ToastTitle>
               <ToastDescription>`` toast ``</ToastDescription>
-              <ToastAction altText="undo toast">
-                swipe right
-              </ToastAction>
+              <ToastAction altText="undo toast">swipe right</ToastAction>
             </ToastRoot>
             <ToastViewport />
           </Toast>

@@ -19,6 +19,7 @@ export const AlertDialogTrigger = styled(A.Trigger)`
 
 export const AlertDialogContent = styled(A.Content)`
   box-shadow: #32325d40 0px 13px 27px -5px, #0000004d 0px 8px 16px -8px;
+  border-radius: 2rem;
   postion: fixed;
   top: 50%;
   left: 50%;

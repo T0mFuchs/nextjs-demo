@@ -20,6 +20,7 @@ export const ToastAction = styled(T.Action)`
 export const ToastViewport = styled(T.Viewport)`
   background-image: inherit;
   box-shadow: #32325d40 0px 13px 27px -5px, #0000004d 0px 8px 16px -8px;
+  border-radius: 1rem;
   list-style: none;
   position: fixed;
   bottom: -0.5rem;

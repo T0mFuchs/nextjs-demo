@@ -79,7 +79,8 @@ function Layout({ children }: { children: React.ReactNode }) {
 
 function Sidebar({ children }: { children: React.ReactNode }) {
   return (
-    <div className="scrollable"
+    <div
+      className="scrollable"
       css={css`
         padding: 0.25rem;
         scrollbar-width: none;
@@ -95,7 +96,8 @@ function Sidebar({ children }: { children: React.ReactNode }) {
 
 function Content({ children }: { children: React.ReactNode }) {
   return (
-    <div className="scrollable"
+    <div
+      className="scrollable"
       css={css`
         border-left: 1px solid #3c3c3c;
         scrollbar-width: none;
@@ -124,6 +126,7 @@ function ThemeSwitch() {
       <button
         type="button"
         className="themeIcon"
+        aria-label="theme switch icon"
         css={css`
           border: none;
           background-color: inherit;
