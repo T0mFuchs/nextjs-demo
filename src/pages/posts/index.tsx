@@ -27,13 +27,13 @@ export default function Index({ posts }: { posts: any }) {
           `}
         >
           posts from{" "}
-          <Link href="/api/posts">
+          <Link href="/api/posts/all">
             <a
               css={css`
                 color: #377dff;
               `}
             >
-              /api/posts
+              /api/posts/all
             </a>
           </Link>
         </div>

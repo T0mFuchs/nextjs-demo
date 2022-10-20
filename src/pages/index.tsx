@@ -27,7 +27,7 @@ function Index({ url }: { url: string }) {
       <h2
         css={css`
           font-size: 1.33rem;
-          text-shadow: 0 0 5rem ;
+          text-shadow: 0 0 5rem;
         `}
       >
         {url}
@@ -62,7 +62,12 @@ function Index({ url }: { url: string }) {
               <ToastTitle>`` swipe right ``</ToastTitle>
               <ToastDescription>`` toast ``</ToastDescription>
               <ToastAction altText="undo toast">
-                <div css={css`font-weight: 900; font-size: 1.25rem;`}>
+                <div
+                  css={css`
+                    font-weight: 900;
+                    font-size: 1.25rem;
+                  `}
+                >
                   <Countdown />
                 </div>
               </ToastAction>
