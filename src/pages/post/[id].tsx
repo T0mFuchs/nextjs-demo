@@ -15,14 +15,22 @@ export const getServerSideProps: GetServerSideProps = async (
 export default function Index({ post }: { post: any }) {
   return (
     <>
-      <p>dynamic from {"`/api/post/${id}`"}</p>
+      <p>dynamic from {" ` /api/post/[id] ` "}</p>
       <div
-        
+        css={css`padding-top: .5rem;`}
       >
-        <h3>/api/posts/{post.id}</h3>
         <h3>{post.title}</h3>
-        <p>{post.body}</p>
-        <span>{post.id}</span>
+        <p
+          css={css`font-weight: 100; font-size: 1.1rem;`}
+        >
+          {post.body}
+        </p>
+        <span
+          css={css`
+            font-size: .6rem;
+          `}
+        >{post.id}
+      </span>
       </div>
     </>
   );

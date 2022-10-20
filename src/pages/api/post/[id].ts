@@ -12,11 +12,7 @@ const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse,
 ) => {
-  // todo :: query returns   [object Object]   ?!?!?!
   const { id } = req.query
-  console.log(id)
-  console.log("id: ", id, "typeof id: ", typeof id)
-
   const em = getEM(); // @ts-ignore
   const post = await em.findOne(Post, { id: id });
 
