@@ -9,6 +9,8 @@ export async function getServerSideProps() {
   return { props: { posts } };
 }
 
+// todo :: add component to for sorting options
+
 export default function Index({ posts }: { posts: any }) {
   return (
     <>

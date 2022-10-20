@@ -14,7 +14,7 @@ function Index({posts}: {posts: any}) {
   return (
     <>
       <h2>/test</h2>
-      <div>
+      <div css={css`padding-bottom: 1rem;`}>
         <p css={css`color: grey; font-size: .8rem;`}>posts limit: 5</p>
         <div>
         <Icon

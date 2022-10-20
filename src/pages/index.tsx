@@ -27,13 +27,14 @@ function Index({ url }: { url: string }) {
       <h2
         css={css`
           font-size: 1.33rem;
+          text-shadow: 0 0 5rem ;
         `}
       >
         {url}
       </h2>
       <div
         css={css`
-          padding-top: 5rem;
+          padding-top: 3rem;
         `}
       >
         <Spacer>
@@ -72,11 +73,6 @@ function Index({ url }: { url: string }) {
         <Spacer>
           <FreezeInteraction />
         </Spacer>
-        <Spacer
-          css={css`
-            padding-top: 70rem;
-          `}
-        />
       </div>
     </>
   );
