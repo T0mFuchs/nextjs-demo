@@ -10,8 +10,8 @@ body {
   color: #f9f4da;
   background-image: linear-gradient(
     330deg,
-    #19190f 0%,
-    #0f0d0e 100%
+    #141214 0%,
+    #19190ffb 100%
   );    
 }
   
@@ -19,8 +19,8 @@ body {
   color: #0f0d0e;
   background-image: linear-gradient(
     330deg,
-    #ffffff99 0%,
-    #f9f4dc 100%
+    #f9f4dc 0%,
+    #e7e0be 100%
   ); 
 }
 

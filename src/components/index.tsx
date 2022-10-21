@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import styled from "@emotion/styled";
 
-export * from "./Layout";
+export * from "./StyledHeader";
 
 export const Spacer = styled.div`
   line-height: 2rem;
@@ -9,7 +9,7 @@ export const Spacer = styled.div`
 `;
 
 export const Spinner = () => (
-  <div>
+  <Spacer>
     <Icon icon="line-md:loading-loop" fontSize={50} />
-  </div>
+  </Spacer>
 );

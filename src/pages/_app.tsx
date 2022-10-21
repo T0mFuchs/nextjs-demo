@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { SidebarContent, Spacer } from "../components";
 import type { AppProps } from "next/app";
 import { Icon } from "@iconify/react";
 import { css } from "@emotion/react";
 import "../styles/global.css";
+import { StyledHeader } from "../components";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -20,7 +20,7 @@ function PageShell({ children }: { children: React.ReactNode }) {
   const [icon, setIcon] = useState(
     <Icon
       icon="line-md:moon-filled-alt-loop"
-      fontSize={38}
+      fontSize={35}
       color="#fbf9e1"
       aria-hidden
     />
@@ -31,16 +31,10 @@ function PageShell({ children }: { children: React.ReactNode }) {
         <themeIconContext.Provider value={{ icon, setIcon }}>
           <div className={`theme-${theme}`}>
             <Layout>
-              <Sidebar>
-                <SidebarContent />
-                <Spacer
-                  css={css`
-                    padding-top: 66rem;
-                  `}
-                />
-              </Sidebar>
+              <Header>
+                <StyledHeader />
+              </Header>
               <Content>
-                time elapsed: <TimeElapsed />
                 <ThemeSwitch />
                 {children}
               </Content>
@@ -49,6 +43,53 @@ function PageShell({ children }: { children: React.ReactNode }) {
         </themeIconContext.Provider>
       </themeContext.Provider>
     </React.StrictMode>
+  );
+}
+
+function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      css={css`
+        display: grid;
+        grid-template-rows: .05fr .95fr;
+        text-align: center;
+        height: 100vh;
+      `}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Header({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="header"
+      css={css`
+      font-size: 1.33rem;
+      font-weight: 900;
+      text-align: right;
+      `}
+    >
+      <>{children}</>
+    </div>
+  );
+}
+
+function Content({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="content"
+      css={css`
+        border-top: 1px solid #3c3c3c;
+        scrollbar-width: none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        overflow: auto;
+      `}
+    >
+      <>{children}</>
+    </div>
   );
 }
 
@@ -62,55 +103,6 @@ const themeIconContext = createContext({
   setIcon: (icon: React.ReactElement) => {},
 });
 
-function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      css={css`
-        display: grid;
-        grid-template-columns: 0.25fr 0.75fr;
-        text-align: center;
-        height: 100vh;
-      `}
-    >
-      {children}
-    </div>
-  );
-}
-
-function Sidebar({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="scrollable"
-      css={css`
-        padding: 0.25rem;
-        scrollbar-width: none;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        overflow: auto;
-      `}
-    >
-      <>{children}</>
-    </div>
-  );
-}
-
-function Content({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="scrollable"
-      css={css`
-        border-left: 1px solid #3c3c3c;
-        scrollbar-width: none;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        overflow: auto;
-      `}
-    >
-      <>{children}</>
-    </div>
-  );
-}
-
 function ThemeSwitch() {
   const { theme, setTheme } = useContext(themeContext);
   const { icon, setIcon } = useContext(themeIconContext);
@@ -119,7 +111,7 @@ function ThemeSwitch() {
     <div
       css={css`
         top: -0.2rem;
-        right: -0.4rem;
+        left: -0.3rem;
         position: fixed;
       `}
     >
@@ -137,7 +129,7 @@ function ThemeSwitch() {
             setIcon(
               <Icon
                 icon="line-md:sunny-filled"
-                fontSize={38}
+                fontSize={35}
                 color="#ffce31"
                 aria-hidden
               />
@@ -147,7 +139,7 @@ function ThemeSwitch() {
             setIcon(
               <Icon
                 icon="line-md:moon-filled-alt-loop"
-                fontSize={38}
+                fontSize={35}
                 color="#fbf9e1"
                 aria-hidden
               />
@@ -159,17 +151,4 @@ function ThemeSwitch() {
       </button>
     </div>
   );
-}
-
-function TimeElapsed() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const timeout = setInterval(() => {
-      setCount((c) => c + 1);
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, []);
-
-  return <>{count}</>;
 }
