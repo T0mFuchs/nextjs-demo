@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { Spinner } from "../components";
 
 export async function getServerSideProps() {
   const url = process.env.BASE_URL;
@@ -22,7 +21,7 @@ function Index({ url }: { url: string }) {
           padding-top: 3rem;
         `}
       >
-        <Spinner />
+        index page
       </div>
     </>
   );

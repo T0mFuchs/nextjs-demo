@@ -8,4 +8,8 @@ export const Spacer = styled.div`
   padding: 1rem;
 `;
 
-export const Spinner = () => (<div><Icon icon="line-md:loading-loop" fontSize={50} /></div>);
+export const Spinner = () => (
+  <div>
+    <Icon icon="line-md:loading-loop" fontSize={50} />
+  </div>
+);
