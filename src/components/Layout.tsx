@@ -39,7 +39,7 @@ function SidebarContent() {
         </Link>
       </div>
       <div className="sidebarLink">
-        <Link href="/test">
+        <Link href="/test" prefetch={false}>
           <StyledA>
             <Icon icon="fluent-mdl2:test-beaker-solid" fontSize={16} /> /test
             <span
@@ -51,7 +51,7 @@ function SidebarContent() {
         </Link>
       </div>
       <div className="sidebarLink">
-        <Link href="/posts">
+        <Link href="/posts" prefetch={false}>
           <StyledA>
             <Icon icon="line-md:text-box" fontSize={17} /> /posts
           </StyledA>

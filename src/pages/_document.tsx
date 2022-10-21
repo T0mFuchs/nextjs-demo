@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="icon" href="/icon.svg"/>
+        <link rel="icon" href="/icon.svg" />
       </Head>
       <body>
         <Main />
