@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React from "react";
 import type { AppProps } from "next/app";
-import { Icon } from "@iconify/react";
 import { css } from "@emotion/react";
-import "../styles/global.css";
 import { StyledHeader } from "../components";
+import "../styles/global.css";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,31 +15,21 @@ function App({ Component, pageProps }: AppProps) {
 export default App;
 
 function PageShell({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState("dark");
-  const [icon, setIcon] = useState(
-    <Icon
-      icon="line-md:moon-filled-alt-loop"
-      fontSize={35}
-      color="#fbf9e1"
-      aria-hidden
-    />
-  );
+  const [theme, setTheme] = React.useState("dark");
+
   return (
     <React.StrictMode>
       <themeContext.Provider value={{ theme, setTheme }}>
-        <themeIconContext.Provider value={{ icon, setIcon }}>
           <div className={`theme-${theme}`}>
             <Layout>
               <Header>
                 <StyledHeader />
               </Header>
               <Content>
-                <ThemeSwitch />
                 {children}
               </Content>
             </Layout>
           </div>
-        </themeIconContext.Provider>
       </themeContext.Provider>
     </React.StrictMode>
   );
@@ -66,12 +55,11 @@ function Header({ children }: { children: React.ReactNode }) {
     <div
       className="header"
       css={css`
-      font-size: 1.33rem;
-      font-weight: 900;
+      padding-top: .25rem;
       text-align: right;
       `}
     >
-      <>{children}</>
+      {children}
     </div>
   );
 }
@@ -93,62 +81,7 @@ function Content({ children }: { children: React.ReactNode }) {
   );
 }
 
-const themeContext = createContext({
+const themeContext = React.createContext({
   theme: "",
   setTheme: (theme: string) => {},
 });
-
-const themeIconContext = createContext({
-  icon: <></>,
-  setIcon: (icon: React.ReactElement) => {},
-});
-
-function ThemeSwitch() {
-  const { theme, setTheme } = useContext(themeContext);
-  const { icon, setIcon } = useContext(themeIconContext);
-
-  return (
-    <div
-      css={css`
-        top: -0.2rem;
-        left: -0.3rem;
-        position: fixed;
-      `}
-    >
-      <button
-        type="button"
-        className="themeIcon"
-        aria-label="theme switch icon"
-        css={css`
-          border: none;
-          background-color: inherit;
-        `}
-        onClick={() => {
-          if (theme === "dark") {
-            setTheme("light");
-            setIcon(
-              <Icon
-                icon="line-md:sunny-filled"
-                fontSize={35}
-                color="#ffce31"
-                aria-hidden
-              />
-            );
-          } else {
-            setTheme("dark");
-            setIcon(
-              <Icon
-                icon="line-md:moon-filled-alt-loop"
-                fontSize={35}
-                color="#fbf9e1"
-                aria-hidden
-              />
-            );
-          }
-        }}
-      >
-        <div>{icon}</div>
-      </button>
-    </div>
-  );
-}

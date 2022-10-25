@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-
+import { Spinner } from "../components";
 
 
 function Index() {
@@ -7,10 +7,11 @@ function Index() {
     <>
       <div
         css={css`
-          padding-top: 3rem;
+          padding-top: 2rem;
         `}
       >
-        index page
+        placeholder
+        <Spinner />
       </div>
     </>
   );

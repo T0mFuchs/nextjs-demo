@@ -8,8 +8,14 @@ export const Spacer = styled.div`
   padding: 1rem;
 `;
 
+const Center = styled.div`
+  position: relative;
+  padding-top: 9rem;
+  font-size: 9rem;
+`
+
 export const Spinner = () => (
-  <Spacer>
-    <Icon icon="line-md:loading-loop" fontSize={50} />
-  </Spacer>
+  <Center>
+    <Icon icon="line-md:loading-loop" />
+  </Center>
 );

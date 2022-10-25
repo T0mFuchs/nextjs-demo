@@ -1,11 +1,10 @@
 import { Icon } from "@iconify/react";
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { css } from "@emotion/react";
 
-export const Styled = styled.a`
+export const Styled = styled.span`
   padding-right: .5rem;
-  line-height: 2rem;
+  font-size: 2.25rem;
   text-decoration: none;
   color: #377dff;
   :hover {
@@ -20,9 +19,10 @@ export const Styled = styled.a`
 export function StyledHeader() {
   return (
     <>
-      <Link href="/"><Styled>Home</Styled></Link>
-      <Link href="/posts"><Styled>Posts</Styled></Link>
-      <Link href="/about"><Styled>About</Styled></Link>
+      <a href="https://github.com/T0mFuchs/nextssr"><Styled><Icon icon="line-md:github-loop" /></Styled></a>
+      <Link href="/posts"><Styled><Icon icon="line-md:text-box" /></Styled></Link>
+      <Link href="/about"><Styled><Icon icon="line-md:question" /></Styled></Link>
+      <Link href="/"><Styled><Icon icon="line-md:home-md" /></Styled></Link>
     </>
   )
 }
