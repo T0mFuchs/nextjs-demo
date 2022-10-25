@@ -1,18 +1,39 @@
 import { Icon } from "@iconify/react";
-import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import React from "react";
 
 export * from "./StyledHeader";
 
-export const Spacer = styled.div`
-  line-height: 2rem;
-  padding: 1rem;
-`;
+export function Spacer({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <div
+        css={css`
+          line-height: 2rem;
+          padding: 1rem;
+        `}
+      >
+        {children}
+      </div>
+    </>
+  );
+}
 
-const Center = styled.div`
-  position: relative;
-  padding-top: 9rem;
-  font-size: 9rem;
-`
+function Center({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <div
+        css={css`
+          position: relative;
+          padding-top: 9rem;
+          font-size: 9rem;
+        `}
+      >
+        {children}
+      </div>
+    </>
+  );
+}
 
 export const Spinner = () => (
   <Center>

@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { Spinner } from "../components";
 
-
 function Index() {
   return (
     <>

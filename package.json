@@ -8,8 +8,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
+    "@babel/plugin-proposal-decorators": "^7.19.6",
+    "@emotion/babel-plugin": "^11.10.2",
     "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
     "@iconify/react": "^4.0.0",
     "@mikro-orm/core": "^5.4.2",
     "@mikro-orm/mongodb": "^5.4.2",

@@ -20,16 +20,14 @@ function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <React.StrictMode>
       <themeContext.Provider value={{ theme, setTheme }}>
-          <div className={`theme-${theme}`}>
-            <Layout>
-              <Header>
-                <StyledHeader />
-              </Header>
-              <Content>
-                {children}
-              </Content>
-            </Layout>
-          </div>
+        <div className={`theme-${theme}`}>
+          <Layout>
+            <Header>
+              <StyledHeader />
+            </Header>
+            <Content>{children}</Content>
+          </Layout>
+        </div>
       </themeContext.Provider>
     </React.StrictMode>
   );
@@ -40,7 +38,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     <div
       css={css`
         display: grid;
-        grid-template-rows: .05fr .95fr;
+        grid-template-rows: 0.05fr 0.95fr;
         text-align: center;
         height: 100vh;
       `}
@@ -55,8 +53,8 @@ function Header({ children }: { children: React.ReactNode }) {
     <div
       className="header"
       css={css`
-      padding-top: .25rem;
-      text-align: right;
+        padding-top: 0.25rem;
+        text-align: right;
       `}
     >
       {children}
