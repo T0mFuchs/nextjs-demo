@@ -6,7 +6,7 @@ export * from "./HeaderContent";
 export function Spacer({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div style={{ lineHeight: "2rem", padding: "1rem" }}>{children}</div>
+      <div style={{ lineHeight: "2rem", paddingTop: "3rem" }}>{children}</div>
     </>
   );
 }

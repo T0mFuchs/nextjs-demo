@@ -6,7 +6,7 @@ export function NavMenu() {
   return (
     <>
       <nav role="navigation" onMouseLeave={() => setChecked((c) => c == false)}>
-        <div id="menuToggle">
+        <div className="menuToggle">
           <input
             type="checkbox"
             checked={checked}
@@ -15,7 +15,7 @@ export function NavMenu() {
           <span></span>
           <span></span>
           <span></span>
-          <ul id="menu">
+          <ul className="menu">
             <Link href="/">
               <li>Home</li>
             </Link>

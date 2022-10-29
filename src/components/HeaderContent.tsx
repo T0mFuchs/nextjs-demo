@@ -3,13 +3,13 @@ import Link from "next/link";
 export function HeaderContent() {
   return (
     <div style={{ lineHeight: 0, paddingTop: 5, paddingRight: 1 }}>
-      <Link className="Link" href="/posts" style={{ color: "inherit" }}>
+      <Link href="/posts" style={{ color: "inherit" }}>
         <PostsSVG />
       </Link>
-      <Link className="Link" href="/about" style={{ color: "inherit" }}>
+      <Link href="/about" style={{ color: "inherit" }}>
         <QuestionSVG />
       </Link>
-      <Link className="Link" href="/" style={{ color: "inherit" }}>
+      <Link href="/" style={{ color: "inherit" }}>
         <HomeSVG />
       </Link>
     </div>
