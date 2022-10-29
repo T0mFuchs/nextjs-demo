@@ -1,20 +1,12 @@
-import { Icon } from "@iconify/react";
-import { css } from "@emotion/react";
 import React from "react";
 
-export * from "./StyledHeader";
+export * from "./NavMenu";
+export * from "./HeaderContent";
 
 export function Spacer({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div
-        css={css`
-          line-height: 2rem;
-          padding: 1rem;
-        `}
-      >
-        {children}
-      </div>
+      <div style={{ lineHeight: "2rem", padding: "1rem" }}>{children}</div>
     </>
   );
 }
@@ -23,11 +15,7 @@ function Center({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div
-        css={css`
-          position: relative;
-          padding-top: 9rem;
-          font-size: 9rem;
-        `}
+        style={{ position: "relative", paddingTop: "9rem", fontSize: "9rem" }}
       >
         {children}
       </div>
@@ -37,6 +25,36 @@ function Center({ children }: { children: React.ReactNode }) {
 
 export const Spinner = () => (
   <Center>
-    <Icon icon="line-md:loading-loop" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="15rem"
+      height="15rem"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeDasharray="15"
+        strokeDashoffset="15"
+        strokeLinecap="round"
+        strokeWidth="2"
+        d="M12 3C16.9706 3 21 7.02944 21 12"
+      >
+        <animate
+          fill="freeze"
+          attributeName="stroke-dashoffset"
+          dur="0.3s"
+          values="15;0"
+        />
+        <animateTransform
+          attributeName="transform"
+          dur="1.5s"
+          repeatCount="indefinite"
+          type="rotate"
+          values="0 12 12;360 12 12"
+        />
+      </path>
+    </svg>
   </Center>
 );

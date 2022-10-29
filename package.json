@@ -3,34 +3,25 @@
   "scripts": {
     "dev": "next dev",
     "prod": "next build && next start",
-    "preinstall": "npx only-allow pnpm",
     "p": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
-    "@babel/plugin-proposal-decorators": "^7.19.6",
-    "@emotion/babel-plugin": "^11.10.2",
-    "@emotion/react": "^11.10.4",
-    "@iconify/react": "^4.0.0",
-    "@mikro-orm/core": "^5.4.2",
-    "@mikro-orm/mongodb": "^5.4.2",
-    "@types/node": "18.11.0",
-    "@types/react": "18.0.21",
-    "@types/react-dom": "18.0.6",
+    "@mikro-orm/core": "^5.5.0",
+    "@mikro-orm/mongodb": "^5.5.0",
+    "@types/node": "^18.11.7",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
     "dotenv": "^16.0.3",
-    "eslint": "8.25.0",
-    "eslint-config-next": "12.3.1",
-    "ky": "^0.31.4",
-    "ky-universal": "^0.11.0",
-    "next": "12.3.1",
+    "eslint": "^8.26.0",
+    "eslint-config-next": "13.0.0",
+    "next": "^13.0.0",
     "prettier": "^2.7.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "ts-node": "^10.9.1",
-    "typescript": "4.8.4"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "~4.8.4"
   },
   "mikro-orm": {
-    "useTsNode": true,
     "tsConfigPath": "./tsconfig.orm.json",
     "configPaths": [
       "./src/config/mikro-orm.config.ts"
