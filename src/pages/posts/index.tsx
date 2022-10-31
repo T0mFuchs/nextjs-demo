@@ -25,8 +25,8 @@ export default function Index({ baseUrl }: { baseUrl: string }) {
             style={{
               paddingBottom: "0.25rem",
               borderRadius: "0.5rem",
-              position: "relative",
-              maxWidth: "75%",
+              margin: "0 auto",
+              width: "75%",
               left: "12.5%",
             }}
           >

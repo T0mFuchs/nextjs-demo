@@ -28,15 +28,15 @@ export default function Index({
   return (
     <>
       <div style={{ padding: ".5rem", paddingTop: "2rem" }}>
-        <Link href={{ pathname: `/api/post/[id]`, query: { id: data.id } }}>
+        <Link style={{ textDecoration: "none"}} href={{ pathname: `/api/post/[id]`, query: { id: data.id } }}>
           <div
-            style={{ fontSize: "1.25rem", color: "#377dff", fontWeight: 900 }}
+            style={{ fontSize: "1.25rem", color: "#377dff", fontWeight: 900, paddingBottom: "2rem" }}
           >
             /api/post/[id]
           </div>
         </Link>
       </div>
-      <div>
+      <div style={{ margin: "0 auto", width: "75%"}}>
         <h3>{data.title}</h3>
         <p style={{ fontWeight: 100, fontSize: "1.1rem" }}>{data.body}</p>
         <span style={{ fontSize: "0.6rem" }}>{data.id}</span>

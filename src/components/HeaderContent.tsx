@@ -3,13 +3,16 @@ import Link from "next/link";
 export function HeaderContent() {
   return (
     <div style={{ lineHeight: 0, paddingTop: 5, paddingRight: 1 }}>
-      <Link href="/posts" style={{ color: "inherit" }}>
+      <Link href="/account" style={{ color: "inherit" }} prefetch={false}>
+        <AccountSVG />
+      </Link>
+      <Link href="/posts" style={{ color: "inherit" }} prefetch={false}>
         <PostsSVG />
       </Link>
-      <Link href="/about" style={{ color: "inherit" }}>
+      <Link href="/about" style={{ color: "inherit" }} prefetch={false}>
         <QuestionSVG />
       </Link>
-      <Link href="/" style={{ color: "inherit" }}>
+      <Link href="/" style={{ color: "inherit" }} prefetch={false}>
         <HomeSVG />
       </Link>
     </div>
@@ -191,6 +194,45 @@ function PostsSVG() {
             values="0;1"
           />
         </circle>
+      </g>
+    </svg>
+  );
+}
+
+function AccountSVG() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="25"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeDasharray="28"
+        strokeDashoffset="28"
+        strokeLinecap="round"
+        strokeWidth="3"
+      >
+        <path d="M4 21V20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20V21">
+          <animate
+            fill="freeze"
+            attributeName="stroke-dashoffset"
+            dur="0.4s"
+            values="28;0"
+          />
+        </path>
+        <path d="M12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7C16 9.20914 14.2091 11 12 11Z">
+          <animate
+            fill="freeze"
+            attributeName="stroke-dashoffset"
+            begin="0.5s"
+            dur="0.4s"
+            values="28;0"
+          />
+        </path>
       </g>
     </svg>
   );

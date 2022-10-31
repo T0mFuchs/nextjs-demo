@@ -5,7 +5,7 @@ export function NavMenu() {
   const [checked, setChecked] = React.useState(false);
   return (
     <>
-      <nav role="navigation" onMouseLeave={() => setChecked((c) => c == false)}>
+      <nav role="navigation">
         <div className="menuToggle">
           <input
             type="checkbox"
@@ -15,14 +15,17 @@ export function NavMenu() {
           <span></span>
           <span></span>
           <span></span>
-          <ul className="menu">
-            <Link href="/">
+          <ul
+            className="menu"
+            onMouseLeave={() => setChecked((c) => c == false)}
+          >
+            <Link href="/" prefetch={false}>
               <li>Home</li>
             </Link>
-            <Link href="/posts">
+            <Link href="/posts" prefetch={false}>
               <li>Posts</li>
             </Link>
-            <Link href="/about">
+            <Link href="/about" prefetch={false}>
               <li>About</li>
             </Link>
             <a href="https://github.com/T0mFuchs/">

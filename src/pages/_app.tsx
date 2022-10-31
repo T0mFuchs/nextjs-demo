@@ -1,19 +1,22 @@
 import React from "react";
-import type { AppProps } from "next/app";
+import { AppProps } from "next/app";
+import { SessionProvider } from "next-auth/react";
 import { NavMenu, HeaderContent } from "../components";
 import "../styles/global.sass";
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <Layout>
-      <Header>
-        <NavMenu />
-        <HeaderContent />
-      </Header>
-      <Content>
-        <Component {...pageProps} />
-      </Content>
-    </Layout>
+    <SessionProvider session={session}>
+      <Layout>
+        <Header>
+          <NavMenu />
+          <HeaderContent />
+        </Header>
+        <Content>
+          <Component {...pageProps} />
+        </Content>
+      </Layout>
+    </SessionProvider>
   );
 }
 
