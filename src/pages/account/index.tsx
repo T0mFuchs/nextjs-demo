@@ -17,7 +17,7 @@ export default function Account() {
       <div>
         {session ? (
           <>
-            <p style={{ paddingBottom: "2rem" }}>hello ``{"${user.name}"}``</p>
+            <p style={{ paddingBottom: "2rem" }}>hello ``{"${auth.user.name}"}``</p>
             <>
               <button
                 onClick={() => {
@@ -43,6 +43,10 @@ export default function Account() {
               >
                 sign in
               </button>
+              <div style={{ padding: ".4rem" }}/>
+              <button className={styles.Button} onClick={() => {
+                push(`/auth/signup`);
+              }}>sign up</button>
             </>
           </>
         )}

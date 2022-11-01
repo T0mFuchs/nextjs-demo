@@ -75,7 +75,6 @@ export default function SignIn() {
             sign in with Google
           </button>
         </div>
-        <h4 style={{ paddingTop: "1rem", fontSize: "1.2rem", color: "#808080" }}>``guest login soon``</h4>
       </h2>
     </>
   );
