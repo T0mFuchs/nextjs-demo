@@ -4,7 +4,6 @@ specifiers:
   '@babel/core': ^7.19.6
   '@mikro-orm/core': ^5.5.0
   '@mikro-orm/mongodb': ^5.5.0
-  '@next-auth/mongodb-adapter': ^1.1.1
   '@radix-ui/react-alert-dialog': ^1.0.2
   '@radix-ui/react-tabs': ^1.0.1
   '@radix-ui/react-toast': ^1.1.1
@@ -14,7 +13,6 @@ specifiers:
   dotenv: ^16.0.3
   eslint: ^8.26.0
   eslint-config-next: ^13.0.0
-  mongodb: ^4.11.0
   next: ^13.0.0
   next-auth: ^4.15.0
   prettier: ^2.7.1
@@ -27,7 +25,6 @@ devDependencies:
   '@babel/core': 7.19.6
   '@mikro-orm/core': 5.5.0_@mikro-orm+mongodb@5.5.0
   '@mikro-orm/mongodb': 5.5.0_@mikro-orm+core@5.5.0
-  '@next-auth/mongodb-adapter': 1.1.1_c2hs3f6tdo2m2hud5hzs3zngde
   '@radix-ui/react-alert-dialog': 1.0.2_knhnagtyfncgg2hpin7s37uixq
   '@radix-ui/react-tabs': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-toast': 1.1.1_biqbaboplfbrettd7655fr4n2y
@@ -37,7 +34,6 @@ devDependencies:
   dotenv: 16.0.3
   eslint: 8.26.0
   eslint-config-next: 13.0.0_wyqvi574yv7oiwfeinomdzmc3m
-  mongodb: 4.11.0
   next: 13.0.0_mk5yftg2men2cn3ayx4t7ddtvy
   next-auth: 4.15.0_r5sq4deac3rmm2d5onhwvomqve
   prettier: 2.7.1
@@ -1163,16 +1159,6 @@ packages:
       mongodb: 4.11.0
     transitivePeerDependencies:
       - aws-crt
-    dev: true
-
-  /@next-auth/mongodb-adapter/1.1.1_c2hs3f6tdo2m2hud5hzs3zngde:
-    resolution: {integrity: sha512-X5O4U4l2M8nyp/B3qF5GOr/JJw2ShKgWfTZRa80Y5CUzTPPmf09ggL5v5UwCmz9l2RIv2GUxO8hK4qrcaZvDRw==}
-    peerDependencies:
-      mongodb: ^4.1.1
-      next-auth: ^4
-    dependencies:
-      mongodb: 4.11.0
-      next-auth: 4.15.0_r5sq4deac3rmm2d5onhwvomqve
     dev: true
 
   /@next/env/13.0.0:
