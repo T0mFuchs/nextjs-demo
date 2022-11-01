@@ -18,10 +18,10 @@ export default function SignUp() {
       <p>
         <form>
           <input type="name" placeholder="`name`" />
-          <input type="password" placeholder="`password`"/>
-          <input type="submit" value={"signup"}/>
+          <input type="password" placeholder="`password`" />
+          <input type="submit" value={"signup"} />
         </form>
       </p>
     </>
-  )
+  );
 }
