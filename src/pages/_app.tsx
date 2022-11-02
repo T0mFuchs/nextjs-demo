@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 import { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { NavMenu, HeaderContent } from "../components";
-import "../styles/global.sass";
+import "../styles/globals.css";
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -22,14 +22,14 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
 export default App;
 
-function Layout({ children }: { children: React.ReactNode }) {
+function Layout({ children }: { children: ReactNode }) {
   return <div className="Layout">{children}</div>;
 }
 
-function Header({ children }: { children: React.ReactNode }) {
+function Header({ children }: { children: ReactNode }) {
   return <div className="Header">{children}</div>;
 }
 
-function Content({ children }: { children: React.ReactNode }) {
+function Content({ children }: { children: ReactNode }) {
   return <div className="Content">{children}</div>;
 }

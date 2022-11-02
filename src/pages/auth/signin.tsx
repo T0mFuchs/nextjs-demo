@@ -1,7 +1,7 @@
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import styles from "../../styles/styles.module.sass";
+import styles from "../../styles/styles.module.css";
 
 export default function SignIn() {
   const { data: session } = useSession();

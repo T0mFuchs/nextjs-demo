@@ -20,7 +20,7 @@ export default function Index({
 }) {
   const [data, setData]: any = React.useState(null);
   React.useEffect(() => {
-    fetch(`${baseUrl}/api/post/${id}`)
+    fetch(`${baseUrl}/api/post/${id}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => setData(data));
   }, [baseUrl, id]);

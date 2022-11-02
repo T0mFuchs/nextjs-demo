@@ -1,7 +1,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import styles from "../../styles/styles.module.sass";
+import styles from "../../../styles/styles.module.css";
 
 export default function Account() {
   const { data: session } = useSession();
@@ -46,14 +46,6 @@ export default function Account() {
                 sign in
               </button>
               <div style={{ padding: ".4rem" }} />
-              <button
-                className={styles.Button}
-                onClick={() => {
-                  push(`/auth/signup`);
-                }}
-              >
-                sign up
-              </button>
             </>
           </>
         )}

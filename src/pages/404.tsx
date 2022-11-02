@@ -1,6 +1,6 @@
 export default function Custom404() {
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ paddingTop: "1rem", margin: "0 auto" }}>
       <h1>404</h1>
       <hr />
       <h2>Not Found</h2>

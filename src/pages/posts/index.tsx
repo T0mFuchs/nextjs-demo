@@ -11,7 +11,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default function Index({ baseUrl }: { baseUrl: string }) {
   const [data, setData]: any = React.useState(null);
   React.useEffect(() => {
-    fetch(`${baseUrl}/api/posts/all`)
+    fetch(`${baseUrl}/api/posts/all`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => setData(data));
   }, [baseUrl]);

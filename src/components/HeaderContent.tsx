@@ -3,14 +3,14 @@ import Link from "next/link";
 export function HeaderContent() {
   return (
     <div style={{ lineHeight: 0, paddingTop: 5, paddingRight: 1 }}>
-      <Link href="/account" style={{ color: "inherit" }} prefetch={false}>
-        <AccountSVG />
-      </Link>
       <Link href="/posts" style={{ color: "inherit" }} prefetch={false}>
         <PostsSVG />
       </Link>
       <Link href="/about" style={{ color: "inherit" }} prefetch={false}>
         <QuestionSVG />
+      </Link>
+      <Link href="/auth/account" style={{ color: "inherit" }} prefetch={false}>
+        <AccountSVG />
       </Link>
       <Link href="/" style={{ color: "inherit" }} prefetch={false}>
         <HomeSVG />

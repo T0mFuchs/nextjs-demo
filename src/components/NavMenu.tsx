@@ -1,24 +1,21 @@
-import React from "react";
 import Link from "next/link";
+import { useState } from "react";
 
 export function NavMenu() {
-  const [checked, setChecked] = React.useState(false);
+  const [open, setOpen] = useState(false);
   return (
     <>
       <nav role="navigation">
-        <div className="menuToggle">
+        <div className="menuToggle" onMouseLeave={() => setOpen(false)}>
           <input
             type="checkbox"
-            checked={checked}
-            onChange={(e) => setChecked(e.target.checked)}
+            checked={open}
+            onChange={() => setOpen(!open)}
           />
           <span></span>
           <span></span>
           <span></span>
-          <ul
-            className="menu"
-            onMouseLeave={() => setChecked((c) => c == false)}
-          >
+          <ul className="menu">
             <Link href="/" prefetch={false}>
               <li>Home</li>
             </Link>
@@ -28,8 +25,11 @@ export function NavMenu() {
             <Link href="/about" prefetch={false}>
               <li>About</li>
             </Link>
+            <Link href="/auth/account" prefetch={false}>
+              <li>OAuth login</li>
+            </Link>
             <a href="https://github.com/T0mFuchs/">
-              <li>Github</li>
+              <li>my Github</li>
             </a>
           </ul>
         </div>

@@ -1,0 +1,138 @@
+/* css thats always needed */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+.Layout {
+  display: grid;
+  grid-template-rows: 0.05fr 0.95fr;
+  text-align: center;
+  height: 100vh;
+}
+  
+.Header {
+  text-align: right;
+  padding-right: .2rem;
+  font-size: 2.5rem;
+}
+  
+/* set scrollbar invisible on all browsers */
+.Content {
+  scrollbar-width: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow: auto;
+}
+::-webkit-scrollbar { background: inherit }
+::-webkit-scrollbar-thumb { background: inherit }
+
+.menu {
+  background-color: #f9f9f9;
+  position: absolute;
+  height: 100vh;
+  width: 11rem;
+  margin: -6rem 0 0 -3rem;;
+  padding: 7rem 2rem 0 8rem;
+  
+  list-style-type: none;
+
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+  
+.menu li {
+  padding: .5rem 0;
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-align: left;
+}
+
+.menuToggle {
+  display: block;
+  position: fixed;
+  top: .7rem;
+  left: .7rem;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+.menuToggle a {
+  text-decoration: none;
+  color: #19190ffb;
+  transition: color 0.3s ease;
+}
+
+.menuToggle a:hover, .menuToggle a:focus, a:focus > svg, a:hover > svg { color: #ff674b }
+
+.menuToggle input {
+  display: block;
+  width: 3rem;
+  height: 2.34rem;
+  position: absolute;
+  top: -.7rem;
+  left: -.7rem;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+  -webkit-touch-callout: none;
+}
+
+.menuToggle span {
+
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background-color: #19190ffb;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
+}
+
+.menuToggle span:first-child { transform-origin: 0% 0%; }
+  
+.menuToggle span:nth-last-child(2) { transform-origin: 0% 100%; }
+
+.menuToggle input:checked ~ span {
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+}
+  
+.menuToggle input:checked ~ span:nth-last-child(3) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+.menuToggle input:checked ~ span:nth-last-child(2) {
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+.menuToggle input:checked ~ ul {transform: none; }
+
+/* keeps this at bottom of the file */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #f9f4da;
+    background-image: linear-gradient(330deg, #141214 0%, #19190ffb 100%);
+  }
+
+  .menuToggle span {
+    background-color: #f9f4da;
+  }
+
+  .menuToggle a {
+    color: #f9f4da
+    
+  }
+
+  .menu {
+    background-color: #19190ffb;	
+  }
+
+}

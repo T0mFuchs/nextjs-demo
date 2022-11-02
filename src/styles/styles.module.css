@@ -1,0 +1,40 @@
+/*
+
+$color-primary: #f9f4da  // eggshell'ish
+$color-secondary: #ff674b  // tomato red
+$background-primary: #141214 // greyish black
+$background-secondary: #19190ffb // heavy black
+
+*/
+
+
+.Button {
+  color: inherit;
+  background-color: #f9f9f9;
+  border: 0;
+  border-radius: .4rem;
+  padding: .5rem .7rem .6rem .7rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.Card {
+  color: inherit;
+  background-color: #f9f9f9;
+  border: 0;
+  border-radius: .4rem;
+  padding: .5rem .7rem .6rem .7rem;
+}
+  
+@media (prefers-color-scheme: dark) {
+  .Button {
+    background-color: #141214;
+  }
+  .Card {
+    background-color: #141214;
+  }
+}
+
+
+  
+
