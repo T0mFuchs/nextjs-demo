@@ -6,7 +6,7 @@ const options: Options = {
   entities: [Post],
   clientUrl: process.env.MONGO_URL,
   metadataProvider: ReflectMetadataProvider,
-  debug: true, // * enable/disable logger * //
+  debug: false,
 };
 
 export default options;

@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <link rel="icon" href="/icon.svg" />
-        <meta name="color-scheme" content="dark light" />
+        <meta name="color-scheme" content="light dark" />
       </Head>
       <body>
         <Main />

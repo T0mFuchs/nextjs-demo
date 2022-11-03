@@ -1,4 +1,10 @@
-/* css thats always needed */
+:root {
+  --color-primary: #f9f4da;
+  --color-secondary: #ff674b;
+  --background-primary: #141214;
+  --background-secondary: #19190ffb;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -10,7 +16,7 @@ body {
   text-align: center;
   height: 100vh;
 }
-  
+
 .Header {
   text-align: right;
   padding-right: .2rem;
@@ -26,9 +32,10 @@ body {
 }
 ::-webkit-scrollbar { background: inherit }
 ::-webkit-scrollbar-thumb { background: inherit }
+/* --------------------------------------- */
 
 .menu {
-  background-color: #f9f9f9;
+  background-color: var(--color-primary);
   position: absolute;
   height: 100vh;
   width: 11rem;
@@ -59,14 +66,13 @@ body {
   user-select: none;
 }
 
-
 .menuToggle a {
   text-decoration: none;
-  color: #19190ffb;
+  color: var(--background-secondary);
   transition: color 0.3s ease;
 }
 
-.menuToggle a:hover, .menuToggle a:focus, a:focus > svg, a:hover > svg { color: #ff674b }
+.menuToggle a:hover, .menuToggle a:focus, a:focus > svg, a:hover > svg { color: var(--color-secondary) }
 
 .menuToggle input {
   display: block;
@@ -88,7 +94,7 @@ body {
   height: 4px;
   margin-bottom: 5px;
   position: relative;
-  background-color: #19190ffb;
+  background-color: var(--background-secondary);
   border-radius: 3px;
   z-index: 1;
   transform-origin: 4px 0px;
@@ -115,24 +121,23 @@ body {
 
 .menuToggle input:checked ~ ul {transform: none; }
 
-/* keeps this at bottom of the file */
+/* prefered color scheme override for dark */
 @media (prefers-color-scheme: dark) {
   body {
-    color: #f9f4da;
-    background-image: linear-gradient(330deg, #141214 0%, #19190ffb 100%);
+    color: var(--color-primary);
+    background-image: linear-gradient(330deg, var(--background-primary) 0%, var(--background-secondary) 100%);
   }
 
   .menuToggle span {
-    background-color: #f9f4da;
+    background-color: var(--color-primary);
   }
 
   .menuToggle a {
-    color: #f9f4da
+    color: var(--color-primary)
     
   }
 
   .menu {
-    background-color: #19190ffb;	
+    background-color: var(--background-secondary);	
   }
-
 }
