@@ -1,11 +1,9 @@
-:root {
-  --background-light: #f9f9f9;
-  --background-dark: #141214;
-}
+@value colors: "./colors.css";
+@value background-light, background-dark from colors;
 
 .Button {
   color: inherit;
-  background-color: var(--background-light);
+  background-color: background-light;
   border: 0;
   border-radius: .4rem;
   padding: .5rem .7rem .6rem .7rem;
@@ -15,7 +13,7 @@
 
 .Card {
   color: inherit;
-  background-color: var(--background-light);
+  background-color: background-light;
   border: 0;
   border-radius: .4rem;
   padding: .5rem .7rem .6rem .7rem;
@@ -23,9 +21,9 @@
   
 @media (prefers-color-scheme: dark) {
   .Button {
-    background-color: var(--background-dark);
+    background-color: background-dark;
   }
   .Card {
-    background-color: var(--background-dark);
+    background-color: background-dark;
   }
 }
