@@ -30,27 +30,22 @@ export default function Index({ baseUrl }: { baseUrl: string }) {
               className={styles.Card}
               style={{ width: "70%", padding: "1rem" }}
             >
-              <h3>
+              <div>
                 <Link
-                  style={{ color: "#377dff" }}
+                  style={{
+                    color: "#377dff",
+                    fontSize: "1.6rem",
+                    fontWeight: 100,
+                  }}
                   href={{ pathname: `/post/[id]`, query: { id: post.id } }}
                 >
                   {post.title}
                 </Link>
-              </h3>
-              <p
-                style={{
-                  borderRadius: "0.33rem",
-                  position: "relative",
-                  maxWidth: "75%",
-                  left: "12.5%",
-                }}
-              >
-                {post.body}
-              </p>
-              <span style={{ color: "grey", fontSize: "0.6rem" }}>
+              </div>
+              <p>{post.body}</p>
+              <div style={{ color: "#676259", fontSize: "0.6rem" }}>
                 _id: {post.id}
-              </span>
+              </div>
             </div>
             <div style={{ padding: "2rem" }}></div>
           </div>
