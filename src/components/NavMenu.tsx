@@ -47,11 +47,11 @@ export function NavMenu() {
                 </div>
               </li>
             </Link>
-            <a href="https://github.com/T0mFuchs/">
+            <a href="https://github.com/T0mFuchs/nextssr">
               <li>
                 <div style={{ position: "relative", left: "-.3em" }}>
                   <GithubSVG />
-                  {` `}my Github
+                  {` `}Github
                 </div>
               </li>
             </a>
