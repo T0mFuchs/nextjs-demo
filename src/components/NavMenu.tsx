@@ -55,7 +55,7 @@ export function NavMenu() {
                 </div>
               </li>
             </a>
-            <div className="spacer" style={{ padding: "25rem" }}></div>
+            <div className="spacer" style={{ paddingTop: "40rem" }}></div>
           </ul>
         </div>
       </nav>
