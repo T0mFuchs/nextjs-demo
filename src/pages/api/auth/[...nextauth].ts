@@ -1,9 +1,10 @@
 // @ts-nocheck
 import NextAuth from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-export default NextAuth({
+const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -30,5 +31,8 @@ export default NextAuth({
   ],
   pages: {
     signIn: "/auth/signin",
+    error: "/auth/error",
   },
-});
+};
+
+export default NextAuth(authOptions);

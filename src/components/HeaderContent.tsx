@@ -9,97 +9,57 @@ export function HeaderContent() {
       <Link href="/about" style={{ color: "inherit" }} prefetch={false}>
         <QuestionSVG />
       </Link>
-      <Link href="/auth/account" style={{ color: "inherit" }} prefetch={false}>
+      <Link href="/auth/session" style={{ color: "inherit" }} prefetch={false}>
         <AccountSVG />
       </Link>
       <Link href="/" style={{ color: "inherit" }} prefetch={false}>
-        <HomeSVG />
+        <IconSVG />
       </Link>
     </div>
   );
 }
 
-function HomeSVG() {
+export function IconSVG() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      style={{ verticalAlign: "-0.115em" }}
       width="1em"
-      height="2rem"
+      height="2.05rem"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 24 24"
     >
-      <g
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="3"
-      >
-        <path strokeDasharray="21" strokeDashoffset="21" d="M5 21H19">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            dur="0.2s"
-            values="21;0"
+      <g fill="none">
+        <g clip-path="url(#svgIDa)">
+          <path
+            fill="currentColor"
+            d="M11.214.006c-.052.005-.216.022-.364.033c-3.408.308-6.6 2.147-8.624 4.974a11.88 11.88 0 0 0-2.118 5.243c-.096.66-.108.854-.108 1.748s.012 1.089.108 1.748c.652 4.507 3.86 8.293 8.209 9.696c.779.251 1.6.422 2.533.526c.364.04 1.936.04 2.3 0c1.611-.179 2.977-.578 4.323-1.265c.207-.105.247-.134.219-.157a211.64 211.64 0 0 1-1.955-2.62l-1.919-2.593l-2.404-3.559a342.499 342.499 0 0 0-2.422-3.556c-.009-.003-.018 1.578-.023 3.51c-.007 3.38-.01 3.516-.052 3.596a.426.426 0 0 1-.206.213c-.075.038-.14.045-.495.045H7.81l-.108-.068a.44.44 0 0 1-.157-.172l-.05-.105l.005-4.704l.007-4.706l.073-.092a.644.644 0 0 1 .174-.143c.096-.047.133-.051.54-.051c.478 0 .558.018.682.154c.035.038 1.337 2 2.895 4.362l4.734 7.172l1.9 2.878l.097-.063a12.318 12.318 0 0 0 2.465-2.163a11.947 11.947 0 0 0 2.825-6.135c.096-.66.108-.854.108-1.748s-.012-1.088-.108-1.748C23.24 5.75 20.032 1.963 15.683.56a12.6 12.6 0 0 0-2.498-.523c-.226-.024-1.776-.05-1.97-.03Zm4.913 7.26a.473.473 0 0 1 .237.276c.018.06.023 1.365.018 4.305l-.007 4.218l-.743-1.14l-.746-1.14v-3.066c0-1.983.009-3.097.023-3.151a.478.478 0 0 1 .232-.296c.097-.05.132-.054.5-.054c.347 0 .408.005.486.047Z"
           />
-        </path>
-        <path strokeDasharray="15" strokeDashoffset="15" d="M5 21V8M19 21V8">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            begin="0.2s"
-            dur="0.2s"
-            values="15;0"
-          />
-        </path>
-        <path strokeDasharray="26" strokeDashoffset="26" d="M2 10L12 2L22 10">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            begin="0.5s"
-            dur="0.4s"
-            values="26;0"
-          />
-        </path>
+        </g>
+        <defs>
+          <clipPath id="svgIDa">
+            <path fill="#fff" d="M0 0h24v24H0z" />
+          </clipPath>
+        </defs>
       </g>
     </svg>
   );
 }
 
-function QuestionSVG() {
+export function QuestionSVG() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
+      style={{ verticalAlign: "-0.05em" }}
+      width=".9em"
       height="2rem"
       preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 24 24"
+      viewBox="0 0 320 512"
     >
       <path
-        fill="none"
-        stroke="currentColor"
-        strokeDasharray="32"
-        strokeDashoffset="32"
-        strokeLinecap="round"
-        strokeWidth="3"
-        d="M7 8C7 5.23858 9.23857 3 12 3C14.7614 3 17 5.23858 17 8C17 9.6356 16.2147 11.0878 15.0005 12C14.1647 12.6279 12 14 12 17"
-      >
-        <animate
-          fill="freeze"
-          attributeName="stroke-dashoffset"
-          dur="0.5s"
-          values="32;0"
-        />
-      </path>
-      <circle cx="12" cy="21" r="1.67" fill="currentColor" fillOpacity="0">
-        <animate
-          fill="freeze"
-          attributeName="fill-opacity"
-          begin="0.5s"
-          dur="0.2s"
-          values="0;1"
-        />
-      </circle>
+        fill="currentColor"
+        d="M96 96c-17.7 0-32 14.3-32 32s-14.3 32-32 32s-32-14.3-32-32c0-53 43-96 96-96h97c70.1 0 127 56.9 127 127c0 52.4-32.2 99.4-81 118.4l-63 24.5V320c0 17.7-14.3 32-32 32s-32-14.3-32-32v-18.1c0-26.4 16.2-50.1 40.8-59.6l63-24.5C240 208.3 256 185 256 159c0-34.8-28.2-63-63-63H96zm48 384c-22.1 0-40-17.9-40-40s17.9-40 40-40s40 17.9 40 40s-17.9 40-40 40z"
+      />
     </svg>
   );
 }
@@ -108,132 +68,34 @@ function PostsSVG() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="2rem"
+      style={{ verticalAlign: "-0.125em" }}
+      height="2.3rem"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 24 24"
     >
-      <g
-        fill="none"
-        stroke="currentColor"
-        strokeDasharray="14"
-        strokeDashoffset="14"
-        strokeLinecap="round"
-        strokeWidth="3"
-      >
-        <path d="M8 5H20">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            begin="0.1s"
-            dur="0.2s"
-            values="14;0"
-          />
-        </path>
-        <path d="M8 10H20">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            begin="0.4s"
-            dur="0.2s"
-            values="14;0"
-          />
-        </path>
-        <path d="M8 15H20">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            begin="0.7s"
-            dur="0.2s"
-            values="14;0"
-          />
-        </path>
-        <path d="M8 20H20">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            begin="1s"
-            dur="0.2s"
-            values="14;0"
-          />
-        </path>
-      </g>
-      <g fill="currentColor" fillOpacity="0">
-        <circle cx="4" cy="5" r="1.3">
-          <animate
-            fill="freeze"
-            attributeName="fill-opacity"
-            dur="0.2s"
-            values="0;1"
-          />
-        </circle>
-        <circle cx="4" cy="10" r="1.3">
-          <animate
-            fill="freeze"
-            attributeName="fill-opacity"
-            begin="0.3s"
-            dur="0.2s"
-            values="0;1"
-          />
-        </circle>
-        <circle cx="4" cy="15" r="1.3">
-          <animate
-            fill="freeze"
-            attributeName="fill-opacity"
-            begin="0.6s"
-            dur="0.2s"
-            values="0;1"
-          />
-        </circle>
-        <circle cx="4" cy="20" r="1.3">
-          <animate
-            fill="freeze"
-            attributeName="fill-opacity"
-            begin="0.9s"
-            dur="0.2s"
-            values="0;1"
-          />
-        </circle>
-      </g>
+      <path
+        fill="currentColor"
+        d="M3 9V5h4v4Zm5 0V5h13v4Zm0 5v-4h13v4Zm0 5v-4h13v4Zm-5 0v-4h4v4Zm0-5v-4h4v4Z"
+      />
     </svg>
   );
 }
 
-function AccountSVG() {
+export function AccountSVG() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="25"
-      height="25"
+      style={{ verticalAlign: "-0.125em" }}
+      width="1em"
+      height="2.3rem"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 24 24"
     >
-      <g
-        fill="none"
-        stroke="currentColor"
-        strokeDasharray="28"
-        strokeDashoffset="28"
-        strokeLinecap="round"
-        strokeWidth="3"
-      >
-        <path d="M4 21V20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20V21">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            dur="0.4s"
-            values="28;0"
-          />
-        </path>
-        <path d="M12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7C16 9.20914 14.2091 11 12 11Z">
-          <animate
-            fill="freeze"
-            attributeName="stroke-dashoffset"
-            begin="0.5s"
-            dur="0.4s"
-            values="28;0"
-          />
-        </path>
-      </g>
+      <rect x="0" y="0" width="24" height="24" fill="none" stroke="none" />
+      <path
+        fill="currentColor"
+        d="M5.85 17.1q1.275-.975 2.85-1.538Q10.275 15 12 15q1.725 0 3.3.562q1.575.563 2.85 1.538q.875-1.025 1.363-2.325Q20 13.475 20 12q0-3.325-2.337-5.663Q15.325 4 12 4T6.338 6.337Q4 8.675 4 12q0 1.475.488 2.775q.487 1.3 1.362 2.325ZM12 13q-1.475 0-2.488-1.012Q8.5 10.975 8.5 9.5t1.012-2.488Q10.525 6 12 6t2.488 1.012Q15.5 8.025 15.5 9.5t-1.012 2.488Q13.475 13 12 13Zm0 9q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"
+      />
     </svg>
   );
 }

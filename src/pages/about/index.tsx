@@ -4,11 +4,12 @@ export default function About() {
   return (
     <>
       <h2 style={{ paddingTop: "1rem", paddingBottom: "2rem" }}>/about</h2>
-      <div
-        className={styles.Card}
-        style={{ paddingTop: "1rem", margin: "0 auto", width: "70%" }}
-      >
-        `` ``
+      <div className={styles.Card} style={{ paddingTop: "1rem", width: "70%" }}>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
       </div>
     </>
   );

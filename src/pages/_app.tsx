@@ -1,10 +1,14 @@
 import { ReactNode } from "react";
-import { AppProps } from "next/app";
+import type { AppProps } from "next/app";
+import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { NavMenu, HeaderContent } from "../components";
 import "../styles/globals.css";
 
-function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) {
   return (
     <SessionProvider session={session}>
       <Layout>
@@ -12,15 +16,13 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           <NavMenu />
           <HeaderContent />
         </Header>
-        <Content>
+        <Page>
           <Component {...pageProps} />
-        </Content>
+        </Page>
       </Layout>
     </SessionProvider>
   );
 }
-
-export default App;
 
 function Layout({ children }: { children: ReactNode }) {
   return <div className="Layout">{children}</div>;
@@ -30,6 +32,6 @@ function Header({ children }: { children: ReactNode }) {
   return <div className="Header">{children}</div>;
 }
 
-function Content({ children }: { children: ReactNode }) {
-  return <div className="Content">{children}</div>;
+function Page({ children }: { children: ReactNode }) {
+  return <div className="Page">{children}</div>;
 }

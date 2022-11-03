@@ -9,6 +9,7 @@
     "@babel/core": "^7.19.6",
     "@mikro-orm/core": "^5.5.0",
     "@mikro-orm/mongodb": "^5.5.0",
+    "@radix-ui/react-toast": "^1.1.1",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",

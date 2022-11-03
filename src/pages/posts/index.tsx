@@ -1,7 +1,9 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import React from "react";
-import { Spinner } from "../../components";
+import { ArrowDownSVG, Spinner } from "../../components";
+
+import styles from "../../styles/styles.module.css";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const baseUrl = process.env.BASE_URL;
@@ -19,38 +21,38 @@ export default function Index({ baseUrl }: { baseUrl: string }) {
   return (
     <>
       <div className="posts" style={{ padding: "1rem" }}>
+        <div style={{ padding: "1rem" }}>
+          <ArrowDownSVG />
+        </div>
         {data.map((post: any) => (
-          <div
-            key={post.id}
-            style={{
-              paddingBottom: "0.25rem",
-              borderRadius: "0.5rem",
-              margin: "0 auto",
-              width: "75%",
-              left: "12.5%",
-            }}
-          >
-            <h3>
-              <Link
-                style={{ color: "#377dff" }}
-                href={{ pathname: `/post/[id]`, query: { id: post.id } }}
-              >
-                {post.title}
-              </Link>
-            </h3>
-            <p
-              style={{
-                borderRadius: "0.33rem",
-                position: "relative",
-                maxWidth: "75%",
-                left: "12.5%",
-              }}
+          <div key={post.id}>
+            <div
+              className={styles.Card}
+              style={{ width: "70%", padding: "1rem" }}
             >
-              {post.body}
-            </p>
-            <span style={{ color: "grey", fontSize: "0.6rem" }}>
-              _id: {post.id}
-            </span>
+              <h3>
+                <Link
+                  style={{ color: "#377dff" }}
+                  href={{ pathname: `/post/[id]`, query: { id: post.id } }}
+                >
+                  {post.title}
+                </Link>
+              </h3>
+              <p
+                style={{
+                  borderRadius: "0.33rem",
+                  position: "relative",
+                  maxWidth: "75%",
+                  left: "12.5%",
+                }}
+              >
+                {post.body}
+              </p>
+              <span style={{ color: "grey", fontSize: "0.6rem" }}>
+                _id: {post.id}
+              </span>
+            </div>
+            <div style={{ padding: "2rem" }}></div>
           </div>
         ))}
       </div>
