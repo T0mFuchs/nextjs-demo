@@ -43,7 +43,7 @@ export default function Index({ baseUrl }: { baseUrl: string }) {
                 </Link>
               </div>
               <p>{post.body}</p>
-              <div style={{ color: "#676259", fontSize: "0.6rem" }}>
+              <div style={{ color: "var(--grey)", fontSize: "0.6rem" }}>
                 _id: {post.id}
               </div>
             </div>

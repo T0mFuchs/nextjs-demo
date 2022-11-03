@@ -48,7 +48,9 @@ export default function Index({
       <div className={styles.Card} style={{ width: "67%" }}>
         <div style={{ fontSize: "1.6rem", fontWeight: 100 }}>{data.title}</div>
         <p>{data.body}</p>
-        <div style={{ color: "#676259", fontSize: "0.6rem" }}>{data.id}</div>
+        <div style={{ color: "var(--grey)", fontSize: "0.6rem" }}>
+          {data.id}
+        </div>
       </div>
     </>
   );
