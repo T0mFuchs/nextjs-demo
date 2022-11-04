@@ -18,11 +18,11 @@ export function ArrowDownSVG() {
         <g
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         >
-          <path stroke-dasharray="20" stroke-dashoffset="20" d="M21 3V21">
+          <path strokeDasharray="20" strokeDashoffset="20" d="M21 3V21">
             <animate
               fill="freeze"
               attributeName="stroke-dashoffset"
@@ -30,7 +30,7 @@ export function ArrowDownSVG() {
               values="20;0"
             />
           </path>
-          <path stroke-dasharray="15" stroke-dashoffset="15" d="M17 12H3.5">
+          <path strokeDasharray="15" strokeDashoffset="15" d="M17 12H3.5">
             <animate
               fill="freeze"
               attributeName="stroke-dashoffset"
@@ -40,8 +40,8 @@ export function ArrowDownSVG() {
             />
           </path>
           <path
-            stroke-dasharray="12"
-            stroke-dashoffset="12"
+            strokeDasharray="12"
+            strokeDashoffset="12"
             d="M3 12L10 19M3 12L10 5"
           >
             <animate

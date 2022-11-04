@@ -1,5 +1,6 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { CreatePost } from "../../../components/CreatePost";
 
 import styles from "../../../styles/styles.module.css";
 
@@ -17,9 +18,9 @@ export default function Index() {
         {session ? (
           <>
             <p style={{ paddingBottom: "2rem" }}>Hello, {session.user?.name}</p>
-            <p className={styles.Card} style={{ width: "70%" }}>
-              ``
-            </p>
+            <div className={styles.Card} style={{ width: "8rem" }}>
+              <CreatePost />
+            </div>
             <div style={{ padding: "2rem" }}></div>
             <>
               <button
