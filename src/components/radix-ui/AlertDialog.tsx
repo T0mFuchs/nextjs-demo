@@ -33,5 +33,3 @@ export function AlertDialogContent({ children }: { children: ReactNode }) {
     </D.Portal>
   );
 }
-
-
