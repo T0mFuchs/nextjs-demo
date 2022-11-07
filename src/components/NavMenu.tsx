@@ -9,6 +9,8 @@ export function NavMenu() {
       <nav role="navigation">
         <div className="menuToggle" onMouseLeave={() => setOpen(false)}>
           <input
+            title="nav-menu"
+            placeholder="nav-menu"
             type="checkbox"
             checked={open}
             onChange={() => setOpen(!open)}

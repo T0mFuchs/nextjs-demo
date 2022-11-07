@@ -6,19 +6,11 @@ export default function SignInNotification() {
   return (
     <>
       <Toast>
-        <p style={{ margin: 0, fontSize: ".6rem ", color: "var(--grey)" }}>
-          session expiration date
-        </p>
-        <p style={{ fontSize: ".6rem ", color: "var(--grey)" }}>
-          {session?.expires}
-        </p>
+        <div style={{ fontSize: ".6rem " }}>session expiration date</div>
+        <p style={{ fontSize: ".6rem " }}>{session?.expires}</p>
         <ToastAction altText="dismiss">swipe right to dismiss</ToastAction>
-        <p style={{ fontSize: ".6rem ", color: "var(--grey)" }}>
-          logged in as {session?.user?.name}
-        </p>
-        <p style={{ margin: 0, fontSize: ".6rem ", color: "var(--grey)" }}>
-          {session?.user?.email}
-        </p>
+        <p style={{ fontSize: ".6rem " }}>logged in as {session?.user?.name}</p>
+        <div style={{ fontSize: ".6rem " }}>{session?.user?.email}</div>
       </Toast>
     </>
   );

@@ -2,8 +2,7 @@
 :root {
   --color-primary: #f9f4da;
   --color-secondary: #ff674b;
-  --grey: #42414d;
-  --background-primary: #141214;
+  --background-primary: #000000;
   --background-secondary: #19190ffb;
 }
 /* set scrollbar invisible on all browsers */
@@ -33,13 +32,13 @@ body {
 
 
 .Page {
-  overflow-x: scroll;
+  overflow-y: scroll;
   scrollbar-width: none;
 }
 
 
 .menu {
-  background-color: var(--color-primary);
+  background-color: #f9f9f9;
   position: absolute;
   height: 100vh;
   width: 10rem;
@@ -49,8 +48,7 @@ body {
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-  overflow-x: scroll;
-  scrollbar-width: none;
+  overflow-y: scroll;
 }
   
 .menu li {
@@ -128,8 +126,8 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     color: var(--color-primary);
-    background-image: linear-gradient(330deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+    background-image: linear-gradient(110deg, var(--background-primary) 33%, var(--background-secondary) 110%);
   }
 
-  .menu { background-color: var(--background-secondary); }
+  .menu { background-color: #000000ee; }
 }

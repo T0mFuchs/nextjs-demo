@@ -1,27 +1,16 @@
-import dynamic from "next/dynamic";
-import { useSession } from "next-auth/react";
-import { Suspense } from "react";
+import Head from "next/head";
 import styles from "../styles/styles.module.css";
 
-const SignInNotification = dynamic(
-  () => import("../components/SignInNotification"),
-  {
-    suspense: true,
-  }
-);
-
 export default function Home() {
-  const { data: session } = useSession();
   return (
     <>
-      {session ? (
-        <Suspense fallback={<></>}>
-          <SignInNotification />
-        </Suspense>
-      ) : (
-        <></>
-      )}
-      <h2 style={{ paddingTop: "1rem", paddingBottom: "2rem" }}>
+      <Head>
+        <title>index page title</title>
+      </Head>
+      <h2
+        style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
+        className={styles.H2}
+      >
         empty home page
       </h2>
       <div

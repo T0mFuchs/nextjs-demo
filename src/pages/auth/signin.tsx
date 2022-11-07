@@ -1,5 +1,6 @@
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import styles from "../../styles/styles.module.css";
 
@@ -9,7 +10,7 @@ export default function SignIn() {
 
   if (session) {
     setTimeout(() => {
-      push(`/auth/session`);
+      push("/auth/session");
     }, 1500);
     return (
       <h2 style={{ paddingTop: "6rem" }}>
@@ -19,6 +20,9 @@ export default function SignIn() {
   }
   return (
     <>
+      <Head>
+        <title>signin</title>
+      </Head>
       <h2 style={{ paddingTop: "6rem" }}>
         <div style={{ paddingTop: "1rem" }}>
           <GithubSVG />{" "}

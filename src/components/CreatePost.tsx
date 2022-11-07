@@ -1,12 +1,19 @@
+import React from "react";
+import Link from "next/link";
 import {
   AlertDialogRoot,
   AlertDialogTrigger,
   AlertDialogContent,
-} from "../components/radix-ui";
-import React from "react";
+} from "../components/radix-ui/AlertDialog";
+import { Toast, ToastAction } from "./radix-ui/Toast";
+import { CrossSVG } from ".";
 
-export function CreatePost() {
+import styles from "../styles/styles.module.css";
+
+export default function CreatePost() {
   const [open, setOpen] = React.useState(false);
+  const [dispatch, setDispatch] = React.useState(false);
+  const [title, setTitle] = React.useState("");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -24,10 +31,34 @@ export function CreatePost() {
       method: "POST",
     });
     setOpen(false);
-    // todo :: toast with response & link to new post
+    setDispatch(true);
+    setTitle(data.title);
   };
   return (
-    <>
+    <div>
+      {dispatch ? (
+        <Toast>
+          <div style={{ fontSize: ".7rem ", color: "var(--grey)" }}>
+            successfully created new post
+          </div>
+          <div style={{ padding: ".2rem 0" }}>
+            <Link
+              style={{
+                textDecoration: "none",
+                fontSize: "1.2rem",
+                color: "#377dff",
+                fontWeight: 900,
+              }}
+              href={{ pathname: "/post/[title]", query: { title: title } }}
+            >
+              {title}
+            </Link>
+          </div>
+          <ToastAction altText="dismiss">swipe right to dismiss</ToastAction>
+        </Toast>
+      ) : (
+        <></>
+      )}
       <AlertDialogRoot open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger>
           {!open ? (
@@ -49,9 +80,10 @@ export function CreatePost() {
             }}
             onSubmit={handleSubmit}
           >
-            <label htmlFor="title"></label>
+            <label htmlFor="title" />
             <input
               style={{ fontSize: "1.3rem", fontWeight: 900, border: 0 }}
+              className={styles.Input}
               name="title"
               type="text"
               placeholder="...title"
@@ -59,7 +91,7 @@ export function CreatePost() {
               minLength={2}
               maxLength={20}
             />
-            <label htmlFor="body"></label>
+            <label style={{ padding: ".05rem 0" }} htmlFor="body" />
             <input
               style={{
                 fontSize: "1rem",
@@ -67,6 +99,7 @@ export function CreatePost() {
                 lineHeight: "1.7rem",
                 border: 0,
               }}
+              className={styles.Input}
               name="body"
               type="text"
               placeholder="...body"
@@ -101,28 +134,10 @@ export function CreatePost() {
               setOpen(false);
             }}
           >
-            <CancelSVG />
+            <CrossSVG />
           </button>
         </AlertDialogContent>
       </AlertDialogRoot>
-    </>
-  );
-}
-
-function CancelSVG() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.125em" }}
-      width="2em"
-      height="2em"
-      preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 32 32"
-    >
-      <path
-        fill="currentColor"
-        d="m24.778 21.42l-5.502-5.503l5.5-5.502l-2.827-2.83l-5.503 5.502l-5.502-5.502l-2.828 2.83l5.5 5.502l-5.5 5.502l2.83 2.828l5.5-5.502l5.5 5.502z"
-      />
-    </svg>
+    </div>
   );
 }

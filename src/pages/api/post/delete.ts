@@ -7,13 +7,12 @@ const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { title, body } = req.body;
-  if (!title || !body) {
+  const { id, title } = req.body;
+  if (!id || !title) {
     return res.status(400);
   }
   const em = getEM();
-  const post = new Post(title, body);
-  em.create(Post, post);
+  em.nativeDelete(Post, id);
   await em.flush();
   res.status(200).end();
 };

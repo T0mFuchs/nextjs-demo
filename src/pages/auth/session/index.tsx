@@ -1,8 +1,15 @@
+import dynamic from "next/dynamic";
+import Head from "next/head";
+import { Suspense } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { CreatePost } from "../../../components/CreatePost";
 
 import styles from "../../../styles/styles.module.css";
+
+const CreatePost = dynamic(() => import("../../../components/CreatePost"));
+const SignInNotification = dynamic(
+  () => import("../../../components/SignInNotification")
+);
 
 export default function Index() {
   const { data: session } = useSession();
@@ -13,21 +20,37 @@ export default function Index() {
   };
   return (
     <>
-      <h2 style={{ paddingTop: "1rem", paddingBottom: "2rem" }}>/account</h2>
+      <Head>
+        <title>nextauth</title>
+      </Head>
+      <h2
+        style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
+        className={styles.H2}
+      >
+        /auth/session
+      </h2>
       <div>
         {session ? (
           <>
-            <p style={{ paddingBottom: "2rem" }}>Hello, {session.user?.name}</p>
-            <div className={styles.Card} style={{ width: "8rem" }}>
+            <Suspense fallback={<></>}>
+              <SignInNotification />
+            </Suspense>
+            <p style={{ paddingBottom: "2rem" }}>
+              <div className={styles.Card} style={{ width: "9rem" }}>
+                Hello, {session.user?.name}
+              </div>
+            </p>
+            <>
               <CreatePost />
-            </div>
-            <div style={{ padding: "2rem" }}></div>
+            </>
+            <div style={{ padding: "1.5rem" }} />
             <>
               <button
                 onClick={() => {
                   signOut({ redirect: false });
                 }}
                 className={styles.Button}
+                style={{}}
               >
                 sign out
               </button>

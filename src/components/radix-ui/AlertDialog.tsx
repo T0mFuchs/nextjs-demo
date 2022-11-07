@@ -16,7 +16,7 @@ export function AlertDialogTrigger({ children }: { children: ReactNode }) {
 export function AlertDialogContent({ children }: { children: ReactNode }) {
   return (
     <D.Portal>
-      <D.Overlay className={styles.DialogOverlay} style={{}} />
+      <D.Overlay className={styles.DialogOverlay} />
       <D.Content
         className={styles.DialogContent}
         style={{

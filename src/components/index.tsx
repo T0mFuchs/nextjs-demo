@@ -3,8 +3,43 @@ import React from "react";
 export * from "./HeaderContent";
 export * from "./NavMenu";
 
-// todo ::  make this go up component on click and sticky ontop of header
+export function CheckSVG() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ verticalAlign: "-0.125em" }}
+      width="2em"
+      height="1.75em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 1600 1280"
+    >
+      <path
+        fill="currentColor"
+        d="M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68z"
+      />
+    </svg>
+  );
+}
 
+export function CrossSVG() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ verticalAlign: "-0.125em" }}
+      width="2em"
+      height="2em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="m24.778 21.42l-5.502-5.503l5.5-5.502l-2.827-2.83l-5.503 5.502l-5.502-5.502l-2.828 2.83l5.5 5.502l-5.5 5.502l2.83 2.828l5.5-5.502l5.5 5.502z"
+      />
+    </svg>
+  );
+}
+
+// todo ::  make this go up component on click and sticky ontop of header
 export function ArrowDownSVG() {
   return (
     <svg
