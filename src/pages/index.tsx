@@ -40,19 +40,16 @@ export default function Page() {
             borderRadius: `56% 44% 56% 44% / 55% 49% 51% 45%`,
             width: "9vw",
           }}
-        >
-          !!
-        </div>
+        ></div>
         <div
           className={styles.Card}
           style={{
             gridRow: "1",
             gridColumn: "2",
-            height: `3vh`,
           }}
         >
-          `````````````````````````` ``````````````````````````
-          ``````````````````````````
+          ```````````````````````` ````````````````````````
+          ````````````````````````
         </div>
         <div
           className={styles.Card}

@@ -11,7 +11,7 @@
 
 ```last build log
 Route (pages)                              Size     First Load JS
-┌ ○ /                                      875 B          96.5 kB
+┌ ○ /                                      869 B          96.5 kB
 ├   /_app                                  0 B            95.7 kB
 ├ ○ /404                                   319 B            96 kB
 ├ ○ /500                                   326 B            96 kB
@@ -31,10 +31,7 @@ Route (pages)                              Size     First Load JS
 + First Load JS shared by all              96.7 kB
   ├ chunks/framework-8d78bf989db74c8f.js   45.4 kB
   ├ chunks/main-34f3befc735d0f51.js        26.3 kB
-  ├ chunks/pages/_app-152a50ed17e4fb10.js  22.1 kB
-  ├ chunks/webpack-fecf8920f4c53479.js     1.93 kB
-  └ css/d27af5a33d237bf8.css               1.06 kB
-
-λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)    
-○  (Static)  automatically rendered as static HTML (uses no initial props)
+  ├ chunks/pages/_app-b4aab8f3b9b39fe5.js  22.1 kB
+  ├ chunks/webpack-8de46b752ea9dd90.js     1.93 kB
+  └ css/aa08fd536e200125.css               1.08 kB
 ```
