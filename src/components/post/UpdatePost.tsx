@@ -3,33 +3,27 @@ import {
   AlertDialogRoot,
   AlertDialogTrigger,
   AlertDialogContent,
-} from "../components/radix-ui/AlertDialog";
-import { CheckSVG, CrossSVG } from ".";
+} from "../../components/radix-ui/AlertDialog";
+import { useRouter } from "next/router";
+import { CheckSVG, CrossSVG } from "..";
 
-// todo :: make it so that if title changed useRouter hook for directing to new post
+import styles from "../../styles/styles.module.css";
 
-import styles from "../styles/styles.module.css";
-
-export function UpdatePost({
-  baseUrl,
-  title,
-}: {
-  baseUrl: string;
-  title: string;
-}) {
-  const [open, setOpen] = React.useState(false);
+export function UpdatePost({ title }: { title: string }) {
+  const [dialog, setDialog] = React.useState(false);
   const [post, setPost]: any = React.useState(null);
   const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
 
   React.useEffect(() => {
     setLoading(true);
-    fetch(`${baseUrl}/api/post/${title}`, { cache: "no-store" })
+    fetch(`/api/post/${title}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((post) => {
         setPost(post);
         setLoading(false);
       });
-  }, [baseUrl, title]);
+  }, [title]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -47,14 +41,15 @@ export function UpdatePost({
       },
       method: "PUT",
     });
-    setOpen(false);
+    setDialog(false);
+    router.push(`/post/${data.title}`);
   };
 
   return (
     <>
-      <AlertDialogRoot open={open} onOpenChange={setOpen}>
+      <AlertDialogRoot open={dialog} onOpenChange={setDialog}>
         <AlertDialogTrigger>
-          {!open ? (
+          {!dialog ? (
             <button>edit post</button>
           ) : (
             <button>editting post ...</button>
@@ -83,7 +78,7 @@ export function UpdatePost({
                   className={styles.Input}
                   name="title"
                   type="text"
-                  placeholder={post?.title}
+                  defaultValue={post?.title}
                   required
                   minLength={2}
                   maxLength={20}
@@ -99,7 +94,7 @@ export function UpdatePost({
                   className={styles.Input}
                   name="body"
                   type="text"
-                  placeholder={post?.body}
+                  defaultValue={post?.body}
                   required
                   minLength={5}
                 />
@@ -113,10 +108,12 @@ export function UpdatePost({
                     position: "absolute",
                     right: 0,
                     bottom: "-1.4rem",
-                    color: "#70deaf",
                   }}
                   type="submit"
                 >
+                  <span style={{ color: `#70deaf` }}>
+                    <CheckSVG />
+                  </span>
                   save & close
                 </button>
               </form>
@@ -129,7 +126,7 @@ export function UpdatePost({
                   color: "var(--color-secondary)",
                 }}
                 onClick={() => {
-                  setOpen(false);
+                  setDialog(false);
                 }}
               >
                 <CrossSVG />

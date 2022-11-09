@@ -6,12 +6,12 @@ import { useRouter } from "next/router";
 
 import styles from "../../../styles/styles.module.css";
 
-const CreatePost = dynamic(() => import("../../../components/CreatePost"));
+const CreatePost = dynamic(() => import("../../../components/post/CreatePost"));
 const SignInNotification = dynamic(
   () => import("../../../components/SignInNotification")
 );
 
-export default function Index() {
+export default function Page() {
   const { data: session } = useSession();
   const { push, asPath } = useRouter();
 

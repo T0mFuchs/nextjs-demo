@@ -4,11 +4,11 @@ import {
   AlertDialogRoot,
   AlertDialogTrigger,
   AlertDialogContent,
-} from "../components/radix-ui/AlertDialog";
-import { Toast, ToastAction } from "./radix-ui/Toast";
-import { CrossSVG } from ".";
+} from "../../components/radix-ui/AlertDialog";
+import { Toast, ToastAction } from "../radix-ui/Toast";
+import { CrossSVG } from "..";
 
-import styles from "../styles/styles.module.css";
+import styles from "../../styles/styles.module.css";
 
 export default function CreatePost() {
   const [open, setOpen] = React.useState(false);

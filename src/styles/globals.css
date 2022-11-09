@@ -11,25 +11,45 @@
 
 
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-size: 200%;
+  min-height: 100vh;
+  text-align: center;
+  margin: 0;
+}
+
+#tiles {
+  height: calc(100vh - 1px);
+  width: calc(100vw - 1px);
+  position: fixed;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+}
+
+.tile { position: relative; }
+
+.tile:hover:before { background-color: rgb(30, 30, 30); }
+
+.tile:before {
+  background-color: rgb(15, 15, 15);
+  content: "";
+  inset: 0.5px;
+  position: absolute;
 }
 
 
 .Layout {
-  display: grid;
-  grid-template-rows: 0.05fr 0.95fr;
-  text-align: center;
-  height: 100vh;
+  position: absolute;
+  width: calc(100vw - 1px);
+  top: 0;
 }
-
 
 .Header {
   text-align: right;
   padding-right: .3rem;
   font-size: 2.5rem;
 }
-
 
 .Page {
   overflow-y: scroll;
@@ -49,6 +69,7 @@ body {
   transform: translate(-100%, 0);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
   overflow-y: scroll;
+  scrollbar-width: none;
 }
   
 .menu li {
@@ -63,7 +84,6 @@ body {
   position: fixed;
   top: .8rem;
   left: .7rem;
-  z-index: 1;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -77,27 +97,28 @@ body {
 .menuToggle a:hover, .menuToggle a:focus, a:focus > svg, a:hover > svg { color: var(--color-secondary); }
 
 .menuToggle input {
+  cursor: pointer;
   display: block;
   width: 3rem;
   height: 2.34rem;
   position: absolute;
   top: -.7rem;
   left: -.7rem;
-  cursor: pointer;
   opacity: 0;
   z-index: 2;
   -webkit-touch-callout: none;
 }
 
 .menuToggle span {
+  cursor: pointer;
   display: block;
   width: 2.1rem;
   height: .25rem;
   margin-bottom: .33rem;
   position: relative;
   background-color: currentColor;
-  z-index: 1;
   transform-origin: .25rem 0;
+  z-index: 1;
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
 }
 
@@ -126,8 +147,7 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     color: var(--color-primary);
-    background-image: linear-gradient(110deg, var(--background-primary) 33%, var(--background-secondary) 110%);
+    background-image: linear-gradient(110deg, var(--background-primary) 11%, var(--background-secondary) 110%);
   }
-
   .menu { background-color: #000000ee; }
 }

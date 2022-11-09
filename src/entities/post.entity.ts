@@ -6,7 +6,7 @@ export class Post {
   @PrimaryKey({ type: "ObjectId" })
   _id!: ObjectId;
 
-  @Property({ type: "string" })
+  @Property({ type: "string", unique: true })
   title: string;
 
   @Property({ type: "string" })

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../../styles/styles.module.css";
 
-export default function About() {
+export default function Page() {
   return (
     <>
       <Head>

@@ -1,7 +1,8 @@
 import React from "react";
+import styles from "../styles/styles.module.css";
 
-export * from "./HeaderContent";
-export * from "./NavMenu";
+export * from "./page/HeaderContent";
+export * from "./page/NavMenu";
 
 export function CheckSVG() {
   return (

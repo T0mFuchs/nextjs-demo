@@ -1,25 +1,18 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { ReadPost } from "../../components/ReadPost";
-import { UpdatePost } from "../../components/UpdatePost";
-import { DeletePost } from "../../components/DeletePost";
+import { ReadPost } from "../../components/post/ReadPost";
+import { UpdatePost } from "../../components/post/UpdatePost";
+import { DeletePost } from "../../components/post/DeletePost";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const { title }: any = context.params;
-  const baseUrl = process.env.NEXTAUTH_URL;
-  return { props: { baseUrl, title } };
+  return { props: { title } };
 };
 
-export default function Page({
-  baseUrl,
-  title,
-}: {
-  baseUrl: string;
-  title: string;
-}) {
+export default function Page({ title }: { title: string }) {
   return (
     <>
       <Head>
@@ -39,9 +32,9 @@ export default function Page({
         </Link>
       </div>
       <div style={{ margin: `0 2rem` }}>
-        <ReadPost baseUrl={baseUrl} title={title} />
-        <DeletePost baseUrl={baseUrl} title={title} />
-        <UpdatePost baseUrl={baseUrl} title={title} />
+        <ReadPost title={title} />
+        <DeletePost title={title} />
+        <UpdatePost title={title} />
       </div>
     </>
   );

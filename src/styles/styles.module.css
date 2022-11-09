@@ -1,5 +1,5 @@
 @value colors: "./colors.css";
-@value background-light, background-dark, hover-light, hover-dark, green from colors;
+@value background-light, background-dark, hover-light, hover-dark from colors;
 
 .Button {
   color: inherit;
@@ -27,9 +27,6 @@
 .H2 { text-shadow: background-light -1px -1px 1px, background-dark 1px 1px 1px; }
 
 .Input:invalid { box-shadow: 0 0 0 .4px var(--color-secondary); }
-
-.Input:valid { box-shadow: 0 0 0 .4px green; }
-
 
 .DialogOverlay { box-shadow: 0 0 0 100vmax #00000080, 0 0 2rem #00000080; }
 

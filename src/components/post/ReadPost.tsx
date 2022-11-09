@@ -1,21 +1,15 @@
 import React from "react";
-import { ArrowDownSVG, Spinner } from ".";
+import { ArrowDownSVG, Spinner } from "..";
 
-import styles from "../styles/styles.module.css";
+import styles from "../../styles/styles.module.css";
 
-export function ReadPost({
-  baseUrl,
-  title,
-}: {
-  baseUrl: string;
-  title: string;
-}) {
+export function ReadPost({ title }: { title: string }) {
   const [data, setData]: any = React.useState(null);
   React.useEffect(() => {
-    fetch(`${baseUrl}/api/post/${title}`, { cache: "no-store" })
+    fetch(`/api/post/${title}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => setData(data));
-  }, [baseUrl, title]);
+  }, [title]);
   if (!data) return <Spinner />;
   return (
     <>

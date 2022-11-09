@@ -2,7 +2,9 @@ import Link from "next/link";
 
 export function HeaderContent() {
   return (
-    <div style={{ lineHeight: 0, paddingTop: 5, paddingRight: 1 }}>
+    <div
+      style={{ lineHeight: 0, paddingTop: 5, paddingRight: 1, zIndex: 10000 }}
+    >
       <Link href="/posts" style={{ color: "inherit" }} prefetch={false}>
         <PostsSVG />
       </Link>

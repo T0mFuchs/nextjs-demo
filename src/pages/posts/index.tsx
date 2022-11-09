@@ -1,4 +1,3 @@
-import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
@@ -6,28 +5,23 @@ import { ArrowDownSVG, Spinner } from "../../components";
 
 import styles from "../../styles/styles.module.css";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const baseUrl = process.env.NEXTAUTH_URL;
-  return { props: { baseUrl } };
-};
-
-export default function Index({ baseUrl }: { baseUrl: string }) {
+export default function Page() {
   const [data, setData]: any = React.useState(null);
+
   React.useEffect(() => {
-    fetch(`${baseUrl}/api/posts/all`, { cache: "no-store" })
+    fetch(`/api/posts/all`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => setData(data));
-  }, [baseUrl]);
+  }, []);
+
   if (!data) return <Spinner />;
   return (
     <>
       <Head>
         <title>posts</title>
       </Head>
+      <ArrowDownSVG />
       <div className="posts" style={{ padding: "1rem" }}>
-        <div style={{ padding: "1rem 0 3rem 0" }}>
-          <ArrowDownSVG />
-        </div>
         {data.map((post: any) => (
           <div key={post.id}>
             <div
