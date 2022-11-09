@@ -1,15 +1,14 @@
 import React from "react";
+import useSWR from "swr";
 import { ArrowDownSVG, Spinner } from "..";
 
 import styles from "../../styles/styles.module.css";
 
+const fetcher = (url: string) =>
+  fetch(url, { cache: "no-store" }).then((res) => res.json());
+
 export function ReadPost({ title }: { title: string }) {
-  const [data, setData]: any = React.useState(null);
-  React.useEffect(() => {
-    fetch(`/api/post/${title}`, { cache: "no-store" })
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, [title]);
+  const { data } = useSWR(`/api/post/${title}`, fetcher);
   if (!data) return <Spinner />;
   return (
     <>

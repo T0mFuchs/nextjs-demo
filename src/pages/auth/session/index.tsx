@@ -14,7 +14,6 @@ const SignInNotification = dynamic(
 export default function Page() {
   const { data: session } = useSession();
   const { push, asPath } = useRouter();
-
   const handleSignIn = () => {
     push(`/auth/signin?callbackUrl=${asPath}`);
   };
@@ -35,26 +34,35 @@ export default function Page() {
             <Suspense fallback={<></>}>
               <SignInNotification />
             </Suspense>
-            <p style={{ paddingBottom: "2rem" }}>
+            <div
+              style={{
+                borderRadius: `38% 62% 41% 59% / 56% 37% 63% 44% `,
+                background: `var(--blob)`,
+                height: `100vmax`,
+                width: `100vmax`,
+                position: `fixed`,
+                top: `15vh`,
+                zIndex: -2,
+              }}
+            />
+            <div style={{ padding: "4.5rem 0 1rem" }}>
               <div className={styles.Card} style={{ width: "9rem" }}>
                 Hello, {session.user?.name}
               </div>
-            </p>
-            <>
+            </div>
+            <div style={{ padding: "1rem 0 0 0" }}>
               <CreatePost />
-            </>
-            <div style={{ padding: "1.5rem" }} />
-            <>
-              <button
-                onClick={() => {
-                  signOut({ redirect: false });
-                }}
-                className={styles.Button}
-                style={{}}
-              >
-                sign out
-              </button>
-            </>
+            </div>
+            <div style={{ padding: "1rem" }} />
+            <button
+              onClick={() => {
+                signOut({ redirect: false });
+              }}
+              className={styles.Button}
+              style={{}}
+            >
+              sign out
+            </button>
           </>
         ) : (
           <>

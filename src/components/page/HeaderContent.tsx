@@ -5,16 +5,31 @@ export function HeaderContent() {
     <div
       style={{ lineHeight: 0, paddingTop: 5, paddingRight: 1, zIndex: 10000 }}
     >
-      <Link href="/posts" style={{ color: "inherit" }} prefetch={false}>
+      <Link
+        title="Posts"
+        href="/posts"
+        style={{ color: "inherit" }}
+        prefetch={false}
+      >
         <PostsSVG />
       </Link>
-      <Link href="/about" style={{ color: "inherit" }} prefetch={false}>
+      <Link
+        title="About"
+        href="/about"
+        style={{ color: "inherit" }}
+        prefetch={false}
+      >
         <QuestionSVG />
       </Link>
-      <Link href="/auth/session" style={{ color: "inherit" }} prefetch={false}>
+      <Link
+        title="Session"
+        href="/auth/session"
+        style={{ color: "inherit" }}
+        prefetch={false}
+      >
         <AccountSVG />
       </Link>
-      <Link href="/" style={{ color: "inherit" }} prefetch={false}>
+      <Link title="Home" href="/" style={{ color: "inherit" }} prefetch={false}>
         <IconSVG />
       </Link>
     </div>

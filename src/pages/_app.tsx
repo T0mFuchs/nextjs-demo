@@ -71,7 +71,7 @@ function GenerateTiles() {
   const createGrid = () => {
     // @ts-ignore
     tiles.innerHTML = "";
-    const size = document.body.clientWidth > 600 ? 50 : 45;
+    const size = document.body.clientWidth > 800 ? 45 : 45;
     columns = Math.floor(document.body.clientWidth / size);
     rows = Math.floor(document.body.clientHeight / size);
     tiles?.style.setProperty("--columns", columns.toString());
@@ -81,8 +81,7 @@ function GenerateTiles() {
 
   createGrid();
   window.onresize = () => createGrid();
-
-  // so that typescript doesn't complain
+  // so typescript doesn't complain
   return <></>;
 }
 

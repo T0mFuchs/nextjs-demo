@@ -18,7 +18,19 @@ export default function Page({ title }: { title: string }) {
       <Head>
         <title>post/{title}</title>
       </Head>
-      <div style={{ padding: ".5rem", paddingTop: "2rem" }}>
+      <div
+        style={{
+          borderRadius: `50% 50% 50% 50% / 45% 45% 55% 55%`,
+          background: `var(--blob)`,
+          height: `75vh`,
+          width: `150vw`,
+          position: `fixed`,
+          top: `-50vh`,
+          left: `-75vw`,
+          zIndex: -2,
+        }}
+      />
+      <div style={{ padding: `4rem 0 1rem 0` }}>
         <Link
           style={{
             textDecoration: "none",
@@ -31,11 +43,26 @@ export default function Page({ title }: { title: string }) {
           /api/post/[title]
         </Link>
       </div>
-      <div style={{ margin: `0 2rem` }}>
+      <div style={{ padding: `0 2rem` }}>
         <ReadPost title={title} />
-        <DeletePost title={title} />
-        <UpdatePost title={title} />
+        <div style={{ padding: `.5rem 0` }}>
+          <DeletePost title={title} />
+          <span style={{ padding: `0 .2rem` }} />
+          <UpdatePost title={title} />
+        </div>
       </div>
+      <div
+        style={{
+          borderRadius: `50% 50% 50% 50% / 45% 45% 55% 55%`,
+          background: `var(--blob)`,
+          height: `75vh`,
+          width: `150vw`,
+          position: `fixed`,
+          bottom: `-55vh`,
+          right: `-110vw`,
+          zIndex: -2,
+        }}
+      />
     </>
   );
 }

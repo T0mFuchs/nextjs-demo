@@ -15,6 +15,17 @@ export default function Page() {
       </h2>
       <div
         style={{
+          borderRadius: `50% 50% 50% 50% / 45% 45% 55% 55% `,
+          background: `var(--blob)`,
+          height: `200vh`,
+          width: `150vw`,
+          position: `fixed`,
+          top: `-25vh`,
+          zIndex: -2,
+        }}
+      />
+      <div
+        style={{
           display: "grid",
           gap: "2.5rem",
           margin: "0 auto",
@@ -23,9 +34,23 @@ export default function Page() {
       >
         <div
           className={styles.Card}
-          style={{ gridRow: "1", gridColumn: "1" }}
-        ></div>
-        <div className={styles.Card} style={{ gridRow: "1", gridColumn: "2" }}>
+          style={{
+            gridRow: "1",
+            gridColumn: "1",
+            borderRadius: `56% 44% 56% 44% / 55% 49% 51% 45%`,
+            width: "9vw",
+          }}
+        >
+          !!
+        </div>
+        <div
+          className={styles.Card}
+          style={{
+            gridRow: "1",
+            gridColumn: "2",
+            height: `3vh`,
+          }}
+        >
           `````````````````````````` ``````````````````````````
           ``````````````````````````
         </div>
@@ -35,7 +60,7 @@ export default function Page() {
         ></div>
         <div
           className={styles.Card}
-          style={{ gridRow: "2", gridColumn: "2" }}
+          style={{ gridRow: "2", gridColumn: "2", height: `1vh` }}
         ></div>
       </div>
     </>

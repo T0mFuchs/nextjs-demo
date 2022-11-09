@@ -1,19 +1,16 @@
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
+import useSWR from "swr";
 import { ArrowDownSVG, Spinner } from "../../components";
 
 import styles from "../../styles/styles.module.css";
 
+const fetcher = (url: string) =>
+  fetch(url, { cache: "no-store" }).then((res) => res.json());
+
 export default function Page() {
-  const [data, setData]: any = React.useState(null);
-
-  React.useEffect(() => {
-    fetch(`/api/posts/all`, { cache: "no-store" })
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
-
+  const { data } = useSWR(`/api/posts`, fetcher);
   if (!data) return <Spinner />;
   return (
     <>
@@ -21,6 +18,17 @@ export default function Page() {
         <title>posts</title>
       </Head>
       <ArrowDownSVG />
+      <div
+        style={{
+          borderRadius: `38% 62% 41% 59% / 56% 37% 63% 44% `,
+          background: `var(--blob)`,
+          height: `10vh`,
+          width: `100vmax`,
+          position: `fixed`,
+          top: `-5vh`,
+          zIndex: -2,
+        }}
+      />
       <div className="posts" style={{ padding: "1rem" }}>
         {data.map((post: any) => (
           <div key={post.id}>

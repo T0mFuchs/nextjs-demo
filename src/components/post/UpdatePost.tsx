@@ -5,46 +5,38 @@ import {
   AlertDialogContent,
 } from "../../components/radix-ui/AlertDialog";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 import { CheckSVG, CrossSVG } from "..";
 
 import styles from "../../styles/styles.module.css";
 
+const fetcher = (url: string) =>
+  fetch(url, { cache: "no-store" }).then((res) => res.json());
+
 export function UpdatePost({ title }: { title: string }) {
   const [dialog, setDialog] = React.useState(false);
-  const [post, setPost]: any = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
-
-  React.useEffect(() => {
-    setLoading(true);
-    fetch(`/api/post/${title}`, { cache: "no-store" })
-      .then((res) => res.json())
-      .then((post) => {
-        setPost(post);
-        setLoading(false);
-      });
-  }, [title]);
+  const { data } = useSWR(`/api/post/${title}`, fetcher);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
-    const data = {
-      id: post.id,
+    const post = {
+      id: data.id,
       // @ts-ignore
       title: form.title.value as string,
       body: form.body.value as string,
     };
     const response = await fetch("/api/post/update", {
-      body: JSON.stringify(data),
+      body: JSON.stringify(post),
       headers: {
         "Content-Type": "application/json",
       },
       method: "PUT",
     });
     setDialog(false);
-    router.push(`/post/${data.title}`);
+    router.push(`/post/${post.title}`);
   };
-
   return (
     <>
       <AlertDialogRoot open={dialog} onOpenChange={setDialog}>
@@ -56,12 +48,12 @@ export function UpdatePost({ title }: { title: string }) {
           )}
         </AlertDialogTrigger>
         <AlertDialogContent>
-          {loading ? (
-            <></>
+          {!data ? (
+            <div style={{ padding: "1rem" }} />
           ) : (
             <>
               <legend style={{ position: "absolute", top: "-1.4rem", left: 0 }}>
-                Post: {post?.title}
+                Post: {data.title}
               </legend>
               <form
                 style={{
@@ -78,7 +70,7 @@ export function UpdatePost({ title }: { title: string }) {
                   className={styles.Input}
                   name="title"
                   type="text"
-                  defaultValue={post?.title}
+                  defaultValue={data.title}
                   required
                   minLength={2}
                   maxLength={20}
@@ -94,7 +86,7 @@ export function UpdatePost({ title }: { title: string }) {
                   className={styles.Input}
                   name="body"
                   type="text"
-                  defaultValue={post?.body}
+                  defaultValue={data.body}
                   required
                   minLength={5}
                 />
