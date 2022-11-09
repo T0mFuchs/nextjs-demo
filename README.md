@@ -31,10 +31,10 @@ Route (pages)                              Size     First Load JS
 + First Load JS shared by all              96.7 kB
   ├ chunks/framework-8d78bf989db74c8f.js   45.4 kB
   ├ chunks/main-34f3befc735d0f51.js        26.3 kB
-  ├ chunks/pages/_app-b4aab8f3b9b39fe5.js  22.1 kB
-  ├ chunks/webpack-5b390f760300f226.js     1.93 kB
-  └ css/8deff68267f026ea.css               1.07 kB
+  ├ chunks/pages/_app-152a50ed17e4fb10.js  22.1 kB
+  ├ chunks/webpack-fecf8920f4c53479.js     1.93 kB
+  └ css/d27af5a33d237bf8.css               1.06 kB
 
-λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)    
 ○  (Static)  automatically rendered as static HTML (uses no initial props)
 ```
