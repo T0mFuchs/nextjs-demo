@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function HeaderContent() {
+export default function HeaderContent() {
   return (
     <div
       style={{ lineHeight: 0, paddingTop: 5, paddingRight: 1, zIndex: 10000 }}

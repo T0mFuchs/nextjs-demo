@@ -1,10 +1,21 @@
-import { ReactNode, StrictMode } from "react";
+import { ReactNode, StrictMode, Suspense } from "react";
 import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { NavMenu, HeaderContent } from "../components";
+import dynamic from "next/dynamic";
 import anime from "animejs";
 import "../styles/globals.css";
+
+const DynamicHeader = dynamic(
+  () => import("../components/page/HeaderContent"),
+  { suspense: true }
+);
+const DynamicNav = dynamic(() => import("../components/page/NavMenu"), {
+  suspense: true,
+});
+const DynamicScroll = dynamic(() => import("../components/page/ScrollUp"), {
+  suspense: true,
+});
 
 export default function App({
   Component,
@@ -15,22 +26,36 @@ export default function App({
       <SessionProvider session={session}>
         <div id="tiles" />
         <GenerateTiles />
-        <Layout>
-          <Header>
-            <NavMenu />
-            <HeaderContent />
-          </Header>
-          <Page>
-            <Component {...pageProps} />
-          </Page>
-        </Layout>
+        <Suspense fallback={<></>}>
+          <Layout>
+            <Header>
+              <DynamicNav />
+              <DynamicHeader />
+            </Header>
+            <Page>
+              <DynamicScroll />
+              <Component {...pageProps} />
+            </Page>
+          </Layout>
+        </Suspense>
       </SessionProvider>
     </StrictMode>
   );
 }
 
+function Layout({ children }: { children: ReactNode }) {
+  return <div className="Layout">{children}</div>;
+}
+
+function Header({ children }: { children: ReactNode }) {
+  return <div className="Header">{children}</div>;
+}
+
+function Page({ children }: { children: ReactNode }) {
+  return <div className="Page">{children}</div>;
+}
+
 function GenerateTiles() {
-  // todo :: this might trigger warnings when page is prefetching session
   if (typeof window === "undefined") {
     return null;
   }
@@ -83,16 +108,4 @@ function GenerateTiles() {
   window.onresize = () => createGrid();
   // so typescript doesn't complain
   return <></>;
-}
-
-function Layout({ children }: { children: ReactNode }) {
-  return <div className="Layout">{children}</div>;
-}
-
-function Header({ children }: { children: ReactNode }) {
-  return <div className="Header">{children}</div>;
-}
-
-function Page({ children }: { children: ReactNode }) {
-  return <div className="Page">{children}</div>;
 }

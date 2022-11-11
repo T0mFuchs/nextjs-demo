@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { IconSVG, QuestionSVG } from "./HeaderContent";
 
-export function NavMenu() {
+export default function NavMenu() {
   const [open, setOpen] = useState(false);
   return (
     <>

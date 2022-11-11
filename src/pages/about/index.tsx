@@ -7,10 +7,7 @@ export default function Page() {
       <Head>
         <title>About</title>
       </Head>
-      <h2
-        style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
-        className={styles.H2}
-      >
+      <h2 style={{ padding: `1rem 0` }} className={styles.H2}>
         /about
       </h2>
       <div
@@ -25,7 +22,7 @@ export default function Page() {
           zIndex: -2,
         }}
       />
-      <div className={styles.Card} style={{ paddingTop: "1rem", width: "70%" }}>
+      <div className={styles.Card} style={{ paddingTop: "1rem", width: "75%" }}>
         <ul>
           <li></li>
           <li></li>

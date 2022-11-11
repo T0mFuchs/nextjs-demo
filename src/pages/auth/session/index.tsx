@@ -22,10 +22,7 @@ export default function Page() {
       <Head>
         <title>nextauth</title>
       </Head>
-      <h2
-        style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
-        className={styles.H2}
-      >
+      <h2 style={{ padding: `1rem 0` }} className={styles.H2}>
         /auth/session
       </h2>
       <div>
@@ -45,7 +42,7 @@ export default function Page() {
                 zIndex: -2,
               }}
             />
-            <div style={{ padding: "4.5rem 0 1rem" }}>
+            <div style={{ padding: "3rem 0 1rem" }}>
               <div className={styles.Card} style={{ width: "9rem" }}>
                 Hello, {session.user?.name}
               </div>

@@ -1,8 +1,4 @@
 import React from "react";
-import styles from "../styles/styles.module.css";
-
-export * from "./page/HeaderContent";
-export * from "./page/NavMenu";
 
 export function CheckSVG() {
   return (
@@ -40,7 +36,28 @@ export function CrossSVG() {
   );
 }
 
-// todo ::  make this go up component on click and sticky ontop of header
+export function ArrowTopSVG() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ verticalAlign: "-0.115em" }}
+      width="1em"
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 48 48"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="4"
+        d="M24.008 14.1V42M12 26l12-12l12 12M12 6h24"
+      />
+    </svg>
+  );
+}
+
 export function ArrowDownSVG() {
   return (
     <svg

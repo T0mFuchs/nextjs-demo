@@ -7,10 +7,7 @@ export default function Page() {
       <Head>
         <title>index page title</title>
       </Head>
-      <h2
-        style={{ paddingTop: "1rem", paddingBottom: "2rem" }}
-        className={styles.H2}
-      >
+      <h2 style={{ padding: `1rem 0 1.5rem 0` }} className={styles.H2}>
         empty home page
       </h2>
       <div
@@ -25,41 +22,16 @@ export default function Page() {
         }}
       />
       <div
+        className={styles.Card}
         style={{
-          display: "grid",
-          gap: "2.5rem",
-          margin: "0 auto",
-          width: "90%",
+          borderRadius: `56% 44% 56% 44% / 55% 49% 51% 45%`,
+          width: "33vw",
+          height: "33vw",
+          top: "-20vh",
+          position: "relative",
+          zIndex: -1,
         }}
-      >
-        <div
-          className={styles.Card}
-          style={{
-            gridRow: "1",
-            gridColumn: "1",
-            borderRadius: `56% 44% 56% 44% / 55% 49% 51% 45%`,
-            width: "9vw",
-          }}
-        ></div>
-        <div
-          className={styles.Card}
-          style={{
-            gridRow: "1",
-            gridColumn: "2",
-          }}
-        >
-          ```````````````````````` ````````````````````````
-          ````````````````````````
-        </div>
-        <div
-          className={styles.Card}
-          style={{ gridRow: "2", gridColumn: "1" }}
-        ></div>
-        <div
-          className={styles.Card}
-          style={{ gridRow: "2", gridColumn: "2", height: `1vh` }}
-        ></div>
-      </div>
+      ></div>
     </>
   );
 }
