@@ -22,8 +22,10 @@ export default function Page() {
           zIndex: -2,
         }}
       />
-      <div className={styles.Card} style={{ paddingTop: "1rem", width: "75%" }}>
-        <ul>
+      <div  style={{ paddingTop: "2rem" }}>
+        <ul className={styles.Card} style={{ lineHeight: "5rem", width: "75%" , paddingLeft: "3rem" }}>
+          <li></li>
+          <li></li>
           <li></li>
           <li></li>
           <li></li>
