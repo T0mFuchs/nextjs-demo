@@ -21,7 +21,7 @@ model accounts {
 model post {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   body  String
-  title String @unique(map: "UQ_e28aa0c4114146bfb1567bfa9ac")
+  title String @unique
 }
 
 model sessions {

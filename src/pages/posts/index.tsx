@@ -45,11 +45,11 @@ export default function Page() {
             <div>
               <Link
                 style={{
-                  color: "#377dff",
+                  color: "var(--blob)",
                   fontSize: "1.7em",
                   fontWeight: 500,
                   textDecoration: "none",
-                  borderBottom: ".14em solid #377dff",
+                  borderBottom: ".14em solid var(--blob)",
                 }}
                 href={{
                   pathname: "/post/[title]",

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import Head from "next/head";
 import styles from "../styles/styles.module.css";
 
@@ -80,6 +81,7 @@ export default function Page() {
               </li>
             </ul>
           </div>
+          <div style={{ padding: "1rem 0" }} />
         </div>
       </>
     </>
