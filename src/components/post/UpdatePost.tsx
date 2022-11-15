@@ -27,7 +27,7 @@ export function UpdatePost({ title }: { title: string }) {
       title: form.title.value as string,
       body: form.body.value as string,
     };
-    const response = await fetch("/api/post/update", {
+    await fetch("/api/post/update", {
       body: JSON.stringify(post),
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export function UpdatePost({ title }: { title: string }) {
       method: "PUT",
     });
     setDialog(false);
-    router.push(`/post/${post.title}`);
+    router.reload();
   };
   return (
     <>

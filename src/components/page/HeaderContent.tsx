@@ -14,8 +14,8 @@ export default function HeaderContent() {
         <PostsSVG />
       </Link>
       <Link
-        title="About"
-        href="/about"
+        title="?"
+        href="/whatisthis"
         style={{ color: "inherit" }}
         prefetch={false}
       >

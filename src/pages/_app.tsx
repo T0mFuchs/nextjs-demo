@@ -15,9 +15,6 @@ const DynamicNav = dynamic(() => import("../components/page/NavMenu"), {
 const DynamicScroll = dynamic(() => import("../components/page/ScrollUp"), {
   suspense: true,
 });
-const DynamicTiles = dynamic(() => import("../components/page/GenerateTiles"), {
-  suspense: true,
-});
 
 export default function App({
   Component,
@@ -26,8 +23,6 @@ export default function App({
   return (
     <StrictMode>
       <SessionProvider session={session}>
-        <div id="tiles" />
-        <DynamicTiles />
         <Suspense fallback={<></>}>
           <Layout>
             <Header>

@@ -17,14 +17,12 @@ export const getServerSideProps: GetServerSideProps = async (
   return { props: { title } };
 };
 
-
-
 export default function Page({ title }: { title: string }) {
   const { data: session } = useSession();
   const { push, asPath } = useRouter();
   const handleSignIn = () => {
     push(`/auth/signin?callbackUrl=${asPath}`);
-  }
+  };
   return (
     <>
       <Head>
@@ -45,12 +43,7 @@ export default function Page({ title }: { title: string }) {
       />
       <div style={{ padding: `4rem 0 1rem 0` }}>
         <Link
-          style={{
-            textDecoration: "none",
-            fontSize: "1.25rem",
-            color: "#377dff",
-            fontWeight: 900,
-          }}
+          className={styles.H2}
           href={{ pathname: "/api/post/[title]", query: { title: title } }}
         >
           /api/post/[title]
@@ -59,17 +52,28 @@ export default function Page({ title }: { title: string }) {
       <div style={{ padding: `0 2rem` }}>
         <ReadPost title={title} />
         <div style={{ padding: `.5rem 0` }}>
-          {session ? (<>
-            <DeletePost title={title} />
-          <span style={{ padding: `0 .2rem` }} />
-          <UpdatePost title={title} />
-          </>) : (<>
-            <div>your currently not signed in</div>
-            <div style={{ padding: `.5rem 0` }}>to edit or delete posts you need to be signed in</div>
-            <button onClick={() => {
+          {session ? (
+            <>
+              <DeletePost title={title} />
+              <span style={{ padding: `0 .2rem` }} />
+              <UpdatePost title={title} />
+            </>
+          ) : (
+            <>
+              <div>your currently not signed in</div>
+              <div style={{ padding: `.5rem 0` }}>
+                to edit or delete posts you need to be signed in
+              </div>
+              <button
+                onClick={() => {
                   handleSignIn();
-                }} className={styles.Button}>sign in</button>
-          </>)}
+                }}
+                className={styles.Button}
+              >
+                sign in
+              </button>
+            </>
+          )}
         </div>
       </div>
       <div

@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URL")
+}
+
+model accounts {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  access_token      String
+  provider          String
+  providerAccountId String
+  scope             String
+  token_type        String
+  type              String
+  userId            String @db.ObjectId
+}
+
+model post {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  body  String
+  title String @unique(map: "UQ_e28aa0c4114146bfb1567bfa9ac")
+}
+
+model sessions {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  expires      DateTime @db.Date
+  sessionToken String
+  userId       String   @db.ObjectId
+}
+
+model users {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  email         String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  emailVerified Json?
+  image         String
+  name          String
+}

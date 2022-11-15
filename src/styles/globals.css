@@ -2,7 +2,7 @@
 :root {
   --color-primary: #fff5c5;
   --color-secondary: #ff674b;
-  --blob: #5e22e070;
+  --blob: #1079f1;
   --background-primary: #000000;
   --background-secondary: #19190ffb;
 }
@@ -44,6 +44,7 @@ body {
 .Layout {
   position: absolute;
   width: calc(100vw - 1px);
+  display: grid;
 }
 
 /* make header sticky again */
@@ -145,7 +146,7 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     color: var(--color-primary);
-    background-image: linear-gradient(110deg, var(--background-primary) 11%, var(--background-secondary) 110%);
+    background-image: linear-gradient(110deg, var(--background-primary) 11%, var(--background-secondary) 220%);
   }
   .tile::before { background-color: #0f0f0f; }
   .menu { background-color: #000000ee; }

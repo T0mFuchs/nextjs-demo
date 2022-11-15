@@ -23,7 +23,7 @@ export default function CreatePost() {
       title: form.title.value as string,
       body: form.body.value as string,
     };
-    const response = await fetch("/api/form/create-post", {
+    await fetch("/api/post/create", {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function CreatePost() {
               style={{
                 textDecoration: "none",
                 fontSize: "1.2rem",
-                color: "#377dff",
+                color: "var(--blob)",
                 fontWeight: 900,
               }}
               href={{ pathname: "/post/[title]", query: { title: title } }}

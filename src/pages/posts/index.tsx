@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import useSWR from "swr";
-import { Observe } from "../../utils/IntersectionObserver";
+import { Observe } from "../../lib/IntersectionObserver";
 import { ArrowDownSVG, Spinner } from "../../components";
 
 import styles from "../../styles/styles.module.css";

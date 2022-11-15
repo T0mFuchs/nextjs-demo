@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="icon" href="/icon.svg" />
+        <link rel="icon" href="/empty.svg" />
         <meta name="description" content="app-description" />
         <meta name="color-scheme" content="light dark" />
       </Head>

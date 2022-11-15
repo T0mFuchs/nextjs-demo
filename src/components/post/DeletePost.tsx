@@ -31,7 +31,7 @@ export function DeletePost({ title }: { title: string }) {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const data = { id: post.id, title: post.title };
-    const response = await fetch("/api/post/delete", {
+    await fetch("/api/post/delete", {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
