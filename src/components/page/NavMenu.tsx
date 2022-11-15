@@ -19,46 +19,46 @@ export default function NavMenu() {
           <span></span>
           <span></span>
           <ul className="menu">
-            <Link href="/" prefetch={false}>
-              <li>
+            <li>
+              <Link href="/" prefetch={false}>
                 <IconSVG />
                 {` `}
                 Home
-              </li>
-            </Link>
-            <Link href="/posts" prefetch={false}>
-              <li>
+              </Link>
+            </li>
+            <li>
+              <Link href="/posts" prefetch={false}>
                 <div style={{ position: "relative", left: "-.3em" }}>
                   <PostsSVG />
                   Posts
                 </div>
-              </li>
-            </Link>
-            <Link href="/about" prefetch={false}>
-              <li>
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" prefetch={false}>
                 <QuestionSVG />
                 {` `}
                 About
-              </li>
-            </Link>
-            <Link href="/auth/session" prefetch={false}>
-              <li>
+              </Link>
+            </li>
+            <li>
+              <Link href="/auth/session" prefetch={false}>
                 <div style={{ position: "relative", left: "-.5em" }}>
                   <AccountSVG />
                   {` `}OAuth
                 </div>
-              </li>
-            </Link>
-            <a href="https://github.com/T0mFuchs/nextssr">
-              <li>
+              </Link>
+            </li>
+            <li>
+              <a href="https://github.com/T0mFuchs/nextssr">
                 <div style={{ position: "relative", left: "-.3em" }}>
                   <GithubSVG />
                   {` `}Github
                 </div>
-              </li>
-            </a>
-            <div className="spacer" style={{ paddingTop: "40rem" }}></div>
+              </a>
+            </li>
           </ul>
+          <div className="spacer" style={{ paddingTop: "40rem" }}></div>
         </div>
       </nav>
     </>

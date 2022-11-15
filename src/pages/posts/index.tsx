@@ -14,7 +14,7 @@ export default function Page() {
   const { data } = useSWR(`/api/posts`, fetcher);
 
   //  ?  ::  this breaks websocket for hmr for some reason
-  React.useEffect(() => Observe());
+  React.useEffect(() => Observe);
 
   if (!data) return <Spinner />;
   return (
@@ -24,6 +24,7 @@ export default function Page() {
       </Head>
       <ArrowDownSVG />
       <div
+        className={styles.Blob}
         style={{
           borderRadius: `38% 62% 41% 59% / 56% 37% 63% 44% `,
           background: `var(--blob)`,

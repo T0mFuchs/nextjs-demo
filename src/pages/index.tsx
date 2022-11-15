@@ -11,6 +11,7 @@ export default function Page() {
         empty home page
       </h2>
       <div
+        className={styles.Blob}
         style={{
           borderRadius: `50% 50% 50% 50% / 45% 45% 55% 55% `,
           background: `var(--blob)`,
@@ -22,7 +23,7 @@ export default function Page() {
         }}
       />
       <div
-        className={styles.Card}
+        className={`${styles.Card} ${styles.Blob}`}
         style={{
           borderRadius: `56% 44% 56% 44% / 55% 49% 51% 45%`,
           width: "33vw",

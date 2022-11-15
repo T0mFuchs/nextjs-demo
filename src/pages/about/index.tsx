@@ -11,6 +11,7 @@ export default function Page() {
         /about
       </h2>
       <div
+        className={styles.Blob}
         style={{
           borderRadius: `17% 83% 84% 16% / 55% 49% 51% 45%`,
           background: `var(--blob)`,
@@ -22,8 +23,11 @@ export default function Page() {
           zIndex: -2,
         }}
       />
-      <div  style={{ paddingTop: "2rem" }}>
-        <ul className={styles.Card} style={{ lineHeight: "5rem", width: "75%" , paddingLeft: "3rem" }}>
+      <div style={{ paddingTop: "2rem" }}>
+        <ul
+          className={styles.Card}
+          style={{ lineHeight: "5rem", width: "75%", paddingLeft: "3rem" }}
+        >
           <li></li>
           <li></li>
           <li></li>

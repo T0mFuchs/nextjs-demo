@@ -56,6 +56,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .Blob {
+    animation: showContent 5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
   .DialogOverlay {
     animation: showOverlay 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }

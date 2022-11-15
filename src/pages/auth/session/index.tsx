@@ -32,6 +32,7 @@ export default function Page() {
               <SignInNotification />
             </Suspense>
             <div
+              className={styles.Blob}
               style={{
                 borderRadius: `38% 62% 41% 59% / 56% 37% 63% 44% `,
                 background: `var(--blob)`,
