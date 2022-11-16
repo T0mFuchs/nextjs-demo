@@ -1,5 +1,7 @@
-import prisma from "../../../lib/prisma";
+import "reflect-metadata";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { getEM, withORM } from "../../../lib";
+import { Post } from "../../../entities";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
@@ -9,12 +11,11 @@ const handler: NextApiHandler = async (
   if (!id || !title || !body) {
     return res.status(400);
   }
-  await prisma.post.update({
-    where: { id },
-    data: { title, body },
-  });
+  const em = getEM();
+  await em.nativeUpdate(Post, id, { title, body });
   res.statusCode = 200;
   res.end();
 };
 
-export default handler;
+export default withORM(handler);
+

@@ -2,19 +2,12 @@ import { ReactNode, StrictMode, Suspense } from "react";
 import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import dynamic from "next/dynamic";
+import NavMenu from "../components/page/NavMenu";
+import HeaderContent from "../components/page/HeaderContent";
+import ScrollUp from "../components/page/ScrollUp";
 import "../styles/globals.css";
 
-const DynamicHeader = dynamic(
-  () => import("../components/page/HeaderContent"),
-  { suspense: true }
-);
-const DynamicNav = dynamic(() => import("../components/page/NavMenu"), {
-  suspense: true,
-});
-const DynamicScroll = dynamic(() => import("../components/page/ScrollUp"), {
-  suspense: true,
-});
+
 
 export default function App({
   Component,
@@ -26,11 +19,11 @@ export default function App({
         <Suspense fallback={<></>}>
           <Layout>
             <Header>
-              <DynamicNav />
-              <DynamicHeader />
+              <NavMenu />
+              <HeaderContent />
             </Header>
             <Page>
-              <DynamicScroll />
+              <ScrollUp />
               <Component {...pageProps} />
             </Page>
           </Layout>

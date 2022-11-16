@@ -15,10 +15,10 @@ export function ReadPost({ title }: { title: string }) {
       <div style={{ padding: "1rem 0" }}>
         <ArrowDownSVG />
       </div>
-      <div className={styles.Card} style={{ width: "67%" }}>
+      <div className={styles.Card} style={{ maxWidth: "60vw" }}>
         <div style={{ fontSize: "1.6rem", fontWeight: 100 }}>{data.title}</div>
         <p>{data.body}</p>
-        <div style={{ color: "var(--grey)", fontSize: "0.6rem" }}>
+        <div style={{ fontSize: "0.6rem" }}>
           {data.id}
         </div>
       </div>

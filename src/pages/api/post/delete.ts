@@ -1,5 +1,7 @@
-import prisma from "../../../lib/prisma";
+import "reflect-metadata";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { getEM, withORM } from "../../../lib";
+import { Post } from "../../../entities";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
@@ -9,9 +11,11 @@ const handler: NextApiHandler = async (
   if (!id || !title) {
     return res.status(400);
   }
- await prisma.post.delete({ where: { id } });
+  const em = getEM();
+  await em.nativeDelete(Post, { id, title });
   res.statusCode = 200;
   res.end();
 };
 
-export default handler;
+export default withORM(handler);
+

@@ -50,7 +50,7 @@ export default function Page() {
               width: "75%",
             }}
           >
-            <ul style={{ textAlign: "left" }}>
+            <ul style={{ textAlign: "left", listStylePosition: "outside" }}>
               <li>
                 <a style={{ color: "var(--blob)" }} href="https://nextjs.org">
                   Next.js
@@ -72,12 +72,12 @@ export default function Page() {
                 </i>
               </li>
               <li>
-                <a style={{ color: "var(--blob)" }} href="https://prisma.io">
-                  Prisma
+                <a style={{ color: "var(--blob)" }} href="https://mikro-orm.io">
+                  Mikro-ORM
                 </a>
                 <i>
                   {" "}
-                  - ORM for TypeScript with ~ 750.000 weekly downloads</i>
+                  - ORM for TypeScript with ~ 125.000 weekly downloads</i>
               </li>
             </ul>
           </div>

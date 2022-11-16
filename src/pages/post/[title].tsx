@@ -1,7 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ReadPost } from "../../components/post/ReadPost";
@@ -51,11 +50,11 @@ export default function Page({ title }: { title: string }) {
       </div>
       <div style={{ padding: `0 2rem` }}>
         <ReadPost title={title} />
-        <div style={{ padding: `.5rem 0` }}>
+        <div style={{ padding: `1rem 0` }}>
           {session ? (
             <>
               <DeletePost title={title} />
-              <span style={{ padding: `0 .2rem` }} />
+              <span style={{ padding: `0 .5rem` }} />
               <UpdatePost title={title} />
             </>
           ) : (
