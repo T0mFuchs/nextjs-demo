@@ -20,10 +20,10 @@ body {
 
 .box-shadow {
   box-shadow: #32325d40 0 50px 100px 0, #0000004d 0 50px 100px -100px;
-  height: 4.5vh;
+  height: 5vh;
   width: 150vh;
   position: fixed;
-  top: 1vh;
+  top: 0;
 }
 
 @media only screen and (max-width: 600px) {
@@ -41,5 +41,5 @@ body {
     background-image: linear-gradient(40deg, var(--background-primary) 40%, var(--background-secondary) 330%);
   }
   .tile::before { background-color: #0f0f0f; }
-  .navbar { background-color: #000000ee; }
+  .navbar { background-color: #000000cc; }
 }
