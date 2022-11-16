@@ -13,21 +13,26 @@ html { scrollbar-width: none; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-size: 200%;
-  min-height: 100vh;
   overflow-x: hidden;
   text-align: center;
   margin: 0;
 }
 
+.box-shadow {
+  box-shadow: #32325d40 0 50px 100px 0, #0000004d 0 50px 100px -100px;
+  height: 4.5vh;
+  width: 150vh;
+  position: fixed;
+  top: 1vh;
+}
+
+@media only screen and (max-width: 600px) {
+  .Layout { padding-top: 8vh; height: calc(92vh - 1px); }
+}
+
 /* for IntersectionObserver */
 .hidden { opacity: 0; z-index: 0; transition: 500ms; }
 .hidden.visible { opacity: 1; z-index: 0; transform: translateX(0); }
-
-.Layout {
-  padding-top: 8vh;
-  height: calc(92vh - 1px);
-}
-
 
 /* overrides for dark browser color-scheme */
 @media (prefers-color-scheme: dark) {

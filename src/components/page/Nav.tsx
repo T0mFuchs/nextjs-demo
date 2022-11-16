@@ -12,7 +12,7 @@ export default function Nav() {
               href="/"
               prefetch={false}
               className={styles["nav-link"]}
-              style={{ color: "inherit" }}
+              style={{ color: "inherit", paddingLeft: ".15em" }}
             >
               <IconSVG />
               <span className={styles["link-text"]}>Home</span>
@@ -45,7 +45,7 @@ export default function Nav() {
               href="/about"
               prefetch={false}
               className={styles["nav-link"]}
-              style={{ color: "inherit" }}
+              style={{ color: "inherit", paddingLeft: ".1em" }}
             >
               <QuestionSVG />
               <span className={styles["link-text"]}>About</span>
@@ -55,7 +55,7 @@ export default function Nav() {
             <a
               href="https://github.com/T0mFuchs/nextssr"
               className={styles["nav-link"]}
-              style={{ color: "inherit" }}
+              style={{ color: "inherit", paddingLeft: ".15em" }}
             >
               <GithubSVG />
               <span
@@ -67,6 +67,7 @@ export default function Nav() {
             </a>
           </li>
         </ul>
+        <div className="spacer" style={{ padding: "25rem 0" }} />
       </nav>
     </>
   );
