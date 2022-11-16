@@ -1,7 +1,4 @@
-# default
 .next
 node_modules
 .env
-
-# else
 todo.md 
