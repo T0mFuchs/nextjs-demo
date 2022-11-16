@@ -90,7 +90,7 @@ export default function CreatePost() {
               required
               minLength={2}
               maxLength={20}
-              pattern="^[^\s]+(\s+[^\s]+)*$"  // regex for disallowing whitespaces https://regexr.com/
+              pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces https://regexr.com/
             />
             <label style={{ padding: ".05rem 0" }} htmlFor="body" />
             <input

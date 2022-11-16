@@ -18,9 +18,7 @@ export function ReadPost({ title }: { title: string }) {
       <div className={styles.Card} style={{ maxWidth: "60vw" }}>
         <div style={{ fontSize: "1.6rem", fontWeight: 100 }}>{data.title}</div>
         <p>{data.body}</p>
-        <div style={{ fontSize: "0.6rem" }}>
-          {data.id}
-        </div>
+        <div style={{ fontSize: "0.6rem" }}>{data.id}</div>
       </div>
     </>
   );

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-sync-scripts */
 import Head from "next/head";
 import styles from "../styles/styles.module.css";
 
@@ -9,7 +8,7 @@ export default function Page() {
         <title>?</title>
       </Head>
       <>
-        <h2 style={{ padding: `1rem 0 ` }} className={styles.H2}>
+        <h2 style={{ padding: `1rem 0` }} className={styles.H2}>
           ?
         </h2>
         <div
@@ -20,8 +19,9 @@ export default function Page() {
             height: `100vh`,
             width: `6vh`,
             position: `fixed`,
+            rotate: `180deg`,
             top: `0`,
-            left: `-.5em`,
+            right: `-.5em`,
             zIndex: -2,
           }}
         />
@@ -52,18 +52,13 @@ export default function Page() {
           >
             <ul style={{ textAlign: "left", listStylePosition: "outside" }}>
               <li>
-                <a style={{ color: "var(--blob)" }} href="https://nextjs.org">
+                <a className={styles.Link} href="https://nextjs.org">
                   Next.js
                 </a>
-                <i>
-                  {" "}
-                  - React Framework with ~ 4 million weekly downloads</i>
+                <i> - React Framework with ~ 4 million weekly downloads</i>
               </li>
               <li>
-                <a
-                  style={{ color: "var(--blob)" }}
-                  href="https://next-auth.js.org/"
-                >
+                <a className={styles.Link} href="https://next-auth.js.org/">
                   NextAuth.js
                 </a>
                 <i>
@@ -72,12 +67,10 @@ export default function Page() {
                 </i>
               </li>
               <li>
-                <a style={{ color: "var(--blob)" }} href="https://mikro-orm.io">
+                <a className={styles.Link} href="https://mikro-orm.io">
                   Mikro-ORM
                 </a>
-                <i>
-                  {" "}
-                  - ORM for TypeScript with ~ 125.000 weekly downloads</i>
+                <i> - ORM for TypeScript with ~ 125.000 weekly downloads</i>
               </li>
             </ul>
           </div>

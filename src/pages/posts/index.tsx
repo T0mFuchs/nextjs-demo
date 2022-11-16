@@ -11,10 +11,12 @@ const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
 
 export default function Page() {
-  const { data } = useSWR(`/api/posts`, fetcher);
+  const { data } = useSWR("/api/posts", fetcher);
 
   //  ?  ::  this breaks websocket for hmr for some reason
-  React.useEffect(() => Observe);
+  React.useEffect(() => {
+    Observe();
+  });
 
   if (!data) return <Spinner />;
   return (
@@ -23,18 +25,6 @@ export default function Page() {
         <title>posts</title>
       </Head>
       <ArrowDownSVG />
-      <div
-        className={styles.Blob}
-        style={{
-          borderRadius: `38% 62% 41% 59% / 56% 37% 63% 44% `,
-          background: `var(--blob)`,
-          height: `10vh`,
-          width: `100vmax`,
-          position: `fixed`,
-          top: `-5vh`,
-          zIndex: -2,
-        }}
-      />
       <div style={{ padding: "0 2em 1em 0" }} />
       {data.map((post: any) => (
         <div key={post.id} className="hidden">
@@ -44,12 +34,10 @@ export default function Page() {
           >
             <div>
               <Link
+                className={styles.Link}
                 style={{
-                  color: "var(--blob)",
                   fontSize: "1.7em",
                   fontWeight: 500,
-                  textDecoration: "none",
-                  borderBottom: ".14em solid var(--blob)",
                 }}
                 href={{
                   pathname: "/post/[title]",

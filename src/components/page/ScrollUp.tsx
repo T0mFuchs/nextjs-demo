@@ -21,9 +21,9 @@ export default function ScrollUp() {
           className={styles.Button}
           style={{
             position: "fixed",
-            bottom: ".5em",
-            right: ".5em",
-            zIndex: "10",
+            bottom: ".2em",
+            right: ".2em",
+            zIndex: 1,
           }}
           onClick={goToTop}
         >

@@ -13,6 +13,12 @@
 }
 .Button:hover { scale: 1.05 }
 
+.Link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: .14em solid var(--blob);
+}
+
 .Card {
   color: inherit;
   background-color: background-light;
@@ -24,6 +30,9 @@
   max-width: 400px;
 }
 .Card:hover { background-color: hover-light; }
+@media only screen and (max-width: 450px) {
+  .Card { max-width: 72.5vw; }
+}
 
 .H2 { text-shadow: background-light -1px -1px 1px, background-dark 1px 1px 1px; font-size: 3rem; color: currentColor }
 

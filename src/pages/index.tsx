@@ -5,18 +5,21 @@ import styles from "../styles/styles.module.css";
 export const getStaticProps: GetStaticProps = async () => {
   const url = process.env.NEXTAUTH_URL;
   return {
-    props: { url }
-  }
-}
+    props: { url },
+  };
+};
 
-export default function Page({ url}: { url: string }) {
+export default function Page({ url }: { url: string }) {
   return (
     <>
       <Head>
         <title>index.tsx</title>
       </Head>
       <>
-        <h2 className={styles.H2} style={{ padding: `2rem 0`, fontSize: `2rem` }}>
+        <h2
+          className={styles.H2}
+          style={{ padding: `2rem 0`, fontSize: `2rem` }}
+        >
           {url}
         </h2>
       </>

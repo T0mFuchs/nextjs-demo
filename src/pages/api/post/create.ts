@@ -12,11 +12,10 @@ const handler: NextApiHandler = async (
     return res.status(400);
   }
   const em = getEM();
-  em.create(Post, { title, body })
+  em.create(Post, { title, body });
   await em.flush();
   res.statusCode = 200;
   res.end();
 };
 
 export default withORM(handler);
-
