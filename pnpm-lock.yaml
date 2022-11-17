@@ -4,8 +4,9 @@ specifiers:
   '@mikro-orm/core': ^5.5.3
   '@mikro-orm/mongodb': ^5.5.3
   '@preact/compat': ^17.1.2
-  '@radix-ui/react-alert-dialog': ^1.0.2
-  '@radix-ui/react-toast': ^1.1.1
+  '@radix-ui/react-alert-dialog': 1.0.2
+  '@radix-ui/react-dialog': 1.0.2
+  '@radix-ui/react-toast': 1.1.1
   '@types/node': ^18.11.9
   '@types/react': ^18.0.24
   '@types/react-dom': ^18.0.8
@@ -27,6 +28,7 @@ devDependencies:
   '@mikro-orm/mongodb': 5.5.3_@mikro-orm+core@5.5.3
   '@preact/compat': 17.1.2_preact@10.11.3
   '@radix-ui/react-alert-dialog': 1.0.2_knhnagtyfncgg2hpin7s37uixq
+  '@radix-ui/react-dialog': 1.0.2_knhnagtyfncgg2hpin7s37uixq
   '@radix-ui/react-toast': 1.1.1_biqbaboplfbrettd7655fr4n2y
   '@types/node': 18.11.9
   '@types/react': 18.0.24

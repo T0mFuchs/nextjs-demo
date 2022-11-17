@@ -131,3 +131,5 @@ export function UpdatePost({ title }: { title: string }) {
     </>
   );
 }
+
+export default UpdatePost;

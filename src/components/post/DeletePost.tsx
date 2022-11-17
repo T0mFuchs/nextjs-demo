@@ -7,11 +7,6 @@ import {
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
 
-import styles from "../../styles/styles.module.css";
-
-// todo :: trigger dialog on click (do you really want to delete this post?, with check and cross svg)
-// todo :: redirect to /posts after delete
-
 export function DeletePost({ title }: { title: string }) {
   const [dialog, setDialog] = React.useState(false);
   const [post, setPost]: any = React.useState(null);
@@ -110,3 +105,5 @@ export function DeletePost({ title }: { title: string }) {
     </>
   );
 }
+
+export default DeletePost;

@@ -3,10 +3,10 @@ import Head from "next/head";
 import { Suspense } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import CreatePost from "../../../components/post/CreatePost";
 
 import styles from "../../../styles/styles.module.css";
 
-const CreatePost = dynamic(() => import("../../../components/post/CreatePost"));
 const SignInNotification = dynamic(
   () => import("../../../components/SignInNotification")
 );
@@ -69,7 +69,7 @@ export default function Page() {
             </>
           ) : (
             <>
-              <p style={{ paddingBottom: "2rem" }}>
+              <p style={{ paddingBottom: "2rem" }} className={styles.fadeIn}>
                 you are currently not logged in
               </p>
               <>
@@ -77,7 +77,7 @@ export default function Page() {
                   onClick={() => {
                     handleSignIn();
                   }}
-                  className={styles.Button}
+                  className={`${styles.Button} ${styles.fadeIn}`}
                 >
                   sign in
                 </button>
