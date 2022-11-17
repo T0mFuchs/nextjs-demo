@@ -55,48 +55,27 @@ export default function Page() {
                 <a className={styles.Link} href="https://nextjs.org">
                   Next.js
                 </a>
-                <i>
-                  {" "}
-                  - React Framework with{" "}
-                  <span style={{ whiteSpace: "pre" }}>
-                    ~ 4 million weekly downloads
-                  </span>
-                </i>
+                <i> - React Framework with <span style={{ whiteSpace: "pre" }}>~ 4 million weekly downloads</span></i>
               </li>
               <li>
                 <a className={styles.Link} href="https://next-auth.js.org/">
                   NextAuth.js
                 </a>
                 <i>
-                  - Authentication for Next.js{" "}
-                  <span style={{ whiteSpace: "pre" }}>
-                    ~ 250.000 weekly downloads
-                  </span>
+                  - Authentication for Next.js <span style={{ whiteSpace: "pre" }}>~ 250.000 weekly downloads</span>
                 </i>
               </li>
               <li>
                 <a className={styles.Link} href="https://mikro-orm.io">
                   Mikro-ORM
                 </a>
-                <i>
-                  {" "}
-                  - 5kb ORM for TypeScript{" "}
-                  <span style={{ whiteSpace: "pre" }}>
-                    ~ 125.000 weekly downloads
-                  </span>
-                </i>
+                <i> - 5kb ORM for TypeScript <span style={{ whiteSpace: "pre" }}>~ 125.000 weekly downloads</span></i>
               </li>
               <li>
-                <a className={styles.Link} href="https://preactjs.com">
+                <a  className={styles.Link} href="https://preactjs.com">
                   Preact
                 </a>
-                <i>
-                  {" "}
-                  - 3kB alternative to React with the same modern API{" "}
-                  <span style={{ whiteSpace: "pre" }}>
-                    ~ 2 million weekly downloads
-                  </span>
-                </i>
+                <i> - 3kB alternative to React with the same modern API <span style={{ whiteSpace: "pre" }}>~ 2 million weekly downloads</span></i>
               </li>
             </ul>
           </div>

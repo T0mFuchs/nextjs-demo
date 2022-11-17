@@ -43,7 +43,12 @@ export default function CreatePost() {
           </div>
           <div style={{ padding: ".2rem 0" }}>
             <Link
-              className={styles.Link}
+              style={{
+                textDecoration: "none",
+                fontSize: "1.2rem",
+                color: "var(--blob)",
+                fontWeight: 900,
+              }}
               href={{ pathname: "/post/[title]", query: { title: title } }}
             >
               {title}

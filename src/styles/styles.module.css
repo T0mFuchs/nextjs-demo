@@ -40,10 +40,6 @@
 
 .DialogOverlay { box-shadow: 0 0 0 100vmax #00000080, 0 0 2rem #00000080; }
 
-@media only screen and (max-width: 600px) {
-  .Options { top: 8vh !important; }
-}
-
 @keyframes showOverlay {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -71,16 +67,13 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .Blob {
-    animation: showContent 5s cubic-bezier(0.22, .5, 0.3, .7);
+    animation: showContent 5s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .DialogOverlay {
     animation: showOverlay 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .DialogContent {
     animation: showContent 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .fadeIn {
-    animation: showContent 5s cubic-bezier(0.5, 1, 0.3, 1);
   }
   .Toast [data-state="open"] {
     animation: slideIn 200ms cubic-bezier(0.16, 1, 0.3, 1);
