@@ -1,13 +1,16 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ReadPost } from "../../components/post/ReadPost";
-import { UpdatePost } from "../../components/post/UpdatePost";
-import { DeletePost } from "../../components/post/DeletePost";
 
 import styles from "../../styles/styles.module.css";
+
+const UpdatePost = dynamic(() => import("../../components/post/UpdatePost"));
+const DeletePost = dynamic(() => import("../../components/post/DeletePost"));
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
@@ -52,11 +55,11 @@ export default function Page({ title }: { title: string }) {
         <ReadPost title={title} />
         <div style={{ padding: `1rem 0` }}>
           {session ? (
-            <>
+            <Suspense fallback={<></>}>
               <DeletePost title={title} />
               <span style={{ padding: `0 .5rem` }} />
               <UpdatePost title={title} />
-            </>
+            </Suspense>
           ) : (
             <>
               <div>your currently not signed in</div>

@@ -2,6 +2,7 @@ import * as T from "@radix-ui/react-toast";
 import { ReactNode } from "react";
 
 import styles from "../../styles/styles.module.css";
+import toast from "./toast.module.css";
 
 export function Toast({ children }: { children: ReactNode }) {
   return (
@@ -9,20 +10,7 @@ export function Toast({ children }: { children: ReactNode }) {
       <T.Root className={styles.Card} style={{ borderRadius: "1rem" }}>
         {children}
       </T.Root>
-      <T.Viewport
-        className={styles.Toast}
-        style={{
-          position: "fixed",
-          bottom: "0",
-          right: "0",
-          display: "flex",
-          flexDirection: "column",
-          padding: ".5rem",
-          listStyle: "none",
-          zIndex: 10,
-          outline: "none",
-        }}
-      />
+      <T.Viewport className={`${styles.Toast}, ${toast.Viewport}`} />
     </T.Provider>
   );
 }
@@ -35,14 +23,7 @@ export function ToastAction({
   altText: string;
 }) {
   return (
-    <T.Action
-      altText={altText}
-      style={{
-        color: "var(--color-secondary)",
-        border: "0",
-        background: "none",
-      }}
-    >
+    <T.Action altText={altText} className={toast.Action}>
       {children}
     </T.Action>
   );
