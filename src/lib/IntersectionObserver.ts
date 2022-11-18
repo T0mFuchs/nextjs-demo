@@ -1,4 +1,4 @@
-export function Observe() {
+export function Observe(): void {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(
       (entry) => {
