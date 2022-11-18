@@ -12,6 +12,7 @@ import {
 } from "../../components/radix-ui/Dialog";
 
 import styles from "../../styles/styles.module.css";
+import { dateFromObjectId } from "../../lib/dateFromObjectId";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
@@ -96,7 +97,7 @@ export default function Page() {
               </Link>
             </div>
             <p>{post.body}</p>
-            <div style={{ fontSize: "0.6em" }}>_id: {post.id}</div>
+            <div style={{ fontSize: "0.6em" }}>{dateFromObjectId(post.id).toLocaleDateString()}</div>
           </div>
           <div style={{ padding: "2em" }}></div>
         </div>
