@@ -17,8 +17,8 @@ export function ReadPost({ title }: { title: string }) {
   const { data } = useSWR(`/api/post/${title}`, fetcher);
   if (!data)
     return (
-      <Suspense>
-        <Background delay={150} />
+      <Suspense fallback={<></>}>
+        <Background delay={125} />
       </Suspense>
     );
   return (

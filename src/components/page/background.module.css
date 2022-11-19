@@ -4,7 +4,6 @@
   position: fixed;
   transform: translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%))
     rotate(125deg);
-  z-index: -1;
 }
 
 .animated {
@@ -15,6 +14,12 @@
   background-color: var(--color-secondary);
   border-radius: 20%;
   position: fixed;
-  background: linear-gradient(-45deg, var(--color-primary), #0000ff00);
-  filter: drop-shadow(0 0 .6em var(--color-secondary));
+  background: linear-gradient(-45deg, #ccc, #0000ff00);
+  filter: drop-shadow(0 0 .6em #000);
+}
+@media (prefers-color-scheme: dark) {
+  .animated {
+    background: linear-gradient(-45deg, var(--color-primary), #0000ff00);
+    filter: drop-shadow(0 0 .6em var(--color-secondary));
+  }
 }

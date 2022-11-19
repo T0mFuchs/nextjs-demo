@@ -38,8 +38,8 @@ export default function Page() {
   });
   if (!data)
     return (
-      <Suspense>
-        <Background delay={150} />
+      <Suspense fallback={<></>}>
+        <Background delay={125} />
       </Suspense>
     );
   return (

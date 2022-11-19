@@ -17,8 +17,9 @@ body {
 
 .box-shadow {
   box-shadow: #32325d40 0 50px 100px 0, #0000004d 0 50px 100px -100px;
+  background-color: #e9e9e9cc;
   height: 5vh;
-  width: 150vh;
+  width: 100%;
   position: fixed;
   top: 0;
 }
@@ -38,8 +39,7 @@ body {
     background: 
     repeating-radial-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%),
     repeating-conic-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%) 60%;
-    z-index: -1;
   }
-  .tile::before { background-color: #0f0f0f; }
   .navbar { background-color: #000000cc; }
+  .box-shadow { background-color: unset; }
 }
