@@ -24,7 +24,7 @@ export default function App({
           <ScrollUp />
           <Component {...pageProps} />
           <Suspense>
-            <Background n={100} />
+            <Background delay={500} />
           </Suspense>
         </div>
       </SessionProvider>

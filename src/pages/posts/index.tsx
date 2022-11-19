@@ -39,7 +39,7 @@ export default function Page() {
   if (!data)
     return (
       <Suspense>
-        <Background n={100} />
+        <Background delay={150} />
       </Suspense>
     );
   return (
@@ -51,7 +51,7 @@ export default function Page() {
       <div style={{ padding: "0 2em 1em 0" }} />
       <DialogRoot open={open} onOpenChange={setOpen}>
         <div
-          style={{ position: "fixed", top: 0, left: 0, padding: ".3em" }}
+          style={{ position: "fixed", padding: ".3em" }}
           className={styles.Options}
         >
           <DialogTrigger>

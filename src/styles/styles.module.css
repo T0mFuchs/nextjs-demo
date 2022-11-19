@@ -40,7 +40,7 @@
 
 .DialogOverlay { box-shadow: 0 0 0 100vmax #00000080, 0 0 2rem #00000080; }
 
-.Options { z-index: 1; }
+.Options { z-index: 2; }
 @media only screen and (max-width: 600px) {
   .Options { top: 8vh !important; }
 }

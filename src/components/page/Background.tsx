@@ -2,26 +2,22 @@ import { useEffect } from "react";
 import anime from "animejs";
 import css from "./background.module.css";
 
-export default function Background({ n }: { n: number }) {
-  // find a solution where this doesnt loop backwards sometimes after loading next page
+export default function Background({ delay }: { delay: number }) {
   useEffect(() => {
-    anim();
-  });
-  const anim = () => {
     anime({
       targets: `.${css.background} .${css.animated}`,
-      easing: "linear",
+      easing: "cubicBezier(.5, .4, .3, .2)",
       loop: true,
-      delay: (el, i) => 500 * i,
+      delay: (el, i) => delay * i,
       opacity: [
         {
-          duration: 1000,
+          duration: 500,
           value: "1",
         },
       ],
       width: [
         {
-          value: "150px",
+          value: "170px",
         },
         {
           value: "0px",
@@ -29,12 +25,12 @@ export default function Background({ n }: { n: number }) {
       ],
       translateX: 400,
     });
-  };
+  }, [delay]);
 
   return (
     <>
       <div className={css.background}>
-        {[...Array(n)].map((x, y) => (
+        {[...Array(150)].map((x, y) => (
           <div
             key={y}
             className={css.animated}

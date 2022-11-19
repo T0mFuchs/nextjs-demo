@@ -28,8 +28,8 @@ body {
 }
 
 /* for src/lib/IntersectionObserver */
-.hidden { opacity: 0; z-index: 0; transition: 500ms; }
-.hidden.visible { opacity: 1; z-index: 0; transform: translateX(0); }
+.hidden { opacity: 0; z-index: -2; transition: 500ms; }
+.hidden.visible { opacity: 1; z-index: -1; transform: translateX(0); }
 
 /* overrides for dark browser color-scheme */
 @media (prefers-color-scheme: dark) {
