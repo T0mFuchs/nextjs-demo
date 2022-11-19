@@ -6,5 +6,5 @@
 .Item:last-child {
   line-height: 1em;
 }
-.Item:hover { scale: 1.1 }
-.Trigger:hover { scale: 1.1 }
+.Item:hover { scale: 1.1; }
+.Trigger:hover { scale: 1.1; }

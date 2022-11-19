@@ -1,9 +1,10 @@
+import React, { Suspense } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
+import dynamic from "next/dynamic";
 import useSWR from "swr";
 import { Observe } from "../../lib/IntersectionObserver";
-import { ArrowDownSVG, Spinner } from "../../components";
+import { ArrowDownSVG } from "../../components";
 import {
   DialogRoot,
   DialogTrigger,
@@ -13,6 +14,10 @@ import {
 
 import styles from "../../styles/styles.module.css";
 import { dateFromObjectId } from "../../lib/dateFromObjectId";
+
+const Background = dynamic(() => import("../../components/page/Background"), {
+  suspense: true,
+});
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
@@ -31,7 +36,12 @@ export default function Page() {
   React.useEffect(() => {
     Observe();
   });
-  if (!data) return <Spinner />;
+  if (!data)
+    return (
+      <Suspense>
+        <Background n={100} />
+      </Suspense>
+    );
   return (
     <>
       <Head>
@@ -97,7 +107,9 @@ export default function Page() {
               </Link>
             </div>
             <p>{post.body}</p>
-            <div style={{ fontSize: "0.6em" }}>{dateFromObjectId(post.id).toLocaleDateString()}</div>
+            <div style={{ fontSize: "0.6em" }}>
+              {dateFromObjectId(post.id).toLocaleDateString()}
+            </div>
           </div>
           <div style={{ padding: "2em" }}></div>
         </div>

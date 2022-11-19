@@ -9,8 +9,12 @@ import { ReadPost } from "../../components/post/ReadPost";
 
 import styles from "../../styles/styles.module.css";
 
-const UpdatePost = dynamic(() => import("../../components/post/UpdatePost"));
-const DeletePost = dynamic(() => import("../../components/post/DeletePost"));
+const UpdatePost = dynamic(() => import("../../components/post/UpdatePost"), {
+  suspense: true,
+});
+const DeletePost = dynamic(() => import("../../components/post/DeletePost"), {
+  suspense: true,
+});
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext

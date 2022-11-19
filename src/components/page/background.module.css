@@ -1,0 +1,20 @@
+.background {
+  width: 200vh;
+  height: 150vw;
+  position: fixed;
+  overflow: hidden;
+  transform: translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%))
+    rotate(120deg);
+}
+
+.animated {
+  height: .3em;
+  top: 300px;
+  width: 100px;
+  opacity: 0;
+  background-color: var(--color-secondary);
+  position: fixed;
+  background: linear-gradient(-45deg, #fff, rgba(0, 0, 255, 0));
+  filter: drop-shadow(0 0 6px #fff);
+  overflow: hidden;
+}

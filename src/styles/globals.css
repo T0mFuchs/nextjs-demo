@@ -1,12 +1,9 @@
-/* accessible everywhere via var() */
 :root {
   --color-primary: #fff5c5;
   --color-secondary: #ff674b;
   --blob: #1079f1;
-  --background-primary: #000000;
-  --background-secondary: #19190ffb;
 }
-/* set scrollbar invisible on all browsers */
+/* set scrollbars invisible */
 html { scrollbar-width: none; }
 ::-webkit-scrollbar { display: none; }
 
@@ -25,12 +22,12 @@ body {
   position: fixed;
   top: 0;
 }
-
+/* for src/components/page/Nav.tsx */
 @media only screen and (max-width: 600px) {
   .Layout { padding-top: 8vh; height: calc(92vh - 1px); }
 }
 
-/* for IntersectionObserver */
+/* for src/lib/IntersectionObserver */
 .hidden { opacity: 0; z-index: 0; transition: 500ms; }
 .hidden.visible { opacity: 1; z-index: 0; transform: translateX(0); }
 
@@ -38,7 +35,10 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     color: var(--color-primary);
-    background-image: linear-gradient(40deg, var(--background-primary) 40%, var(--background-secondary) 330%);
+    background: 
+    repeating-radial-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%),
+    repeating-conic-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%) 60%;
+    z-index: -1;
   }
   .tile::before { background-color: #0f0f0f; }
   .navbar { background-color: #000000cc; }

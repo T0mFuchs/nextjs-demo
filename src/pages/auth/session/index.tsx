@@ -8,7 +8,8 @@ import CreatePost from "../../../components/post/CreatePost";
 import styles from "../../../styles/styles.module.css";
 
 const SignInNotification = dynamic(
-  () => import("../../../components/SignInNotification")
+  () => import("../../../components/SignInNotification"),
+  { suspense: true }
 );
 
 export default function Page() {
