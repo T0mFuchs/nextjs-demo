@@ -16,7 +16,7 @@ specifiers:
   eslint: ^8.28.0
   eslint-config-next: 13.0.1
   next: 13.0.1
-  next-auth: ^4.16.4
+  next-auth: ^4.17.0
   preact: ^10.11.3
   prettier: ^2.7.1
   react: ^18.2.0
@@ -41,7 +41,7 @@ devDependencies:
   eslint: 8.28.0
   eslint-config-next: 13.0.1_hsf322ms6xhhd4b5ne6lb74y4a
   next: 13.0.1_biqbaboplfbrettd7655fr4n2y
-  next-auth: 4.16.4_cuttyyug54cjzme6dhlgj6veu4
+  next-auth: 4.17.0_cuttyyug54cjzme6dhlgj6veu4
   preact: 10.11.3
   prettier: 2.7.1
   react: 18.2.0
@@ -2714,8 +2714,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.16.4_cuttyyug54cjzme6dhlgj6veu4:
-    resolution: {integrity: sha512-KXW578+ER1u5RcWLwCHMdb/RIBIO6JM8r6xlf9RIPSKzkvDcX9FHiZfJS2vOq/SurHXPJZc4J3OS4IDJpF74Dw==}
+  /next-auth/4.17.0_cuttyyug54cjzme6dhlgj6veu4:
+    resolution: {integrity: sha512-aN2tdnjS0MDeUpB2tBDOaWnegkgeMWrsccujbXRGMJ607b+EwRcy63MFGSr0OAboDJEe0902piXQkt94GqF8Qw==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
     peerDependencies:
       next: ^12.2.5 || ^13
