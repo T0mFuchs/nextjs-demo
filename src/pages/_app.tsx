@@ -4,9 +4,9 @@ import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import Nav from "../components/page/Nav";
-import ScrollUp from "../components/page/ScrollUp";
 import "../styles/globals.css";
 
+const ScrollUp = dynamic(() => import("../components/page/ScrollUp"), { suspense: true });
 const Background = dynamic(() => import("../components/page/Background"), {
   suspense: true,
 });
@@ -21,7 +21,9 @@ export default function App({
         <div className="Layout">
           <div className="box-shadow" />
           <Nav />
-          <ScrollUp />
+          <Suspense>
+            <ScrollUp />
+          </Suspense>
           <Component {...pageProps} />
           <Suspense>
             <Background delay={500} />
