@@ -4,7 +4,11 @@
   --blob: #1079f1;
 }
 /* set scrollbars invisible */
-html { scrollbar-width: none; }
+html { 
+  scrollbar-width: none;
+  min-height: 100vh;
+
+}
 ::-webkit-scrollbar { display: none; }
 
 body {
@@ -37,16 +41,15 @@ body {
   body {
     color: var(--color-primary);
     background: 
-    repeating-radial-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%),
-    repeating-conic-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%) 60%;
+    repeating-radial-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%) 50% 100%,
+    repeating-conic-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%) 75% / 100% 150%;
   }
   .navbar { background-color: #000000cc; }
   .box-shadow { background-color: unset; }
 }
-
-/* this is needed since repeating-radial-gradient doesnt work on mobile browsers it should but it doesnt */
 @media (prefers-color-scheme: dark) and (max-width: 600px) {
   body {
-    background: #070707;
+    background: 
+    repeating-conic-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%) 60% 60% / 100% 150%;
   }
 }

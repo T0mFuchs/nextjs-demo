@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowTopSVG } from "..";
 
 import styles from "../../styles/styles.module.css";
+import css from "./scrollup.module.css";
 
 export default function ScrollUp() {
   const [showBtn, setShowBtn] = useState(false);
@@ -18,13 +19,8 @@ export default function ScrollUp() {
     <>
       {showBtn ? (
         <button
-          className={styles.Button}
-          style={{
-            position: "fixed",
-            bottom: ".2em",
-            right: ".2em",
-            zIndex: 1,
-          }}
+          className={`${styles.Button} ${css.Position}`}
+
           onClick={goToTop}
         >
           <ArrowTopSVG />

@@ -1,9 +1,10 @@
 .background {
-  width: 200vh;
-  height: 150vw;
+  width: 250vh;
+  height: 250vw;
   position: fixed;
   transform: translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%))
     rotate(125deg);
+  z-index: -1;
 }
 
 .animated {

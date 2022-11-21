@@ -13,6 +13,7 @@ import {
 } from "../../components/radix-ui/Dialog";
 
 import styles from "../../styles/styles.module.css";
+import css from "./posts.module.css";
 import { dateFromObjectId } from "../../lib/dateFromObjectId";
 
 const Background = dynamic(() => import("../../components/page/Background"), {
@@ -52,7 +53,7 @@ export default function Page() {
       <DialogRoot open={open} onOpenChange={setOpen}>
         <div
           style={{ position: "fixed", padding: ".3em" }}
-          className={styles.Options}
+          className={`${styles.Options} ${css.Search}`}
         >
           <DialogTrigger>
             <SearchSVG />
