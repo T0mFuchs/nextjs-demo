@@ -1,0 +1,17 @@
+.blob {
+  border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+  background: var(--blob);
+  height: 75vh;
+  width: 150vw;
+  position: fixed;
+  z-index: -1;
+
+}
+.blob1 {
+  top: -50vh;
+  left: -75vw;
+}
+.blob2 {
+  top: -55vh;
+  left: -110vw;
+}

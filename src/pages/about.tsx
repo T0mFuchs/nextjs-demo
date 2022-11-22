@@ -8,7 +8,7 @@ export default function Page() {
         <title>?</title>
       </Head>
       <>
-        <h2 style={{ padding: `1rem 0` }} className={styles.H2}>
+        <h2 style={{ padding: `1em 0` }} className={styles.H2}>
           ?
         </h2>
         <div

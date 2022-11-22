@@ -4,6 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
 import { Observe } from "../../lib/IntersectionObserver";
+import { dateFromObjectId } from "../../lib/dateFromObjectId";
 import { ArrowDownSVG } from "../../components";
 import {
   DialogRoot,
@@ -14,7 +15,6 @@ import {
 
 import styles from "../../styles/styles.module.css";
 import css from "./posts.module.css";
-import { dateFromObjectId } from "../../lib/dateFromObjectId";
 
 const Background = dynamic(() => import("../../components/page/Background"), {
   suspense: true,
@@ -90,7 +90,7 @@ export default function Page() {
         <div key={post.id} className="hidden">
           <div
             className={styles.Card}
-            style={{ width: "67%", padding: "1rem" }}
+            style={{ width: "67%", padding: "1em" }}
           >
             <div>
               <Link
@@ -108,7 +108,7 @@ export default function Page() {
               </Link>
             </div>
             <p>{post.body}</p>
-            <div style={{ fontSize: "0.6em" }}>
+            <div style={{ fontSize: ".6em" }}>
               {dateFromObjectId(post.id).toLocaleDateString()}
             </div>
           </div>

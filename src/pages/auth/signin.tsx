@@ -13,7 +13,7 @@ export default function SignIn() {
       push("/auth/session");
     }, 1500);
     return (
-      <h2 style={{ paddingTop: "6rem" }}>
+      <h2 style={{ paddingTop: "6em" }}>
         signed in with {session.user?.email}
       </h2>
     );
@@ -23,8 +23,8 @@ export default function SignIn() {
       <Head>
         <title>signin</title>
       </Head>
-      <h2 style={{ paddingTop: "6rem" }}>
-        <div style={{ paddingTop: "1rem" }}>
+      <h2 style={{ paddingTop: "6em" }}>
+        <div style={{ paddingTop: "1em" }}>
           <GithubSVG />{" "}
           <button
             onClick={() => {
@@ -35,7 +35,7 @@ export default function SignIn() {
             sign in with Github
           </button>
         </div>
-        <div style={{ paddingTop: "1rem" }}>
+        <div style={{ paddingTop: "1em" }}>
           <GoogleSVG />{" "}
           <button
             onClick={() => {
@@ -54,7 +54,7 @@ export default function SignIn() {
 function GoogleSVG() {
   return (
     <svg
-      style={{ position: "relative", top: ".4rem", right: ".4rem" }}
+      style={{ position: "relative", top: ".4em", right: ".4em" }}
       xmlns="http://www.w3.org/2000/svg"
       width="25"
       height="25.59"

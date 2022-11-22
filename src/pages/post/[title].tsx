@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { ReadPost } from "../../components/post/ReadPost";
 
 import styles from "../../styles/styles.module.css";
+import css from "./post.module.css";
 
 const UpdatePost = dynamic(() => import("../../components/post/UpdatePost"), {
   suspense: true,
@@ -35,19 +36,9 @@ export default function Page({ title }: { title: string }) {
         <title>post/{title}</title>
       </Head>
       <div
-        className={styles.Blob}
-        style={{
-          borderRadius: `50% 50% 50% 50% / 45% 45% 55% 55%`,
-          background: `var(--blob)`,
-          height: `75vh`,
-          width: `150vw`,
-          position: `fixed`,
-          top: `-50vh`,
-          left: `-75vw`,
-          zIndex: -2,
-        }}
+        className={`${styles.Blob} ${css.blob1} ${css.blob}`}
       />
-      <div style={{ padding: `4rem 0 1rem 0` }}>
+      <div style={{ padding: `4em 0 1em 0` }}>
         <Link
           className={styles.H2}
           href={{ pathname: "/api/post/[title]", query: { title: title } }}
@@ -55,19 +46,19 @@ export default function Page({ title }: { title: string }) {
           /api/post/[title]
         </Link>
       </div>
-      <div style={{ padding: `0 2rem` }}>
+      <div style={{ padding: `0 2em` }}>
         <ReadPost title={title} />
-        <div style={{ padding: `1rem 0` }}>
+        <div style={{ padding: `1em 0` }}>
           {session ? (
             <Suspense fallback={<></>}>
               <DeletePost title={title} />
-              <span style={{ padding: `0 .5rem` }} />
+              <span style={{ padding: `0 .5em` }} />
               <UpdatePost title={title} />
             </Suspense>
           ) : (
             <>
               <div>your currently not signed in</div>
-              <div style={{ padding: `.5rem 0` }}>
+              <div style={{ padding: `.5em 0` }}>
                 to edit or delete posts you need to be signed in
               </div>
               <button
@@ -83,17 +74,7 @@ export default function Page({ title }: { title: string }) {
         </div>
       </div>
       <div
-        className={styles.Blob}
-        style={{
-          borderRadius: `50% 50% 50% 50% / 45% 45% 55% 55%`,
-          background: `var(--blob)`,
-          height: `75vh`,
-          width: `150vw`,
-          position: `fixed`,
-          bottom: `-55vh`,
-          right: `-110vw`,
-          zIndex: -2,
-        }}
+        className={`${styles.Blob} ${css.blob2} ${css.blob}`}
       />
     </>
   );

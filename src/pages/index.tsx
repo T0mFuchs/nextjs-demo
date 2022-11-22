@@ -18,7 +18,7 @@ export default function Page({ url }: { url: string }) {
       <>
         <h2
           className={styles.H2}
-          style={{ padding: `2rem 0`, fontSize: `2rem` }}
+          style={{ padding: `2em 0`, fontSize: `2em` }}
         >
           {url}
         </h2>

@@ -67,7 +67,6 @@ export default function Nav() {
             </a>
           </li>
         </ul>
-        <div className="spacer" style={{ padding: "25rem 0" }} />
       </nav>
     </>
   );

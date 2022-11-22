@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import CreatePost from "../../../components/post/CreatePost";
 
 import styles from "../../../styles/styles.module.css";
+import css from "./session.module.css";
 
 const SignInNotification = dynamic(
   () => import("../../../components/SignInNotification"),
@@ -28,7 +29,7 @@ export default function Page() {
         )}
       </Head>
       <>
-        <h2 style={{ padding: `1rem 0` }} className={styles.H2}>
+        <h2 style={{ padding: `1em 0` }} className={styles.H2}>
           /auth/session
         </h2>
         <div>
@@ -38,26 +39,17 @@ export default function Page() {
                 <SignInNotification />
               </Suspense>
               <div
-                className={styles.Blob}
-                style={{
-                  borderRadius: `38% 62% 41% 59% / 56% 37% 63% 44% `,
-                  background: `var(--blob)`,
-                  height: `100vmax`,
-                  width: `100vmax`,
-                  position: `fixed`,
-                  top: `15vh`,
-                  zIndex: -2,
-                }}
+                className={`${styles.Blob} ${css.blob}`}
               />
-              <div style={{ padding: "3rem 0 1rem" }}>
-                <div className={styles.Card} style={{ width: "9rem" }}>
+              <div style={{ padding: "3em 0 1em" }}>
+                <div className={styles.Card} style={{ width: "9em" }}>
                   Hello, {session.user?.name}
                 </div>
               </div>
-              <div style={{ padding: "1rem 0 0 0" }}>
+              <div style={{ padding: "1em 0 0 0" }}>
                 <CreatePost />
               </div>
-              <div style={{ padding: "1rem" }} />
+              <div style={{ padding: "1em" }} />
               <button
                 onClick={() => {
                   signOut({ redirect: false });
@@ -70,7 +62,7 @@ export default function Page() {
             </>
           ) : (
             <>
-              <p style={{ paddingBottom: "2rem" }} className={styles.fadeIn}>
+              <p style={{ paddingBottom: "2em" }} className={styles.fadeIn}>
                 you are currently not logged in
               </p>
               <>
@@ -82,7 +74,7 @@ export default function Page() {
                 >
                   sign in
                 </button>
-                <div style={{ padding: ".4rem" }} />
+                <div style={{ padding: ".4em" }} />
               </>
             </>
           )}

@@ -6,7 +6,7 @@ export default function Error() {
       <Head>
         <title>error</title>
       </Head>
-      <div style={{ paddingTop: "1rem", margin: "0 auto" }}>
+      <div style={{ paddingTop: "1em", margin: "0 auto" }}>
         <h1>Auth Error</h1>
         <hr />
         <h2>Something went wrong</h2>
