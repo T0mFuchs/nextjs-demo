@@ -1,6 +1,6 @@
 /* import css  */
 @value colors: "./colors.css";
-@value background-light, background-dark, hover-light, hover-dark from colors;
+@value background-light, background-dark, hover-light, hover-dark, dark80, boxshadow from colors;
 
 .Button {
   color: inherit;
@@ -23,23 +23,28 @@
 .Card {
   color: inherit;
   background-color: background-light;
-  border: 0;
+  border: 1px solid var(--transparent);
   border-radius: .4em;
   padding: .5em .7em .6em .7em;
-  box-shadow: #32325d40 0 1em 2.3em -1em, #0000004d 0 1.5em 2em -1.5em;
+  box-shadow: boxshadow 0 1em 2.3em -1em, dark80 0 1.5em 2em -1.5em;
   margin: 0 auto;
   max-width: 400px;
 }
-.Card:hover { background-color: hover-light; }
-@media only screen and (max-width: 450px) {
-  .Card { max-width: 72.5vw; }
+.Card:hover { border: 1px solid hover-light; }
+@media only screen and (max-width: 600px) {
+  .Card { min-width: 300px; }
 }
 
-.H2 { text-shadow: background-light -1px -1px 1px, background-dark 1px 1px 1px; font-size: 3em; color: currentColor; }
+.H2 { 
+  text-shadow: background-light -1px -1px 1px, background-dark 1px 1px 1px;
+  font-size: 3em;
+  color: currentColor;
+  margin: 0;
+}
 
 .Input:invalid { box-shadow: 0 0 0 .4px var(--color-secondary); }
 
-.DialogOverlay { box-shadow: 0 0 0 100vmax #00000080, 0 0 2em #00000080; }
+.DialogOverlay { box-shadow: 0 0 0 100vmax dark80, 0 0 2em dark80; }
 
 .Options { z-index: 2; }
 @media only screen and (max-width: 600px) {
@@ -105,6 +110,6 @@
 @media (prefers-color-scheme: dark) {
   .Button { background-color: background-dark; }
   .Card { background-color: background-dark; }
-  .Card:hover { background-color: hover-dark; }
+  .Card:hover { border: 1px solid hover-dark; }
   .H2 { text-shadow: background-dark -1px -1px 1px, background-light .5px .5px .5px; }
 }

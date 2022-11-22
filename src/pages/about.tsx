@@ -22,7 +22,7 @@ export default function Page() {
             rotate: `180deg`,
             top: `0`,
             right: `-.5em`,
-            zIndex: -2,
+            zIndex: -10,
           }}
         />
         <div>

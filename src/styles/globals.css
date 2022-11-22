@@ -1,7 +1,8 @@
 :root {
   --color-primary: #fff5c5;
   --color-secondary: #ff674b;
-  --blob: #1079f1;
+  --transparent: #00000000;
+  --blob: #1079f163;
 }
 /* set scrollbars invisible */
 html { 
@@ -11,37 +12,37 @@ html {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: 
+    repeating-radial-gradient(var(--transparent) 0 0.0001%,#e9e9e9cc 0 0.0002%) 50% 100%,
+    repeating-conic-gradient(var(--transparent) 0 0.0001%,#e9e9e9cc 0 0.0002%) 75% / 100% 150%;
   overflow-x: hidden;
   text-align: center;
   margin: 0;
-}
-
-.box-shadow {
-  box-shadow: #32325d40 0 50px 100px 0, #0000004d 0 50px 100px -100px;
-  background-color: #e9e9e9cc;
-  height: 5vh;
-  width: 100%;
-  position: fixed;
-  top: 0;
-}
-/* for src/components/page/Nav.tsx */
-@media only screen and (max-width: 600px) {
-  .Layout { padding-top: 8vh; height: calc(92vh - 1px); }
 }
 
 /* for src/lib/IntersectionObserver */
 .hidden { opacity: 0; z-index: -2; transition: 500ms; }
 .hidden.visible { opacity: 1; z-index: -1; transform: translateX(0); }
 
-/* overrides for dark browser color-scheme */
+@media only screen and (max-width: 600px) {
+  .Layout { padding-top: 8vh; height: calc(92vh - 1px); }
+  .box-shadow {
+    box-shadow: #32325d40 0 50px 100px 0, #0000004d 0 50px 100px -100px;
+    background-color: var(--transparent);
+    height: 7vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     color: var(--color-primary);
     height: 100vmax;
     background: 
-    repeating-radial-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%) 50% 100%,
-    repeating-conic-gradient(#ffffff00 0 0.0001%,#000 0 0.0002%) 75% / 100% 150%;
+    repeating-radial-gradient(var(--transparent) 0 0.0001%,#000 0 0.0002%) 50% 100%,
+    repeating-conic-gradient(var(--transparent) 0 0.0001%,#000 0 0.0002%) 75% / 100% 150%;
   }
-  .navbar { background-color: #000000cc; }
   .box-shadow { background-color: unset; }
 }

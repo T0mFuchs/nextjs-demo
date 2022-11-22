@@ -5,13 +5,12 @@
   width: 150vw;
   position: fixed;
   z-index: -1;
-
 }
 .blob1 {
   top: -50vh;
   left: -75vw;
 }
 .blob2 {
-  top: -55vh;
-  left: -110vw;
+  bottom: -50vh;
+  right: -120vw;
 }

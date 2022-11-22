@@ -52,7 +52,6 @@ export default function Page() {
       <div style={{ padding: "0 2em 1em 0" }} />
       <DialogRoot open={open} onOpenChange={setOpen}>
         <div
-          style={{ position: "fixed", padding: ".3em" }}
           className={`${styles.Options} ${css.Search}`}
         >
           <DialogTrigger>
