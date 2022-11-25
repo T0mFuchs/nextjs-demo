@@ -32,8 +32,7 @@ export default function CreateEntry() {
       {!showPopup ? (
         <button
           className={`${styles.Button} hover`}
-          style={{ width: "120px" }}
-          tabIndex={0}
+          style={{ width: 120 }}
           onClick={() => setShowPopup(true)}
         >
           create entry
@@ -41,8 +40,7 @@ export default function CreateEntry() {
       ) : (
         <button
           className={styles.Button}
-          style={{ width: "120px" }}
-          tabIndex={0}
+          style={{ width: 120 }}
           onClick={() => setShowPopup(false)}
         >
           creating...
@@ -58,7 +56,7 @@ export default function CreateEntry() {
               style={{
                 all: "unset",
                 display: "flex",
-                padding: ".2rem 0",
+                padding: ".2em 0",
                 flexDirection: "column",
               }}
               onSubmit={handleSubmit}
@@ -66,7 +64,7 @@ export default function CreateEntry() {
               <label htmlFor="title" />
               <input
                 style={{
-                  fontSize: "1.3rem",
+                  fontSize: "1.3em",
                   fontWeight: 900,
                   backgroundColor: "var(--transparent)",
                   border: 0,
@@ -80,12 +78,12 @@ export default function CreateEntry() {
                 maxLength={20}
                 pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces https://regexr.com/
               />
-              <label style={{ padding: ".05rem 0" }} htmlFor="body" />
+              <label style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
                 style={{
-                  fontSize: "1rem",
+                  fontSize: "1em",
                   fontWeight: 600,
-                  lineHeight: "2rem",
+                  lineHeight: "2em",
                   backgroundColor: "var(--transparent)",
                   border: 0,
                 }}
@@ -116,8 +114,8 @@ export default function CreateEntry() {
               style={{
                 all: "unset",
                 position: "absolute",
-                right: "-.8rem",
-                top: "-.8rem",
+                right: "-.8em",
+                top: "-.8em",
                 color: "var(--color-secondary)",
               }}
               onClick={() => {

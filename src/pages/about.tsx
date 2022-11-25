@@ -8,16 +8,16 @@ export default function Page() {
         <title>?</title>
       </Head>
       <>
-        <h2 style={{ padding: `1em 0` }} className={styles.H2}>
+        <h2 style={{ padding: "1em 0" }} className={styles.H2}>
           ?
         </h2>
         <div>
           <div
             className={styles.Card}
             style={{
-              fontSize: "1.1rem",
-              fontWeight: "900",
-              lineHeight: "2rem",
+              fontSize: "1.1em",
+              fontWeight: 900,
+              lineHeight: "2em",
               width: "80%",
             }}
           >
@@ -26,7 +26,7 @@ export default function Page() {
             <p>cold starts 1s max</p>
             <p>google lighthouse score 100</p>
           </div>
-          <div style={{ padding: "1rem 0" }} />
+          <div style={{ padding: "1em 0" }} />
         </div>
       </>
     </>

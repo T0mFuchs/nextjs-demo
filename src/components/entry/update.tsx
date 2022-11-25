@@ -63,7 +63,7 @@ export default function UpdateEntry({ title }: { title: string }) {
               style={{
                 all: "unset",
                 display: "flex",
-                padding: ".2rem 0",
+                padding: ".2em 0",
                 flexDirection: "column",
               }}
               onSubmit={handleSubmit}
@@ -71,7 +71,7 @@ export default function UpdateEntry({ title }: { title: string }) {
               <label htmlFor="title" />
               <input
                 style={{
-                  fontSize: "1.3rem",
+                  fontSize: "1.3em",
                   fontWeight: 900,
                   border: 0,
                   backgroundColor: "var(--transparent)",
@@ -84,15 +84,15 @@ export default function UpdateEntry({ title }: { title: string }) {
                 maxLength={20}
                 pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces https://regexr.com/
               />
-              <label style={{ padding: ".05rem 0" }} htmlFor="body" />
+              <label style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
                 style={{
-                  fontSize: "1rem",
+                  fontSize: "1em",
                   fontWeight: 600,
-                  lineHeight: "1.7rem",
+                  lineHeight: "1.7em",
                   backgroundColor: "var(--transparent)",
                   border: 0,
-                  height: "400",
+                  height: 400,
                 }}
                 rows={10}
                 className={styles.Input}
@@ -124,8 +124,8 @@ export default function UpdateEntry({ title }: { title: string }) {
               style={{
                 all: "unset",
                 position: "absolute",
-                right: "-.8rem",
-                top: "-.8rem",
+                right: "-.8em",
+                top: "-.8em",
                 color: "var(--color-secondary)",
               }}
               onClick={() => {

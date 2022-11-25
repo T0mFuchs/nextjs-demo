@@ -55,7 +55,7 @@ export default function DeleteEntry({ title }: { title: string }) {
               style={{
                 all: "unset",
                 display: "flex",
-                padding: ".2rem 0",
+                padding: ".2em 0",
                 flexDirection: "column",
               }}
               onSubmit={handleSubmit}
@@ -79,8 +79,8 @@ export default function DeleteEntry({ title }: { title: string }) {
               style={{
                 all: "unset",
                 position: "absolute",
-                right: "-.8rem",
-                top: "-.8rem",
+                right: "-.8em",
+                top: "-.8em",
                 color: "var(--color-secondary)",
               }}
               onClick={() => {

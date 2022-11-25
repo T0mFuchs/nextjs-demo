@@ -15,9 +15,9 @@ export default function ReadEntry({ title }: { title: string }) {
     <>
       <div style={{ padding: "2em 0" }} />
       <div className={styles.Card} style={{ maxWidth: "60vw" }}>
-        <div style={{ fontSize: "1.6rem", fontWeight: 100 }}>{data.title}</div>
+        <div style={{ fontSize: "1.6em", fontWeight: 100 }}>{data.title}</div>
         <p>{data.body}</p>
-        <div style={{ fontSize: "0.6rem" }}>
+        <div style={{ fontSize: ".6em" }}>
           {dateFromObjectId(data.id).toLocaleDateString()}
         </div>
       </div>

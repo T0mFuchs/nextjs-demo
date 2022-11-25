@@ -24,20 +24,22 @@ export default function Page() {
       <Head>
         <title>entries</title>
       </Head>
-      {data.map((entry: Entry) => (
-        <>
-          <div key={entry.id} className={`hidden ${styles.Card}`}>
-            <div className={styles.H2}>
-              <Link href={`entry/${entry.title}`}>{entry.title}</Link>
+      {data
+        .map((entry: Entry) => (
+          <>
+            <div key={entry.id} className={`hidden ${styles.Card}`}>
+              <div className={styles.H2} style={{ fontSize: "2em" }}>
+                <Link href={`entry/${entry.title}`}>{entry.title}</Link>
+              </div>
+              <p>{entry.body}</p>
+              <div style={{ fontSize: ".6em" }}>
+                {dateFromObjectId(entry.id).toLocaleDateString()}
+              </div>
             </div>
-            <p>{entry.body}</p>
-            <div style={{ fontSize: ".6em" }}>
-              {dateFromObjectId(entry.id).toLocaleDateString()}
-            </div>
-          </div>
-          <div style={{ padding: "1.4em" }} />
-        </>
-      ))}
+            <div style={{ padding: "1.4em" }} />
+          </>
+        ))
+        .reverse()}
     </>
   );
 }

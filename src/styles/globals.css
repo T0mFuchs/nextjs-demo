@@ -10,6 +10,7 @@ html { scrollbar-width: none; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   text-align: center;
+  height: 100vmax;
   margin: 0;
 }
 
@@ -18,10 +19,10 @@ body {
 .hidden.visible { opacity: 1; z-index: -1; transform: translateX(0); }
 
 .box-shadow-bottom {
-  box-shadow: #32325d40 0 0 300px 55px;
+  box-shadow: #43216918 -200px 0 300px 50px;
   background-color: var(--transparent);
   position: fixed;
-  width: 108%;
+  width: 175%;
   height: 0;
   bottom: 0;
 }
