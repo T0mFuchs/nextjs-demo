@@ -1,9 +1,9 @@
 import { Options, ReflectMetadataProvider } from "@mikro-orm/core";
-import { Post } from "../entities";
+import { Entry } from "../entities";
 
 const options: Options = {
   type: "mongo",
-  entities: [Post],
+  entities: [Entry],
   clientUrl: process.env.MONGO_URL,
   metadataProvider: ReflectMetadataProvider,
   debug: true,

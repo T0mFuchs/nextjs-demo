@@ -20,26 +20,16 @@ export default function Nav() {
           </li>
           <li className={styles["nav-item"]}>
             <Link
-              href="/posts"
+              href="/entries"
               prefetch={false}
               className={styles["nav-link"]}
               style={{ color: "inherit" }}
             >
               <PostsSVG />
-              <span className={styles["link-text"]}>Posts</span>
+              <span className={styles["link-text"]}>Entries</span>
             </Link>
           </li>
-          <li className={styles["nav-item"]}>
-            <Link
-              href="/auth/session"
-              prefetch={false}
-              className={styles["nav-link"]}
-              style={{ color: "inherit" }}
-            >
-              <AccountSVG />
-              <span className={styles["link-text"]}>OAuth</span>
-            </Link>
-          </li>
+
           <li className={styles["nav-item"]}>
             <Link
               href="/about"
@@ -83,7 +73,14 @@ function IconSVG() {
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 16 16"
     >
-      <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.75 5.75v7.5h8.5v-7.5m-10.5 1.5L8 1.75l6.25 5.5"/>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M3.75 5.75v7.5h8.5v-7.5m-10.5 1.5L8 1.75l6.25 5.5"
+      />
     </svg>
   );
 }

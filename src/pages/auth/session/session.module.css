@@ -1,9 +1,0 @@
-.blob {
-  border-radius: 38% 62% 41% 59% / 56% 37% 63% 44%;
-  background: var(--blob);
-  height: 100vmax;
-  width: 100vmax;
-  position: fixed;
-  top: 15vh;
-  z-index: -1;
-}

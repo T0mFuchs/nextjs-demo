@@ -1,15 +1,10 @@
-import { StrictMode, Suspense } from "react";
-import dynamic from "next/dynamic";
+import { StrictMode } from "react";
 import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import Nav from "../components/page/Nav";
+import ScrollUp from "../components/page/ScrollUp";
 import "../styles/globals.css";
-
-const ScrollUp = dynamic(() => import("../components/page/ScrollUp"), { suspense: true });
-const Background = dynamic(() => import("../components/page/Background"), {
-  suspense: true,
-});
 
 export default function App({
   Component,
@@ -18,16 +13,15 @@ export default function App({
   return (
     <StrictMode>
       <SessionProvider session={session}>
+        <ScrollUp />
         <div className="Layout">
-          <div className="box-shadow" />
           <Nav />
-          <Suspense>
-            <ScrollUp />
-          </Suspense>
           <Component {...pageProps} />
-          <Suspense>
-            <Background delay={500} />
-          </Suspense>
+          <div className="box-shadow-bottom" />
+          <div className="box-shadow-bottom" />
+          <div className="box-shadow-bottom" />
+          <div className="box-shadow-bottom" />
+          <div className="box-shadow-bottom" />
         </div>
       </SessionProvider>
     </StrictMode>

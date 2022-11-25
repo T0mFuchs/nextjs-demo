@@ -1,20 +1,19 @@
 import "reflect-metadata";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { getEM, withORM } from "../../../lib";
-import { Post } from "../../../entities";
+import { Entry } from "../../../entities";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { id, title, body } = req.body;
-  if (!id || !title || !body) {
-    return res.status(400);
-  }
+  const { title } = req.query;
   const em = getEM();
-  await em.nativeUpdate(Post, id, { title, body });
+  const post = await em.findOne(Entry, { title });
+
   res.statusCode = 200;
-  res.end();
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(post));
 };
 
 export default withORM(handler);

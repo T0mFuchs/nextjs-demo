@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <link rel="icon" href="/empty.svg" />
-        <meta name="description" content="app-description" />
+        <meta name="description" content="nextjs demo app" />
         <meta name="color-scheme" content="light dark" />
       </Head>
       <body>

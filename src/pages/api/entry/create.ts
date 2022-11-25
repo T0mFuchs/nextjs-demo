@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { getEM, withORM } from "../../../lib";
-import { Post } from "../../../entities";
+import { Entry } from "../../../entities";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
@@ -12,7 +12,7 @@ const handler: NextApiHandler = async (
     return res.status(400);
   }
   const em = getEM();
-  em.create(Post, { title, body });
+  em.create(Entry, { title, body });
   await em.flush();
   res.statusCode = 200;
   res.end();

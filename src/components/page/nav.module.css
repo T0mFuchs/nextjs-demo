@@ -7,7 +7,7 @@
   background-color: #e9e9e9cc;
   overflow-x: hidden;
   scrollbar-width: none;
-  box-shadow: boxshadow 0 50px 100px 0, dark80 0 50px 100px -100px;
+  box-shadow: boxshadow -20px 0 100px 40px;
 }
 .navbar-nav {
   list-style: none;
@@ -37,9 +37,7 @@
   .navbar {
     top: 0;
     width: 100vw;
-    height: 9vh;
-    border-bottom-left-radius: 12.5%;
-    border-bottom-right-radius: 12.5%;
+    height: 5.25em;
   }
   .navbar-nav { flex-direction: row; }
   .nav-link { justify-content: center; }

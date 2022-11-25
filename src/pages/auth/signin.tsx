@@ -2,7 +2,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import styles from "../../styles/styles.module.css";
+import styles from "../../styles/main.module.css";
 
 export default function SignIn() {
   const { data: session } = useSession();
@@ -10,7 +10,7 @@ export default function SignIn() {
 
   if (session) {
     setTimeout(() => {
-      push("/auth/session");
+      push("/");
     }, 1500);
     return (
       <h2 style={{ paddingTop: "6em" }}>
@@ -21,7 +21,7 @@ export default function SignIn() {
   return (
     <>
       <Head>
-        <title>signin</title>
+        <title>3rd party signin</title>
       </Head>
       <h2 style={{ paddingTop: "6em" }}>
         <div style={{ paddingTop: "1em" }}>

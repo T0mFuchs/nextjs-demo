@@ -8,7 +8,6 @@ export default function Error() {
       </Head>
       <div style={{ paddingTop: "1em", margin: "0 auto" }}>
         <h1>Auth Error</h1>
-        <hr />
         <h2>Something went wrong</h2>
       </div>
     </>

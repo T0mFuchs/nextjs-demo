@@ -1,0 +1,43 @@
+/* import css  */
+@value colors: "./colors.css";
+@value background-light, background-dark, hover-light, hover-dark, dark80 from colors;
+
+.Button {
+  color: inherit;
+  background-color: background-light;
+  border: 0;
+  border-radius: .4em;
+  padding: .5em .7em .6em .7em;
+  font-weight: 600;
+  font-size: 1.2em;
+  margin: 0 auto;
+}
+.Button:hover { scale: 1.05 }
+
+.Card {
+  color: inherit;
+  background-color: background-light;
+  border: 2px solid var(--transparent);
+  border-radius: .4em;
+  padding: .5em .7em .6em .7em;
+  box-shadow: #32325d40 0 1em 2.3em -1em, dark80 0 1.5em 2em -1.5em;
+  margin: 0 auto;
+  max-width: 400px;
+}
+.Card:hover { border: 2px solid hover-light; }
+
+
+.H2 { 
+  text-shadow: background-light -1px -1px 1px, background-dark 1px 1px 1px;
+  font-size: 3em;
+  color: currentColor;
+  margin: 0;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .Button { background-color: background-dark; }
+  .Card { background-color: background-dark; }
+  .Card:hover { border: 2px solid hover-dark; }
+  .H2 { text-shadow: background-dark -1px -1px 1px, background-light .5px .5px .5px; }
+}
