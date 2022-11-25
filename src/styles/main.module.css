@@ -20,7 +20,7 @@
   border: 2px solid var(--transparent);
   border-radius: .4em;
   padding: .5em .7em .6em .7em;
-  box-shadow: #32325d40 0 1em 2.3em -1em, dark80 0 1.5em 2em -1.5em;
+  box-shadow: var(--box-shadaow) 0 1em 2.3em -1em, dark80 0 1.5em 2em -1.5em;
   margin: 0 auto;
   max-width: 400px;
 }

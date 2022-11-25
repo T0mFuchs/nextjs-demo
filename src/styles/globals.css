@@ -2,6 +2,7 @@
   --color-primary: #fff5c5;
   --color-secondary: #ff674b;
   --transparent: #00000000;
+  --box-shadaow: #2f1f3d2a;
 }
 /* set scrollbars invisible */
 html { scrollbar-width: none; }
@@ -18,11 +19,20 @@ body {
 .hidden { opacity: 0; z-index: -2; transition: 500ms; }
 .hidden.visible { opacity: 1; z-index: -1; transform: translateX(0); }
 
-.box-shadow-bottom {
-  box-shadow: #43216918 -200px 0 300px 50px;
+.bst {
+  box-shadow: var(--box-shadaow) -200px 0 250px 50px;
   background-color: var(--transparent);
   position: fixed;
-  width: 175%;
+  width: 200%;
+  height: 0;
+  top: 10vh;
+}
+
+.bsb {
+  box-shadow: var(--box-shadaow) -200px 0 250px 50px;
+  background-color: var(--transparent);
+  position: fixed;
+  width: 200%;
   height: 0;
   bottom: 0;
 }

@@ -22,7 +22,7 @@ export default function Page() {
       <>
         <h2
           className={styles.H2}
-          style={{ padding: `1em 0`, fontSize: `2em` }}
+          style={{ padding: "1em 0", fontSize: "2em" }}
         ></h2>
         {session ? (
           <>

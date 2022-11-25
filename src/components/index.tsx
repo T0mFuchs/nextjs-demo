@@ -1,12 +1,9 @@
-import React from "react";
-
 export function Fallback() {
   return (
     <>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        style={{ verticalAlign: "-0.125em" }}
-        width="30%"
+        width="42%"
         height="100%"
         preserveAspectRatio="xMidYMid meet"
         viewBox="0 0 24 24"

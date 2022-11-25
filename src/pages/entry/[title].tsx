@@ -1,9 +1,12 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
+import Link from "next/link";
 import ReadEntry from "../../components/entry/read";
 import DeleteEntry from "../../components/entry/delete";
 import UpdateEntry from "../../components/entry/update";
+
+import styles from "../../styles/main.module.css";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
@@ -32,7 +35,15 @@ export default function Page({ title }: { title: string }) {
             </div>
           </>
         ) : (
-          <></>
+            <>
+              <div style={{ paddingBottom: "1em" }} />
+              <p>currently not signed in</p>
+              <Link style={{ textDecoration: 0 }} href="/auth/signin">
+              <div className={styles.Button} style={{ width: 100 }}>
+                sign in
+            </div>
+              </Link>
+            </>
         )}
       </div>
     </>

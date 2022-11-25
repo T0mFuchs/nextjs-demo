@@ -1,6 +1,6 @@
-# `nextjs ssr demo app`
+# `nextjs demo app`
 
-## nextjs api, nextauth, mikro-orm & mongodb (atlas)
+## nextjs api, next-auth, mikro-orm & mongodb (atlas)
 
 ```
 
@@ -11,7 +11,7 @@
 
 ```last build log
 Route (pages)                              Size     First Load JS
-┌ ○ /                                      1.58 kB        50.7 kB
+┌ ○ /                                      1.59 kB        50.7 kB
 ├   /_app                                  0 B            49.1 kB
 ├ ○ /404                                   379 B          49.5 kB
 ├ ○ /500                                   384 B          49.5 kB
@@ -30,9 +30,9 @@ Route (pages)                              Size     First Load JS
   ├ chunks/main-6c3194f54fd46d1e.js        33.9 kB
   ├ chunks/pages/_app-cc693f0fbbd843a1.js  14.4 kB
   ├ chunks/webpack-ee7e63bc15b31913.js     815 B
-  └ css/b3844ce5f70c0cbb.css               1.11 kB
+  └ css/b3844ce5f70c0cbb.css               1.13 kB
 
-λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)     
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
 ○  (Static)  automatically rendered as static HTML (uses no initial props)
 ```
 
