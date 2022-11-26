@@ -1,0 +1,35 @@
+.wrapper {
+  padding: 1em 0 2em 1em;
+}
+.input {
+  background-color: var(--transparent);
+  border: 1px solid currentColor;
+  border-radius: .5em;
+  padding: 10px;
+  width: 80vw;
+  max-width: 500px;
+}
+@media screen and (prefers-color-scheme: dark) {
+  .input {
+    border: 1px solid var(--color-primary);
+  }
+}
+.icon {
+  left: -1.3em;
+  position: relative;
+  vertical-align: middle;
+  font-size: 1.5em;
+}
+.output {
+  padding: 1em 2em 0 0;
+  overflow-y: auto;
+  height: 20vh;
+}
+.item {
+  border: 1px solid ;
+  border-radius: .5em;
+  width: 40vw;
+  max-width: 375px;
+  margin: 0 auto;
+  line-height: 2em;
+}
