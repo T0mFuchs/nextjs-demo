@@ -7,7 +7,7 @@ import { dateFromObjectId } from "../../lib/dateFromObjectId";
 import { CrossSVG , Fallback } from "../../components";
 
 import styles from "../../styles/main.module.scss";
-import css from "./search.module.css";
+import css from "./search.module.scss";
 import { Entry } from "../../lib/Entry";
 
 const fetcher = (url: string) =>
