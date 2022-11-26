@@ -22,10 +22,10 @@ export default function Page() {
             }}
           >
             <div className={styles.border}>
-            <p>next.js</p>
-            <p>hosted with vercel on aws servers</p>
-            <p>cold starts 1s max</p>
-            <p>google lighthouse score 100</p>
+              <p>next.js</p>
+              <p>hosted with vercel on aws servers</p>
+              <p>cold starts 1s max</p>
+              <p>google lighthouse score 100</p>
             </div>
           </div>
           <div style={{ padding: "1em 0" }} />

@@ -62,12 +62,18 @@ export default function Page() {
           </>
         ) : (
           <>
-            <p className={animate.flicker} style={{ top: "50%", left: "50%", transform: "translate(-50%,-50%)"}} data-text="sign in for interactivity">sign in for interactivity</p>
-            <div className={styles.Button} style={{ width: 100 }}>
-              <Link style={{ textDecoration: 0 }} href="/auth/signin">
-                sign in
-              </Link>
-            </div>
+            <Link
+              href="/auth/signin"
+              className={animate.flicker}
+              style={{
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%,-50%)",
+              }}
+              data-text="sign in for interactivity"
+            >
+              sign in<div>for interactivity</div>
+            </Link>
           </>
         )}
       </>
