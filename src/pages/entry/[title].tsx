@@ -6,7 +6,7 @@ import ReadEntry from "../../components/entry/read";
 import DeleteEntry from "../../components/entry/delete";
 import UpdateEntry from "../../components/entry/update";
 
-import styles from "../../styles/main.module.css";
+import styles from "../../styles/main.module.scss";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
 
-import styles from "../../styles/main.module.css";
+import styles from "../../styles/main.module.scss";
 
 export default function DeleteEntry({ title }: { title: string }) {
   const router = useRouter();

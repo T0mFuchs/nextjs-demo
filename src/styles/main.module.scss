@@ -1,0 +1,41 @@
+.Button {
+  color: inherit;
+  background-color: var(--bg-light);
+  border: 0;
+  border-radius: .4em;
+  padding: .5em .7em .6em .7em;
+  font-weight: 600;
+  font-size: 1.2em;
+  margin: 0 auto;
+}
+.Button:hover { scale: 1.05 }
+
+.Card {
+  color: inherit;
+  background-color: var(--bg-light);
+  border-radius: .4em;
+  padding: .5em .7em .6em .7em;
+  box-shadow: var(--box-shadaow) 0 1em 2.3em -1em, var(--dark80) 0 1.5em 2em -1.5em;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 400px;
+  position: relative;
+}
+
+/* add animation to make border radius draw itself with some gradient as color on hover looped */
+.border {
+
+}
+
+.H2 { 
+  text-shadow: var(--bg-light) -1px -1px 1px, var(--bg-dark) 1px 1px 1px;
+  font-size: 3em;
+  color: currentColor;
+  margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .Button { background-color: var(--bg-dark); }
+  .Card { background-color: var(--bg-dark); }
+  .H2 { text-shadow: var(--bg-dark) -1px -1px 1px, var(--bg-light) .5px .5px .5px; }
+}

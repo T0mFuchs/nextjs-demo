@@ -2,7 +2,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import styles from "../../styles/main.module.css";
+import styles from "../../styles/main.module.scss";
 
 export default function SignIn() {
   const { data: session } = useSession();

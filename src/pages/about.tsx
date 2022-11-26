@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../styles/main.module.css";
+import styles from "../styles/main.module.scss";
 
 export default function Page() {
   return (
@@ -21,10 +21,12 @@ export default function Page() {
               width: "80%",
             }}
           >
+            <div className={styles.border}>
             <p>next.js</p>
             <p>hosted with vercel on aws servers</p>
             <p>cold starts 1s max</p>
             <p>google lighthouse score 100</p>
+            </div>
           </div>
           <div style={{ padding: "1em 0" }} />
         </div>

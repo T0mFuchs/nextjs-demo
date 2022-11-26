@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import styles from "../../styles/main.module.css";
+import styles from "../../styles/main.module.scss";
 
 export const PopupCentered = ({ children }: { children: React.ReactNode }) => {
   return ReactDOM.createPortal(

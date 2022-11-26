@@ -6,7 +6,7 @@ import { Observe } from "../../lib/IntersectionObserver";
 import { dateFromObjectId } from "../../lib/dateFromObjectId";
 import { CrossSVG , Fallback } from "../../components";
 
-import styles from "../../styles/main.module.css";
+import styles from "../../styles/main.module.scss";
 import css from "./search.module.css";
 import { Entry } from "../../lib/Entry";
 

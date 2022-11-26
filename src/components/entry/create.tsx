@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
 
-import styles from "../../styles/main.module.css";
+import styles from "../../styles/main.module.scss";
 
 export default function CreateEntry() {
   const [showPopup, setShowPopup] = React.useState(false);

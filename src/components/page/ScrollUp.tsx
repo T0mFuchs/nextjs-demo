@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { ArrowTopSVG } from "..";
 
-import styles from "../../styles/main.module.css";
-import css from "./scrollup.module.css";
+import styles from "../../styles/main.module.scss";
+import css from "./scrollup.module.scss";
 
 export default function ScrollUp() {
   const [showBtn, setShowBtn] = useState(false);

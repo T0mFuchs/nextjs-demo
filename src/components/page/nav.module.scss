@@ -1,13 +1,10 @@
-@value colors: "../../styles/colors.css";
-@value dark80, boxshadow from colors;
-
 .navbar {
   z-index: 1;
   position: fixed;
-  background-color: #e9e9e9cc;
+  background-color: var(--bg-light);
   overflow-x: hidden;
   scrollbar-width: none;
-  box-shadow: boxshadow -20px 0 100px 40px;
+  box-shadow: var(--box-shadaow) -20px 0 100px 40px;
 }
 .navbar-nav {
   list-style: none;
@@ -49,7 +46,7 @@
     top: -.75em;
     height: 100vh;
     padding: .5em;
-    background-color: dark80;
+    background-color: var(--dark80);
   }
   .navbar:hover .link-text { display: inline; }
   .navbar:hover { width: 20vw; }

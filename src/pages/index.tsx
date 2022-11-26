@@ -5,7 +5,8 @@ import CreateEntry from "../components/entry/create";
 import { PopupAppend } from "../components/portals/popup";
 import { signOut, useSession } from "next-auth/react";
 
-import styles from "../styles/main.module.css";
+import styles from "../styles/main.module.scss";
+import animate from "../styles/animate.module.scss";
 
 export default function Page() {
   const [open, setOpen] = React.useState(false);
@@ -61,7 +62,7 @@ export default function Page() {
           </>
         ) : (
           <>
-            <p>sign in for interactivity</p>
+            <p className={animate.flicker} style={{ top: "50%", left: "50%", transform: "translate(-50%,-50%)"}} data-text="sign in for interactivity">sign in for interactivity</p>
             <div className={styles.Button} style={{ width: 100 }}>
               <Link style={{ textDecoration: 0 }} href="/auth/signin">
                 sign in

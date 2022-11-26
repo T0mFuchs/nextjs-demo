@@ -4,7 +4,7 @@ import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import Nav from "../components/page/Nav";
 import ScrollUp from "../components/page/ScrollUp";
-import "../styles/globals.css";
+import "../styles/globals.scss";
 
 export default function App({
   Component,
@@ -13,14 +13,6 @@ export default function App({
   return (
     <StrictMode>
       <SessionProvider session={session}>
-        <div className="bst" />
-        <div className="bst" />
-        <div className="bst" />
-        <div className="bst" />
-        <div className="bst" />
-        <div className="bst" />
-        <div className="bst" />
-        <div className="bst" />
         <div className="Layout">
           <ScrollUp />
           <Nav />

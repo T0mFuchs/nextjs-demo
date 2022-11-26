@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
 
-import styles from "../../styles/main.module.css";
+import styles from "../../styles/main.module.scss";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
