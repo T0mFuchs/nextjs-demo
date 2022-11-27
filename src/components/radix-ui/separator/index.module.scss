@@ -1,0 +1,17 @@
+.root{
+  background-color: var(--bg-dark);
+  margin: 2.5em 0
+}
+.root[data-orientation='horizontal'] {
+  height: 1px;
+  width: 100%;
+}
+.root[data-orientation='vertical'] {
+  height: 100%;
+  width: 1px;
+}
+@media screen and (prefers-color-scheme: dark) {
+  .root {
+    background-color: var(--bg-light);
+  }
+}

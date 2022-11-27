@@ -75,7 +75,7 @@ function Search({ data }: { data: Entry[] }) {
           placeholder="search titles..."
         />
         <button
-          style={{ all: "unset" }}
+          style={{ all: "unset", fontSize: "1.3em" }}
           onClick={() => {
             setCurrent("");
           }}
@@ -87,7 +87,11 @@ function Search({ data }: { data: Entry[] }) {
         <div className={css.output}>
           {filtered.map((entry: Entry) => (
             <div key={entry.id}>
-              <Link href={`/entry/${entry.title}`} className={css.item}>
+              <Link
+                href={`/entry/${entry.title}`}
+                prefetch={false}
+                className={css.item}
+              >
                 {entry.title}
               </Link>
               <span

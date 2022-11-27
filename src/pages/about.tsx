@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Separator from "../components/radix-ui/Separator";
 import styles from "../styles/main.module.scss";
 
 export default function Page() {
@@ -8,9 +9,12 @@ export default function Page() {
         <title>?</title>
       </Head>
       <>
-        <h2 style={{ padding: "1em 0" }} className={styles.H2}>
+        <h2 style={{ paddingBottom: "1em" }} className={styles.H2}>
           ?
         </h2>
+        <div style={{ paddingBottom: "2.5em" }}>
+          <Separator style={{ maxWidth: 380, margin: "0 auto" }} />
+        </div>
         <div>
           <div
             className={styles.Card}

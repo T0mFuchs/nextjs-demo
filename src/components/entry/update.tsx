@@ -3,6 +3,8 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
+import Label from "../radix-ui/Label";
+import AcessibleIcon from "../radix-ui/AccessibleIcon";
 
 import styles from "../../styles/main.module.scss";
 
@@ -68,7 +70,7 @@ export default function UpdateEntry({ title }: { title: string }) {
               }}
               onSubmit={handleSubmit}
             >
-              <label htmlFor="title" />
+              <Label htmlFor="title" />
               <input
                 style={{
                   fontSize: "1.3em",
@@ -84,7 +86,7 @@ export default function UpdateEntry({ title }: { title: string }) {
                 maxLength={20}
                 pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces https://regexr.com/
               />
-              <label style={{ padding: ".05em 0" }} htmlFor="body" />
+              <Label style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
                 style={{
                   fontSize: "1em",
@@ -113,26 +115,31 @@ export default function UpdateEntry({ title }: { title: string }) {
                 }}
                 type="submit"
               >
+                save & close{" "}
                 <span>
-                  <CheckSVG />
+                  <AcessibleIcon label="submit">
+                    <CheckSVG />
+                  </AcessibleIcon>
                 </span>
-                save & close
               </button>
             </form>
             <div style={{ padding: ".3em 0" }} />
             <button
               style={{
                 all: "unset",
-                position: "absolute",
-                right: "-.8em",
-                top: "-.8em",
+                position: "fixed",
+                right: "-.25em",
+                top: "-.9em",
                 color: "var(--color-secondary)",
+                fontSize: "1.7em",
               }}
               onClick={() => {
                 setShowPopup(false);
               }}
             >
-              <CrossSVG />
+              <AcessibleIcon label="cancel">
+                <CrossSVG />
+              </AcessibleIcon>
             </button>
           </PopupCentered>
         </>

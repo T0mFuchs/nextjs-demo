@@ -24,7 +24,7 @@ body {
 .hidden { opacity: 0; z-index: -2; transition: 500ms; }
 .hidden.visible { opacity: 1; z-index: -1; transform: translateX(0); }
 
-.bsb {
+.shadow {
   box-shadow: var(--box-shadaow) -200px 0 250px 50px;
   background-color: var(--transparent);
   position: fixed;
@@ -34,12 +34,12 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-  .Layout { padding-top: 13vh; height: calc(87vh - 1px); }
+  .layout { padding-top: 13vh; height: calc(87vh - 1px); }
 }
 
 @media (prefers-color-scheme: dark) {
   body {
     color: var(--color-primary);
-    background-color: var(--bg-dark);
+    background-color: #000;
   }
 }

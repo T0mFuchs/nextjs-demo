@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Separator from "../components/radix-ui/Separator";
 
 export default function Custom404() {
   return (
@@ -8,6 +9,9 @@ export default function Custom404() {
       </Head>
       <div style={{ paddingTop: "1em", margin: "0 auto" }}>
         <h1>404</h1>
+        <div style={{ padding: "2em" }}>
+          <Separator style={{ maxWidth: 200, margin: "0 auto" }} />
+        </div>
         <h2>Not Found</h2>
       </div>
     </>

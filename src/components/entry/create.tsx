@@ -1,7 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { CrossSVG } from "..";
+import { CheckSVG, CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
+import Label from "../radix-ui/Label";
+import AcessibleIcon from "../radix-ui/AccessibleIcon";
 
 import styles from "../../styles/main.module.scss";
 
@@ -61,7 +63,7 @@ export default function CreateEntry() {
               }}
               onSubmit={handleSubmit}
             >
-              <label htmlFor="title" />
+              <Label htmlFor="title" />
               <input
                 style={{
                   fontSize: "1.3em",
@@ -78,7 +80,7 @@ export default function CreateEntry() {
                 maxLength={20}
                 pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces https://regexr.com/
               />
-              <label style={{ padding: ".05em 0" }} htmlFor="body" />
+              <Label style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
                 style={{
                   fontSize: "1em",
@@ -107,22 +109,28 @@ export default function CreateEntry() {
                 }}
                 type="submit"
               >
-                save & close
+                save & close{" "}
+                <AcessibleIcon label="save">
+                  <CheckSVG />
+                </AcessibleIcon>
               </button>
             </form>
             <button
               style={{
                 all: "unset",
                 position: "absolute",
-                right: "-.8em",
-                top: "-.8em",
+                right: "-.4em",
+                top: "-.9em",
                 color: "var(--color-secondary)",
+                fontSize: "1.7em",
               }}
               onClick={() => {
                 setShowPopup(false);
               }}
             >
-              <CrossSVG />
+              <AcessibleIcon label="cancel">
+                <CrossSVG />
+              </AcessibleIcon>
             </button>
           </PopupCentered>
         </>

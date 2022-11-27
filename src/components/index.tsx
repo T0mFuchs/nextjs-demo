@@ -41,8 +41,8 @@ export function CheckSVG() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style={{ verticalAlign: "-0.125em" }}
-      width="2em"
-      height="1.75em"
+      width="1em"
+      height="1em"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 1600 1280"
     >
@@ -58,11 +58,11 @@ export function CrossSVG() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.125em" }}
-      width="2em"
-      height="2em"
+      style={{ verticalAlign: "-0.175em" }}
+      width="1em"
+      height="1em"
       preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 32 32"
+      viewBox="0 0 24 24"
     >
       <path
         fill="currentColor"
@@ -99,7 +99,8 @@ export function ArrowDownSVG() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style={{ verticalAlign: "-0.115em" }}
-      height="2.5rem"
+      width="1em"
+      height="1em"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 24 24"
     >

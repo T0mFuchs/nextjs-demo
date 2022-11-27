@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
+import AcessibleIcon from "../radix-ui/AccessibleIcon";
 
 import styles from "../../styles/main.module.scss";
 
@@ -70,7 +71,9 @@ export default function DeleteEntry({ title }: { title: string }) {
                 }}
               >
                 <span style={{ color: `#70deaf` }}>
-                  <CheckSVG />
+                  <AcessibleIcon label="confirm delete">
+                    <CheckSVG />
+                  </AcessibleIcon>
                 </span>
                 yes, delete post
               </button>
@@ -87,7 +90,9 @@ export default function DeleteEntry({ title }: { title: string }) {
                 setShowPopup(false);
               }}
             >
-              <CrossSVG />
+              <AcessibleIcon label="cancel">
+                <CrossSVG />
+              </AcessibleIcon>
             </button>
           </PopupCentered>
         </>

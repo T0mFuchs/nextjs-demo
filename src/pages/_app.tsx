@@ -13,19 +13,19 @@ export default function App({
   return (
     <StrictMode>
       <SessionProvider session={session}>
-        <div className="Layout">
+        <div className="layout">
           <ScrollUp />
           <Nav />
           <Component {...pageProps} />
         </div>
-        <div className="bsb" />
-        <div className="bsb" />
-        <div className="bsb" />
-        <div className="bsb" />
-        <div className="bsb" />
-        <div className="bsb" />
-        <div className="bsb" />
-        <div className="bsb" />
+        <div className="shadow" />
+        <div className="shadow" />
+        <div className="shadow" />
+        <div className="shadow" />
+        <div className="shadow" />
+        <div className="shadow" />
+        <div className="shadow" />
+        <div className="shadow" />
       </SessionProvider>
     </StrictMode>
   );
