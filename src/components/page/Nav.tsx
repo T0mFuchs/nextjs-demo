@@ -6,7 +6,6 @@ import styles from "./nav.module.scss";
 export default function Nav() {
   return (
     <>
-      <BorderRadius style={{ position: "fixed" }} className={styles.border} />
       <nav className={styles.navbar}>
         <ul className={styles["navbar-nav"]}>
           <li className={styles["nav-item"]}>
@@ -60,6 +59,7 @@ export default function Nav() {
           </li>
         </ul>
       </nav>
+      <BorderRadius style={{ position: "fixed" }} className={styles.border} />
     </>
   );
 }

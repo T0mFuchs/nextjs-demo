@@ -14,8 +14,8 @@ export default function App({
     <StrictMode>
       <SessionProvider session={session}>
         <div className="layout">
-          <ScrollUp />
           <Nav />
+          <ScrollUp />
           <Component {...pageProps} />
         </div>
         <div className="shadow" />
