@@ -16,7 +16,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "./src/"
+    "baseUrl": "./src"
   },
   "include": [
     "env.d.ts",
