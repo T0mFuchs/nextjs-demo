@@ -6,7 +6,6 @@ import { PopupCentered } from "components/portals/popup";
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
-
 import styles from "styles/main.module.scss";
 
 const fetcher = (url: string) =>

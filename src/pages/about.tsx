@@ -13,7 +13,7 @@ export default function Page() {
           ?
         </h2>
         <div style={{ paddingBottom: "2.5em" }}>
-          <Separator style={{ maxWidth: 380, margin: "0 auto" }} />
+          <Separator style={{ maxWidth: 500, margin: "0 auto" }} />
         </div>
         <div>
           <div

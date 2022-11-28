@@ -7,6 +7,7 @@ import DeleteEntry from "components/entry/delete";
 import UpdateEntry from "components/entry/update";
 
 import styles from "styles/main.module.scss";
+import Flicker from "components/animated/Flicker";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
@@ -22,9 +23,9 @@ export default function Page({ title }: { title: string }) {
       <Head>
         <title>post/{title}</title>
       </Head>
-      <div style={{ padding: `0 2em` }}>
+      <>
         <ReadEntry title={title} />
-
+        <div style={{ paddingBottom: "1em" }} />
         {session ? (
           <>
             <div style={{ display: "inline-block", paddingTop: "1em" }}>
@@ -37,15 +38,30 @@ export default function Page({ title }: { title: string }) {
         ) : (
           <>
             <div style={{ paddingBottom: "1em" }} />
-            <p>currently not signed in</p>
-            <Link style={{ textDecoration: 0 }} href="/auth/signin">
-              <div className={styles.Button} style={{ width: 100 }}>
-                sign in
-              </div>
-            </Link>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Flicker
+                style={{ left: "50%", transform: "translate(-50%,-50%)" }}
+                string="currently not signed in"
+              >
+                currently not signed in
+              </Flicker>
+              <Link style={{ textDecoration: 0 }} href="/auth/signin">
+                <Flicker
+                  className={styles.Button}
+                  style={{
+                    margin: "3em 0",
+                    left: "50%",
+                    transform: "translate(-50%,-50%)",
+                  }}
+                  string="sign in"
+                >
+                  sign in
+                </Flicker>
+              </Link>
+            </div>
           </>
         )}
-      </div>
+      </>
     </>
   );
 }
