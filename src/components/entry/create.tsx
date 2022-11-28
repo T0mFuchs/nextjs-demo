@@ -2,8 +2,8 @@ import React from "react";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
-import Label from "../radix-ui/Label";
-import AcessibleIcon from "../radix-ui/AccessibleIcon";
+import { Label } from "../radix-ui/Label";
+import { AcessibleIcon } from "../radix-ui/AccessibleIcon";
 
 import styles from "../../styles/main.module.scss";
 
