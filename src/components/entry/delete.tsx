@@ -2,9 +2,10 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
-import { AccessibleIcon } from "../radix-ui/AccessibleIcon/index";
+import AccessibleIcon from "../radix-ui/AccessibleIcon";
 
 import styles from "../../styles/main.module.scss";
+import { Entry } from "../../lib/Entry";
 
 const AlertDialog = dynamic(() => import("../radix-ui/AlertDialog"), {
   suspense: true,
@@ -13,19 +14,18 @@ const AlertDialog = dynamic(() => import("../radix-ui/AlertDialog"), {
 export default function DeleteEntry({ title }: { title: string }) {
   const router = useRouter();
   const [showPopup, setShowPopup] = React.useState(false);
-  const [entry, setEntry] = React.useState(null);
+  const [entry, setEntry]:any = React.useState(null);
 
   React.useEffect(() => {
     fetch(`/api/entry/${title}`, { cache: "no-store" })
       .then((res) => res.json())
-      .then((entry) => {
+      .then((entry: Entry) => {
         setEntry(entry);
       });
   }, [title]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // @ts-ignore
     const data = { id: entry.id, title: entry.title };
     await fetch("/api/entry/delete", {
       body: JSON.stringify(data),

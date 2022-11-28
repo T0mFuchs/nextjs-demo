@@ -3,8 +3,8 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
-import { Label } from "../radix-ui/Label/index";
-import { AccessibleIcon } from "../radix-ui/AccessibleIcon/index";
+import Label from "../radix-ui/Label";
+import AccessibleIcon from "../radix-ui/AccessibleIcon";
 
 import styles from "../../styles/main.module.scss";
 
