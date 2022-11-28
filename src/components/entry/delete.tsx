@@ -2,7 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
-import AcessibleIcon from "../radix-ui/AccessibleIcon";
+import { AccessibleIcon } from "../radix-ui/AccessibleIcon";
 
 import styles from "../../styles/main.module.scss";
 
@@ -74,9 +74,9 @@ export default function DeleteEntry({ title }: { title: string }) {
               }}
             >
               <span style={{ color: `#70deaf` }}>
-                <AcessibleIcon label="confirm delete">
+                <AccessibleIcon label="confirm delete">
                   <CheckSVG />
-                </AcessibleIcon>
+                </AccessibleIcon>
               </span>
               yes, delete post
             </button>
@@ -93,9 +93,9 @@ export default function DeleteEntry({ title }: { title: string }) {
               setShowPopup(false);
             }}
           >
-            <AcessibleIcon label="cancel">
+            <AccessibleIcon label="cancel">
               <CrossSVG />
-            </AcessibleIcon>
+            </AccessibleIcon>
           </button>
         </AlertDialog>
       </React.Suspense>
