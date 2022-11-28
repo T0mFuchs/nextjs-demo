@@ -2,8 +2,8 @@ import React from "react";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "components";
 import { PopupCentered } from "components/portals/popup";
-import Label from "components/radix-ui/Label";
-import AccessibleIcon from "components/radix-ui/AccessibleIcon";
+import * as Label from "@radix-ui/react-label";
+import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
 
@@ -63,7 +63,7 @@ export default function CreateEntry() {
               }}
               onSubmit={handleSubmit}
             >
-              <Label htmlFor="title" />
+              <Label.Root htmlFor="title" />
               <input
                 style={{
                   fontSize: "1.3em",
@@ -80,7 +80,7 @@ export default function CreateEntry() {
                 maxLength={20}
                 pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces https://regexr.com/
               />
-              <Label style={{ padding: ".05em 0" }} htmlFor="body" />
+              <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
                 style={{
                   fontSize: "1em",
@@ -110,9 +110,9 @@ export default function CreateEntry() {
                 type="submit"
               >
                 save & close{" "}
-                <AccessibleIcon label="save">
+                <AccessibleIcon.Root label="save">
                   <CheckSVG />
-                </AccessibleIcon>
+                </AccessibleIcon.Root>
               </button>
             </form>
             <button
@@ -128,9 +128,9 @@ export default function CreateEntry() {
                 setShowPopup(false);
               }}
             >
-              <AccessibleIcon label="cancel">
+              <AccessibleIcon.Root label="cancel">
                 <CrossSVG />
-              </AccessibleIcon>
+              </AccessibleIcon.Root>
             </button>
           </PopupCentered>
         </>
