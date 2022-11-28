@@ -7,6 +7,7 @@ export default function Flicker({
   string,
   style,
   className,
+  ...props
 }: {
   children: React.ReactNode;
   string: string;
@@ -18,6 +19,7 @@ export default function Flicker({
       className={`${animate.flicker} ${className}`}
       style={style}
       data-text={string}
+      {...props}
     >
       {children}
     </div>

@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Separator from "components/radix-ui/separator";
+
 import styles from "styles/main.module.scss";
+import css from "./about.module.scss";
 
 export default function Page() {
   return (
@@ -13,18 +15,13 @@ export default function Page() {
           ?
         </h2>
         <div style={{ paddingBottom: "2.5em" }}>
-          <Separator style={{ maxWidth: 500, margin: "0 auto" }} />
+          <Separator
+            className={css.sep}
+            style={{ maxWidth: 500, margin: "1em auto" }}
+          />
         </div>
         <div>
-          <div
-            className={styles.Card}
-            style={{
-              fontSize: "1.1em",
-              fontWeight: 900,
-              lineHeight: "2em",
-              width: "80%",
-            }}
-          >
+          <div className={`${styles.Card} ${css.card}`}>
             <div className={styles.border}>
               <p>next.js</p>
               <p>hosted with vercel on aws servers</p>

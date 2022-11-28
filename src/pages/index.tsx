@@ -23,10 +23,6 @@ export default function Page() {
         )}
       </Head>
       <>
-        <h2
-          className={styles.H2}
-          style={{ paddingTop: "1em", fontSize: "2em" }}
-        ></h2>
         {session ? (
           <div style={{ maxWidth: 150, margin: "0 auto" }}>
             <div style={{ paddingBottom: "2em" }}>

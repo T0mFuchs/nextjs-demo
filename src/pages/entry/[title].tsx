@@ -5,9 +5,10 @@ import Link from "next/link";
 import ReadEntry from "components/entry/read";
 import DeleteEntry from "components/entry/delete";
 import UpdateEntry from "components/entry/update";
+import Flicker from "components/animated/Flicker";
 
 import styles from "styles/main.module.scss";
-import Flicker from "components/animated/Flicker";
+import css from "./index.module.scss";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
@@ -28,10 +29,10 @@ export default function Page({ title }: { title: string }) {
         <div style={{ paddingBottom: "1em" }} />
         {session ? (
           <>
-            <div style={{ display: "inline-block", paddingTop: "1em" }}>
+            <div className={css.inline} style={{ paddingTop: "1em" }}>
               <UpdateEntry title={title} />
             </div>
-            <div style={{ display: "inline-block", paddingLeft: ".9em" }}>
+            <div className={css.inline} style={{ paddingLeft: ".9em" }}>
               <DeleteEntry title={title} />
             </div>
           </>
@@ -39,19 +40,14 @@ export default function Page({ title }: { title: string }) {
           <>
             <div style={{ paddingBottom: "1em" }} />
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Flicker
-                style={{ left: "50%", transform: "translate(-50%,-50%)" }}
-                string="currently not signed in"
-              >
+              <Flicker className={css.flicker} string="currently not signed in">
                 currently not signed in
               </Flicker>
               <Link style={{ textDecoration: 0 }} href="/auth/signin">
                 <Flicker
-                  className={styles.Button}
+                  className={`${styles.Button} ${css.flicker}`}
                   style={{
                     margin: "3em 0",
-                    left: "50%",
-                    transform: "translate(-50%,-50%)",
                   }}
                   string="sign in"
                 >

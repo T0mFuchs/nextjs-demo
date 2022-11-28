@@ -1,0 +1,15 @@
+.card{
+  font-size: 1.1em;
+  font-weight: 900;
+  line-height: 2em;
+}
+@media screen and (max-width: 600px){
+  .sep{
+    min-width: 100vw;
+  }
+}
+@media screen and (min-width: 600px){
+  .sep{
+    min-width: 600px;
+  }
+}

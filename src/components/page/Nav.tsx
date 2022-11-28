@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BorderRadius from "components/animated/BorderRadius";
+import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "./nav.module.scss";
 
@@ -15,7 +16,9 @@ export default function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit" }}
             >
-              <IconSVG />
+              <AccessibleIcon.Root label="home link">
+                <IconSVG />
+              </AccessibleIcon.Root>
               <span className={styles["link-text"]}>Home</span>
             </Link>
           </li>
@@ -26,7 +29,9 @@ export default function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit" }}
             >
-              <ViewListSVG />
+              <AccessibleIcon.Root label="entries link">
+                <ViewListSVG />
+              </AccessibleIcon.Root>
               <span className={styles["link-text"]}>Entries</span>
             </Link>
           </li>
@@ -38,7 +43,9 @@ export default function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit", paddingLeft: ".1em" }}
             >
-              <QuestionSVG />
+              <AccessibleIcon.Root label="about link">
+                <QuestionSVG />
+              </AccessibleIcon.Root>
               <span className={styles["link-text"]}>About</span>
             </Link>
           </li>
@@ -48,7 +55,9 @@ export default function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit", paddingLeft: ".15em" }}
             >
-              <GithubSVG />
+              <AccessibleIcon.Root label="github link">
+                <GithubSVG />
+              </AccessibleIcon.Root>
               <span
                 className={styles["link-text"]}
                 style={{ paddingLeft: ".2em" }}

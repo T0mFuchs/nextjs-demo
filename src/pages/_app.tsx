@@ -19,13 +19,6 @@ export default function App({
           <Component {...pageProps} />
         </div>
         <div className="shadow" />
-        <div className="shadow" />
-        <div className="shadow" />
-        <div className="shadow" />
-        <div className="shadow" />
-        <div className="shadow" />
-        <div className="shadow" />
-        <div className="shadow" />
       </SessionProvider>
     </StrictMode>
   );
