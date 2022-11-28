@@ -2,11 +2,11 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import ReadEntry from "../../components/entry/read";
-import DeleteEntry from "../../components/entry/delete";
-import UpdateEntry from "../../components/entry/update";
+import ReadEntry from "components/entry/read";
+import DeleteEntry from "components/entry/delete";
+import UpdateEntry from "components/entry/update";
 
-import styles from "../../styles/main.module.scss";
+import styles from "styles/main.module.scss";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext

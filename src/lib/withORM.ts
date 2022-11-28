@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { MikroORM, RequestContext } from "@mikro-orm/core";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import config from "../config/mikro-orm";
+import config from "config/mikro-orm";
 
 const getORM = async () => {
   if (!global.__MikroORM__) {

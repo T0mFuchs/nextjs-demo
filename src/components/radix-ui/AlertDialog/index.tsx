@@ -1,7 +1,7 @@
 import React from "react";
 import * as A from "@radix-ui/react-alert-dialog";
 
-import styles from "../../../styles/main.module.scss";
+import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
 
 export default function AlertDialog({

@@ -1,12 +1,12 @@
 import React from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import { CheckSVG, CrossSVG } from "..";
-import { PopupCentered } from "../portals/popup";
-import Label from "../radix-ui/Label";
-import AccessibleIcon from "../radix-ui/AccessibleIcon";
+import { CheckSVG, CrossSVG } from "components";
+import { PopupCentered } from "components/portals/popup";
+import Label from "components/radix-ui/Label";
+import AccessibleIcon from "components/radix-ui/AccessibleIcon";
 
-import styles from "../../styles/main.module.scss";
+import styles from "styles/main.module.scss";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());

@@ -2,12 +2,12 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
-import { PopupAppend } from "../components/portals/popup";
-import CreateEntry from "../components/entry/create";
-import Flicker from "../components/animated/Flicker";
-import Separator from "../components/radix-ui/Separator";
+import { PopupAppend } from "components/portals/popup";
+import CreateEntry from "components/entry/create";
+import Flicker from "components/animated/Flicker";
+import Separator from "components/radix-ui/Separator";
 
-import styles from "../styles/main.module.scss";
+import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
 
 export default function Page() {

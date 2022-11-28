@@ -1,20 +1,20 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { CheckSVG, CrossSVG } from "..";
-import AccessibleIcon from "../radix-ui/AccessibleIcon";
+import { CheckSVG, CrossSVG } from "components";
+import AccessibleIcon from "components/radix-ui/AccessibleIcon";
 
-import styles from "../../styles/main.module.scss";
-import { Entry } from "../../lib/Entry";
+import styles from "styles/main.module.scss";
+import { Entry } from "lib/Entry";
 
-const AlertDialog = dynamic(() => import("../radix-ui/AlertDialog"), {
+const AlertDialog = dynamic(() => import("components/radix-ui/AlertDialog"), {
   suspense: true,
 });
 
 export default function DeleteEntry({ title }: { title: string }) {
   const router = useRouter();
   const [showPopup, setShowPopup] = React.useState(false);
-  const [entry, setEntry]:any = React.useState(null);
+  const [entry, setEntry]: any = React.useState(null);
 
   React.useEffect(() => {
     fetch(`/api/entry/${title}`, { cache: "no-store" })

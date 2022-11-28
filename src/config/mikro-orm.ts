@@ -1,5 +1,5 @@
 import { Options, ReflectMetadataProvider } from "@mikro-orm/core";
-import { Entry } from "../entities";
+import { Entry } from "entities";
 
 const options: Options = {
   type: "mongo",

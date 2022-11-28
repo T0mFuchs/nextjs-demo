@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Separator from "../components/radix-ui/Separator";
+import Separator from "components/radix-ui/Separator";
 
 export default function Custom404() {
   return (

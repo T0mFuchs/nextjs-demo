@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BorderRadius from "../animated/BorderRadius";
+import BorderRadius from "components/animated/BorderRadius";
 
 import styles from "./nav.module.scss";
 

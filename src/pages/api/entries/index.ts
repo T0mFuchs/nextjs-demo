@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { NextApiHandler, NextApiResponse } from "next";
-import { getEM, withORM } from "../../../lib";
-import { Entry } from "../../../entities";
+import { getEM, withORM } from "lib";
+import { Entry } from "entities";
 
 const handler: NextApiHandler = async (req, res: NextApiResponse) => {
   const em = getEM();

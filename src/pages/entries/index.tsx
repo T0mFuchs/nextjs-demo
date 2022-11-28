@@ -2,13 +2,13 @@ import React from "react";
 import Link from "next/link";
 import Head from "next/head";
 import useSWR from "swr";
-import { Observe } from "../../lib/IntersectionObserver";
-import { dateFromObjectId } from "../../lib/dateFromObjectId";
-import { CrossSVG, Fallback } from "../../components";
+import { Observe } from "lib/IntersectionObserver";
+import { dateFromObjectId } from "lib/dateFromObjectId";
+import { CrossSVG, Fallback } from "components";
 
-import styles from "../../styles/main.module.scss";
+import styles from "styles/main.module.scss";
 import css from "./search.module.scss";
-import { Entry } from "../../lib/Entry";
+import { Entry } from "lib/Entry";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());

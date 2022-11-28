@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { ArrowTopSVG } from "..";
+import { ArrowTopSVG } from "components";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 
-import styles from "../../styles/main.module.scss";
+import styles from "styles/main.module.scss";
 import css from "./scrollup.module.scss";
 
 export default function ScrollUp() {

@@ -1,9 +1,9 @@
 import React from "react";
 import useSWR from "swr";
-import { Fallback } from "..";
-import { dateFromObjectId } from "../../lib/dateFromObjectId";
+import { Fallback } from "components";
+import { dateFromObjectId } from "lib/dateFromObjectId";
 
-import styles from "../../styles/main.module.scss";
+import styles from "styles/main.module.scss";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
