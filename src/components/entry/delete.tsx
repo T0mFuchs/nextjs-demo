@@ -7,7 +7,7 @@ import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 import styles from "styles/main.module.scss";
 import { Entry } from "lib/Entry";
 
-const AlertDialog = dynamic(() => import("components/radix-ui/AlertDialog"), {
+const AlertDialog = dynamic(() => import("components/radix-ui/alert-dialog"), {
   suspense: true,
 });
 

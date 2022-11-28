@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Separator from "components/radix-ui/Separator";
+import Separator from "components/radix-ui/separator";
 import styles from "styles/main.module.scss";
 
 export default function Page() {

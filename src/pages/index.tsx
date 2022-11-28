@@ -5,7 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import { PopupAppend } from "components/portals/popup";
 import CreateEntry from "components/entry/create";
 import Flicker from "components/animated/Flicker";
-import Separator from "components/radix-ui/Separator";
+import Separator from "components/radix-ui/separator";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
