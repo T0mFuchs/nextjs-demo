@@ -1,3 +1,4 @@
-import * as Label from "@radix-ui/react-label";
+import * as L from "@radix-ui/react-label";
 
-export default Label.Root;
+const Label = L.Root;
+export default Label;

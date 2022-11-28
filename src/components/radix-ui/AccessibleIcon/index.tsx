@@ -1,3 +1,4 @@
-import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
+import * as I from "@radix-ui/react-accessible-icon";
 
-export default AccessibleIcon.Root;
+const AcessibleIcon = I.Root;
+export default AcessibleIcon;
