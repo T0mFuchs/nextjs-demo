@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
 import { PopupCentered } from "../portals/popup";
 import { Label } from "../radix-ui/Label";
-import { AcessibleIcon } from "../radix-ui/AccessibleIcon";
+import { AccessibleIcon } from "../radix-ui/AccessibleIcon";
 
 import styles from "../../styles/main.module.scss";
 
@@ -110,9 +110,9 @@ export default function CreateEntry() {
                 type="submit"
               >
                 save & close{" "}
-                <AcessibleIcon label="save">
+                <AccessibleIcon label="save">
                   <CheckSVG />
-                </AcessibleIcon>
+                </AccessibleIcon>
               </button>
             </form>
             <button
@@ -128,9 +128,9 @@ export default function CreateEntry() {
                 setShowPopup(false);
               }}
             >
-              <AcessibleIcon label="cancel">
+              <AccessibleIcon label="cancel">
                 <CrossSVG />
-              </AcessibleIcon>
+              </AccessibleIcon>
             </button>
           </PopupCentered>
         </>
