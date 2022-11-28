@@ -2,7 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "..";
-import { AccessibleIcon } from "../radix-ui/AccessibleIcon";
+import { AccessibleIcon } from "../radix-ui/AccessibleIcon/index";
 
 import styles from "../../styles/main.module.scss";
 
