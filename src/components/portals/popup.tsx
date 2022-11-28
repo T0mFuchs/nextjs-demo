@@ -2,17 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import styles from "../../styles/main.module.scss";
+import css from "./popup.module.scss";
 
 export const PopupCentered = ({ children }: { children: React.ReactNode }) => {
   return ReactDOM.createPortal(
-    <div
-      style={{
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
+    <div className={css.position}>
       <div className={styles.Card} tabIndex={0}>
         {children}
       </div>
@@ -21,13 +15,15 @@ export const PopupCentered = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const PopupAppend = ({ children }: { children: React.ReactNode }) => {
+export const PopupAppend = ({
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+}) => {
   return ReactDOM.createPortal(
-    <div
-      style={{
-        paddingTop: ".5em",
-      }}
-    >
+    <div style={style}>
       <div className={styles.Card} style={{ maxWidth: 300 }} tabIndex={0}>
         {children}
       </div>
@@ -35,6 +31,3 @@ export const PopupAppend = ({ children }: { children: React.ReactNode }) => {
     document.getElementById("portal") as HTMLElement
   );
 };
-
-// for dialogpopup
-// add this box-shadow: 0 0 0 100vmax #00000080, 0 0 2em #00000080;  to cast shadow over the whole screen

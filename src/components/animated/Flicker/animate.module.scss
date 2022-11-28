@@ -1,3 +1,5 @@
+$light: #fff;
+$dark: #000;
 .flicker{
   position:absolute;
 }
@@ -15,13 +17,12 @@
   left:-2px;
   text-shadow:-1px 0 red;
   top:0;
-  color:white;
-  background:black;
+  color:$dark;
+  background:$light;
   overflow:hidden;
   clip:rect(0,900px,0,0); 
   animation:noise-anim 2s infinite linear alternate-reverse;
 }
-
 @keyframes noise-anim-2{
   $steps:20;
   @for $i from 0 through $steps{
@@ -36,9 +37,19 @@
   left:-2px;
   text-shadow:1px 0 blue; 
   top:0;
-  color:white;
-  background:black;
+  color:$dark;
+  background:$light;
   overflow:hidden;
   clip:rect(0,900px,0,0); 
   animation:noise-anim-2 3s infinite linear alternate-reverse;
+}
+@media screen and (prefers-color-scheme: dark){
+  .flicker:after{
+    color:$light;
+    background:$dark
+  }
+  .flicker:before{
+    color:$light;
+    background:$dark;
+  }
 }

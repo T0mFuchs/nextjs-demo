@@ -52,5 +52,20 @@
   .navbar:hover { width: 20vw; }
 }
 @media (prefers-color-scheme: dark) and (max-width: 600px) {
-  .navbar { background-color: #000; }
+  .navbar { background-color: var(--dark80); }
+}
+@media screen and (max-width: 600px) {
+  .border {
+    top: -13vh;
+    width: 300vw;
+    height: 5.25em;
+    left: -100vw;
+  }
+}
+@media screen and (min-width: 600px) {
+  .border {
+    width: 5vh;
+    height: 300vh;
+    top: -100vh;
+  }
 }

@@ -1,10 +1,12 @@
 import Link from "next/link";
+import BorderRadius from "../animated/BorderRadius";
 
 import styles from "./nav.module.scss";
 
 export default function Nav() {
   return (
     <>
+      <BorderRadius style={{ position: "fixed" }} className={styles.border} />
       <nav className={styles.navbar}>
         <ul className={styles["navbar-nav"]}>
           <li className={styles["nav-item"]}>
@@ -25,7 +27,7 @@ export default function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit" }}
             >
-              <PostsSVG />
+              <ViewListSVG />
               <span className={styles["link-text"]}>Entries</span>
             </Link>
           </li>
@@ -65,13 +67,11 @@ export default function Nav() {
 function IconSVG() {
   return (
     <svg
-      className={styles.svg}
       xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.125em" }}
       width="2em"
       height="100%"
       preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 16 16"
+      viewBox="-1.5 0 17.5 16"
     >
       <path
         fill="none"
@@ -88,13 +88,11 @@ function IconSVG() {
 function QuestionSVG() {
   return (
     <svg
-      className={styles.svg}
       xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.05em" }}
       width="2em"
       height="55%"
       preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 320 512"
+      viewBox="4 0 320 512"
     >
       <path
         fill="currentColor"
@@ -109,11 +107,10 @@ function GithubSVG() {
     <svg
       className={styles.svg}
       xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.115em" }}
       width="1.85em"
       height="100%"
       preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 24 24"
+      viewBox="-1 0 25 24"
     >
       <g fill="none">
         <g clipPath="url(#svgIDa)">
@@ -134,40 +131,18 @@ function GithubSVG() {
   );
 }
 
-function PostsSVG() {
+function ViewListSVG() {
   return (
     <svg
-      className={styles.svg}
       xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.125em" }}
-      width="2.4em"
+      width="2.25em"
       height="100%"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 24 24"
     >
       <path
         fill="currentColor"
-        d="M4 14h2c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zm0 5h2c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zM4 9h2c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zm5 5h11c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1H9c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zm0 5h11c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1H9c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1zM8 6v2c0 .55.45 1 1 1h11c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1H9c-.55 0-1 .45-1 1z"
-      />
-    </svg>
-  );
-}
-
-function AccountSVG() {
-  return (
-    <svg
-      className={styles.svg}
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.125em" }}
-      width="2.3em"
-      height="100%"
-      preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 24 24"
-    >
-      <rect x="0" y="0" width="24" height="24" fill="none" stroke="none" />
-      <path
-        fill="currentColor"
-        d="M5.85 17.1q1.275-.975 2.85-1.538Q10.275 15 12 15q1.725 0 3.3.562q1.575.563 2.85 1.538q.875-1.025 1.363-2.325Q20 13.475 20 12q0-3.325-2.337-5.663Q15.325 4 12 4T6.338 6.337Q4 8.675 4 12q0 1.475.488 2.775q.487 1.3 1.362 2.325ZM12 13q-1.475 0-2.488-1.012Q8.5 10.975 8.5 9.5t1.012-2.488Q10.525 6 12 6t2.488 1.012Q15.5 8.025 15.5 9.5t-1.012 2.488Q13.475 13 12 13Zm0 9q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"
+        d="M7 13h7q.425 0 .713-.288Q15 12.425 15 12t-.287-.713Q14.425 11 14 11H7q-.425 0-.713.287Q6 11.575 6 12t.287.712Q6.575 13 7 13Zm0-3h7q.425 0 .713-.288Q15 9.425 15 9t-.287-.713Q14.425 8 14 8H7q-.425 0-.713.287Q6 8.575 6 9t.287.712Q6.575 10 7 10ZM4 20q-.825 0-1.412-.587Q2 18.825 2 18V6q0-.825.588-1.412Q3.175 4 4 4h16q.825 0 1.413.588Q22 5.175 22 6v12q0 .825-.587 1.413Q20.825 20 20 20Zm0-2V6v12Zm0 0h16V6H4v12Z"
       />
     </svg>
   );

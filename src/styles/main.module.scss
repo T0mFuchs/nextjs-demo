@@ -1,5 +1,3 @@
-$cyan: #60daaa;
-
 .Button{
   color: inherit;
   background-color: var(--bg-light);
@@ -9,6 +7,7 @@ $cyan: #60daaa;
   font-weight: 600;
   font-size: 1.2em;
   margin: 0 auto;
+  cursor: pointer;
 }
 .Button:hover{ scale: 1.05 }
 
@@ -21,9 +20,9 @@ $cyan: #60daaa;
   box-shadow: var(--box-shadaow) 0 1em 2.3em -1em, var(--dark80) 0 1.5em 2em -1.5em;
   box-sizing: border-box;
   margin: 0 auto;
-  max-width: 400px;
+  max-width: 600px;
 }
-.Card:hover{ border: 1px solid var(--dark) }
+.Card:hover{ border: 1px solid var(--bg-dark); }
 
 .H2{ 
   text-shadow: var(--bg-light) -1px -1px 1px, var(--bg-dark) 1px 1px 1px;
@@ -33,8 +32,8 @@ $cyan: #60daaa;
 }
 
 @media (prefers-color-scheme: dark){
-  .Button { background-color: var(--bg-dark); }
-  .Card { background-color: var(--bg-dark); }
-  .Card:hover{ border: 1px solid var(--bg-light) }
-  .H2 { text-shadow: var(--bg-dark) -1px -1px 1px, var(--bg-light) .5px .5px .5px; }
+  .Button{ background-color: var(--bg-dark); }
+  .Card{ background-color: var(--bg-dark); }
+  .Card:hover{ border: 1px solid var(--bg-light); }
+  .H2{ text-shadow: var(--bg-dark) -1px -1px 1px, var(--bg-light) .5px .5px .5px; }
 }

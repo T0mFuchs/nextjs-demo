@@ -41,7 +41,7 @@ export default function Page() {
               }}
             >
               {open ? (
-                <PopupAppend>
+                <PopupAppend style={{ paddingTop: "3em" }}>
                   <button
                     className={styles.Button}
                     onClick={() => {

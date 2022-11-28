@@ -2,7 +2,6 @@
 
 ## nextjs api, next-auth, mikro-orm & mongodb (atlas)
 
-
 ```last build log
 Route (pages)                              Size     First Load JS
 ┌ ○ /                                      2.32 kB        52.2 kB
@@ -28,7 +27,7 @@ Route (pages)                              Size     First Load JS
   ├ chunks/webpack-ee7e63bc15b31913.js     815 B
   └ css/0d68b2c651b09bcd.css               1.16 kB
 
-λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)  
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
 ○  (Static)  automatically rendered as static HTML (uses no initial props)
 ```
 

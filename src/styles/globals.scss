@@ -1,4 +1,4 @@
-:root {
+:root{
   --color-primary: #fff5c5;
   --color-secondary: #ff674b;
   --transparent: #00000000;
@@ -10,10 +10,10 @@
   --hover-dark: #1e1e1e;
 }
 /* set scrollbars invisible */
-html { scrollbar-width: none; }
-::-webkit-scrollbar { display: none; }
+html{ scrollbar-width: none; }
+::-webkit-scrollbar{ display: none; }
 
-body {
+body{
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   text-align: center;
   height: 100vmax;
@@ -21,10 +21,26 @@ body {
 }
 
 /* for src/lib/IntersectionObserver */
-.hidden { opacity: 0; z-index: -2; transition: 500ms; }
-.hidden.visible { opacity: 1; z-index: -1; transform: translateX(0); }
+.hidden{ 
+  opacity: 0;
+  z-index: -2;
+  transition: 500ms;
+}
+.hidden.visible{ 
+  opacity: 1;
+  z-index: -1;
+  transform: translateX(0);
+}
 
-.shadow {
+.layout{ overflow-y: auto; }
+@media only screen and (max-width: 600px){
+  .layout { padding-top: 13vh; height: 87vh; }
+}
+@media only screen and (min-height: 900px){
+  .layout { padding-top: 3vh; height: 75vh; }
+}
+
+.shadow{
   box-shadow: var(--box-shadaow) -200px 0 250px 50px;
   background-color: var(--transparent);
   position: fixed;
@@ -33,11 +49,7 @@ body {
   bottom: 0;
 }
 
-@media only screen and (max-width: 600px) {
-  .layout { padding-top: 13vh; height: calc(87vh - 1px); }
-}
-
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark){
   body {
     color: var(--color-primary);
     background-color: #000;
