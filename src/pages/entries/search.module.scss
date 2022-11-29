@@ -1,9 +1,9 @@
 @import "styles/colors.module";
 
-.wrapper {
+.wrapper{
   padding: 1em 0 2em 1em;
 }
-.input {
+.input{
   background-color: $transparent;
   padding: 10px;
   width: 80vw;
@@ -14,22 +14,51 @@
     border: 1px solid $color-primary;
   }
 }
-.icon {
+.icon{
   left: -1.3em;
   position: relative;
   vertical-align: middle;
   font-size: 1.5em;
 }
-.output {
+.output{
   padding: 1em 2em 0 0;
   overflow-y: auto;
   height: 20vh;
+  scrollbar-width: none;
+  &::-webkit-scrollbar{ display: none; }
 }
-.item {
-  border: 1px solid ;
-  border-radius: .5em;
+.item{
+  color: #0059ff;
+  @media (prefers-color-scheme: dark){
+    color: #00ffff;
+  }
+  border: 1px solid;
   width: 40vw;
   max-width: 375px;
   margin: 0 auto;
   line-height: 2em;
+  border-radius: .5em;
+}
+.body{
+  width: 40vw;
+  max-width: 375px;
+  margin: 0 auto;
+  border-radius: .5em;
+  background-color: $bg-light;
+  @media (prefers-color-scheme: dark){
+    background-color: $bg-dark;
+  }
+}
+.highlight0{
+  color: #fff;
+  text-decoration: #fff underline;
+}
+.highlight1{
+  color: #0059ff;
+  text-decoration: #0059ff underline;
+  @media (prefers-color-scheme: dark){
+    color: #00ffff;
+    text-decoration: #00ffff underline;
+  }
+  
 }

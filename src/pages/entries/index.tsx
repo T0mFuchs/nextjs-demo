@@ -53,19 +53,24 @@ export default function Page() {
 
 function Search({ data }: { data: Entry[] }) {
   const [current, setCurrent] = React.useState("");
+  const [show, setShow]: any = React.useState([]);
   const [filtered, setFiltered]: any = React.useState([]);
 
   const handleInput = (event: any) => {
     const current = event.target.value;
     setCurrent(current);
-    const newData = data.filter((entry) => {
+    const filteredTitle = data.filter((entry) => {
       return entry.title.includes(current);
     });
-
+    const filteredBody = data.filter((entry) => {
+      return entry.body.includes(current);
+    });
     if (current === "") {
       setFiltered([]);
+      setShow([]);
     } else {
-      setFiltered(newData);
+      setFiltered(filteredTitle);
+      setShow(filteredBody);
     }
   };
 
@@ -78,6 +83,7 @@ function Search({ data }: { data: Entry[] }) {
           type="text"
           value={current}
           placeholder="search entries..."
+          pattern="^[a-zA-Z0-9_ ]*$"
         />
         <button
           style={{ all: "unset", fontSize: "1.3em" }}
@@ -97,8 +103,38 @@ function Search({ data }: { data: Entry[] }) {
                 prefetch={false}
                 className={`${css.item}`}
               >
-                {entry.title}
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      current.length > 0
+                        ? entry.title.replace(
+                            new RegExp(current, "gi"),
+                            (match) => {
+                              return `<span class="${css.highlight0}">${match}</span>`;
+                            }
+                          )
+                        : entry.title,
+                  }}
+                />
               </Link>
+              {show.length !== 0 ? (
+                <div
+                  className={css.body}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      current.length > 0
+                        ? entry.body.replace(
+                            new RegExp(current, "gi"),
+                            (match) => {
+                              return `<span class="${css.highlight1}">${match}</span>`;
+                            }
+                          )
+                        : entry.body,
+                  }}
+                />
+              ) : (
+                <></>
+              )}
               <span
                 style={{ paddingLeft: 15, fontSize: ".6em", verticalAlign: 1 }}
               >

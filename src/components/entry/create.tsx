@@ -65,7 +65,7 @@ export default function CreateEntry() {
                 required
                 minLength={2}
                 maxLength={20}
-                pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces https://regexr.com/
+                pattern="^[^\s]+^[a-zA-Z0-9_ ]*(\s+[^\s]+)*$" // regex for disallowing whitespaces https://regexr.com/
               />
               <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
