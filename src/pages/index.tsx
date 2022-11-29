@@ -25,7 +25,7 @@ export default function Page() {
       <>
         {session ? (
           <div style={{ maxWidth: 150, margin: "0 auto" }}>
-            <div style={{ paddingBottom: "2em" }}>
+            <div style={{ padding: "2em 0" }}>
               Hello, {session.user?.name}
             </div>
             <Separator orientation="horizontal" />

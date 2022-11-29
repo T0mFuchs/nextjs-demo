@@ -5,10 +5,10 @@ import useSWR from "swr";
 import { Observe } from "lib/IntersectionObserver";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CrossSVG, Fallback } from "components";
+import { Entry } from "lib/Entry";
 
 import styles from "styles/main.module.scss";
 import css from "./search.module.scss";
-import { Entry } from "lib/Entry";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
@@ -72,7 +72,7 @@ function Search({ data }: { data: Entry[] }) {
           className={css.input}
           type="text"
           value={current}
-          placeholder="search titles..."
+          placeholder="search entries..."
         />
         <button
           style={{ all: "unset", fontSize: "1.3em" }}
