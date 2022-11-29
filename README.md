@@ -4,30 +4,30 @@
 
 ```last build log
 Route (pages)                              Size     First Load JS
-┌ ○ /                                      2.33 kB        53.8 kB
-├   └ css/a798c13c6d747d7f.css             829 B
+┌ ○ /                                      3.77 kB        55.3 kB
+├   └ css/4cb5ee845b9f7047.css             1.08 kB
 ├   /_app                                  0 B            51.5 kB
-├ ○ /404                                   850 B          52.4 kB
-├ ○ /500                                   853 B          52.4 kB
+├ ○ /404                                   850 B          52.3 kB
+├ ○ /500                                   853 B          52.3 kB
 ├ ○ /about                                 1 kB           52.5 kB
-├   └ css/cf9d9b3df9f3a570.css             281 B
+├   └ css/ff25a046e1bd492a.css             286 B
 ├ λ /api/auth/[...nextauth]                0 B            51.5 kB
 ├ λ /api/entries                           0 B            51.5 kB
 ├ λ /api/entry/[title]                     0 B            51.5 kB
 ├ λ /api/entry/create                      0 B            51.5 kB
 ├ λ /api/entry/delete                      0 B            51.5 kB
 ├ λ /api/entry/update                      0 B            51.5 kB
-├ ○ /auth/error                            853 B          52.4 kB
+├ ○ /auth/error                            853 B          52.3 kB
 ├ ○ /auth/signin                           1.8 kB         53.3 kB
 ├ ○ /entries                               1.53 kB        57.7 kB
-├   └ css/673a3fd1b95bd823.css             334 B
-└ λ /entry/[title]                         3.87 kB          60 kB
-    └ css/0958be855376223a.css             745 B
+├   └ css/52a30a976849a8af.css             333 B
+└ λ /entry/[title]                         3.91 kB        60.1 kB
+    └ css/77aea7bea3c59355.css             1.06 kB
 + First Load JS shared by all              52.9 kB
   ├ chunks/main-e85067924a68d0d0.js        33.9 kB
-  ├ chunks/pages/_app-f6c53fc0239c4d08.js  15.5 kB
-  ├ chunks/webpack-7a980708909adf08.js     2.1 kB
-  └ css/b2079412b5bf2a52.css               1.38 kB
+  ├ chunks/pages/_app-ec5cda1e285231e5.js  15.5 kB
+  ├ chunks/webpack-96930909108edfad.js     2.09 kB
+  └ css/25620681ef6687dc.css               1.41 kB
 
 λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
 ○  (Static)  automatically rendered as static HTML (uses no initial props)
