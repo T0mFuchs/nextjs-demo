@@ -49,9 +49,11 @@
     height: 100vh;
     padding: .5em;
     background-color: $dark80;
+
+    &:hover .link-text { display: inline; }
+    &:hover { width: 15vw; }
   }
-  .navbar:hover .link-text { display: inline; }
-  .navbar:hover { width: 20vw; }
+  
 }
 @media (prefers-color-scheme: dark) and (max-width: 600px) {
   .navbar { background-color: $dark80; }

@@ -10,8 +10,10 @@
   font-size: 1.2em;
   margin: 0 auto;
   cursor: pointer;
+
+  &:hover{ scale: 1.05 }
 }
-.Button:hover{ scale: 1.05 }
+
 
 .Card{
   color: inherit;
@@ -24,8 +26,9 @@
   margin: 0 auto;
   max-width: 600px;
   max-height: 600px;
+
+  &:hover{ border: 1px solid $bg-dark; }
 }
-.Card:hover{ border: 1px solid $bg-dark; }
 @media screen and (max-width: 600px){
   .Card{ min-width: 100%; }
 }
@@ -39,7 +42,9 @@
 
 @media (prefers-color-scheme: dark){
   .Button{ background-color: $bg-dark; }
-  .Card{ background-color: $bg-dark; }
-  .Card:hover{ border: 1px solid $bg-light; }
+  .Card{ 
+    background-color: $bg-dark;
+    &:hover{ border: 1px solid $bg-light; }
+  }
   .H2{ text-shadow: $bg-dark -1px -1px 1px, $bg-light .5px .5px .5px; }
 }
