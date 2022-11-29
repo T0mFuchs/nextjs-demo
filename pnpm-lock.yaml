@@ -5,7 +5,6 @@ specifiers:
   '@mikro-orm/mongodb': ^5.5.3
   '@preact/compat': 17.1.2
   '@radix-ui/react-accessible-icon': ^1.0.1
-  '@radix-ui/react-alert-dialog': ^1.0.2
   '@radix-ui/react-dialog': ^1.0.2
   '@radix-ui/react-label': ^2.0.0
   '@radix-ui/react-separator': ^1.0.1
@@ -31,7 +30,6 @@ devDependencies:
   '@mikro-orm/mongodb': 5.5.3_@mikro-orm+core@5.5.3
   '@preact/compat': 17.1.2_preact@10.11.3
   '@radix-ui/react-accessible-icon': 1.0.1_biqbaboplfbrettd7655fr4n2y
-  '@radix-ui/react-alert-dialog': 1.0.2_knhnagtyfncgg2hpin7s37uixq
   '@radix-ui/react-dialog': 1.0.2_knhnagtyfncgg2hpin7s37uixq
   '@radix-ui/react-label': 2.0.0_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-separator': 1.0.1_biqbaboplfbrettd7655fr4n2y
@@ -1154,25 +1152,6 @@ packages:
       '@radix-ui/react-visually-hidden': 1.0.1_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-    dev: true
-
-  /@radix-ui/react-alert-dialog/1.0.2_knhnagtyfncgg2hpin7s37uixq:
-    resolution: {integrity: sha512-0MtxV53FaEEBOKRgyLnEqHZKKDS5BldQ9oUBsKVXWI5FHbl2jp35qs+0aJET+K5hJDsc40kQUzP7g+wC7tqrqA==}
-    peerDependencies:
-      react: ^16.8 || ^17.0 || ^18.0
-      react-dom: ^16.8 || ^17.0 || ^18.0
-    dependencies:
-      '@babel/runtime': 7.19.4
-      '@radix-ui/primitive': 1.0.0
-      '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
-      '@radix-ui/react-context': 1.0.0_react@18.2.0
-      '@radix-ui/react-dialog': 1.0.2_knhnagtyfncgg2hpin7s37uixq
-      '@radix-ui/react-primitive': 1.0.1_biqbaboplfbrettd7655fr4n2y
-      '@radix-ui/react-slot': 1.0.1_react@18.2.0
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    transitivePeerDependencies:
-      - '@types/react'
     dev: true
 
   /@radix-ui/react-compose-refs/1.0.0_react@18.2.0:
