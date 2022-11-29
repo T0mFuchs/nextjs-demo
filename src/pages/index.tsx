@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { signOut, useSession } from "next-auth/react";
 import { PopupAppend } from "components/portals/popup";
 import CreateEntry from "components/entry/create";
@@ -9,6 +10,10 @@ import Separator from "components/radix-ui/separator";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
+
+const Dialog = dynamic(() => import("components/radix-ui/dialog"), {
+  suspense: true,
+});
 
 export default function Page() {
   const [open, setOpen] = React.useState(false);
@@ -29,22 +34,25 @@ export default function Page() {
             <Separator orientation="horizontal" />
             <CreateEntry />
             <Separator orientation="horizontal" />
-            <div
-              onMouseLeave={() => {
-                setOpen(false);
-              }}
-            >
+            <>
               {open ? (
-                <PopupAppend style={{ paddingTop: "3em" }}>
-                  <button
-                    className={styles.Button}
-                    onClick={() => {
-                      signOut({ redirect: false });
-                    }}
+                <React.Suspense>
+                  <Dialog
+                    open={open}
+                    onOpenChange={setOpen}
+                    width={120}
+                    style={{ maxWidth: 120, margin: "0 auto" }}
                   >
-                    yes i want to sign out
-                  </button>
-                </PopupAppend>
+                    <button
+                      className={styles.Button}
+                      onClick={() => {
+                        signOut({ redirect: false });
+                      }}
+                    >
+                      yes i want to sign out
+                    </button>
+                  </Dialog>
+                </React.Suspense>
               ) : (
                 <button
                   className={styles.Button}
@@ -55,7 +63,7 @@ export default function Page() {
                   sign out
                 </button>
               )}
-            </div>
+            </>
           </div>
         ) : (
           <>

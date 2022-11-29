@@ -7,6 +7,7 @@ import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
+import css from "./form.module.scss";
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
@@ -61,15 +62,7 @@ export default function UpdateEntry({ title }: { title: string }) {
               entry: {title}
             </legend>
             <div style={{ padding: ".3em 0" }} />
-            <form
-              style={{
-                all: "unset",
-                display: "flex",
-                padding: ".2em 0",
-                flexDirection: "column",
-              }}
-              onSubmit={handleSubmit}
-            >
+            <form className={css.form} onSubmit={handleSubmit}>
               <Label.Root htmlFor="title" />
               <input
                 style={{
@@ -78,7 +71,7 @@ export default function UpdateEntry({ title }: { title: string }) {
                   border: 0,
                   backgroundColor: "#00000000",
                 }}
-                className={styles.Input}
+                className={`${css.input} ${styles.Input}`}
                 name="title"
                 type="text"
                 defaultValue={data.title}
@@ -88,16 +81,8 @@ export default function UpdateEntry({ title }: { title: string }) {
               />
               <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
-                style={{
-                  fontSize: "1em",
-                  fontWeight: 600,
-                  lineHeight: "1.7em",
-                  backgroundColor: "#00000000",
-                  border: 0,
-                  height: "35vh",
-                }}
                 rows={6}
-                className={styles.Input}
+                className={`${css.textarea} ${styles.Input}`}
                 name="body"
                 defaultValue={data.body}
                 minLength={5}
@@ -106,13 +91,7 @@ export default function UpdateEntry({ title }: { title: string }) {
                 onClick={() => {
                   handleSubmit;
                 }}
-                style={{
-                  all: "unset",
-                  position: "absolute",
-                  right: 0,
-                  bottom: "-.5em",
-                  color: "#70deaf",
-                }}
+                className={css.submit}
                 type="submit"
               >
                 save & close{" "}
@@ -125,14 +104,7 @@ export default function UpdateEntry({ title }: { title: string }) {
             </form>
             <div style={{ padding: ".3em 0" }} />
             <button
-              style={{
-                all: "unset",
-                position: "fixed",
-                right: "-.25em",
-                top: "-.9em",
-                color: "#ff674b",
-                fontSize: "1.7em",
-              }}
+              className={css.cancel}
               onClick={() => {
                 setShowPopup(false);
               }}

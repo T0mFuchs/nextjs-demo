@@ -3,13 +3,11 @@
   font-weight: 900;
   line-height: 2em;
 }
-@media screen and (max-width: 600px){
-  .sep{
+.sep{
+  @media screen and (max-width: 600px){
     min-width: 100vw;
   }
-}
-@media screen and (min-width: 600px){
-  .sep{
+  @media screen and (min-width: 600px){
     min-width: 600px;
   }
 }

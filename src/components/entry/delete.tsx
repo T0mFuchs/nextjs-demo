@@ -5,9 +5,10 @@ import { CheckSVG, CrossSVG } from "components";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
+import css from "./delete.module.scss";
 import { Entry } from "lib/Entry";
 
-const AlertDialog = dynamic(() => import("components/radix-ui/alert-dialog"), {
+const Dialog = dynamic(() => import("components/radix-ui/dialog"), {
   suspense: true,
 });
 
@@ -54,16 +55,12 @@ export default function DeleteEntry({ title }: { title: string }) {
         </button>
       )}
       <React.Suspense>
-        <AlertDialog open={showPopup} onOpenChange={setShowPopup}>
-          <form
-            style={{
-              all: "unset",
-              display: "flex",
-              padding: ".2em 0",
-              flexDirection: "column",
-            }}
-            onSubmit={handleSubmit}
-          >
+        <Dialog
+          position={css.position}
+          open={showPopup}
+          onOpenChange={setShowPopup}
+        >
+          <form className={css.form} onSubmit={handleSubmit}>
             <label htmlFor="delete" />
             <button
               name="delete post"
@@ -82,13 +79,7 @@ export default function DeleteEntry({ title }: { title: string }) {
             </button>
           </form>
           <button
-            style={{
-              all: "unset",
-              position: "absolute",
-              right: "-.8em",
-              top: "-.8em",
-              color: "#ff674b",
-            }}
+            className={css.cancel}
             onClick={() => {
               setShowPopup(false);
             }}
@@ -97,7 +88,7 @@ export default function DeleteEntry({ title }: { title: string }) {
               <CrossSVG />
             </AccessibleIcon.Root>
           </button>
-        </AlertDialog>
+        </Dialog>
       </React.Suspense>
       <div id="portal" />
     </>

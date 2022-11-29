@@ -6,6 +6,7 @@ import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
+import css from "./form.module.scss";
 
 export default function CreateEntry() {
   const [showPopup, setShowPopup] = React.useState(false);
@@ -54,24 +55,10 @@ export default function CreateEntry() {
             <legend style={{ position: "absolute", top: "-.9em", left: 0 }}>
               new Entry
             </legend>
-            <form
-              style={{
-                all: "unset",
-                display: "flex",
-                padding: ".2em 0",
-                flexDirection: "column",
-              }}
-              onSubmit={handleSubmit}
-            >
+            <form className={css.form} onSubmit={handleSubmit}>
               <Label.Root htmlFor="title" />
               <input
-                style={{
-                  fontSize: "1.3em",
-                  fontWeight: 900,
-                  backgroundColor: "#00000000",
-                  border: 0,
-                }}
-                className={styles.Input}
+                className={`${css.input} ${styles.Input}`}
                 name="title"
                 type="text"
                 placeholder="...title"
@@ -82,16 +69,8 @@ export default function CreateEntry() {
               />
               <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
-                style={{
-                  fontSize: "1em",
-                  fontWeight: 600,
-                  lineHeight: "2em",
-                  backgroundColor: "#00000000",
-                  height: "35vh",
-                  border: 0,
-                }}
                 rows={6}
-                className={styles.Input}
+                className={`${css.textarea} ${styles.Input}`}
                 name="body"
                 placeholder="...body"
                 required
@@ -101,14 +80,7 @@ export default function CreateEntry() {
                 onClick={() => {
                   handleSubmit;
                 }}
-                style={{
-                  all: "unset",
-                  position: "absolute",
-                  right: "-.1em",
-                  bottom: "-.5em",
-                  color: "#70deaf",
-                  fontWeight: 500,
-                }}
+                className={css.submit}
                 type="submit"
               >
                 save & close{" "}
@@ -118,14 +90,7 @@ export default function CreateEntry() {
               </button>
             </form>
             <button
-              style={{
-                all: "unset",
-                position: "absolute",
-                right: "-.3em",
-                top: "-.9em",
-                color: "#ff674b",
-                fontSize: "1.7em",
-              }}
+              className={css.cancel}
               onClick={() => {
                 setShowPopup(false);
               }}

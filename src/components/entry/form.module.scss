@@ -1,0 +1,38 @@
+@import "styles/colors.module";
+
+.form{
+  all: unset;
+  display: flex;
+  padding: .2em 0;
+  flex-direction: column;
+}
+.input{
+  font-size: 1.3em;
+  font-weight: 900;
+  background-color: $transparent;
+  border: 0;
+}
+.textarea{
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 2em;
+  background-color: $transparent;
+  height: 35vh;
+  border: 0;
+}
+.submit{
+  all: unset;
+  position: absolute;
+  right: -.1em;
+  bottom: -.5em;
+  color: #70deaf;
+  font-weight: 500;
+}
+.cancel{
+  all: unset;
+  position: absolute;
+  right: -.3em;
+  top: -.9em;
+  color: $color-secondary;
+  font-size: 1.7em;
+}

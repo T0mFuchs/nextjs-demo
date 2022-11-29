@@ -11,7 +11,11 @@
   margin: 0 auto;
   cursor: pointer;
 
-  &:hover{ scale: 1.05 }
+  &:hover,
+  &:focus { scale: 1.05 }
+  @media (prefers-color-scheme: dark){
+    background-color: $bg-dark;
+  }
 }
 
 
@@ -27,24 +31,26 @@
   max-width: 600px;
   max-height: 600px;
 
-  &:hover{ border: 1px solid $bg-dark; }
+  &:hover,
+  &:focus{ border: 1px solid $bg-dark; }
+
+  @media (prefers-color-scheme: dark){
+    background-color: $bg-dark;
+    &:hover,
+    &:focus{ border: 1px solid $bg-light; }
+  }
+  @media screen and (max-width: 600px){
+    min-width: 100%;
+  }
 }
-@media screen and (max-width: 600px){
-  .Card{ min-width: 100%; }
-}
+
 
 .H2{ 
   text-shadow: $bg-light -1px -1px 1px, $bg-dark 1px 1px 1px;
   font-size: 3em;
   color: currentColor;
   margin: 0;
-}
-
-@media (prefers-color-scheme: dark){
-  .Button{ background-color: $bg-dark; }
-  .Card{ 
-    background-color: $bg-dark;
-    &:hover{ border: 1px solid $bg-light; }
+  @media (prefers-color-scheme: dark){
+    text-shadow: $bg-dark -1px -1px 1px, $bg-light .5px .5px .5px;
   }
-  .H2{ text-shadow: $bg-dark -1px -1px 1px, $bg-light .5px .5px .5px; }
 }

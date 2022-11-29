@@ -3,19 +3,30 @@
 /* make scrollbars invisible  */
 html{
   scrollbar-width: none;
-  ::-webkit-scrollbar{ display: none; }
+  &::-webkit-scrollbar{ display: none; }
 }
 
 body{
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   text-align: center;
   margin: 0;
+
+  @media only screen and (max-width: 600px){
+    padding-top: 15vh !important;
+  }
+
+  @media only screen and (min-width: 600px){
+    padding-top: 2vh !important;
+  }
+
+  @media (prefers-color-scheme: dark){
+    color: $color-primary;
+    background-color: #000;
+  }
 }
-@media only screen and (max-width: 600px){
-  body{ padding-top: 15vh; }
-}
-@media only screen and (min-width: 600px){
-  body{ padding-top: 2vh; }
+
+.layout{ 
+  box-sizing: border-box;
 }
 
 /* for lib/IntersectionObserver */
@@ -28,10 +39,6 @@ body{
   opacity: 1;
   z-index: -1;
   transform: translateX(0);
-}
-
-.layout{ 
-  box-sizing: border-box;
 }
 
 .shadow{
@@ -50,11 +57,4 @@ body{
   width: 200%;
   height: 0;
   top: 0;
-}
-
-@media (prefers-color-scheme: dark){
-  body {
-    color: $color-primary;
-    background-color: #000;
-  }
 }

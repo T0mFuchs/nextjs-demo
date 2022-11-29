@@ -1,0 +1,22 @@
+@import "styles/colors.module";
+
+.position{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+}
+.form{
+  all: unset;
+  display: flex;
+  padding: .2em 0;
+  flex-direction: column;
+}
+.cancel{
+  all: unset;
+  position: fixed;
+  right: -.8em;
+  top: -.8em;
+  color: $color-secondary;
+}

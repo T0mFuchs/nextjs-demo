@@ -1,15 +1,11 @@
 .Position { 
   position: fixed;
   z-index: 1;
-}
-@media only screen and (max-width: 600px) {
-  .Position {
+  @media only screen and (max-width: 600px){
     bottom: .2em;
     right: .2em;
   }
-}
-@media only screen and (min-width: 600px) {
-  .Position {
+  @media only screen and (min-width: 600px){
     bottom: 2vh;
     right: 2vw;
   }
