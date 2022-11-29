@@ -68,13 +68,13 @@ export default function Page() {
           </div>
         ) : (
           <>
-            <Flicker className={css.center} string="sign in for interactivity">
+            <Flicker className={css.center} text="sign in for more">
               <Link
                 href="/auth/signin"
                 className={styles.Link}
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none",  }}
               >
-                sign in<div>for interactivity</div>
+                sign in for more
               </Link>
             </Flicker>
           </>

@@ -82,13 +82,14 @@ function Search({ data }: { data: Entry[] }) {
           className={css.input}
           type="text"
           value={current}
-          placeholder="search entries..."
-          pattern="^[a-zA-Z0-9_ ]*$"
+          placeholder="search all entries"
         />
         <button
           className={css.current}
           onClick={() => {
             setCurrent("");
+            setShow([]);
+            setFiltered([]);
           }}
         >
           {current === "" ? <SearchSVG /> : <CloseSVG />}

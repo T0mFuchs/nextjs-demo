@@ -4,21 +4,21 @@ import animate from "./animate.module.scss";
 
 export default function Flicker({
   children,
-  string,
-  style,
+  text,
   className,
+  style,
   ...props
 }: {
   children: React.ReactNode;
-  string: string;
-  style?: React.CSSProperties;
+  text: string;
   className?: string;
+  style?: React.CSSProperties;
 }) {
   return (
     <div
-      className={`${animate.flicker} ${className}`}
-      style={style}
-      data-text={string}
+    className={`${animate.flicker} ${className}`}
+    style={{ ...style }}
+      data-text={text}
       {...props}
     >
       {children}

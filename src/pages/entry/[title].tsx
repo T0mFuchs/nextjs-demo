@@ -40,13 +40,13 @@ export default function Page({ title }: { title: string }) {
           <>
             <div style={{ paddingBottom: "1em" }} />
             <div className={css.display}>
-              <Flicker className={css.flicker} string="currently not signed in">
+              <Flicker className={css.flicker} text="currently not signed in">
                 currently not signed in
               </Flicker>
               <Link style={{ textDecoration: 0 }} href="/auth/signin">
                 <Flicker
                   className={`${styles.Button} ${css.flicker} ${styles.Link}`}
-                  string="sign in"
+                  text="sign in"
                 >
                   sign in
                 </Flicker>

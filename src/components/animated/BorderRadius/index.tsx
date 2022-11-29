@@ -17,7 +17,7 @@ export default function BorderRadius({
   style: React.CSSProperties;
 }) {
   return (
-    <div className={`${css.border} ${className}`} style={style} {...props}>
+    <div className={`${css.border} ${className}`} style={{ ...style }} {...props}>
       {children}
     </div>
   );

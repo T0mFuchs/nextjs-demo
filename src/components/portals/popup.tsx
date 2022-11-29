@@ -23,14 +23,16 @@ export const PopupCentered = ({
 
 export const PopupAppend = ({
   children,
+  className,
   style,
   ...props
 }: {
   children: React.ReactNode;
+  className?: string;
   style?: React.CSSProperties;
 }) => {
   return ReactDOM.createPortal(
-    <div style={style}>
+    <div className={className} style={{ ...style }}>
       <div
         className={styles.Card}
         style={{ maxWidth: 300 }}

@@ -29,7 +29,7 @@ export default function Dialog({
           className={position}
           style={{ width: width, margin: "0 auto" }}
         >
-          <div className={`${className}`} style={style} {...props}>
+          <div className={`${className}`} style={{ ...style }} {...props}>
             {children}
           </div>
         </A.Content>
