@@ -4,7 +4,7 @@ import Head from "next/head";
 import useSWR from "swr";
 import { Observe } from "lib/IntersectionObserver";
 import { dateFromObjectId } from "lib/dateFromObjectId";
-import { CrossSVG, Fallback } from "components";
+import { CrossSVG, FallbackSVG, DataErrorSVG } from "components";
 import { Entry } from "lib/Entry";
 
 import styles from "styles/main.module.scss";
@@ -18,8 +18,8 @@ export default function Page() {
   React.useEffect(() => {
     Observe();
   });
-  if (error) return <div>failed loading entries</div>;
-  if (!data) return <Fallback />;
+  if (error) return <DataErrorSVG />;
+  if (!data) return <FallbackSVG />;
   return (
     <>
       <Head>
@@ -29,11 +29,11 @@ export default function Page() {
       {data
         .map((entry: Entry) => (
           <>
-            <div key={entry.id} className={`hidden ${styles.Card}`}>
+            <div key={entry.id} className={`${styles.Card} hidden`}>
               <div className={styles.H2} style={{ fontSize: "2em" }}>
                 <Link
                   href={`entry/${entry.title}`}
-                  className={`${styles.Link}`}
+                  className={styles.Link}
                 >
                   {entry.title}
                 </Link>
@@ -86,7 +86,7 @@ function Search({ data }: { data: Entry[] }) {
           pattern="^[a-zA-Z0-9_ ]*$"
         />
         <button
-          style={{ all: "unset", fontSize: "1.3em" }}
+          className={css.current}
           onClick={() => {
             setCurrent("");
           }}
@@ -110,7 +110,7 @@ function Search({ data }: { data: Entry[] }) {
                         ? entry.title.replace(
                             new RegExp(current, "gi"),
                             (match) => {
-                              return `<span class="${css.highlight0}">${match}</span>`;
+                              return `<span class="${css.highlight}">${match}</span>`;
                             }
                           )
                         : entry.title,
@@ -126,7 +126,7 @@ function Search({ data }: { data: Entry[] }) {
                         ? entry.body.replace(
                             new RegExp(current, "gi"),
                             (match) => {
-                              return `<span class="${css.highlight1}">${match}</span>`;
+                              return `<span class="${css.highlight}">${match}</span>`;
                             }
                           )
                         : entry.body,
@@ -135,9 +135,7 @@ function Search({ data }: { data: Entry[] }) {
               ) : (
                 <></>
               )}
-              <span
-                style={{ paddingLeft: 15, fontSize: ".6em", verticalAlign: 1 }}
-              >
+              <span className={css.span}>
                 {dateFromObjectId(entry.id).toLocaleDateString()}
               </span>
               <div style={{ paddingBottom: 7 }} />

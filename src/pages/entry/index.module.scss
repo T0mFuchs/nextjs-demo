@@ -1,7 +1,12 @@
 .inline{
   display: inline-block; 
 }
+.display{
+  display: flex;
+  justify-content: center;
+}
 .flicker{
   left: 50%;
   transform: translate(-50%,-50%);
+  margin: 3em 0;
 }

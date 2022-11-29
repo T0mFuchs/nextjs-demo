@@ -14,6 +14,10 @@
     border: 1px solid $color-primary;
   }
 }
+.current{
+  all: unset;
+  font-size: 1.3em;
+}
 .icon{
   left: -1.3em;
   position: relative;
@@ -28,9 +32,9 @@
   &::-webkit-scrollbar{ display: none; }
 }
 .item{
-  color: #0059ff;
+  color: #000;
   @media (prefers-color-scheme: dark){
-    color: #00ffff;
+    color: $color-primary;
   }
   border: 1px solid;
   width: 40vw;
@@ -49,16 +53,16 @@
     background-color: $bg-dark;
   }
 }
-.highlight0{
-  color: #fff;
-  text-decoration: #fff underline;
-}
-.highlight1{
+.highlight{
   color: #0059ff;
   text-decoration: #0059ff underline;
   @media (prefers-color-scheme: dark){
-    color: #00ffff;
-    text-decoration: #00ffff underline;
+    color: #ff0055;
+    text-decoration: #ff0055 underline;
   }
-  
+}
+.span{
+  padding-left: 15px;
+  font-size: .6em;
+  vertical-align: 1;
 }
