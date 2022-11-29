@@ -12,6 +12,7 @@ export const PopupCentered = ({
 }) => {
   return ReactDOM.createPortal(
     <div className={css.position}>
+      <div className={css.overlay} />
       <div className={styles.Card} tabIndex={0} {...props}>
         {children}
       </div>

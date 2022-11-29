@@ -68,7 +68,7 @@ export default function CreateEntry() {
                 style={{
                   fontSize: "1.3em",
                   fontWeight: 900,
-                  backgroundColor: "var(--transparent)",
+                  backgroundColor: "#00000000",
                   border: 0,
                 }}
                 className={styles.Input}
@@ -86,10 +86,11 @@ export default function CreateEntry() {
                   fontSize: "1em",
                   fontWeight: 600,
                   lineHeight: "2em",
-                  backgroundColor: "var(--transparent)",
+                  backgroundColor: "#00000000",
+                  height: "35vh",
                   border: 0,
                 }}
-                rows={10}
+                rows={6}
                 className={styles.Input}
                 name="body"
                 placeholder="...body"
@@ -103,9 +104,10 @@ export default function CreateEntry() {
                 style={{
                   all: "unset",
                   position: "absolute",
-                  right: 0,
+                  right: "-.1em",
                   bottom: "-.5em",
                   color: "#70deaf",
+                  fontWeight: 500,
                 }}
                 type="submit"
               >
@@ -119,9 +121,9 @@ export default function CreateEntry() {
               style={{
                 all: "unset",
                 position: "absolute",
-                right: "-.4em",
+                right: "-.3em",
                 top: "-.9em",
-                color: "var(--color-secondary)",
+                color: "#ff674b",
                 fontSize: "1.7em",
               }}
               onClick={() => {

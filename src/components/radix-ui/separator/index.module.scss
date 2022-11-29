@@ -1,6 +1,9 @@
+@import "styles/colors.module";
+
 .root{
-  background-color: var(--bg-dark);
+  background-color: $bg-dark;
   margin: 2em 0;
+  z-index: -1;
 }
 .root[data-orientation='horizontal'] {
   height: 1px;
@@ -12,6 +15,6 @@
 }
 @media screen and (prefers-color-scheme: dark) {
   .root {
-    background-color: var(--bg-light);
+    background-color: $bg-light;
   }
 }

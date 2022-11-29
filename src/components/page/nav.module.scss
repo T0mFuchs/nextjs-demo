@@ -1,10 +1,12 @@
+@import "styles/colors.module";
+
 .navbar {
   z-index: 1;
   position: fixed;
-  background-color: var(--bg-light);
+  background-color: $bg-light;
   overflow-x: hidden;
   scrollbar-width: none;
-  box-shadow: var(--box-shadaow) -20px 0 100px 40px;
+  box-shadow: $box-shadaow -20px 0 100px 40px;
 }
 .navbar-nav {
   list-style: none;
@@ -23,7 +25,7 @@
 }
 .nav-link:hover > svg, .nav-link:focus > svg,
 .nav-link:hover > .link-text, .nav-link:focus > .link-text { 
-  color: var(--color-secondary);
+  color: $color-secondary;
 }
 .link-text {
   display: none;
@@ -46,13 +48,13 @@
     top: -.75em;
     height: 100vh;
     padding: .5em;
-    background-color: var(--dark80);
+    background-color: $dark80;
   }
   .navbar:hover .link-text { display: inline; }
   .navbar:hover { width: 20vw; }
 }
 @media (prefers-color-scheme: dark) and (max-width: 600px) {
-  .navbar { background-color: var(--dark80); }
+  .navbar { background-color: $dark80; }
 }
 @media screen and (max-width: 600px) {
   .border {

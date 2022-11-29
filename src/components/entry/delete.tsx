@@ -73,7 +73,7 @@ export default function DeleteEntry({ title }: { title: string }) {
                 all: "unset",
               }}
             >
-              <span style={{ color: `#70deaf` }}>
+              <span style={{ color: "#70deaf" }}>
                 <AccessibleIcon.Root label="confirm delete">
                   <CheckSVG />
                 </AccessibleIcon.Root>
@@ -87,7 +87,7 @@ export default function DeleteEntry({ title }: { title: string }) {
               position: "absolute",
               right: "-.8em",
               top: "-.8em",
-              color: "var(--color-secondary)",
+              color: "#ff674b",
             }}
             onClick={() => {
               setShowPopup(false);

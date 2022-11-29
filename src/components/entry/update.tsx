@@ -76,7 +76,7 @@ export default function UpdateEntry({ title }: { title: string }) {
                   fontSize: "1.3em",
                   fontWeight: 900,
                   border: 0,
-                  backgroundColor: "var(--transparent)",
+                  backgroundColor: "#00000000",
                 }}
                 className={styles.Input}
                 name="title"
@@ -92,11 +92,11 @@ export default function UpdateEntry({ title }: { title: string }) {
                   fontSize: "1em",
                   fontWeight: 600,
                   lineHeight: "1.7em",
-                  backgroundColor: "var(--transparent)",
+                  backgroundColor: "#00000000",
                   border: 0,
-                  height: 400,
+                  height: "35vh",
                 }}
-                rows={10}
+                rows={6}
                 className={styles.Input}
                 name="body"
                 defaultValue={data.body}
@@ -130,7 +130,7 @@ export default function UpdateEntry({ title }: { title: string }) {
                 position: "fixed",
                 right: "-.25em",
                 top: "-.9em",
-                color: "var(--color-secondary)",
+                color: "#ff674b",
                 fontSize: "1.7em",
               }}
               onClick={() => {

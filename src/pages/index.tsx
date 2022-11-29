@@ -25,9 +25,7 @@ export default function Page() {
       <>
         {session ? (
           <div style={{ maxWidth: 150, margin: "0 auto" }}>
-            <div style={{ padding: "2em 0" }}>
-              Hello, {session.user?.name}
-            </div>
+            <div style={{ paddingTop: "1em" }}>Hello, {session.user?.name}</div>
             <Separator orientation="horizontal" />
             <CreateEntry />
             <Separator orientation="horizontal" />
@@ -49,10 +47,10 @@ export default function Page() {
                 </PopupAppend>
               ) : (
                 <button
+                  className={styles.Button}
                   onClick={() => {
                     setOpen(true);
                   }}
-                  className={styles.Button}
                 >
                   sign out
                 </button>

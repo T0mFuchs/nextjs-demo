@@ -1,11 +1,14 @@
+@import "styles/colors.module";
+
 .position{
   position: fixed;
+  z-index: 9;
 }
 @media screen and (max-width: 600px) {
   .position{
-    bottom: -20%;
+    bottom: .5em;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%,0);
   }
 }
 @media screen and (min-width: 600px) {
@@ -14,4 +17,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+.overlay{
+  box-shadow: 0 0 0 100vmax $dark80, 0 0 2em $dark80;
 }
