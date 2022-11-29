@@ -1,5 +1,6 @@
 @import "./colors.module";
 
+
 .Button{
   color: inherit;
   background-color: $bg-light;
@@ -52,5 +53,14 @@
   margin: 0;
   @media (prefers-color-scheme: dark){
     text-shadow: $bg-dark -1px -1px 1px, $bg-light .5px .5px .5px;
+  }
+}
+
+
+.Link{
+  font-weight: 900;
+  color: #0059ff;
+  @media (prefers-color-scheme: dark){
+    color: #00ffff;
   }
 }

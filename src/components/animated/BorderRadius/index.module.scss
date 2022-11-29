@@ -1,10 +1,16 @@
-$primary: #33132842;
-$secondary: #5a2b753f;
-$third: #2e1e2a4b;
+$primary-light: #f0e7e7e0;
+$secondary-light: #e7e3e3e3;
+$third-light: #f1eaeae0;
+$primary-dark: #33132842;
+$secondary-dark: #5a2b753f;
+$third-dark: #2e1e2a4b;
 
 .border {
-  background: linear-gradient(45deg, $primary 0%, $secondary 100%);
-  animation: morph 15s ease-in-out infinite;
+  @media (prefers-color-scheme: dark){
+    background: linear-gradient(45deg, $primary-dark 0%, $secondary-dark 100%) !important;
+  }
+  background: linear-gradient(45deg, $primary-light 0%, $secondary-light 100%);
+  animation: morph 12s ease-in-out infinite;
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   transition: all 1s ease-in-out;
   z-index: -1;
@@ -14,16 +20,25 @@ $third: #2e1e2a4b;
 @keyframes morph {
  0% {
      border-radius:  60% 40% 30% 70% / 60% 30% 70% 40%;
-     background: linear-gradient(45deg, $primary 0%, $secondary 100%);
+     @media (prefers-color-scheme: dark){
+       background: linear-gradient(45deg, $primary-dark 0%, $secondary-dark 100%)!important;  
+     }
+     background: linear-gradient(45deg, $primary-light 0%, $secondary-light 100%);
  } 
  
  50% {
      border-radius:  30% 60% 70% 40% / 50% 60% 30% 60%;
-     background: linear-gradient(45deg, $third 0%, $secondary 100%);
+     @media (prefers-color-scheme: dark){
+       background: linear-gradient(45deg, $third-dark 0%, $secondary-dark 100%)!important;
+     }
+     background: linear-gradient(45deg, $third-light 0%, $secondary-light 100%);
  }
  
  100% {
    border-radius:  60% 40% 30% 70% / 60% 30% 70% 40%;
-   background: linear-gradient(45deg, $primary 0%, $secondary 100%);
+   @media (prefers-color-scheme: dark){
+     background: linear-gradient(45deg, $primary-dark 0%, $secondary-dark 100%)!important;
+   }
+   background: linear-gradient(45deg, $primary-light 0%, $secondary-light 100%);
  } 
 }

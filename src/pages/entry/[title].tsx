@@ -45,7 +45,7 @@ export default function Page({ title }: { title: string }) {
               </Flicker>
               <Link style={{ textDecoration: 0 }} href="/auth/signin">
                 <Flicker
-                  className={`${styles.Button} ${css.flicker}`}
+                  className={`${styles.Button} ${css.flicker} ${styles.Link}`}
                   style={{
                     margin: "3em 0",
                   }}

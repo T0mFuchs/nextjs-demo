@@ -9,23 +9,25 @@
   box-shadow: $box-shadaow -20px 0 100px 40px;
   &::-webkit-scrollbar { display: none; }
 
+  @media (prefers-color-scheme: dark){
+    background-color: $dark80;
+  }
+
   @media only screen and (max-width: 600px){
     top: 0;
     width: 100vw;
     height: 5.25em;
   }
+  
   @media only screen and (min-width: 600px){
     top: -.75em;
     height: 100vh;
     padding: .5em;
-    background-color: $dark80;
 
     &:hover .link-text { display: inline; }
     &:hover { width: 15vw; }
   }
-  @media (prefers-color-scheme: dark){
-    background-color: $dark80;
-  }
+  
 }
 .navbar-nav {
   list-style: none;

@@ -18,7 +18,8 @@ export default function App({
           <ScrollUp />
           <Component {...pageProps} />
         </div>
-        <div className="shadow" />
+        <div className="shadow top" />
+        <div className="shadow bottom" />
       </SessionProvider>
     </StrictMode>
   );

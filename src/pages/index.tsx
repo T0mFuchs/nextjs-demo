@@ -3,10 +3,9 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { signOut, useSession } from "next-auth/react";
-import { PopupAppend } from "components/portals/popup";
+import Separator from "components/radix-ui/separator";
 import CreateEntry from "components/entry/create";
 import Flicker from "components/animated/Flicker";
-import Separator from "components/radix-ui/separator";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
@@ -31,9 +30,11 @@ export default function Page() {
         {session ? (
           <div style={{ maxWidth: 150, margin: "0 auto" }}>
             <div style={{ paddingTop: "1em" }}>Hello, {session.user?.name}</div>
-            <Separator orientation="horizontal" />
-            <CreateEntry />
-            <Separator orientation="horizontal" />
+            <React.Suspense>
+              <Separator orientation="horizontal" />
+              <CreateEntry />
+              <Separator orientation="horizontal" />
+            </React.Suspense>
             <>
               {open ? (
                 <React.Suspense>
@@ -68,7 +69,11 @@ export default function Page() {
         ) : (
           <>
             <Flicker className={css.center} string="sign in for interactivity">
-              <Link href="/auth/signin">
+              <Link
+                href="/auth/signin"
+                className={styles.Link}
+                style={{ textDecoration: "none" }}
+              >
                 sign in<div>for interactivity</div>
               </Link>
             </Flicker>

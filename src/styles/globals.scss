@@ -6,6 +6,7 @@ html{
   &::-webkit-scrollbar{ display: none; }
 }
 
+
 body{
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   text-align: center;
@@ -25,9 +26,11 @@ body{
   }
 }
 
+
 .layout{ 
   box-sizing: border-box;
 }
+
 
 /* for lib/IntersectionObserver */
 .hidden{ 
@@ -41,20 +44,30 @@ body{
   transform: translateX(0);
 }
 
-.shadow{
-  box-shadow: 
-  $box-shadaow -200px 0 250px 10px,
-  $box-shadaow -200px 0 250px 20px,
-  $box-shadaow -200px 0 250px 30px,
-  $box-shadaow -200px 0 250px 40px,
-  $box-shadaow -200px 0 250px 50px,
-  $box-shadaow -200px 0 250px 60px,
-  $box-shadaow -200px 0 250px 70px,
-  $box-shadaow -200px 0 250px 80px,
-  $box-shadaow -200px 0 250px 90px,
-  $box-shadaow -200px 0 250px 100px;
-  position: fixed;
-  width: 200%;
-  height: 0;
-  top: 0;
+
+@media (prefers-color-scheme: dark){
+  .shadow{
+    box-shadow: 
+    $box-shadaow -200px 0 250px 10px,
+    $box-shadaow -100px 0 250px 20px,
+    $box-shadaow -250px 0 250px 30px,
+    $box-shadaow -250px 0 250px 40px,
+    $box-shadaow -150px 0 250px 50px,
+    $box-shadaow -150px 0 250px 60px,
+    $box-shadaow -250px 0 250px 70px,
+    $box-shadaow -250px 0 250px 80px,
+    $box-shadaow 0 0 250px 90px,
+    $box-shadaow -200px 0 250px 100px;
+    position: fixed;
+    &.top {
+      width: 200%;
+      height: 0;
+      top: 0;
+    }
+    &.bottom {
+      width: 200%;
+      height: 0;
+      bottom: 0;
+    }
+  }
 }

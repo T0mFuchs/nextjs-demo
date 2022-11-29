@@ -31,7 +31,12 @@ export default function Page() {
           <>
             <div key={entry.id} className={`hidden ${styles.Card}`}>
               <div className={styles.H2} style={{ fontSize: "2em" }}>
-                <Link href={`entry/${entry.title}`}>{entry.title}</Link>
+                <Link
+                  href={`entry/${entry.title}`}
+                  className={`${styles.Link}`}
+                >
+                  {entry.title}
+                </Link>
               </div>
               <p>{entry.body}</p>
               <div style={{ fontSize: ".6em" }}>
@@ -90,7 +95,7 @@ function Search({ data }: { data: Entry[] }) {
               <Link
                 href={`/entry/${entry.title}`}
                 prefetch={false}
-                className={css.item}
+                className={`${css.item}`}
               >
                 {entry.title}
               </Link>
