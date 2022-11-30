@@ -13,9 +13,9 @@ const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
 
 export default function UpdateEntry({ title }: { title: string }) {
-  const router = useRouter();
   const [showPopup, setShowPopup] = React.useState(false);
   const { data } = useSWR(`/api/entry/${title}`, fetcher);
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -42,14 +42,14 @@ export default function UpdateEntry({ title }: { title: string }) {
     <>
       {!showPopup ? (
         <button
-          className={`${styles.Button}`}
+          className={styles.Button}
           onClick={() => setShowPopup(true)}
         >
           update entry
         </button>
       ) : (
         <button
-          className={`${styles.Button}`}
+          className={styles.Button}
           onClick={() => setShowPopup(false)}
         >
           editting...
@@ -65,27 +65,23 @@ export default function UpdateEntry({ title }: { title: string }) {
             <form className={css.form} onSubmit={handleSubmit}>
               <Label.Root htmlFor="title" />
               <input
-                style={{
-                  fontSize: "1.3em",
-                  fontWeight: 900,
-                  border: 0,
-                  backgroundColor: "#00000000",
-                }}
-                className={`${css.input} ${styles.Input}`}
+                className={css.input}
                 name="title"
                 type="text"
                 defaultValue={data.title}
-                minLength={2}
+                minLength={3}
                 maxLength={20}
-                pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces at start & beginning https://regexr.com/
+                pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // ^([^\s]*[A-Za-z0-9](?:\S+\s[^\s]))*[^\s]*$ | https://www.debuggex.com/
+                title="remove spaces at start, end & all consecutive spaces"
               />
               <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
                 rows={6}
-                className={`${css.textarea} ${styles.Input}`}
+                className={css.textarea}
                 name="body"
                 defaultValue={data.body}
                 minLength={5}
+                maxLength={500}
               />
               <button
                 onClick={() => {

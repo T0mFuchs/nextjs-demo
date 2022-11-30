@@ -13,9 +13,9 @@ const Dialog = dynamic(() => import("components/radix-ui/dialog"), {
 });
 
 export default function DeleteEntry({ title }: { title: string }) {
-  const router = useRouter();
   const [showPopup, setShowPopup] = React.useState(false);
   const [entry, setEntry]: any = React.useState(null);
+  const router = useRouter();
 
   React.useEffect(() => {
     fetch(`/api/entry/${title}`, { cache: "no-store" })
@@ -41,14 +41,14 @@ export default function DeleteEntry({ title }: { title: string }) {
     <>
       {!showPopup ? (
         <button
-          className={`${styles.Button}`}
+          className={styles.Button}
           onClick={() => setShowPopup(true)}
         >
           delete entry
         </button>
       ) : (
         <button
-          className={`${styles.Button}`}
+          className={styles.Button}
           onClick={() => setShowPopup(false)}
         >
           please confirm

@@ -10,8 +10,8 @@ import css from "./form.module.scss";
 
 export default function CreateEntry() {
   const [showPopup, setShowPopup] = React.useState(false);
-
   const router = useRouter();
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -34,7 +34,7 @@ export default function CreateEntry() {
     <>
       {!showPopup ? (
         <button
-          className={`${styles.Button} hover`}
+          className={styles.Button}
           style={{ width: 120 }}
           onClick={() => setShowPopup(true)}
         >
@@ -58,23 +58,26 @@ export default function CreateEntry() {
             <form className={css.form} onSubmit={handleSubmit}>
               <Label.Root htmlFor="title" />
               <input
-                className={`${css.input} ${styles.Input}`}
+                className={css.input}
                 name="title"
                 type="text"
                 placeholder="...title"
                 required
-                minLength={2}
+                minLength={3}
                 maxLength={20}
-                pattern="^[^\s]+(\s+[^\s]+)*$" // regex for disallowing whitespaces at start & beginning https://regexr.com/
+                pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // ^([^\s]*[A-Za-z0-9](?:\S+\s[^\s]))*[^\s]*$ | https://www.debuggex.com/
+                title="remove spaces at start, end & all consecutive spaces"
+                autoFocus
               />
               <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
               <textarea
                 rows={6}
-                className={`${css.textarea} ${styles.Input}`}
+                className={css.textarea}
                 name="body"
                 placeholder="...body"
                 required
                 minLength={5}
+                maxLength={500}
               />
               <button
                 onClick={() => {
