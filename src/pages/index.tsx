@@ -72,7 +72,7 @@ export default function Page() {
               <Link
                 href="/auth/signin"
                 className={styles.Link}
-                style={{ textDecoration: "none",  }}
+                style={{ textDecoration: "none" }}
               >
                 sign in for more
               </Link>

@@ -31,10 +31,7 @@ export default function Page() {
           <>
             <div key={entry.id} className={`${styles.Card} hidden`}>
               <div className={styles.H2} style={{ fontSize: "2em" }}>
-                <Link
-                  href={`entry/${entry.title}`}
-                  className={styles.Link}
-                >
+                <Link href={`entry/${entry.title}`} className={styles.Link}>
                   {entry.title}
                 </Link>
               </div>

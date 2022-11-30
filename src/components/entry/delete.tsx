@@ -40,17 +40,11 @@ export default function DeleteEntry({ title }: { title: string }) {
   return (
     <>
       {!showPopup ? (
-        <button
-          className={styles.Button}
-          onClick={() => setShowPopup(true)}
-        >
+        <button className={styles.Button} onClick={() => setShowPopup(true)}>
           delete entry
         </button>
       ) : (
-        <button
-          className={styles.Button}
-          onClick={() => setShowPopup(false)}
-        >
+        <button className={styles.Button} onClick={() => setShowPopup(false)}>
           please confirm
         </button>
       )}

@@ -16,8 +16,8 @@ export default function Flicker({
 }) {
   return (
     <div
-    className={`${animate.flicker} ${className}`}
-    style={{ ...style }}
+      className={`${animate.flicker} ${className}`}
+      style={{ ...style }}
       data-text={text}
       {...props}
     >

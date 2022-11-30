@@ -37,21 +37,20 @@ export default function UpdateEntry({ title }: { title: string }) {
     console.log(newData.title);
     router.push(`/entry/${newData.title}`).then(() => router.reload());
   };
-
+  window.addEventListener("beforeunload", (event) => {
+    if (showPopup) {
+      event.returnValue = "";
+      event.preventDefault();
+    }
+  });
   return (
     <>
       {!showPopup ? (
-        <button
-          className={styles.Button}
-          onClick={() => setShowPopup(true)}
-        >
+        <button className={styles.Button} onClick={() => setShowPopup(true)}>
           update entry
         </button>
       ) : (
-        <button
-          className={styles.Button}
-          onClick={() => setShowPopup(false)}
-        >
+        <button className={styles.Button} onClick={() => setShowPopup(false)}>
           editting...
         </button>
       )}

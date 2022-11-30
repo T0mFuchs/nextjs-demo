@@ -13,6 +13,10 @@ export default function Separator({
   orientation?: "horizontal" | "vertical";
 }) {
   return (
-    <S.Root className={`${css.root} ${className}`} style={{ ...style }} {...props} />
+    <S.Root
+      className={`${css.root} ${className}`}
+      style={{ ...style }}
+      {...props}
+    />
   );
 }
