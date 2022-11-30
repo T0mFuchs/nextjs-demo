@@ -16,7 +16,8 @@ const Dialog = dynamic(() => import("components/radix-ui/dialog"), {
 
 export default function Page() {
   const [open, setOpen] = React.useState(false);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  if (status === "loading") return <></>;
   return (
     <>
       <Head>

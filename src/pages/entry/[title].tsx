@@ -18,7 +18,8 @@ export const getServerSideProps: GetServerSideProps = async (
 };
 
 export default function Page({ title }: { title: string }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  if (status === "loading") return <></>;
   return (
     <>
       <Head>

@@ -32,6 +32,7 @@ export default function CreateEntry() {
   };
   window.addEventListener("beforeunload", (event) => {
     if (showPopup) {
+      // this doesn't work for mobile
       event.returnValue = "";
       event.preventDefault();
     }
