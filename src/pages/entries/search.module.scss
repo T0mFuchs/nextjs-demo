@@ -13,9 +13,11 @@
   @media screen and (prefers-color-scheme: dark){
     border: 1px solid $color-primary;
   }
+  transition: 400ms ease-out;
   @media (max-width: 600px){
-    &:focus{
-      margin-top: 50vw;
+    &:focus{ 
+      transition: 500ms ease-in;
+      margin-top: 40vh; // make searchbar visible while typing
     }
   }
 }

@@ -30,13 +30,6 @@ export default function CreateEntry() {
     setShowPopup(false);
     router.push(`/entry/${data.title}`).then(() => router.reload());
   };
-  window.addEventListener("beforeunload", (event) => {
-    if (showPopup) {
-      // this doesn't work for mobile
-      event.returnValue = "";
-      event.preventDefault();
-    }
-  });
   return (
     <>
       {!showPopup ? (

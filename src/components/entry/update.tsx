@@ -37,13 +37,6 @@ export default function UpdateEntry({ title }: { title: string }) {
     console.log(newData.title);
     router.push(`/entry/${newData.title}`).then(() => router.reload());
   };
-  window.addEventListener("beforeunload", (event) => {
-    if (showPopup) {
-      // this doesn't work for mobile
-      event.returnValue = "";
-      event.preventDefault();
-    }
-  });
   return (
     <>
       {!showPopup ? (
