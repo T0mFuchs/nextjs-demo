@@ -46,7 +46,7 @@ $dark: #000;
   clip:rect(0,900px,0,0); 
   animation:noise-anim-2 3s infinite linear alternate-reverse;
 }
-@media screen and (prefers-color-scheme: dark){
+@media (prefers-color-scheme: dark){
   .flicker:after{
     color:$light;
     background:$dark
