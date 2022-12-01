@@ -27,7 +27,6 @@
     &:hover .link-text { display: inline; }
     &:hover { width: 15vw; }
   }
-  
 }
 .navbar-nav {
   list-style: none;
@@ -69,15 +68,15 @@
 
 @media screen and (max-width: 600px) {
   .border {
-    top: -13vh;
+    bottom: 0;
     width: 300vw;
-    height: 5.25em;
+    height: calc(9vh - 2px);
     left: -100vw;
   }
 }
 @media screen and (min-width: 600px) {
   .border {
-    width: 50px;
+    width: 48px;
     height: 300vh;
     top: -100vh;
   }

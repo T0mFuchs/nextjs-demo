@@ -23,16 +23,21 @@
 .submit{
   all: unset;
   position: absolute;
-  right: -.1em;
+  right: -.9em;
   bottom: -.5em;
   color: #70deaf;
-  font-weight: 500;
+  font-weight: 600;
+  height: 2em;
+  width: 8em;
+  cursor: pointer;
 }
 .cancel{
   all: unset;
   position: absolute;
-  right: -.3em;
-  top: -.9em;
+  right: -.55em;
+  top: -1em;
   color: $color-secondary;
   font-size: 1.7em;
+  width: 1.5em;
+  height: 1.5em;
 }
