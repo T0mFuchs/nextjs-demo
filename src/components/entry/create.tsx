@@ -1,12 +1,16 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "components";
-import { PopupCentered } from "components/portals/popup";
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
 import css from "./form.module.scss";
+
+const AlertDialog = dynamic(() => import("components/radix-ui/alert-dialog"), {
+  suspense: true,
+});
 
 export default function CreateEntry() {
   const [showPopup, setShowPopup] = React.useState(false);
@@ -50,8 +54,13 @@ export default function CreateEntry() {
         </button>
       )}
       {showPopup ? (
-        <>
-          <PopupCentered>
+        <React.Suspense>
+          <AlertDialog
+            open={showPopup}
+            onOpenChange={setShowPopup}
+            className={styles.Card}
+            style={{ minWidth: "75%" }}
+          >
             <legend style={{ position: "absolute", top: "-.9em", left: 0 }}>
               new Entry
             </legend>
@@ -102,8 +111,8 @@ export default function CreateEntry() {
                 <CrossSVG />
               </AccessibleIcon.Root>
             </button>
-          </PopupCentered>
-        </>
+          </AlertDialog>
+        </React.Suspense>
       ) : (
         <></>
       )}

@@ -1,9 +1,9 @@
 import React from "react";
-import * as A from "@radix-ui/react-dialog";
+import * as A from "@radix-ui/react-alert-dialog";
 
 import css from "./index.module.scss";
 
-export default function Dialog({
+export default function AlertDialog({
   children,
   open,
   onOpenChange,
@@ -17,9 +17,9 @@ export default function Dialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
   className?: string;
-  position?: string; // declare position of component via css modules
+  position?: string; // overwrite position of component via css modules
   style?: React.CSSProperties;
-  width?: number | string; // fix for width of component so it is easier to be dismissed
+  width?: number | string; // set a fixed width for the component so it is easier to be dismissed
 }) {
   return (
     <A.Root open={open} onOpenChange={onOpenChange}>
@@ -30,6 +30,7 @@ export default function Dialog({
         <A.Overlay className={css.Overlay} />
         <A.Content
           className={`${css.dialog} ${className}`}
+          tabIndex={0}
           style={{ ...style }}
           {...props}
         >

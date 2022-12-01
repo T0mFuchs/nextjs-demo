@@ -1,6 +1,7 @@
 @import "styles/colors.module";
+@import "../keyframes.module";
 
-.position{
+.dialog{
   position: fixed;
   z-index: 9;
   @media screen and (max-width: 600px){
@@ -13,7 +14,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  animation: contentShow 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.overlay{
+
+.Overlay{
   box-shadow: 0 0 0 100vmax $dark80, 0 0 2em $dark80;
+  animation: overlayShow 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }

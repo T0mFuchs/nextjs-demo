@@ -1,13 +1,17 @@
 import React from "react";
 import useSWR from "swr";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "components";
-import { PopupCentered } from "components/portals/popup";
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
 import css from "./form.module.scss";
+
+const Dialog = dynamic(() => import("components/radix-ui/dialog"), {
+  suspense: true,
+});
 
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
@@ -48,65 +52,66 @@ export default function UpdateEntry({ title }: { title: string }) {
           editting...
         </button>
       )}
-      {showPopup ? (
-        <>
-          <PopupCentered>
-            <legend style={{ position: "absolute", top: "-.9em", left: 0 }}>
-              entry: {title}
-            </legend>
-            <div style={{ padding: ".3em 0" }} />
-            <form className={css.form} onSubmit={handleSubmit}>
-              <Label.Root htmlFor="title" />
-              <input
-                className={css.input}
-                name="title"
-                type="text"
-                defaultValue={data.title}
-                minLength={3}
-                maxLength={20}
-                pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // ^([^\s]*[A-Za-z0-9](?:\S+\s[^\s]))*[^\s]*$ | https://www.debuggex.com/
-                title="remove spaces at start, end & all consecutive spaces"
-              />
-              <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
-              <textarea
-                rows={6}
-                className={css.textarea}
-                name="body"
-                defaultValue={data.body}
-                minLength={5}
-                maxLength={500}
-              />
-              <button
-                onClick={() => {
-                  handleSubmit;
-                }}
-                className={css.submit}
-                type="submit"
-              >
-                save & close{" "}
-                <span>
-                  <AccessibleIcon.Root label="submit">
-                    <CheckSVG />
-                  </AccessibleIcon.Root>
-                </span>
-              </button>
-            </form>
-            <div style={{ padding: ".3em 0" }} />
+      <React.Suspense>
+        <Dialog
+          open={showPopup}
+          onOpenChange={setShowPopup}
+          className={styles.Card}
+          style={{ maxWidth: "75%" }}
+        >
+          <legend style={{ position: "absolute", top: "-.9em", left: 0 }}>
+            entry: {title}
+          </legend>
+          <div style={{ padding: ".3em 0" }} />
+          <form className={css.form} onSubmit={handleSubmit}>
+            <Label.Root htmlFor="title" />
+            <input
+              className={css.input}
+              name="title"
+              type="text"
+              defaultValue={data.title}
+              minLength={3}
+              maxLength={20}
+              pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // ^([^\s]*[A-Za-z0-9](?:\S+\s[^\s]))*[^\s]*$ | https://www.debuggex.com/
+              title="remove spaces at start, end & all consecutive spaces"
+            />
+            <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
+            <textarea
+              rows={6}
+              className={css.textarea}
+              name="body"
+              defaultValue={data.body}
+              minLength={5}
+              maxLength={500}
+            />
             <button
-              className={css.cancel}
               onClick={() => {
-                setShowPopup(false);
+                handleSubmit;
               }}
+              className={css.submit}
+              type="submit"
             >
-              <AccessibleIcon.Root label="cancel">
-                <CrossSVG />
-              </AccessibleIcon.Root>
+              save & close{" "}
+              <span>
+                <AccessibleIcon.Root label="submit">
+                  <CheckSVG />
+                </AccessibleIcon.Root>
+              </span>
             </button>
-          </PopupCentered>
-        </>
-      ) : (
-        <></>
-      )}
+          </form>
+          <div style={{ padding: ".3em 0" }} />
+          <button
+            className={css.cancel}
+            onClick={() => {
+              setShowPopup(false);
+            }}
+          >
+            <AccessibleIcon.Root label="cancel">
+              <CrossSVG />
+            </AccessibleIcon.Root>
+          </button>
+        </Dialog>
+      </React.Suspense>
       <div id="portal" />
     </>
   );
