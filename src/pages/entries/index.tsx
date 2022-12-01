@@ -53,14 +53,18 @@ function Search({ data }: { data: Entry[] }) {
   const [show, setShow]: any = React.useState([]);
   const [filtered, setFiltered]: any = React.useState([]);
 
+  const includesCaseInsensitive = (searched: string, searchString: string) => {
+    return new RegExp(searchString, "i").test(searched); // setting "i" flag to ignore case sensitivity
+  };
+
   const handleInput = (event: any) => {
     const current = event.target.value;
     setCurrent(current);
     const filteredTitle = data.filter((entry) => {
-      return entry.title.includes(current);
+      return includesCaseInsensitive(entry.title, current);
     });
     const filteredBody = data.filter((entry) => {
-      return entry.body.includes(current);
+      return includesCaseInsensitive(entry.body, current);
     });
     if (current === "") {
       setFiltered([]);
