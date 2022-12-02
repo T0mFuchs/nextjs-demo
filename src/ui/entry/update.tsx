@@ -2,14 +2,14 @@ import React from "react";
 import useSWR from "swr";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { CheckSVG, CrossSVG } from "components";
+import { CheckSVG, CrossSVG } from "ui";
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
 import css from "./form.module.scss";
 
-const Dialog = dynamic(() => import("components/radix-ui/dialog"), {
+const Dialog = dynamic(() => import("ui/radix-ui/dialog"), {
   suspense: true,
 });
 
@@ -18,7 +18,7 @@ const fetcher = (url: string) =>
 
 export default function UpdateEntry({ title }: { title: string }) {
   const [showPopup, setShowPopup] = React.useState(false);
-  const { data } = useSWR(`/api/entry/${title}`, fetcher);
+  const { data, error } = useSWR(`/api/entry/${title}`, fetcher);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -41,6 +41,13 @@ export default function UpdateEntry({ title }: { title: string }) {
     console.log(newData.title);
     router.push(`/entry/${newData.title}`).then(() => router.reload());
   };
+  if (!data)
+    return (
+      <button className={styles.Button} style={{ color: "grey" }}>
+        loading data
+      </button>
+    );
+  if (error) return <div>you are currently offline</div>;
   return (
     <>
       {!showPopup ? (

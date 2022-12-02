@@ -3,14 +3,14 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { signOut, useSession } from "next-auth/react";
-import Separator from "components/radix-ui/separator";
-import CreateEntry from "components/entry/create";
-import Flicker from "components/animated/Flicker";
+import Separator from "ui/radix-ui/separator";
+import CreateEntry from "ui/entry/create";
+import Flicker from "ui/animated/flicker";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
 
-const Dialog = dynamic(() => import("components/radix-ui/dialog"), {
+const Append = dynamic(() => import("ui/radix-ui/dialog/append"), {
   suspense: true,
 });
 
@@ -39,7 +39,7 @@ export default function Page() {
             <>
               {open ? (
                 <React.Suspense>
-                  <Dialog
+                  <Append
                     open={open}
                     onOpenChange={setOpen}
                     width={120}
@@ -53,7 +53,7 @@ export default function Page() {
                     >
                       yes i want to sign out
                     </button>
-                  </Dialog>
+                  </Append>
                 </React.Suspense>
               ) : (
                 <button

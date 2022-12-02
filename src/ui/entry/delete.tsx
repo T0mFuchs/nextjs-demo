@@ -1,14 +1,14 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { CheckSVG, CrossSVG } from "components";
+import { CheckSVG, CrossSVG } from "ui";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
 import css from "./delete.module.scss";
 import { Entry } from "lib/Entry";
 
-const Dialog = dynamic(() => import("components/radix-ui/dialog"), {
+const Dialog = dynamic(() => import("ui/radix-ui/dialog"), {
   suspense: true,
 });
 

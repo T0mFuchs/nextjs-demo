@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Separator from "components/radix-ui/separator";
+import Separator from "ui/radix-ui/separator";
 
 export default function Error() {
   return (

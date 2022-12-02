@@ -4,7 +4,8 @@ import Head from "next/head";
 import useSWR from "swr";
 import { Observe } from "lib/IntersectionObserver";
 import { dateFromObjectId } from "lib/dateFromObjectId";
-import { CrossSVG, FallbackSVG, DataErrorSVG } from "components";
+import { CrossSVG, DataErrorSVG } from "ui";
+import Fallback from "ui/entry/fallback";
 import { Entry } from "lib/Entry";
 
 import styles from "styles/main.module.scss";
@@ -19,7 +20,7 @@ export default function Page() {
     Observe();
   });
   if (error) return <DataErrorSVG />;
-  if (!data) return <FallbackSVG />;
+  if (!data) return <DataFallback />;
   return (
     <>
       <Head>
@@ -176,3 +177,22 @@ function CloseSVG() {
     </div>
   );
 }
+
+export function DataFallback() {
+  return (
+    <>
+      <input className={css.input} />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+    </>
+  );
+}
+

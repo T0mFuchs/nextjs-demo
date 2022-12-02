@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BorderRadius from "components/animated/BorderRadius";
+import BorderRadius from "ui/animated/border-radius";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "./nav.module.scss";

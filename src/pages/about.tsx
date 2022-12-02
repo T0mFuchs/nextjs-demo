@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Separator from "components/radix-ui/separator";
+import Separator from "ui/radix-ui/separator";
 
 import styles from "styles/main.module.scss";
 import css from "./about.module.scss";
@@ -20,7 +20,7 @@ export default function Page() {
             style={{ maxWidth: 500, margin: "1em auto" }}
           />
         </div>
-        <div>
+        <>
           <div className={`${styles.Card} ${css.card}`}>
             <div className={styles.border}>
               <p>next.js</p>
@@ -29,8 +29,7 @@ export default function Page() {
               <p>google lighthouse score 100</p>
             </div>
           </div>
-          <div style={{ padding: "1em 0" }} />
-        </div>
+        </>
       </>
     </>
   );

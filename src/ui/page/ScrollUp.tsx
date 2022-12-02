@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowTopSVG } from "components";
+import { ArrowTopSVG } from "ui";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";

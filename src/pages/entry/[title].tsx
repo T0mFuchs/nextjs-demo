@@ -2,10 +2,10 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-import ReadEntry from "components/entry/read";
-import DeleteEntry from "components/entry/delete";
-import UpdateEntry from "components/entry/update";
-import Flicker from "components/animated/Flicker";
+import ReadEntry from "ui/entry/read";
+import DeleteEntry from "ui/entry/delete";
+import UpdateEntry from "ui/entry/update";
+import Flicker from "ui/animated/flicker";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
