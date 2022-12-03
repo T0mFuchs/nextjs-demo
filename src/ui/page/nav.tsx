@@ -4,7 +4,7 @@ import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "./nav.module.scss";
 
-export default function Nav() {
+export function Nav() {
   return (
     <>
       <nav className={styles.navbar}>

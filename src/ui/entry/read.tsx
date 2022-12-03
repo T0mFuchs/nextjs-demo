@@ -1,7 +1,7 @@
 import React from "react";
 import useSWR from "swr";
-import { DataErrorSVG } from "ui";
 import { dateFromObjectId } from "lib/dateFromObjectId";
+import Error from "./error";
 import Fallback from "./fallback";
 
 import styles from "styles/main.module.scss";
@@ -11,7 +11,7 @@ const fetcher = (url: string) =>
 
 export default function ReadEntry({ title }: { title: string }) {
   const { data, error } = useSWR(`/api/entry/${title}`, fetcher);
-  if (error) return <DataErrorSVG />;
+  if (error) return <Error />;
   if (!data) return <Fallback maxWidth="60vw" />;
   return (
     <>

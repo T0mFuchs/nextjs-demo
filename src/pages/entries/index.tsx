@@ -2,49 +2,94 @@ import React from "react";
 import Link from "next/link";
 import Head from "next/head";
 import useSWR from "swr";
-import { Observe } from "lib/IntersectionObserver";
-import { dateFromObjectId } from "lib/dateFromObjectId";
-import { CrossSVG, DataErrorSVG } from "ui";
-import Fallback from "ui/entry/fallback";
 import { Entry } from "lib/Entry";
+import { Observe } from "lib/observer-toggle-visibility";
+import { dateFromObjectId } from "lib/dateFromObjectId";
+import { CrossSVG } from "ui";
+import Fallback from "ui/entry/fallback";
+import Error from "ui/entry/error";
 
 import styles from "styles/main.module.scss";
 import css from "./search.module.scss";
 
-const fetcher = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((res) => res.json());
+const limit = 6;
+const fetcher = async (url: string) =>
+  await fetch(url, { cache: "no-store" }).then((res) => res.json());
+
+// todo :: fix the window height difference issue when data mutates onscroll
 
 export default function Page() {
-  const { data, error } = useSWR("/api/entries", fetcher);
+  const [count, setCount] = React.useState(0);
+  const [height, setHeight] = React.useState(0);
+  const { data: searchData } = useSWR(`/api/entries`, fetcher);
+  const { data, error, mutate, isValidating } = useSWR(
+    `/api/entries/${(count + 1) * limit}`,
+    fetcher
+  );
+  const refetch = async () => {
+    await mutate({ ...data });
+    // set window scrollheight to saved height
+    window.scrollY = height; // todo :: this doesnt work
+  };
   React.useEffect(() => {
     Observe();
+    const elem = document.querySelectorAll("#end")[0];
+    const observer = new IntersectionObserver(
+      (n) => {
+        const last = n[0];
+        if (last.isIntersecting) {
+          if ((count + 1) * limit > data?.length + limit) {
+            return 0;
+          }
+          setHeight(window.scrollY);
+          setCount(count + 1);
+          observer.unobserve(last.target);
+          refetch();
+        }
+      },
+      { rootMargin: "50px" }
+    );
+    if (elem && !isValidating) {
+      observer.observe(elem);
+    }
   });
-  if (error) return <DataErrorSVG />;
-  if (!data) return <DataFallback />;
+  if (error) return <Error />;
+  if (!data) return <PageFallback />;
   return (
     <>
       <Head>
         <title>entries</title>
       </Head>
-      <Search data={data} />
-      {data
-        .map((entry: Entry) => (
-          <>
-            <div key={entry.id} className={`${styles.Card} hidden`}>
-              <div className={styles.H2} style={{ fontSize: "2em" }}>
-                <Link href={`entry/${entry.title}`} className={styles.Link}>
-                  {entry.title}
-                </Link>
-              </div>
-              <p>{entry.body}</p>
-              <div style={{ fontSize: ".6em" }}>
-                {dateFromObjectId(entry.id).toLocaleDateString()}
-              </div>
-            </div>
-            <div style={{ padding: "1.4em" }} />
-          </>
-        ))
-        .reverse()}
+      <>
+        <Search data={searchData} />
+        <div id="entries">
+          {data ? (
+            data.map((entry: Entry) => (
+              <>
+                <div key={entry.id} className={`${styles.Card} hidden`}>
+                  <div className={styles.H2} style={{ fontSize: "2em" }}>
+                    <Link href={`entry/${entry.title}`} className={styles.Link}>
+                      {entry.title}
+                    </Link>
+                  </div>
+                  <p>{entry.body}</p>
+                  <div style={{ fontSize: ".6em" }}>
+                    {dateFromObjectId(entry.id).toLocaleDateString()}
+                  </div>
+                </div>
+                <div aria-hidden style={{ padding: "1.4em" }} />
+              </>
+            ))
+          ) : (
+            <DataFallback />
+          )}
+          {isValidating ? (
+            <RefetchFallback />
+          ) : (
+            <div style={{ height: 300 }} id="end" />
+          )}
+        </div>
+      </>
     </>
   );
 }
@@ -135,9 +180,7 @@ function Search({ data }: { data: Entry[] }) {
                         : entry.body,
                   }}
                 />
-              ) : (
-                <></>
-              )}
+              ) : null}
               <span className={css.span}>
                 {dateFromObjectId(entry.id).toLocaleDateString()}
               </span>
@@ -178,14 +221,26 @@ function CloseSVG() {
   );
 }
 
-export function DataFallback() {
+function RefetchFallback() {
   return (
     <>
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+    </>
+  );
+}
+
+function SearchFallback() {
+  return (
+    <div className={css.wrapper}>
       <input className={css.input} />
-      <Fallback maxWidth="600px" />
-      <Fallback maxWidth="600px" />
-      <Fallback maxWidth="600px" />
-      <Fallback maxWidth="600px" />
+    </div>
+  );
+}
+
+function DataFallback() {
+  return (
+    <>
       <Fallback maxWidth="600px" />
       <Fallback maxWidth="600px" />
       <Fallback maxWidth="600px" />
@@ -196,3 +251,11 @@ export function DataFallback() {
   );
 }
 
+function PageFallback() {
+  return (
+    <>
+      <SearchFallback />
+      <DataFallback />
+    </>
+  );
+}

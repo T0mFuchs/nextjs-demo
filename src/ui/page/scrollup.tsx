@@ -5,7 +5,7 @@ import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 import styles from "styles/main.module.scss";
 import css from "./scrollup.module.scss";
 
-export default function ScrollUp() {
+export function ScrollUp() {
   const [showBtn, setShowBtn] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {

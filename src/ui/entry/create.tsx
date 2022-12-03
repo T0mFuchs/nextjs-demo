@@ -61,9 +61,8 @@ export default function CreateEntry() {
             className={styles.Card}
             style={{ minWidth: "75%" }}
           >
-            <legend style={{ position: "absolute", top: "-.9em", left: 0 }}>
-              new Entry
-            </legend>
+            <legend className={css.legend}>new Entry</legend>
+            <div style={{ padding: ".3em 0" }} />
             <form className={css.form} onSubmit={handleSubmit}>
               <Label.Root htmlFor="title" />
               <input
@@ -78,7 +77,7 @@ export default function CreateEntry() {
                 title="remove spaces at start, end & all consecutive spaces"
                 autoFocus
               />
-              <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
+              <Label.Root htmlFor="body" />
               <textarea
                 rows={6}
                 className={css.textarea}
@@ -101,6 +100,7 @@ export default function CreateEntry() {
                 </AccessibleIcon.Root>
               </button>
             </form>
+            <div style={{ padding: ".3em 0" }} />
             <button
               className={css.cancel}
               onClick={() => {

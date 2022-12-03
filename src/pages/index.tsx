@@ -29,7 +29,7 @@ export default function Page() {
       </Head>
       <>
         {session ? (
-          <div style={{ maxWidth: 150, margin: "0 auto" }}>
+          <div className={css.wrapper}>
             <div style={{ paddingTop: "1em" }}>Hello, {session.user?.name}</div>
             <React.Suspense>
               <Separator orientation="horizontal" />
@@ -43,7 +43,7 @@ export default function Page() {
                     open={open}
                     onOpenChange={setOpen}
                     width={120}
-                    style={{ maxWidth: 120, margin: "0 auto" }}
+                    className={css.append}
                   >
                     <button
                       className={styles.Button}

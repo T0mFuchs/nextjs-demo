@@ -66,9 +66,7 @@ export default function UpdateEntry({ title }: { title: string }) {
           className={styles.Card}
           style={{ maxWidth: "75%" }}
         >
-          <legend style={{ position: "absolute", top: "-.9em", left: 0 }}>
-            entry: {title}
-          </legend>
+          <legend className={css.legend}>entry: {title}</legend>
           <div style={{ padding: ".3em 0" }} />
           <form className={css.form} onSubmit={handleSubmit}>
             <Label.Root htmlFor="title" />
@@ -82,7 +80,7 @@ export default function UpdateEntry({ title }: { title: string }) {
               pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // ^([^\s]*[A-Za-z0-9](?:\S+\s[^\s]))*[^\s]*$ | https://www.debuggex.com/
               title="remove spaces at start, end & all consecutive spaces"
             />
-            <Label.Root style={{ padding: ".05em 0" }} htmlFor="body" />
+            <Label.Root htmlFor="body" />
             <textarea
               rows={6}
               className={css.textarea}

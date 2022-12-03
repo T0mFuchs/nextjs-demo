@@ -5,7 +5,7 @@ import { Entry } from "entities";
 
 const handler: NextApiHandler = async (req, res: NextApiResponse) => {
   const em = getEM();
-  const data = await em.find(Entry, {});
+  const data = await em.find(Entry, {}, {});
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");

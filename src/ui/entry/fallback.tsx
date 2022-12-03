@@ -1,7 +1,13 @@
 import Background from "ui/animated/fallback-card";
 import css from "styles/main.module.scss";
 
-export default function Fallback({ style, maxWidth }: { style?: React.CSSProperties; maxWidth?: string }) {
+export default function Fallback({
+  style,
+  maxWidth,
+}: {
+  style?: React.CSSProperties;
+  maxWidth?: string;
+}) {
   return (
     <>
       <div style={{ padding: "2em 0" }} />

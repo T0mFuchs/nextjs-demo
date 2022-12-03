@@ -11,15 +11,9 @@ export default function Page() {
         <title>?</title>
       </Head>
       <>
-        <h2 style={{ paddingBottom: "1em" }} className={styles.H2}>
-          ?
-        </h2>
-        <div style={{ paddingBottom: "2.5em" }}>
-          <Separator
-            className={css.sep}
-            style={{ maxWidth: 500, margin: "1em auto" }}
-          />
-        </div>
+        <h2 className={styles.H2}>?</h2>
+        <Separator className={css.sep} />
+        <div style={{ paddingBottom: "1em" }} />
         <>
           <div className={`${styles.Card} ${css.card}`}>
             <div className={styles.border}>
