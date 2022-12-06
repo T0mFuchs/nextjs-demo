@@ -6,11 +6,13 @@ import { Entry } from "lib/Entry";
 import { Observe } from "lib/observer-toggle-visibility";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CrossSVG } from "ui";
+import Background from "ui/animated/fallback-card";
 import Fallback from "ui/entry/fallback";
 import Error from "ui/entry/error";
 
 import styles from "styles/main.module.scss";
-import css from "./search.module.scss";
+import search from "./search.module.scss";
+import css from "./index.module.scss";
 
 const fetcher = async (url: string) =>
   await fetch(url, { cache: "no-store" }).then((res) => res.json());
@@ -18,9 +20,11 @@ const fetcher = async (url: string) =>
 export default function Page() {
   const { data, error } = useSWR(`/api/entries`, fetcher);
 
+
   React.useEffect(() => Observe());
 
   if (error) return <Error />;
+
   if (!data) return <PageFallback />;
   return (
     <>
@@ -29,32 +33,34 @@ export default function Page() {
       </Head>
       <>
         <Search data={data} />
-        <div id="entries">
+        <div className={css.entries}>
           {data ? (
-            data.map((entry: Entry) => (
-              <>
-                {/* `hidden` for lib/observer-toggle-visibility */}
-                <div key={entry.id} className={`${styles.Card} hidden`}>
-                  <div className={styles.H2} style={{ fontSize: "2em" }}>
-                    <Link
-                      prefetch={false}
-                      href={`entry/${entry.title}`}
-                      className={styles.Link}
-                    >
-                      {entry.title}
-                    </Link>
-                  </div>
-                  <p>{entry.body}</p>
-                  <div style={{ fontSize: ".6em" }}>
-                    {dateFromObjectId(entry.id).toLocaleDateString()}
+            data
+              .map((entry: Entry) => (
+                <div key={entry.id} style={{ padding: "1em" }}>
+                  {/* `hidden` for lib/observer-toggle-visibility */}
+                  <div className={`${styles.Card} hidden`}>
+                    <div className={styles.H2} style={{ fontSize: "2em" }}>
+                      <Link
+                        prefetch={false}
+                        href={`entry/${entry.title}`}
+                        className={styles.Link}
+                      >
+                        {entry.title}
+                      </Link>
+                    </div>
+                    <p>{entry.body}</p>
+                    <div style={{ fontSize: ".6em" }}>
+                      {dateFromObjectId(entry.id).toLocaleDateString()}
+                    </div>
                   </div>
                 </div>
-                <div style={{ padding: "1.4em" }} />
-              </>
-            )).reverse()  // reverse to show newest first
+              ))
+              .reverse() // reverse to show newest first
           ) : (
             <DataFallback />
           )}
+          <div style={{ padding: "2em" }} />
         </div>
       </>
     </>
@@ -89,17 +95,17 @@ function Search({ data }: { data: Entry[] }) {
   };
 
   return (
-    <div className={css.wrapper}>
+    <div className={search.wrapper}>
       <>
         <input
           onChange={handleInput}
-          className={css.input}
+          className={search.input}
           type="text"
           value={current}
           placeholder="search all entries"
         />
         <button
-          className={css.current}
+          className={search.current}
           onClick={() => {
             setCurrent("");
             setShow([]);
@@ -110,13 +116,14 @@ function Search({ data }: { data: Entry[] }) {
         </button>
       </>
       {filtered.length !== 0 ? (
-        <div className={css.output}>
+        <div className={search.output}>
           {filtered.map((entry: Entry) => (
-            <div key={entry.id}>
+            <div key={entry.id} style={{ padding: "1em 1.5em 0 1em" }}>
+              <div className={styles.Card}>
               <Link
                 href={`/entry/${entry.title}`}
                 prefetch={false}
-                className={`${css.item}`}
+                className={`${search.item}`}
               >
                 <span
                   dangerouslySetInnerHTML={{
@@ -125,7 +132,7 @@ function Search({ data }: { data: Entry[] }) {
                         ? entry.title.replace(
                             new RegExp(current, "gi"),
                             (match) => {
-                              return `<span class="${css.highlight}">${match}</span>`;
+                              return `<span class="${search.highlight}">${match}</span>`;
                             }
                           )
                         : entry.title,
@@ -134,24 +141,25 @@ function Search({ data }: { data: Entry[] }) {
               </Link>
               {show.length !== 0 ? (
                 <div
-                  className={css.body}
+                  className={search.body}
                   dangerouslySetInnerHTML={{
                     __html:
                       current.length > 0
                         ? entry.body.replace(
                             new RegExp(current, "gi"),
                             (match) => {
-                              return `<span class="${css.highlight}">${match}</span>`;
+                              return `<span class="${search.highlight}">${match}</span>`;
                             }
                           )
                         : entry.body,
                   }}
                 />
               ) : null}
-              <span className={css.span}>
+              <span className={search.span}>
                 {dateFromObjectId(entry.id).toLocaleDateString()}
               </span>
               <div style={{ paddingBottom: 7 }} />
+            </div>
             </div>
           ))}
         </div>
@@ -165,7 +173,7 @@ function Search({ data }: { data: Entry[] }) {
 function SearchSVG() {
   return (
     <svg
-      className={css.icon}
+      className={search.icon}
       xmlns="http://www.w3.org/2000/svg"
       width="1em"
       height="1em"
@@ -182,7 +190,7 @@ function SearchSVG() {
 
 function CloseSVG() {
   return (
-    <div className={css.icon}>
+    <div className={search.icon}>
       <CrossSVG />
     </div>
   );
@@ -190,22 +198,29 @@ function CloseSVG() {
 
 function SearchFallback() {
   return (
-    <div className={css.wrapper}>
-      <input className={css.input} />
+    <div style={{ width: "83.5vw", maxWidth: 550, margin: "auto" }}>
+      <div className={search.wrapper}>
+        <Background style={{ padding: "2px 2px 2px 1.5px" }}>
+          <input
+            className={search.input}
+            style={{ background: "#000000fe", border: 0 }}
+          />
+        </Background>
+      </div>
     </div>
   );
 }
 
 function DataFallback() {
   return (
-    <>
+    <div className={css.entries}>
       <Fallback maxWidth="600px" />
       <Fallback maxWidth="600px" />
       <Fallback maxWidth="600px" />
       <Fallback maxWidth="600px" />
       <Fallback maxWidth="600px" />
       <Fallback maxWidth="600px" />
-    </>
+    </div>
   );
 }
 
@@ -213,6 +228,8 @@ function PageFallback() {
   return (
     <>
       <SearchFallback />
+      <DataFallback />
+      <DataFallback />
       <DataFallback />
     </>
   );

@@ -1,0 +1,12 @@
+.entries{
+  padding: 1em 1.5em;
+  @media (min-width: 600px){
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 90vw;
+    margin-left: 2.5em;
+  }
+  @media (min-width: 1200px){
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

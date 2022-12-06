@@ -1,11 +1,14 @@
 @import "styles/colors.module";
 
+$color: #000000fe;
+
 .wrapper{
-  padding: 1em 0 2.5em 1.8em;
+  padding: 1em;
 }
 .input{
   background-color: $transparent;
   padding: 10px;
+  margin-left: 6em;
   width: 75vw;
   max-width: 500px;
   border-radius: .5em;
@@ -15,6 +18,7 @@
   }
   transition: 250ms ease-out;
   @media (max-width: 600px){
+    margin-left: 2.5em;
     &:focus{ 
       transition: 250ms ease-in;
       margin-top: 5vh; // make searchbar visible while typing
@@ -32,13 +36,16 @@
   font-size: 1.5em;
 }
 .output{
-  padding: 1em 2em 0 0;
+  position: relative;
+  left: -1.6em;
+  padding: 1em 0 0 7em;
   overflow-y: scroll;
-  max-height: 20vh;
+  max-height: 50vh;
   scrollbar-width: none;
   &::-webkit-scrollbar{ display: none; }
   @media (max-width: 600px){
     display: flex;
+    padding: 1em 0 0 2em;
   }
 }
 .item{
@@ -47,11 +54,12 @@
     color: $color-primary;
   }
   border: 1px solid;
-  width: 40vw;
-  max-width: 375px;
+  width: 35vw;
+  max-width: 275px;
   margin: 0 auto;
   line-height: 2em;
   border-radius: .5em;
+  padding: .2em 1em;
 }
 .body{
   width: 40vw;
@@ -67,8 +75,8 @@
   color: #0059ff;
   text-decoration: #0059ff underline;
   @media (prefers-color-scheme: dark){
-    color: #ff0055;
-    text-decoration: #ff0055 underline;
+    color: $color-secondary;
+    text-decoration: $color-secondary underline;
   }
 }
 .span{
