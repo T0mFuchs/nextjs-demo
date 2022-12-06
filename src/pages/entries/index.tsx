@@ -12,7 +12,6 @@ import Error from "ui/entry/error";
 import styles from "styles/main.module.scss";
 import css from "./search.module.scss";
 
-
 const fetcher = async (url: string) =>
   await fetch(url, { cache: "no-store" }).then((res) => res.json());
 
@@ -52,7 +51,7 @@ export default function Page() {
                 </div>
                 <div style={{ padding: "1.4em" }} />
               </>
-            ))
+            )).reverse()  // reverse to show newest first
           ) : (
             <DataFallback />
           )}

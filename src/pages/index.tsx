@@ -69,6 +69,7 @@ export default function Page() {
           <>
             <Flicker className={css.center} text="sign in for more">
               <Link
+                prefetch={false}
                 href="/auth/signin"
                 className={styles.Link}
                 style={{ textDecoration: "none" }}
