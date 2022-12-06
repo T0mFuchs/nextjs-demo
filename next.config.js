@@ -1,5 +1,12 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development"
+});
+
+module.exports = withPWA({
+  reactStrictMode: true,
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
       config.resolve.alias = {
@@ -12,8 +19,4 @@ const nextConfig = {
     }
     return config;
   },
-  reactStrictMode: true,
-  swcMinify: true,
-};
-
-module.exports = nextConfig;
+});

@@ -12,63 +12,36 @@ import Error from "ui/entry/error";
 import styles from "styles/main.module.scss";
 import css from "./search.module.scss";
 
-const limit = 6;
+
 const fetcher = async (url: string) =>
   await fetch(url, { cache: "no-store" }).then((res) => res.json());
 
-// todo :: fix the window height difference issue when data mutates onscroll
-
 export default function Page() {
-  const [count, setCount] = React.useState(0);
-  const [height, setHeight] = React.useState(0);
-  const { data: searchData } = useSWR(`/api/entries`, fetcher);
-  const { data, error, mutate, isValidating } = useSWR(
-    `/api/entries/${(count + 1) * limit}`,
-    fetcher
-  );
-  const refetch = async () => {
-    await mutate({ ...data });
-    // set window scrollheight to saved height
-    window.scrollY = height; // todo :: this doesnt work
-  };
-  React.useEffect(() => {
-    Observe();
-    const elem = document.querySelectorAll("#end")[0];
-    const observer = new IntersectionObserver(
-      (n) => {
-        const last = n[0];
-        if (last.isIntersecting) {
-          if ((count + 1) * limit > data?.length + limit) {
-            return 0;
-          }
-          setHeight(window.scrollY);
-          setCount(count + 1);
-          observer.unobserve(last.target);
-          refetch();
-        }
-      },
-      { rootMargin: "50px" }
-    );
-    if (elem && !isValidating) {
-      observer.observe(elem);
-    }
-  });
+  const { data, error } = useSWR(`/api/entries`, fetcher);
+
+  React.useEffect(() => Observe());
+
   if (error) return <Error />;
   if (!data) return <PageFallback />;
   return (
     <>
       <Head>
-        <title>entries</title>
+        {data ? <title>entries</title> : <title>loading entries...</title>}
       </Head>
       <>
-        <Search data={searchData} />
+        <Search data={data} />
         <div id="entries">
           {data ? (
             data.map((entry: Entry) => (
               <>
+                {/* `hidden` for lib/observer-toggle-visibility */}
                 <div key={entry.id} className={`${styles.Card} hidden`}>
                   <div className={styles.H2} style={{ fontSize: "2em" }}>
-                    <Link href={`entry/${entry.title}`} className={styles.Link}>
+                    <Link
+                      prefetch={false}
+                      href={`entry/${entry.title}`}
+                      className={styles.Link}
+                    >
                       {entry.title}
                     </Link>
                   </div>
@@ -77,16 +50,11 @@ export default function Page() {
                     {dateFromObjectId(entry.id).toLocaleDateString()}
                   </div>
                 </div>
-                <div aria-hidden style={{ padding: "1.4em" }} />
+                <div style={{ padding: "1.4em" }} />
               </>
             ))
           ) : (
             <DataFallback />
-          )}
-          {isValidating ? (
-            <RefetchFallback />
-          ) : (
-            <div style={{ height: 300 }} id="end" />
           )}
         </div>
       </>
@@ -218,15 +186,6 @@ function CloseSVG() {
     <div className={css.icon}>
       <CrossSVG />
     </div>
-  );
-}
-
-function RefetchFallback() {
-  return (
-    <>
-      <Fallback maxWidth="600px" />
-      <Fallback maxWidth="600px" />
-    </>
   );
 }
 

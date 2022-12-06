@@ -31,11 +31,9 @@ export default function Page() {
         {session ? (
           <div className={css.wrapper}>
             <div style={{ paddingTop: "1em" }}>Hello, {session.user?.name}</div>
-            <React.Suspense>
-              <Separator orientation="horizontal" />
-              <CreateEntry />
-              <Separator orientation="horizontal" />
-            </React.Suspense>
+            <Separator orientation="horizontal" />
+            <CreateEntry />
+            <Separator orientation="horizontal" />
             <>
               {open ? (
                 <React.Suspense>

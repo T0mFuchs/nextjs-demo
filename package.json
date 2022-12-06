@@ -8,6 +8,7 @@
     "p": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
   "devDependencies": {
+    "@babel/core": "^7.20.5",
     "@mikro-orm/core": "^5.5.3",
     "@mikro-orm/mongodb": "^5.5.3",
     "@preact/compat": "17.1.2",
@@ -24,6 +25,7 @@
     "eslint-config-next": "13.0.1",
     "next": "13.0.1",
     "next-auth": "^4.17.0",
+    "next-pwa": "^5.6.0",
     "preact": "10.11.3",
     "prettier": "^2.8.0",
     "react": "18.2.0",
@@ -31,7 +33,8 @@
     "reflect-metadata": "0.1.13",
     "sass": "^1.56.1",
     "swr": "1.3.0",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.3",
+    "webpack": "^5.75.0"
   },
   "mikro-orm": {
     "tsConfigPath": "./tsconfig.orm.json",
