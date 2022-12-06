@@ -20,7 +20,6 @@ const fetcher = async (url: string) =>
 export default function Page() {
   const { data, error } = useSWR(`/api/entries`, fetcher);
 
-
   React.useEffect(() => Observe());
 
   if (error) return <Error />;
@@ -120,46 +119,46 @@ function Search({ data }: { data: Entry[] }) {
           {filtered.map((entry: Entry) => (
             <div key={entry.id} style={{ padding: "1em 1.5em 0 1em" }}>
               <div className={styles.Card}>
-              <Link
-                href={`/entry/${entry.title}`}
-                prefetch={false}
-                className={`${search.item}`}
-              >
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      current.length > 0
-                        ? entry.title.replace(
-                            new RegExp(current, "gi"),
-                            (match) => {
-                              return `<span class="${search.highlight}">${match}</span>`;
-                            }
-                          )
-                        : entry.title,
-                  }}
-                />
-              </Link>
-              {show.length !== 0 ? (
-                <div
-                  className={search.body}
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      current.length > 0
-                        ? entry.body.replace(
-                            new RegExp(current, "gi"),
-                            (match) => {
-                              return `<span class="${search.highlight}">${match}</span>`;
-                            }
-                          )
-                        : entry.body,
-                  }}
-                />
-              ) : null}
-              <span className={search.span}>
-                {dateFromObjectId(entry.id).toLocaleDateString()}
-              </span>
-              <div style={{ paddingBottom: 7 }} />
-            </div>
+                <Link
+                  href={`/entry/${entry.title}`}
+                  prefetch={false}
+                  className={`${search.item}`}
+                >
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        current.length > 0
+                          ? entry.title.replace(
+                              new RegExp(current, "gi"),
+                              (match) => {
+                                return `<span class="${search.highlight}">${match}</span>`;
+                              }
+                            )
+                          : entry.title,
+                    }}
+                  />
+                </Link>
+                {show.length !== 0 ? (
+                  <div
+                    className={search.body}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        current.length > 0
+                          ? entry.body.replace(
+                              new RegExp(current, "gi"),
+                              (match) => {
+                                return `<span class="${search.highlight}">${match}</span>`;
+                              }
+                            )
+                          : entry.body,
+                    }}
+                  />
+                ) : null}
+                <span className={search.span}>
+                  {dateFromObjectId(entry.id).toLocaleDateString()}
+                </span>
+                <div style={{ paddingBottom: 7 }} />
+              </div>
             </div>
           ))}
         </div>
