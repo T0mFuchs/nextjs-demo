@@ -1,12 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Head from "next/head";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { Entry } from "lib/Entry";
 import { Observe } from "lib/observer-toggle-visibility";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CrossSVG } from "ui";
-import Background from "ui/animated/fallback-card";
 import Fallback from "ui/entry/fallback";
 import Error from "ui/entry/error";
 
@@ -14,16 +13,49 @@ import styles from "styles/main.module.scss";
 import search from "./search.module.scss";
 import css from "./index.module.scss";
 
+let entries: Entry[] = [];
+const limit = 6;
 const fetcher = async (url: string) =>
   await fetch(url, { cache: "no-store" }).then((res) => res.json());
 
 export default function Page() {
-  const { data, error } = useSWR(`/api/entries`, fetcher);
+  const [size, setSize] = React.useState(1);
+  const { data: searchData } = useSWR(`/api/entries`, fetcher);
+  const { data, error, isValidating } = useSWR(
+    () => `/api/entries/${limit * size}`,
+    fetcher
+  );
 
-  React.useEffect(() => Observe());
+  entries = data
+    ? entries.concat(...data.slice(entries.length, limit * size))
+    : entries;
 
+  React.useEffect(() => {
+    Observe();
+    const elem = document.querySelectorAll("#end")[0];
+    const observer = new IntersectionObserver(
+      (n) => {
+        const last = n[0];
+        if (last.isIntersecting) {
+          if ((size + 1) * limit > entries.length + limit) {
+            return 0;
+          }
+          setSize(size + 1);
+          mutate(
+            { ...data },
+            {},
+            { revalidate: false, populateCache: true, optimisticData: true }
+          );
+          observer.unobserve(last.target);
+        }
+      },
+      { threshold: 0 }
+    );
+    if (elem && !isValidating) {
+      observer.observe(elem);
+    }
+  });
   if (error) return <Error />;
-
   if (!data) return <PageFallback />;
   return (
     <>
@@ -31,35 +63,35 @@ export default function Page() {
         {data ? <title>entries</title> : <title>loading entries...</title>}
       </Head>
       <>
-        <Search data={data} />
+        <Search data={searchData} />
         <div className={css.entries}>
-          {data ? (
-            data
-              .map((entry: Entry) => (
-                <div key={entry.id} style={{ padding: "1em" }}>
-                  {/* `hidden` for lib/observer-toggle-visibility */}
-                  <div className={`${styles.Card} hidden`}>
-                    <div className={styles.H2} style={{ fontSize: "2em" }}>
-                      <Link
-                        prefetch={false}
-                        href={`entry/${entry.title}`}
-                        className={styles.Link}
-                      >
-                        {entry.title}
-                      </Link>
-                    </div>
-                    <p>{entry.body}</p>
-                    <div style={{ fontSize: ".6em" }}>
-                      {dateFromObjectId(entry.id).toLocaleDateString()}
-                    </div>
+          {data && !isValidating ? (
+            entries.map((entry: Entry) => (
+              <div key={entry.id} style={{ padding: "1em" }}>
+                {/* `hidden` for lib/observer-toggle-visibility */}
+                <div className={`${styles.Card} hidden`}>
+                  <div className={styles.H2} style={{ fontSize: "2em" }}>
+                    <Link
+                      prefetch={false}
+                      href={`entry/${entry.title}`}
+                      className={styles.Link}
+                    >
+                      {entry.title}
+                    </Link>
                   </div>
+                  <p>{entry.body}</p>
+                  <div style={{ fontSize: ".6em" }}>{entry.id}</div>
                 </div>
-              ))
-              .reverse() // reverse to show newest first
+              </div>
+            ))
           ) : (
             <DataFallback />
           )}
-          <div style={{ padding: "2em" }} />
+          {isValidating ? (
+            <RefetchFallback />
+          ) : (
+            <div aria-hidden id="end" style={{ height: 100 }} />
+          )}
         </div>
       </>
     </>
@@ -255,6 +287,16 @@ function PageFallback() {
       <DataFallback />
       <DataFallback />
       <DataFallback />
+    </>
+  );
+}
+
+function RefetchFallback() {
+  return (
+    <>
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
+      <Fallback maxWidth="600px" />
     </>
   );
 }
