@@ -1,6 +1,5 @@
 @import "styles/colors.module";
 
-$color: #000000fe;
 
 .wrapper{
   padding: 1em;
@@ -13,7 +12,7 @@ $color: #000000fe;
   max-width: 500px;
   border-radius: .5em;
   border: 1px solid currentColor;
-  @media screen and (prefers-color-scheme: dark){
+  @media (prefers-color-scheme: dark){
     border: 1px solid $color-primary;
   }
   transition: 250ms ease-out;
@@ -82,5 +81,4 @@ $color: #000000fe;
 .span{
   padding-left: 15px;
   font-size: .6em;
-  vertical-align: 1;
 }

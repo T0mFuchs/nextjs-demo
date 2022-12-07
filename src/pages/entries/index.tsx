@@ -197,15 +197,40 @@ function CloseSVG() {
 
 function SearchFallback() {
   return (
-    <div style={{ width: "83.5vw", maxWidth: 550, margin: "auto" }}>
-      <div className={search.wrapper}>
-        <Background style={{ padding: "2px 2px 2px 1.5px" }}>
-          <input
-            className={search.input}
-            style={{ background: "#000000fe", border: 0 }}
+    <div className={search.wrapper}>
+      <input className={search.input} style={{ border: "1px solid #808080" }} />
+      <svg
+        className={search.icon}
+        xmlns="http://www.w3.org/2000/svg"
+        width="1em"
+        height="100%"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="none"
+          stroke="#808080"
+          stroke-dasharray="15"
+          stroke-dashoffset="15"
+          stroke-linecap="round"
+          stroke-width="1"
+          d="M12 3C16.9706 3 21 7.02944 21 12"
+        >
+          <animate
+            fill="freeze"
+            attributeName="stroke-dashoffset"
+            dur="0.3s"
+            values="15;0"
           />
-        </Background>
-      </div>
+          <animateTransform
+            attributeName="transform"
+            dur="1s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="0 12 12;360 12 12"
+          />
+        </path>
+      </svg>
     </div>
   );
 }

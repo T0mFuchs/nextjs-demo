@@ -1,23 +1,21 @@
 @import "styles/colors.module";
 
 
-@media (max-width: 600px) {
-  .border {
+.border{
+  @media (max-width: 600px) {
     bottom: 0;
     width: 300vw;
-    height: calc(7vh - 10px);
+    height: calc(8vh - 10px);
     left: -100vw;
   }
-}
-@media (min-width: 600px) {
-  .border {
+  @media (min-width: 600px) {
     width: 48px;
     height: 300vh;
     top: -100vh;
   }
 }
 
-.navbar {
+.navbar{
   z-index: 1;
   position: fixed;
   background-color: $bg-light;
@@ -31,7 +29,7 @@
   }
 
   @media (max-width: 600px){
-    bottom: -.5em;
+    bottom: 0;
     width: 100vw;
     height: 7vh;
   }
@@ -45,7 +43,7 @@
     &:hover { width: 15vw; }
   }
 }
-.navbar-nav {
+.navbar-nav{
   list-style: none;
   padding: 0;
   margin: 0;
@@ -56,14 +54,14 @@
     flex-direction: row-reverse;
   }
 }
-.nav-item { 
+.nav-item{ 
   width: 100%; 
   @media (max-width: 600px){
     position: relative;
-    top: -5px;
+    top: -7px;
   }
 }
-.nav-link {
+.nav-link{
   display: flex;
   align-items: center;
   height: 4em;
@@ -73,10 +71,10 @@
   }
 }
 .nav-link:hover > svg, .nav-link:focus > svg,
-.nav-link:hover > .link-text, .nav-link:focus > .link-text { 
+.nav-link:hover > .link-text, .nav-link:focus > .link-text{ 
   color: $color-secondary;
 }
-.link-text {
+.link-text{
   display: none;
   margin-left: 1em;
 }
