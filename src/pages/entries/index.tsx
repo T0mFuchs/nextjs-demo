@@ -233,6 +233,7 @@ function SearchFallback() {
       <input className={search.input} style={{ border: "1px solid #808080" }} />
       <svg
         className={search.icon}
+        style={{ position: "relative", left: "-1.3em", fontSize: "1.5em", verticalAlign: "-.3em" }}
         xmlns="http://www.w3.org/2000/svg"
         width="1em"
         height="100%"
