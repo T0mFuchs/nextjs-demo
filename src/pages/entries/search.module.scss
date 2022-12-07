@@ -7,9 +7,9 @@
 .input{
   background-color: transparent;
   padding: 10px;
-  margin-left: 6em;
-  width: 75vw;
+  width: 72.5vw;
   max-width: 500px;
+  margin-left: 1.75em;
   border-radius: .5em;
   border: 1px solid currentColor;
   @media (prefers-color-scheme: dark){
@@ -17,7 +17,6 @@
   }
   transition: 250ms ease-out;
   @media (max-width: 600px){
-    margin-left: 2.5em;
     &:focus{ 
       transition: 250ms ease-in;
       margin-top: 5vh; // make searchbar visible while typing
@@ -26,13 +25,16 @@
 }
 .current{
   all: unset;
-  font-size: 1.3em;
-}
-.icon{
-  left: -1.3em;
+  left: -1.2em;
   position: relative;
   vertical-align: middle;
   font-size: 1.5em;
+}
+.icon{
+  left: -.1em;
+  position: relative;
+  vertical-align: -.1em;
+  font-size: 1.1em;
 }
 .output{
   position: relative;

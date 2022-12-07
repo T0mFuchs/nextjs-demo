@@ -13,3 +13,9 @@
     min-width: 600px;
   }
 }
+.onhover{
+  transition: tranfsrom ease-in-out;
+  &:hover{
+    transform: scale(1.4);
+  }
+}
