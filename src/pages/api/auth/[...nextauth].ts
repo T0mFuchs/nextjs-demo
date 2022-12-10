@@ -34,6 +34,17 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
     error: "/auth/error",
   },
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (isNewUser) {
+        return { ...token, isNewUser: true };
+      }
+      return token;
+    }
+  }
 };
 
 export default NextAuth(authOptions);

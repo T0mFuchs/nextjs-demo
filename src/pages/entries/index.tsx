@@ -16,7 +16,7 @@ import css from "./index.module.scss";
 let entries: Entry[] = [];
 const limit = 6;
 const fetcher = async (url: string) =>
-  await fetch(url, { cache: "no-store" }).then((res) => res.json());
+  await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page() {
   const [size, setSize] = React.useState(1);

@@ -7,7 +7,8 @@ const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { id, title, body } = req.body;
+  if (req.method === "PUT") {
+    const { id, title, body } = req.body;
   if (!id || !title || !body) {
     return res.status(400);
   }
@@ -15,6 +16,7 @@ const handler: NextApiHandler = async (
   await em.nativeUpdate(Entry, id, { title, body });
   res.statusCode = 200;
   res.end();
+  }
 };
 
 export default withORM(handler);

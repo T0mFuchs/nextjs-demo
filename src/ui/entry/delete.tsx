@@ -18,7 +18,7 @@ export default function DeleteEntry({ title }: { title: string }) {
   const router = useRouter();
 
   React.useEffect(() => {
-    fetch(`/api/entry/${title}`, { cache: "no-store" })
+    fetch(`/api/entry/${title}`, { cache: "no-store", method: "POST" })
       .then((res) => res.json())
       .then((entry: Entry) => {
         setEntry(entry);

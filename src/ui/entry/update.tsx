@@ -14,7 +14,7 @@ const Dialog = dynamic(() => import("ui/radix-ui/dialog"), {
 });
 
 const fetcher = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((res) => res.json());
+  fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
 
 export default function UpdateEntry({ title }: { title: string }) {
   const [showPopup, setShowPopup] = React.useState(false);

@@ -15,7 +15,6 @@ export default function Event() {
   }
   if (session) {
     setTimeout(async () => {
-      push("/");
       await fetch("../api/nodemailer/new-user", {
         body: JSON.stringify({
           email: session.user?.email,
@@ -27,7 +26,8 @@ export default function Event() {
         },
         method: "POST",
       });
-    }, 2000);
+      push("/");
+    }, 10000);
     return (
       <>
         <Head>

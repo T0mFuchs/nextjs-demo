@@ -7,7 +7,8 @@ const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { id, title } = req.body;
+  if (req.method === "DELETE") {
+    const { id, title } = req.body;
   if (!id || !title) {
     return res.status(400);
   }
@@ -15,6 +16,7 @@ const handler: NextApiHandler = async (
   await em.nativeDelete(Entry, { id, title });
   res.statusCode = 200;
   res.end();
+  }
 };
 
 export default withORM(handler);

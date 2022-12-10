@@ -7,7 +7,7 @@ import Fallback from "./fallback";
 import styles from "styles/main.module.scss";
 
 const fetcher = (url: string) =>
-  fetch(url, { cache: "no-store" }).then((res) => res.json());
+  fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
 
 export default function ReadEntry({ title }: { title: string }) {
   const { data, error } = useSWR(`/api/entry/${title}`, fetcher);
