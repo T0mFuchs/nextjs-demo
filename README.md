@@ -22,19 +22,19 @@ Route (pages)                              Size     First Load JS
 ├ λ /api/entry/update                      0 B            53.6 kB
 ├ λ /api/nodemailer/new-user               0 B            53.6 kB
 ├ ○ /auth/error                            876 B          54.5 kB
-├ ○ /auth/new-user                         720 B          54.3 kB
+├ ○ /auth/new-user                         719 B          54.3 kB
 ├ ○ /auth/signin                           1.82 kB        55.4 kB
 ├ ○ /entries                               2.95 kB        61.2 kB
 ├   └ css/1ad7c1557c29ca7e.css             993 B
-└ λ /entry/[title]                         4.51 kB        62.8 kB
+└ λ /entry/[title]                         4.52 kB        62.8 kB
     └ css/c89cf70def9ae766.css             1.36 kB
 + First Load JS shared by all              55.1 kB
   ├ chunks/main-847238a154b48d71.js        36.1 kB
-  ├ chunks/pages/_app-559bdba86c49c58a.js  15.4 kB
-  ├ chunks/webpack-68f2953a6cb1bfc8.js     2.14 kB
-  └ css/e41ca63aab46d652.css               1.49 kB
+  ├ chunks/pages/_app-98f237294b344b97.js  15.4 kB
+  ├ chunks/webpack-33e33cd7661dde11.js     2.14 kB
+  └ css/a9930a5fcf9dfaa1.css               1.49 kB
 
-λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)    
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
 ○  (Static)  automatically rendered as static HTML (uses no initial props)
 ```
 
