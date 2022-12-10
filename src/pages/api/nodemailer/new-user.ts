@@ -25,7 +25,7 @@ const handler: NextApiHandler = async (
         to: email,
         subject: `New user login. Hello, ${name} 👋`,
         html: `
-            <div style="padding: 2em">
+            <div style="padding: 2em; box-shadow: #30234d15 0 1em 2.3em -1em, #00000080 0 1.5em 2em -1.5em;">
               <h2>Welcome, ${name} 👋</h2>
               <p>
                 <span>🔗: </span>

@@ -1,4 +1,5 @@
 .next
 node_modules
 .env
+next-pwa-sw.js
 todo.md 
