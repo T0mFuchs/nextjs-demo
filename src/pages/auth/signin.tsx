@@ -13,9 +13,14 @@ export default function SignIn() {
       push("/");
     }, 1500);
     return (
-      <h2 style={{ paddingTop: "6em" }}>
-        signed in with {session.user?.email}
-      </h2>
+      <>
+        <Head>
+          <title>redirecting...</title>
+        </Head>
+        <h2 style={{ paddingTop: "6em" }}>
+          signed in with {session.user?.email}
+        </h2>
+      </>
     );
   }
   return (

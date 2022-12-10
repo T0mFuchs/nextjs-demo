@@ -41,7 +41,7 @@ export default function Page() {
             return 0;
           }
           setSize(size + 1);
-          await mutate({},{},{ revalidate: false });
+          await mutate({}, {}, { revalidate: false });
           observer.unobserve(last.target);
         }
       },
@@ -65,7 +65,10 @@ export default function Page() {
             entries.map((entry: Entry) => (
               <div key={entry.id} style={{ padding: "1em" }}>
                 {/* `hidden` for lib/observer-toggle-visibility */}
-                <div onMouseEnter={() => preload(`entry/${entry.title}`, fetcher)} className={`${styles.Card} hidden`}>
+                <div
+                  onMouseEnter={() => preload(`entry/${entry.title}`, fetcher)}
+                  className={`${styles.Card} hidden`}
+                >
                   <div className={styles.H2} style={{ fontSize: "2em" }}>
                     <Link
                       prefetch={false} // not needed since we're using `onMouseEnter` to preload with swr
