@@ -1,7 +1,8 @@
 .next
 node_modules
-.env
 next-pwa-sw.js
+workbox-7028bf80.js
+.env
 .gitignore
 .prettierignore
 .pretterrc.json
