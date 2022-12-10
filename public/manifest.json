@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-demo-pwa",
-  "short_name": "pwa-demo",
+  "name": "demo-app-pwa",
+  "short_name": "demo-app",
   "theme_color": "#5e5e5e",
   "background_color": "#000",
   "display": "standalone",

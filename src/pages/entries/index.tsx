@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Head from "next/head";
-import useSWR, { mutate } from "swr";
+import useSWR, { mutate, preload } from "swr";
 import { Entry } from "lib/Entry";
 import { Observe } from "lib/observer-toggle-visibility";
 import { dateFromObjectId } from "lib/dateFromObjectId";
@@ -34,18 +34,14 @@ export default function Page() {
     Observe();
     const elem = document.querySelectorAll("#end")[0];
     const observer = new IntersectionObserver(
-      (n) => {
+      async (n) => {
         const last = n[0];
         if (last.isIntersecting) {
           if ((size + 1) * limit > entries.length + limit) {
             return 0;
           }
           setSize(size + 1);
-          mutate(
-            { ...data },
-            {},
-            { revalidate: false, populateCache: true, optimisticData: true }
-          );
+          await mutate({},{},{ revalidate: false });
           observer.unobserve(last.target);
         }
       },
@@ -69,10 +65,10 @@ export default function Page() {
             entries.map((entry: Entry) => (
               <div key={entry.id} style={{ padding: "1em" }}>
                 {/* `hidden` for lib/observer-toggle-visibility */}
-                <div className={`${styles.Card} hidden`}>
+                <div onMouseEnter={() => preload(`entry/${entry.title}`, fetcher)} className={`${styles.Card} hidden`}>
                   <div className={styles.H2} style={{ fontSize: "2em" }}>
                     <Link
-                      prefetch={false}
+                      prefetch={false} // not needed since we're using `onMouseEnter` to preload with swr
                       href={`entry/${entry.title}`}
                       className={styles.Link}
                     >
@@ -233,7 +229,12 @@ function SearchFallback() {
       <input className={search.input} style={{ border: "1px solid #808080" }} />
       <svg
         className={search.icon}
-        style={{ position: "relative", left: "-1.3em", fontSize: "1.5em", verticalAlign: "-.3em" }}
+        style={{
+          position: "relative",
+          left: "-1.3em",
+          fontSize: "1.5em",
+          verticalAlign: "-.3em",
+        }}
         xmlns="http://www.w3.org/2000/svg"
         width="1em"
         height="100%"
