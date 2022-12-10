@@ -2,4 +2,7 @@
 node_modules
 .env
 next-pwa-sw.js
+.gitignore
+.prettierignore
+.pretterrc.json
 todo.md 
