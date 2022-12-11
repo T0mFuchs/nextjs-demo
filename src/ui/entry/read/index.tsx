@@ -1,8 +1,8 @@
 import React from "react";
 import useSWR from "swr";
 import { dateFromObjectId } from "lib/dateFromObjectId";
-import Error from "./error";
-import Fallback from "./fallback";
+import Error from "../error";
+import Fallback from "../fallback";
 
 import styles from "styles/main.module.scss";
 

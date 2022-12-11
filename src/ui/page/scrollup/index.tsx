@@ -3,7 +3,7 @@ import { ArrowTopSVG } from "ui";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
-import css from "./scrollup.module.scss";
+import css from "./index.module.scss";
 
 export function ScrollUp() {
   const [showBtn, setShowBtn] = useState(false);

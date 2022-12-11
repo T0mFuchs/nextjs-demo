@@ -9,13 +9,13 @@ const handler: NextApiHandler = async (
 ) => {
   if (req.method === "DELETE") {
     const { id, title } = req.body;
-  if (!id || !title) {
-    return res.status(400);
-  }
-  const em = getEM();
-  await em.nativeDelete(Entry, { id, title });
-  res.statusCode = 200;
-  res.end();
+    if (!id || !title) {
+      return res.status(400);
+    }
+    const em = getEM();
+    await em.nativeDelete(Entry, { id, title });
+    res.statusCode = 200;
+    res.end();
   }
 };
 

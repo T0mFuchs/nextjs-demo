@@ -6,7 +6,8 @@ import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
-import css from "./form.module.scss";
+import css from "./index.module.scss";
+import form from "../form.module.scss";
 
 const AlertDialog = dynamic(() => import("ui/radix-ui/alert-dialog"), {
   suspense: true,
@@ -58,15 +59,14 @@ export default function CreateEntry() {
           <AlertDialog
             open={showPopup}
             onOpenChange={setShowPopup}
-            className={styles.Card}
-            style={{ minWidth: "75%" }}
+            className={`${styles.Card} ${css.position}`}
           >
-            <legend className={css.legend}>new Entry</legend>
+            <legend className={form.legend}>new Entry</legend>
             <div style={{ padding: ".3em 0" }} />
-            <form className={css.form} onSubmit={handleSubmit}>
+            <form className={form.form} onSubmit={handleSubmit}>
               <Label.Root htmlFor="title" />
               <input
-                className={css.input}
+                className={form.input}
                 name="title"
                 type="text"
                 placeholder="...title"
@@ -80,7 +80,7 @@ export default function CreateEntry() {
               <Label.Root htmlFor="body" />
               <textarea
                 rows={6}
-                className={css.textarea}
+                className={form.textarea}
                 name="body"
                 placeholder="...body"
                 required
@@ -91,7 +91,7 @@ export default function CreateEntry() {
                 onClick={() => {
                   handleSubmit;
                 }}
-                className={css.submit}
+                className={form.submit}
                 type="submit"
               >
                 save & close{" "}
@@ -102,7 +102,7 @@ export default function CreateEntry() {
             </form>
             <div style={{ padding: ".3em 0" }} />
             <button
-              className={css.cancel}
+              className={form.cancel}
               onClick={() => {
                 setShowPopup(false);
               }}

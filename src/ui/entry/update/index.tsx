@@ -7,7 +7,8 @@ import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
-import css from "./form.module.scss";
+import css from "./index.module.scss";
+import form from "../form.module.scss";
 
 const Dialog = dynamic(() => import("ui/radix-ui/dialog"), {
   suspense: true,
@@ -63,15 +64,14 @@ export default function UpdateEntry({ title }: { title: string }) {
         <Dialog
           open={showPopup}
           onOpenChange={setShowPopup}
-          className={styles.Card}
-          style={{ maxWidth: "75%" }}
+          className={`${styles.Card} ${css.position}`}
         >
-          <legend className={css.legend}>entry: {title}</legend>
+          <legend className={form.legend}>entry: {title}</legend>
           <div style={{ padding: ".3em 0" }} />
-          <form className={css.form} onSubmit={handleSubmit}>
+          <form className={form.form} onSubmit={handleSubmit}>
             <Label.Root htmlFor="title" />
             <input
-              className={css.input}
+              className={form.input}
               name="title"
               type="text"
               defaultValue={data.title}
@@ -83,7 +83,7 @@ export default function UpdateEntry({ title }: { title: string }) {
             <Label.Root htmlFor="body" />
             <textarea
               rows={6}
-              className={css.textarea}
+              className={form.textarea}
               name="body"
               defaultValue={data.body}
               minLength={5}
@@ -93,7 +93,7 @@ export default function UpdateEntry({ title }: { title: string }) {
               onClick={() => {
                 handleSubmit;
               }}
-              className={css.submit}
+              className={form.submit}
               type="submit"
             >
               save & close{" "}
@@ -106,7 +106,7 @@ export default function UpdateEntry({ title }: { title: string }) {
           </form>
           <div style={{ padding: ".3em 0" }} />
           <button
-            className={css.cancel}
+            className={form.cancel}
             onClick={() => {
               setShowPopup(false);
             }}

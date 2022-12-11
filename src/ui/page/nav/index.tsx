@@ -2,7 +2,7 @@ import Link from "next/link";
 import BorderRadius from "ui/animated/border-radius";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
-import styles from "./nav.module.scss";
+import styles from "./index.module.scss";
 
 export function Nav() {
   return (

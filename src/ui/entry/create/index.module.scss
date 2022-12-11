@@ -1,0 +1,11 @@
+.position{
+  left: 50%;
+  @media (max-width: 600px){
+    bottom: 0;
+    transform: translate(-50%, -20%);
+  }
+  @media (min-width: 600px){
+    top: 55%;
+    transform: translate(-50%, -50%);
+  }
+}

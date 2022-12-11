@@ -9,13 +9,13 @@ const handler: NextApiHandler = async (
 ) => {
   if (req.method === "PUT") {
     const { id, title, body } = req.body;
-  if (!id || !title || !body) {
-    return res.status(400);
-  }
-  const em = getEM();
-  await em.nativeUpdate(Entry, id, { title, body });
-  res.statusCode = 200;
-  res.end();
+    if (!id || !title || !body) {
+      return res.status(400);
+    }
+    const em = getEM();
+    await em.nativeUpdate(Entry, id, { title, body });
+    res.statusCode = 200;
+    res.end();
   }
 };
 

@@ -30,6 +30,7 @@ export default function Dialog({
         <A.Overlay className={css.Overlay} />
         <A.Content
           className={`${css.dialog} ${className}`}
+          tabIndex={0}
           style={{ ...style }}
           {...props}
         >
