@@ -1,14 +1,24 @@
-// @ts-nocheck
 import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "lib/nextauth-mongodb";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
+  adapter: MongoDBAdapter(clientPromise),
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    newUser: "/auth/new-user",
+    signIn: "/auth/signin",
+    error: "/auth/error",
+  },
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
       authorization: {
         params: {
           prompt: "consent",
@@ -18,8 +28,8 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       authorization: {
         params: {
           prompt: "consent",
@@ -29,22 +39,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    newUser: "/auth/new-user",
-    signIn: "/auth/signin",
-    error: "/auth/error",
-  },
-  session: {
-    strategy: "jwt",
-  },
-  callbacks: {
-    async jwt({ token, user, account, profile, isNewUser }) {
-      if (isNewUser) {
-        return { ...token, isNewUser: true };
-      }
-      return token;
-    }
-  }
 };
 
 export default NextAuth(authOptions);

@@ -6,7 +6,7 @@ const options: Options = {
   entities: [Entry],
   clientUrl: process.env.MONGO_URL,
   metadataProvider: ReflectMetadataProvider,
-  debug: true,
+  debug: process.env.NODE_ENV === "production" ? false : true,
 };
 
 export default options;
