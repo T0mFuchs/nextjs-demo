@@ -61,6 +61,7 @@
 .Link{
   font-weight: 900;
   color: #0059ff;
+  box-shadow: $box-shadaow 0 1em 2.3em -1em, $dark80 0 1.5em 2em -1.5em;
   @media (prefers-color-scheme: dark){
     color: #ff0055;
   }

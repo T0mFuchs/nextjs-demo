@@ -30,25 +30,23 @@ export default function SignIn() {
       </Head>
       <h2 style={{ paddingTop: "6em" }}>
         <div style={{ paddingTop: "1em" }}>
-          <GithubSVG />{" "}
           <button
             onClick={() => {
               signIn("github");
             }}
             className={styles.Button}
           >
-            sign in with Github
+            <GithubSVG /> sign in with Github
           </button>
         </div>
         <div style={{ paddingTop: "1em" }}>
-          <GoogleSVG />{" "}
           <button
             onClick={() => {
               signIn("google");
             }}
             className={styles.Button}
           >
-            sign in with Google
+            <GoogleSVG /> sign in with Google
           </button>
         </div>
       </h2>
@@ -59,7 +57,7 @@ export default function SignIn() {
 function GoogleSVG() {
   return (
     <svg
-      style={{ position: "relative", top: ".4em", right: ".4em" }}
+      style={{ position: "relative", top: ".15em", right: ".2em" }}
       xmlns="http://www.w3.org/2000/svg"
       width="25"
       height="25.59"
@@ -89,7 +87,7 @@ function GoogleSVG() {
 function GithubSVG() {
   return (
     <svg
-      style={{ position: "relative", top: ".4rem", right: ".4rem" }}
+      style={{ position: "relative", top: ".15rem", right: ".3rem" }}
       xmlns="http://www.w3.org/2000/svg"
       width="26"
       height="25.48"
