@@ -7,7 +7,7 @@ import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
-import css from "./index.module.scss";
+import dialog from "../dialog.module.scss";
 import form from "../form.module.scss";
 
 const Dialog = dynamic(() => import("ui/radix-ui/dialog"), {
@@ -64,7 +64,7 @@ export default function UpdateEntry({ title }: { title: string }) {
         <Dialog
           open={showPopup}
           onOpenChange={setShowPopup}
-          className={`${styles.Card} ${css.position}`}
+          className={`${styles.Card} ${dialog.position}`}
         >
           <legend className={form.legend}>entry: {title}</legend>
           <div style={{ padding: ".3em 0" }} />
