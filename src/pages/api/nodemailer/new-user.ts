@@ -1,6 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { unstable_getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]";
+import { getToken } from "next-auth/jwt";
 import nodemailer from "nodemailer";
 
 const handler: NextApiHandler = async (
@@ -8,8 +7,8 @@ const handler: NextApiHandler = async (
   res: NextApiResponse
 ) => {
   if (req.method === "POST") {
-    const session = await unstable_getServerSession(req, res, authOptions);
-    if (session) {
+    const token = await getToken({ req });
+    if (token) {
       const { email, name } = req.body;
       if (!email || !name) {
         return res.status(400).json({ message: "Bad request" });

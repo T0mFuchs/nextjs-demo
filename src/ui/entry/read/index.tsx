@@ -12,7 +12,13 @@ const fetcher = (url: string) =>
 export default function ReadEntry({ title }: { title: string }) {
   const { data, error } = useSWR(`/api/entry/${title}`, fetcher);
   if (error) return <Error />;
-  if (!data) return <Fallback maxWidth="60vw" />;
+  if (!data)
+    return (
+      <>
+        <div style={{ padding: "1.5em" }} />
+        <Fallback maxWidth="60vw" />
+      </>
+    );
   return (
     <>
       <div style={{ padding: "2em 0" }} />

@@ -35,7 +35,6 @@ export function Nav() {
               <span className={styles["link-text"]}>Entries</span>
             </Link>
           </li>
-
           <li className={styles["nav-item"]}>
             <Link
               href="/about"

@@ -11,7 +11,11 @@ export default function App({
 }: AppProps<{ session: Session }>) {
   return (
     <StrictMode>
-      <SessionProvider session={session} refetchInterval={5 * 60}>
+      <SessionProvider
+        session={session}
+        refetchInterval={5 * 60}
+        refetchOnWindowFocus={true}
+      >
         <div className="layout">
           <Nav />
           <ScrollUp />

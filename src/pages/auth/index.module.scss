@@ -1,5 +1,6 @@
 .onhover{
   &:hover {
+    transition: 500ms ease-in-out;
     transform: scale(1.2);
   }
 }

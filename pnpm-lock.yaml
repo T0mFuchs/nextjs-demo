@@ -7,6 +7,7 @@ specifiers:
   '@preact/compat': 17.1.2
   '@radix-ui/react-accessible-icon': ^1.0.1
   '@radix-ui/react-alert-dialog': ^1.0.2
+  '@radix-ui/react-avatar': ^1.0.1
   '@radix-ui/react-dialog': ^1.0.2
   '@radix-ui/react-label': ^2.0.0
   '@radix-ui/react-separator': ^1.0.1
@@ -39,6 +40,7 @@ devDependencies:
   '@preact/compat': 17.1.2_preact@10.11.3
   '@radix-ui/react-accessible-icon': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-alert-dialog': 1.0.2_ib3m5ricvtkl2cll7qpr2f6lvq
+  '@radix-ui/react-avatar': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-dialog': 1.0.2_ib3m5ricvtkl2cll7qpr2f6lvq
   '@radix-ui/react-label': 2.0.0_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-separator': 1.0.1_biqbaboplfbrettd7655fr4n2y
@@ -2390,6 +2392,21 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     transitivePeerDependencies:
       - '@types/react'
+    dev: true
+
+  /@radix-ui/react-avatar/1.0.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-GfUgw4i/OWmb76bmM9qLnedYOsXhPvRXL6xaxyZzhiIVEwo2KbmxTaSQv5r1Oh8nNqBs1vfYPGuVmhEfpxpnvw==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.19.4
+      '@radix-ui/react-context': 1.0.0_react@18.2.0
+      '@radix-ui/react-primitive': 1.0.1_biqbaboplfbrettd7655fr4n2y
+      '@radix-ui/react-use-callback-ref': 1.0.0_react@18.2.0
+      '@radix-ui/react-use-layout-effect': 1.0.0_react@18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: true
 
   /@radix-ui/react-compose-refs/1.0.0_react@18.2.0:
