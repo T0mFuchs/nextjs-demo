@@ -10,9 +10,10 @@ const handler: NextApiHandler = async (
 ) => {
   if (req.method === "PUT") {
     const token = await getToken({ req });
+    const regex = new RegExp("^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$");
     if (token) {
       const { id, title, body } = req.body;
-      if (!id || !title || !body) {
+      if (!id || !title || !body && regex.test(title)) {
         return res.status(400);
       }
       const em = getEM();

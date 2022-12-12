@@ -10,9 +10,10 @@ const handler: NextApiHandler = async (
 ) => {
   if (req.method === "POST") {
     const token = await getToken({ req });
+    const regex = new RegExp("^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$");
     if (token) {
       const { title, body } = req.body;
-      if (!title || !body) {
+      if (!title || !body && regex.test(title)) {
         return res.status(400);
       }
       const em = getEM();

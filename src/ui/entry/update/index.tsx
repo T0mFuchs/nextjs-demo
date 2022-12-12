@@ -77,7 +77,7 @@ export default function UpdateEntry({ title }: { title: string }) {
               defaultValue={data.title}
               minLength={3}
               maxLength={20}
-              pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // ^([^\s]*[A-Za-z0-9](?:\S+\s[^\s]))*[^\s]*$ | https://www.debuggex.com/
+              pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // https://www.debuggex.com/
               title="remove spaces at start, end & all consecutive spaces"
             />
             <Label.Root htmlFor="body" />
