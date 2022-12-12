@@ -55,6 +55,7 @@ export default function Page({ title }: { title: string }) {
             </div>
           </>
         )}
+        <div aria-hidden style={{ padding: "1em" }} />
       </>
     </>
   );
