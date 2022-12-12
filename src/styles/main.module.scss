@@ -4,7 +4,7 @@
 .Button{
   color: inherit;
   background-color: $bg-light;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: .4em;
   padding: .5em .7em .6em .7em;
   box-shadow: $box-shadaow 0 1em 2.3em -1em, $dark80 0 1.5em 2em -1.5em;
@@ -12,11 +12,16 @@
   font-size: 1.2em;
   margin: 0 auto;
   cursor: pointer;
-
+  transition: 200ms ease;
   &:hover,
-  &:focus { scale: 1.05 }
+  &:focus { 
+    scale: 1.05;
+    border: 1px solid $bg-dark;
+  }
   @media (prefers-color-scheme: dark){
     background-color: $bg-dark;
+    &:hover,
+    &:focus{ border: 1px solid $bg-light; }
   }
 }
 
@@ -25,7 +30,7 @@
   color: inherit;
   background-color: $bg-light;
   border-radius: .4em;
-  border: 1px solid $transparent;
+  border: 1px solid transparent;
   padding: .5em .7em .6em .7em;
   box-shadow: $box-shadaow 0 1em 2.3em -1em, $dark80 0 1.5em 2em -1.5em;
   box-sizing: border-box;
