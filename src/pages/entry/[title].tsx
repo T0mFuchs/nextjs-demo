@@ -23,11 +23,11 @@ export default function Page({ title }: { title: string }) {
   return (
     <>
       <Head>
-        <title>post/{title}</title>
+        <title>entry/{title}</title>
       </Head>
       <>
         <ReadEntry route={`/api/entry/${title}`} />
-        <div style={{ paddingBottom: "1em" }} />
+        <div aria-hidden style={{ paddingBottom: "1em" }} />
         {session ? (
           <>
             <div className={css.inline} style={{ paddingTop: "1em" }}>
@@ -39,7 +39,7 @@ export default function Page({ title }: { title: string }) {
           </>
         ) : (
           <>
-            <div style={{ paddingBottom: "1em" }} />
+            <div aria-hidden style={{ paddingBottom: "1em" }} />
             <div className={css.display}>
               <Flicker className={css.flicker} text="currently not signed in">
                 currently not signed in

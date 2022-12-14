@@ -3,16 +3,17 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { signOut, useSession } from "next-auth/react";
-import useSWR, { preload } from "swr";
+import useSWR from "swr";
 import { dateFromObjectId } from "lib/dateFromObjectId";
+import { Observe } from "lib/observer-toggle-visibility";
 import * as Avatar from "@radix-ui/react-avatar";
 import Separator from "ui/radix-ui/separator";
 import CreateEntry from "ui/entry/create";
 import Flicker from "ui/animated/flicker";
+import type { EntryType } from "types/Entry";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
-import { EntryType } from "types/Entry";
 
 const Append = dynamic(() => import("ui/radix-ui/dialog/append"), {
   suspense: true,
@@ -25,6 +26,9 @@ export default function Page() {
   const [open, setOpen] = React.useState(false);
   const { data: session, status } = useSession();
   const { data } = useSWR("/api/user/entries", fetcher);
+
+  React.useEffect(() => Observe());
+
   if (status === "loading") return <></>;
   return (
     <>
@@ -98,15 +102,11 @@ export default function Page() {
                 <Separator orientation="horizontal" style={{ maxWidth: 400 }} />
                 {data.map((entry: EntryType) => (
                   <div key={entry.title} style={{ padding: "1em" }}>
-                    <div
-                      onMouseEnter={() =>
-                        preload(`/user/entry/${entry.title}`, fetcher)
-                      }
-                      className={`${styles.Card}`}
-                    >
+                    {/* `hidden` for lib/observer-toggle-visibility */}
+                    <div className={`${styles.Card} hidden`}>
                       <div className={styles.H2} style={{ fontSize: "2em" }}>
                         <Link
-                          prefetch={false} // not needed since we're using `onMouseEnter` to preload with swr
+                          prefetch={false}
                           href={`/user/entry/${entry.title}`}
                           className={styles.Link}
                         >

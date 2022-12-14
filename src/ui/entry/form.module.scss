@@ -21,9 +21,10 @@
   border: 0;
 }
 .submit{
-  all: unset;
+  border: 0;
+  background: transparent;
   position: absolute;
-  right: -.9em;
+  right: -.2em;
   bottom: -.5em;
   color: #70deaf;
   font-weight: 600;
@@ -50,8 +51,8 @@
   display: flex;
   align-items: center;
   position: relative;
-  bottom: -1em;
-  left: -.25em;
+  bottom: -1.35em;
+  left: -.65em;
 }
 .checkboxroot{
   border: 0;
@@ -61,4 +62,6 @@
 }
 .checkboxlabel{
   padding-left: 5px;
+  position: relative;
+  bottom: 2px;
 }

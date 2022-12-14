@@ -21,6 +21,10 @@ if (!cached) {
 }
 
 async function mongooseConnect() {
+  if (process.env.NODE_ENV === "development") {
+    mongoose.set("debug", true);
+  }
+
   if (cached.conn) {
     return cached.conn;
   }

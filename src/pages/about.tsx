@@ -17,7 +17,7 @@ export default function Page() {
       <>
         <h2 className={styles.H2}>?</h2>
         <Separator className={css.sep} />
-        <div style={{ paddingBottom: "1em" }} />
+        <div aria-hidden style={{ paddingBottom: "1em" }} />
         <>
           <div style={{ padding: "1em" }}>
             <div className={`${styles.Card} ${css.card}`}>

@@ -17,11 +17,11 @@ export default function Page({ title }: { title: string }) {
   return (
     <>
       <Head>
-        <title>post/{title}</title>
+        <title>/user/entry/{title}</title>
       </Head>
       <>
         <ReadEntry route={`/api/user/entry/${title}`} />
-        <div style={{ paddingBottom: "1em" }} />
+        <div aria-hidden style={{ paddingBottom: "1em" }} />
         <div className={css.inline} style={{ paddingTop: "1em" }}>
           <UpdateEntry route={`/api/user/entry/${title}`} />
         </div>

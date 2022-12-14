@@ -119,12 +119,13 @@ export default function UpdateEntry({ route }: { route: string }) {
                 <Label.Root className={form.checkboxlabel}>private</Label.Root>
               )}
             </div>
+            <Label.Root >
             <button
               onClick={() => {
                 handleSubmit;
               }}
               className={form.submit}
-              type="submit"
+              tabIndex={0}
             >
               save & close{" "}
               <span>
@@ -133,6 +134,7 @@ export default function UpdateEntry({ route }: { route: string }) {
                 </AccessibleIcon.Root>
               </span>
             </button>
+            </Label.Root>
           </form>
           <div style={{ padding: ".3em 0" }} />
           <button
