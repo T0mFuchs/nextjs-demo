@@ -26,7 +26,7 @@ export default function UpdateEntry({ title }: { title: string }) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const newData = {
-      id: data.id,
+      _id: data._id,
       // @ts-ignore
       title: form.title.value as string,
       body: form.body.value as string,

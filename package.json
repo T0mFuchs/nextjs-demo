@@ -8,8 +8,6 @@
     "p": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
   "devDependencies": {
-    "@mikro-orm/core": "^5.6.0",
-    "@mikro-orm/mongodb": "^5.6.0",
     "@next-auth/mongodb-adapter": "^1.1.1",
     "@preact/compat": "17.1.2",
     "@radix-ui/react-accessible-icon": "^1.0.1",
@@ -26,6 +24,7 @@
     "eslint": "^8.29.0",
     "eslint-config-next": "13.0.1",
     "mongodb": "^4.12.1",
+    "mongoose": "^6.8.0",
     "next": "13.0.1",
     "next-auth": "^4.17.0",
     "next-pwa": "^5.6.0",
@@ -34,16 +33,15 @@
     "prettier": "^2.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "reflect-metadata": "0.1.13",
     "sass": "^1.56.2",
     "sharp": "~0.31.2",
     "swr": "^2.0.0",
     "typescript": "^4.9.4"
   },
-  "mikro-orm": {
-    "tsConfigPath": "./tsconfig.orm.json",
-    "configPaths": [
-      "./src/config/mikro-orm.config.ts"
-    ]
+  "prettier": {
+    "semi": true,
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": false
   }
 }

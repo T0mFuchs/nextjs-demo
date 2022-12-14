@@ -1,27 +1,27 @@
-import "reflect-metadata";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { getEM, withORM } from "lib";
-import { Entry } from "entities";
-import { getToken } from "next-auth/jwt";
+import { authOptions } from "pages/api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
+import Entry from "models/entry";
+import mongooseConnect from "lib/mongoose-connect";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
   if (req.method === "PUT") {
-    const token = await getToken({ req });
-    const regex = new RegExp("^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$");
-    if (token) {
-      const { id, title, body } = req.body;
-      if (!id || !title || !body && regex.test(title)) {
+    const session = await unstable_getServerSession(req, res, authOptions);
+    const regex = new RegExp("^([^s]*[w]*(?:S+s[^s]))*[^s]*$");
+    if (session) {
+      const { _id, title, body } = req.body;
+      if (!_id || !title || (!body && regex.test(title))) {
         return res.status(400);
       }
-      const em = getEM();
-      await em.nativeUpdate(Entry, id, { title, body });
+      await mongooseConnect();
+      await Entry.findByIdAndUpdate({ _id: _id }, { title: title, body: body });
       res.statusCode = 200;
       res.end();
     }
   }
 };
 
-export default withORM(handler);
+export default handler;

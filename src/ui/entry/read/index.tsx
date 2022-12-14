@@ -26,7 +26,7 @@ export default function ReadEntry({ title }: { title: string }) {
         <div style={{ fontSize: "1.6em", fontWeight: 100 }}>{data.title}</div>
         <p>{data.body}</p>
         <div style={{ fontSize: ".6em" }}>
-          {dateFromObjectId(data.id).toLocaleDateString()}
+          {dateFromObjectId(data._id).toLocaleDateString()}
         </div>
       </div>
     </>

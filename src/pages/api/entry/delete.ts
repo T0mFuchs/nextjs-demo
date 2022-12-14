@@ -1,26 +1,26 @@
-import "reflect-metadata";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { getEM, withORM } from "lib";
-import { Entry } from "entities";
-import { getToken } from "next-auth/jwt";
+import { authOptions } from "pages/api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
+import Entry from "models/entry";
+import mongooseConnect from "lib/mongoose-connect";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
   if (req.method === "DELETE") {
-    const token = await getToken({ req });
-    if (token) {
-      const { id, title } = req.body;
-      if (!id || !title) {
+    const session = await unstable_getServerSession(req, res, authOptions);
+    if (session) {
+      const { _id, title } = req.body;
+      if (!_id || !title) {
         return res.status(400);
       }
-      const em = getEM();
-      await em.nativeDelete(Entry, { id, title });
+      await mongooseConnect();
+      await Entry.findByIdAndDelete({ _id: _id });
       res.statusCode = 200;
       res.end();
     }
   }
 };
 
-export default withORM(handler);
+export default handler;

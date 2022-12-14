@@ -6,7 +6,7 @@ import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
-import { Entry } from "lib/Entry";
+import { Entry } from "types/Entry";
 
 const DialogAppend = dynamic(() => import("ui/radix-ui/dialog/append"), {
   suspense: true,
@@ -27,7 +27,7 @@ export default function DeleteEntry({ title }: { title: string }) {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const data = { id: entry.id, title: entry.title };
+    const data = { _id: entry._id, title: entry.title };
     await fetch("/api/entry/delete", {
       body: JSON.stringify(data),
       headers: {
@@ -35,7 +35,7 @@ export default function DeleteEntry({ title }: { title: string }) {
       },
       method: "DELETE",
     });
-    router.push("/entries");
+    router.push("/entries").then(() => router.reload());
   };
   return (
     <>

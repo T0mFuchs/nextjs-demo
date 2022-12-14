@@ -7,9 +7,6 @@ import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
-  session: {
-    strategy: "jwt",
-  },
   pages: {
     newUser: "/auth/new-user",
     signIn: "/auth/signin",

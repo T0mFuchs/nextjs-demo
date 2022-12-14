@@ -1,28 +1,29 @@
-import "reflect-metadata";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { getEM, withORM } from "lib";
-import { Entry } from "entities";
-import { getToken } from "next-auth/jwt";
+import { authOptions } from "pages/api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
+import Entry from "models/entry";
+import mongooseConnect from "lib/mongoose-connect";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
   if (req.method === "POST") {
-    const token = await getToken({ req });
-    const regex = new RegExp("^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$");
-    if (token) {
+    const session = await unstable_getServerSession(req, res, authOptions);
+    const regex = new RegExp("^([^s]*[w]*(?:S+s[^s]))*[^s]*$");
+    if (session) {
       const { title, body } = req.body;
-      if (!title || !body && regex.test(title)) {
+      if (!title || (!body && regex.test(title))) {
         return res.status(400);
       }
-      const em = getEM();
-      em.create(Entry, { title, body });
-      await em.flush();
-      res.statusCode = 200;
-      res.end();
+      await mongooseConnect();
+      const entry = new Entry({ title, body });
+      await entry.save().then(() => {
+        res.statusCode = 200;
+        res.end();
+      });
     }
   }
 };
 
-export default withORM(handler);
+export default handler;

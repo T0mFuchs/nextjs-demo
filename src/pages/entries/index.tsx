@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Head from "next/head";
 import useSWR, { mutate, preload } from "swr";
-import { Entry } from "lib/Entry";
+import useSWRInfinite from "swr/infinite";
+import { Entry } from "types/Entry";
 import { Observe } from "lib/observer-toggle-visibility";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CrossSVG } from "ui";
@@ -13,22 +14,17 @@ import styles from "styles/main.module.scss";
 import search from "./search.module.scss";
 import css from "./index.module.scss";
 
-let entries: Entry[] = [];
-const limit = 6;
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page() {
-  const [size, setSize] = React.useState(1);
   const { data: searchData } = useSWR(`/api/entries`, fetcher);
-  const { data, error, isValidating } = useSWR(
-    () => `/api/entries/${limit * size}`,
+  const { data, error, size, setSize, isValidating } = useSWRInfinite(
+    (index) => `/api/entries/${index * 6}/${(index + 1) * 6}`,
     fetcher
   );
 
-  entries = data
-    ? entries.concat(...data.slice(entries.length, limit * size))
-    : entries;
+  const entries = data ? [].concat(...data) : [];
 
   React.useEffect(() => {
     Observe();
@@ -37,11 +33,11 @@ export default function Page() {
       async (n) => {
         const last = n[0];
         if (last.isIntersecting) {
-          if ((size + 1) * limit > entries.length + limit) {
+          if (entries.length > (size + 1) * 6) {
             return 0;
           }
           setSize(size + 1);
-          await mutate({}, {}, { revalidate: false });
+          await mutate({}, {}, { revalidate: false, optimisticData: true }); // todo this might be unnecessary now
           observer.unobserve(last.target);
         }
       },
@@ -61,9 +57,9 @@ export default function Page() {
       <>
         <Search data={searchData} />
         <div className={css.entries}>
-          {data && !isValidating ? (
+          {entries ? (
             entries.map((entry: Entry) => (
-              <div key={entry.id} style={{ padding: "1em" }}>
+              <div key={entry.title} style={{ padding: "1em" }}>
                 {/* `hidden` for lib/observer-toggle-visibility */}
                 <div
                   onMouseEnter={() => preload(`entry/${entry.title}`, fetcher)}
@@ -79,7 +75,9 @@ export default function Page() {
                     </Link>
                   </div>
                   <p>{entry.body}</p>
-                  <div style={{ fontSize: ".6em" }}>{entry.id}</div>
+                  <div style={{ fontSize: ".6em" }}>
+                    {dateFromObjectId(entry._id).toLocaleDateString()}
+                  </div>
                 </div>
               </div>
             ))
@@ -148,7 +146,7 @@ function Search({ data }: { data: Entry[] }) {
       {filtered.length !== 0 ? (
         <div className={search.output}>
           {filtered.map((entry: Entry) => (
-            <div key={entry.id} style={{ padding: "1em 1.5em 0 1em" }}>
+            <div key={entry.title} style={{ padding: "1em 1.5em 0 1em" }}>
               <div className={styles.Card}>
                 <Link
                   href={`/entry/${entry.title}`}
@@ -186,7 +184,7 @@ function Search({ data }: { data: Entry[] }) {
                   />
                 ) : null}
                 <span className={search.span}>
-                  {dateFromObjectId(entry.id).toLocaleDateString()}
+                  {dateFromObjectId(entry._id).toLocaleDateString()}
                 </span>
                 <div style={{ paddingBottom: 7 }} />
               </div>

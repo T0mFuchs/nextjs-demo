@@ -7,12 +7,13 @@ const handler: NextApiHandler = async (
   res: NextApiResponse
 ) => {
   if (req.method === "POST") {
-    const { title } = req.query;
+    const skip: number = parseInt(req.query.skip as string);
+    const limit: number = parseInt(req.query.limit as string);
     await mongooseConnect();
-    const entry = await Entry.findOne({ title: title });
+    const entries = await Entry.find({}).skip(skip).limit(limit);
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify(entry));
+    res.end(JSON.stringify(entries));
   }
 };
 
