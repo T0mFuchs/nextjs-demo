@@ -1,8 +1,8 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
-import Entry from "models/entry";
 import mongooseConnect from "lib/mongoose-connect";
+import Entry from "models/entry";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
@@ -12,12 +12,17 @@ const handler: NextApiHandler = async (
     const session = await unstable_getServerSession(req, res, authOptions);
     const regex = new RegExp("^([^s]*[w]*(?:S+s[^s]))*[^s]*$");
     if (session) {
-      const { title, body } = req.body;
+      const { title, body, visibility, author } = req.body;
       if (!title || (!body && regex.test(title))) {
         return res.status(400);
       }
       await mongooseConnect();
-      const entry = new Entry({ title, body });
+      const entry = new Entry({
+        title: title,
+        body: body,
+        visibility: visibility,
+        author: author,
+      });
       await entry.save().then(() => {
         res.statusCode = 200;
         res.end();

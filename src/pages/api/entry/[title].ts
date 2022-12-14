@@ -9,7 +9,7 @@ const handler: NextApiHandler = async (
   if (req.method === "POST") {
     const { title } = req.query;
     await mongooseConnect();
-    const entry = await Entry.findOne({ title: title });
+    const entry = await Entry.findOne({ title: title, visibility: true });
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(entry));

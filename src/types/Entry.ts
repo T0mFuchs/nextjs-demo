@@ -1,7 +1,9 @@
 import { ObjectId } from "mongodb";
 
-export type Entry = {
-  _id: ObjectId;
+export type EntryType = {
+  _id?: ObjectId;
   title: string;
   body: string;
+  visibility: boolean;
+  author?: ObjectId;
 };

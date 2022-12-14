@@ -1,9 +1,11 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import useSWR from "swr";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "ui";
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
+import * as Checkbox from "@radix-ui/react-checkbox";
 
 import styles from "styles/main.module.scss";
 import dialog from "../dialog.module.scss";
@@ -13,8 +15,13 @@ const AlertDialog = dynamic(() => import("ui/radix-ui/alert-dialog"), {
   suspense: true,
 });
 
+const fetcher = (url: string) =>
+  fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
+
 export default function CreateEntry() {
   const [showPopup, setShowPopup] = React.useState(false);
+  const [visibility, setVisibility] = React.useState(false);
+  const { data: verifedUser } = useSWR(`api/user/get-id-with-session`, fetcher);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -24,6 +31,8 @@ export default function CreateEntry() {
       // @ts-ignore
       title: form.title.value as string,
       body: form.body.value as string,
+      visibility: visibility,
+      author: verifedUser,
     };
     await fetch("api/entry/create", {
       body: JSON.stringify(data),
@@ -33,7 +42,10 @@ export default function CreateEntry() {
       method: "POST",
     });
     setShowPopup(false);
-    router.push(`/entry/${data.title}`).then(() => router.reload());
+    if (visibility) {
+      router.push(`/entry/${data.title}`).then(() => router.reload());
+    }
+    router.push(`/user/entry/${data.title}`).then(() => router.reload());
   };
   return (
     <>
@@ -87,6 +99,24 @@ export default function CreateEntry() {
                 minLength={5}
                 maxLength={500}
               />
+              <div className={form.checkboxwrapper}>
+                <Checkbox.Root
+                  checked={visibility}
+                  className={form.checkboxroot}
+                  onClick={() => setVisibility(!visibility)}
+                >
+                  <Checkbox.Indicator>
+                    <CheckSVG />
+                  </Checkbox.Indicator>
+                </Checkbox.Root>
+                {visibility ? (
+                  <Label.Root className={form.checkboxlabel}>public</Label.Root>
+                ) : (
+                  <Label.Root className={form.checkboxlabel}>
+                    private
+                  </Label.Root>
+                )}
+              </div>
               <button
                 onClick={() => {
                   handleSubmit;

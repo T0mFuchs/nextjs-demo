@@ -3,7 +3,7 @@ import Link from "next/link";
 import Head from "next/head";
 import useSWR, { mutate, preload } from "swr";
 import useSWRInfinite from "swr/infinite";
-import { Entry } from "types/Entry";
+import { EntryType } from "types/Entry";
 import { Observe } from "lib/observer-toggle-visibility";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CrossSVG } from "ui";
@@ -58,7 +58,7 @@ export default function Page() {
         <Search data={searchData} />
         <div className={css.entries}>
           {entries ? (
-            entries.map((entry: Entry) => (
+            entries.map((entry: EntryType) => (
               <div key={entry.title} style={{ padding: "1em" }}>
                 {/* `hidden` for lib/observer-toggle-visibility */}
                 <div
@@ -95,7 +95,7 @@ export default function Page() {
   );
 }
 
-function Search({ data }: { data: Entry[] }) {
+function Search({ data }: { data: EntryType[] }) {
   const [current, setCurrent] = React.useState("");
   const [show, setShow]: any = React.useState([]);
   const [filtered, setFiltered]: any = React.useState([]);
@@ -145,7 +145,7 @@ function Search({ data }: { data: Entry[] }) {
       </>
       {filtered.length !== 0 ? (
         <div className={search.output}>
-          {filtered.map((entry: Entry) => (
+          {filtered.map((entry: EntryType) => (
             <div key={entry.title} style={{ padding: "1em 1.5em 0 1em" }}>
               <div className={styles.Card}>
                 <Link

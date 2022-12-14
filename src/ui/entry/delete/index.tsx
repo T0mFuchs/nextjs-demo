@@ -1,33 +1,32 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import useSWR from "swr";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "ui";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
-import { Entry } from "types/Entry";
 
 const DialogAppend = dynamic(() => import("ui/radix-ui/dialog/append"), {
   suspense: true,
 });
 
-export default function DeleteEntry({ title }: { title: string }) {
-  const [showPopup, setShowPopup] = React.useState(false);
-  const [entry, setEntry]: any = React.useState(null);
-  const router = useRouter();
+const fetcher = (url: string) =>
+  fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
 
-  React.useEffect(() => {
-    fetch(`/api/entry/${title}`, { cache: "no-store", method: "POST" })
-      .then((res) => res.json())
-      .then((entry: Entry) => {
-        setEntry(entry);
-      });
-  }, [title]);
+export default function DeleteEntry({ route }: { route: string }) {
+  const [showPopup, setShowPopup] = React.useState(false);
+  const { data: entry } = useSWR(route, fetcher);
+  const { data: verifedUser } = useSWR(
+    `/api/user/get-id-with-session`,
+    fetcher
+  );
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const data = { _id: entry._id, title: entry.title };
+    const data = { _id: entry._id, author: verifedUser };
     await fetch("/api/entry/delete", {
       body: JSON.stringify(data),
       headers: {
@@ -35,19 +34,27 @@ export default function DeleteEntry({ title }: { title: string }) {
       },
       method: "DELETE",
     });
-    router.push("/entries").then(() => router.reload());
+    if (entry.visibility) {
+      router.push("/entries").then(() => router.reload());
+    }
+    router.push("/").then(() => router.reload());
   };
+  if (!entry || !verifedUser) return <></>;
   return (
     <>
       {!showPopup ? (
-        <button
-          className={styles.Button}
-          onClick={() => {
-            setShowPopup(true);
-          }}
-        >
-          delete entry
-        </button>
+        <>
+          {entry.author === verifedUser._id ? (
+            <button
+              className={styles.Button}
+              onClick={() => {
+                setShowPopup(true);
+              }}
+            >
+              delete entry
+            </button>
+          ) : null}
+        </>
       ) : (
         <button
           className={styles.Button}

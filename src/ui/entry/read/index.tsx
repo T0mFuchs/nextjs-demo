@@ -9,8 +9,8 @@ import styles from "styles/main.module.scss";
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
 
-export default function ReadEntry({ title }: { title: string }) {
-  const { data, error } = useSWR(`/api/entry/${title}`, fetcher);
+export default function ReadEntry({ route }: { route: string }) {
+  const { data, error } = useSWR(route, fetcher);
   if (error) return <Error />;
   if (!data)
     return (

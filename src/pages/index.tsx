@@ -3,6 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { signOut, useSession } from "next-auth/react";
+import useSWR, { preload } from "swr";
+import { dateFromObjectId } from "lib/dateFromObjectId";
 import * as Avatar from "@radix-ui/react-avatar";
 import Separator from "ui/radix-ui/separator";
 import CreateEntry from "ui/entry/create";
@@ -10,14 +12,19 @@ import Flicker from "ui/animated/flicker";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
+import { EntryType } from "types/Entry";
 
 const Append = dynamic(() => import("ui/radix-ui/dialog/append"), {
   suspense: true,
 });
 
+const fetcher = async (url: string) =>
+  await fetch(url, { method: "POST" }).then((res) => res.json());
+
 export default function Page() {
   const [open, setOpen] = React.useState(false);
   const { data: session, status } = useSession();
+  const { data } = useSWR("/api/user/entries", fetcher);
   if (status === "loading") return <></>;
   return (
     <>
@@ -30,60 +37,99 @@ export default function Page() {
       </Head>
       <>
         {session ? (
-          <div className={css.wrapper}>
-            <div style={{ paddingTop: "1em" }}>Hello, {session.user?.name}</div>
-            <div className={css.topright}>
-              <Avatar.Root className={css.avatarRoot}>
-                <Avatar.Image
-                  onClick={() => {
-                    setOpen(true);
-                  }}
-                  className={css.avatarImage}
-                  style={{ cursor: "pointer" }}
-                  src={`${session.user?.image}`}
-                  alt={`${session.user?.name}`}
-                  title={`logged in as ${session.user?.name}\nclick to sign out`}
-                />
-                <Avatar.Fallback delayMs={500}>
-                  <UserSVG />
-                </Avatar.Fallback>
-              </Avatar.Root>
-            </div>
-            <Separator orientation="horizontal" />
-            <CreateEntry />
-            <Separator orientation="horizontal" />
-            <>
-              {open ? (
-                <React.Suspense>
-                  <Append
-                    open={open}
-                    onOpenChange={setOpen}
-                    width={120}
-                    className={css.append}
-                  >
-                    <button
-                      className={styles.Button}
-                      onClick={() => {
-                        signOut({ redirect: false });
-                      }}
+          <>
+            <div className={css.wrapper}>
+              <div style={{ paddingTop: "1em" }}>
+                Hello, {session.user?.name}
+              </div>
+              <div className={css.topright}>
+                <Avatar.Root className={css.avatarRoot}>
+                  <Avatar.Image
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                    className={css.avatarImage}
+                    style={{ cursor: "pointer" }}
+                    src={`${session.user?.image}`}
+                    alt={`${session.user?.name}`}
+                    title={`logged in as ${session.user?.name}\nclick to sign out`}
+                  />
+                  <Avatar.Fallback delayMs={500}>
+                    <UserSVG />
+                  </Avatar.Fallback>
+                </Avatar.Root>
+              </div>
+              <Separator orientation="horizontal" />
+              <CreateEntry />
+              <Separator orientation="horizontal" />
+              <>
+                {open ? (
+                  <React.Suspense>
+                    <Append
+                      open={open}
+                      onOpenChange={setOpen}
+                      width={120}
+                      className={css.append}
                     >
-                      yes i want to sign out
-                    </button>
-                  </Append>
-                </React.Suspense>
-              ) : (
-                <button
-                  className={styles.Button}
-                  onClick={() => {
-                    setOpen(true);
-                  }}
-                >
-                  sign out
-                </button>
-              )}
-              <div aria-hidden style={{ padding: "1em" }} />
-            </>
-          </div>
+                      <button
+                        className={styles.Button}
+                        onClick={() => {
+                          signOut({ redirect: false });
+                        }}
+                      >
+                        yes i want to sign out
+                      </button>
+                    </Append>
+                  </React.Suspense>
+                ) : (
+                  <button
+                    className={styles.Button}
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                  >
+                    sign out
+                  </button>
+                )}
+              </>
+            </div>
+            {data ? (
+              <div style={{ maxWidth: 350, margin: "auto" }}>
+                <Separator orientation="horizontal" style={{ maxWidth: 400 }} />
+                {data.map((entry: EntryType) => (
+                  <div key={entry.title} style={{ padding: "1em" }}>
+                    <div
+                      onMouseEnter={() =>
+                        preload(`/user/entry/${entry.title}`, fetcher)
+                      }
+                      className={`${styles.Card}`}
+                    >
+                      <div className={styles.H2} style={{ fontSize: "2em" }}>
+                        <Link
+                          prefetch={false} // not needed since we're using `onMouseEnter` to preload with swr
+                          href={`/user/entry/${entry.title}`}
+                          className={styles.Link}
+                        >
+                          {entry.title}
+                        </Link>
+                      </div>
+                      <p>{entry.body}</p>
+                      <div style={{ fontSize: ".6em" }}>
+                        {dateFromObjectId(entry._id).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div>
+                <Separator orientation="horizontal" />
+                <p>you do not have any private entries yet</p>
+                <Separator orientation="horizontal" />
+              </div>
+            )}
+            <div aria-hidden style={{ padding: "1em" }} />
+          </>
         ) : (
           <>
             <Flicker className={css.center} text="sign in for more">

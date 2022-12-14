@@ -26,15 +26,15 @@ export default function Page({ title }: { title: string }) {
         <title>post/{title}</title>
       </Head>
       <>
-        <ReadEntry title={title} />
+        <ReadEntry route={`/api/entry/${title}`} />
         <div style={{ paddingBottom: "1em" }} />
         {session ? (
           <>
             <div className={css.inline} style={{ paddingTop: "1em" }}>
-              <UpdateEntry title={title} />
+              <UpdateEntry route={`/api/entry/${title}`} />
             </div>
             <div className={css.inline} style={{ paddingLeft: ".9em" }}>
-              <DeleteEntry title={title} />
+              <DeleteEntry route={`/api/entry/${title}`} />
             </div>
           </>
         ) : (

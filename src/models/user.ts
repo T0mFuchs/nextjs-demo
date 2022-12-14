@@ -1,17 +1,13 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: [true, "username already exists"],
-  },
   name: {
     type: String,
-    required: [true, "name is required"],
+    required: [true],
   },
   email: {
     type: String,
-    required: [true, "email is required"],
+    required: [true],
     unique: [true, "email already exists"],
   },
   image: {

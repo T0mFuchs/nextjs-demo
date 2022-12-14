@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import userSchema from "./user";
 
 const entrySchema = new mongoose.Schema({
   title: {
@@ -11,11 +10,13 @@ const entrySchema = new mongoose.Schema({
     type: String,
     required: [true, "body is required"],
   },
+  visibility: {
+    type: Boolean,
+    required: [true, "set true or false"],
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-  },
-  private: {
-    type: Boolean,
+    required: [true, "author is required"],
   },
 });
 

@@ -46,3 +46,19 @@
   top: -.9em;
   left: 0;
 }
+.checkboxwrapper{
+  display: flex;
+  align-items: center;
+  position: relative;
+  bottom: -1em;
+  left: -.25em;
+}
+.checkboxroot{
+  border: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+}
+.checkboxlabel{
+  padding-left: 5px;
+}

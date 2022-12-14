@@ -1,0 +1,13 @@
+.inline{
+  display: inline-block; 
+}
+.display{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.flicker{
+  left: 50%;
+  transform: translate(-50%,-50%);
+  margin: 2em 0;
+}

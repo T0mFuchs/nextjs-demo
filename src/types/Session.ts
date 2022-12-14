@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-export type Session = {
+export type SessionType = {
   _id: ObjectId;
   sessionToken: string;
   userId: ObjectId;

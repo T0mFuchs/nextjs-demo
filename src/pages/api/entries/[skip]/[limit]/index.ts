@@ -10,7 +10,9 @@ const handler: NextApiHandler = async (
     const skip: number = parseInt(req.query.skip as string);
     const limit: number = parseInt(req.query.limit as string);
     await mongooseConnect();
-    const entries = await Entry.find({}).skip(skip).limit(limit);
+    const entries = await Entry.find({ visibility: true })
+      .skip(skip)
+      .limit(limit);
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(entries));
