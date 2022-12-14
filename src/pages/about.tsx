@@ -29,7 +29,7 @@ export default function Page() {
             </div>
           </div>
           <div style={{ padding: "1em" }}>
-            <div className={`${styles.Card} ${css.card} ${css.onhover}`}>
+            <div className={`${css.card} ${css.onhover}`}>
               <p>google lighthouse score</p>
               <Image
                 src={lighthousePNG}
@@ -42,7 +42,7 @@ export default function Page() {
             </div>
           </div>
           <div style={{ padding: "1em" }}>
-            <div className={`${styles.Card} ${css.card} ${css.onhover}`}>
+            <div className={`${css.card} ${css.onhover}`}>
               <p>Web Vitals</p>
               <Image
                 src={webvitalsPNG}

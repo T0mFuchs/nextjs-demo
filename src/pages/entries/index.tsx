@@ -18,7 +18,7 @@ const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page() {
-  const { data: searchData } = useSWR(`/api/entries`, fetcher);
+  const { data: allPublicEntries } = useSWR(`/api/entries`, fetcher);
   const { data, error, size, setSize, isValidating } = useSWRInfinite(
     (index) => `/api/entries/${index * 6}/${(index + 1) * 6}`,
     fetcher
@@ -55,7 +55,7 @@ export default function Page() {
         {data ? <title>entries</title> : <title>loading entries...</title>}
       </Head>
       <>
-        <Search data={searchData} />
+        <Search data={allPublicEntries} />
         <div className={css.entries}>
           {entries ? (
             entries.map((entry: EntryType) => (
@@ -245,10 +245,10 @@ function SearchFallback() {
         <path
           fill="none"
           stroke="#808080"
-          stroke-dasharray="15"
-          stroke-dashoffset="15"
-          stroke-linecap="round"
-          stroke-width="1"
+          strokeDasharray="15"
+          strokeDashoffset="15"
+          strokeLinecap="round"
+          strokeWidth="1"
           d="M12 3C16.9706 3 21 7.02944 21 12"
         >
           <animate

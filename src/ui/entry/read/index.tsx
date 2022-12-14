@@ -15,7 +15,7 @@ export default function ReadEntry({ route }: { route: string }) {
   if (!data)
     return (
       <>
-        <div style={{ padding: "1.5em" }} />
+        <div style={{ padding: "1.475em" }} />
         <Fallback maxWidth="60vw" />
       </>
     );

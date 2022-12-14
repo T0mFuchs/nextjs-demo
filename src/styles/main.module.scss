@@ -53,21 +53,19 @@
 
 
 .H2{ 
-  text-shadow: $bg-light -1px -1px 1px, $bg-dark 1px 1px 1px;
   font-size: 3em;
   color: currentColor;
   margin: 0;
-  @media (prefers-color-scheme: dark){
-    text-shadow: $bg-dark -1px -1px 1px, $bg-light .5px .5px .5px;
-  }
 }
 
 
 .Link{
+  text-decoration: 0;
   font-weight: 900;
-  color: #0059ff;
   box-shadow: $box-shadaow 0 1em 2.3em -1em, $dark80 0 1.5em 2em -1.5em;
-  @media (prefers-color-scheme: dark){
-    color: #ff0055;
-  }
+  background: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: 1px solid #444444;
+  border-radius: 2px;
 }

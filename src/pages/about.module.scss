@@ -2,21 +2,25 @@
   font-size: 1.1em;
   font-weight: 900;
   line-height: 2em;
+  max-width: 67vw;
+  @media (min-width: 900px){
+    max-width: 500px;
+  }
+  margin: auto;
 }
 .sep{
-  max-width: 500px;
+  max-width: 100px;
   margin: 1em auto;
   @media (max-width: 600px){
-    min-width: 100vw;
+    min-width: 90vw;
   }
   @media (min-width: 600px){
-    min-width: 600px;
+    min-width: 85vw;
   }
 }
 .onhover{
-  transition: tranfsrom ease-in-out;
+  transition: 100ms ease-in-out;
   &:hover{
     transform: scale(1.4);
   }
 }
-$clr: #707070
