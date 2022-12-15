@@ -78,6 +78,8 @@ export default function Page() {
                     onClick={() => signOut({ redirect: false })}
                   >
                     confirm sign out
+                    <div className={css.hint1}>(press <b>esc</b> to dismiss)</div>
+                    <div className={css.hint2}>(or click outside)</div>
                   </button>
                 </Dialog>
               </React.Suspense>
