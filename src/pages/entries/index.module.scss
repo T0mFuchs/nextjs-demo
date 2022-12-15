@@ -27,20 +27,22 @@
   }
 }
 .opensort{
-  margin-bottom: 1em;
+  margin-bottom: .5em;
   background-color: transparent;
   border: .5px solid currentColor;
   padding: 2px 5px;
   border-radius: .5em;
+  font-size: 1em;
 }
 .sortoption{
+  margin-bottom: .5em;
   background-color: #000;
   border-radius: .5em;
   border: .5px solid currentColor;
+  font-size: 1em;
 }
-.sortdialog{
-  position: fixed;
-  font-size: 1.1em;
-  top: 3.1em;
-  left: 2.9em;
+.sortposition{
+  position: relative;
+  font-size: 1em;
+  top: .3em;
 }
