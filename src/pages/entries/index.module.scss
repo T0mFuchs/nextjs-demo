@@ -10,3 +10,37 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+.limiter{
+  word-break: break-word;
+  overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   line-height: 1.1em; /* fallback */
+   max-height: 3.3em; /* fallback */
+   -webkit-line-clamp: 3; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+.span{
+  @media (min-width: 800px){
+    display: inline-flex;
+    align-items: center;
+  }
+}
+.opensort{
+  margin-bottom: 1em;
+  background-color: transparent;
+  border: .5px solid currentColor;
+  padding: 2px 5px;
+  border-radius: .5em;
+}
+.sortoption{
+  background-color: #000;
+  border-radius: .5em;
+  border: .5px solid currentColor;
+}
+.sortdialog{
+  position: fixed;
+  font-size: 1.1em;
+  top: 3.1em;
+  left: 2.9em;
+}

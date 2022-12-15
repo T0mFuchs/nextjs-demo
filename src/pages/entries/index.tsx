@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 import { EntryType } from "types/Entry";
@@ -14,13 +15,20 @@ import styles from "styles/main.module.scss";
 import search from "./search.module.scss";
 import css from "./index.module.scss";
 
+const Append = dynamic(() => import("ui/radix-ui/dialog/append"), {
+  suspense: true,
+});
+
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page() {
+  const [openSort, setOpenSort] = React.useState(false);
+  const [sort, setSort] = React.useState("-1");
+  const [placeholder, setPlaceholder] = React.useState("descending");
   const { data: allPublicEntries } = useSWR(`/api/entries`, fetcher);
   const { data, error, size, setSize, isValidating } = useSWRInfinite(
-    (index) => `/api/entries/${index * 6}/${(index + 1) * 6}`,
+    (index) => `/api/entries/${index * 6}/${(index + 1) * 6}/${sort}`,
     fetcher
   );
 
@@ -54,7 +62,44 @@ export default function Page() {
         {data ? <title>entries</title> : <title>loading entries...</title>}
       </Head>
       <>
-        <Search data={allPublicEntries} />
+        <span className={css.span}>
+          <button
+            className={css.opensort}
+            onClick={() => setOpenSort(!openSort)}
+          >
+            {placeholder}
+          </button>
+          <React.Suspense>
+            <Append
+              open={openSort}
+              onOpenChange={setOpenSort}
+              className={css.sortdialog}
+            >
+              <button
+                className={css.sortoption}
+                onClick={() => {
+                  setSort("-1");
+                  setPlaceholder("descending");
+                  setOpenSort(false);
+                }}
+              >
+                descending
+              </button>
+              <button
+                className={css.sortoption}
+                onClick={() => {
+                  setSort("1");
+                  setPlaceholder("ascending");
+                  setOpenSort(false);
+                }}
+              >
+                ascending
+              </button>
+            </Append>
+          </React.Suspense>
+          <Search data={allPublicEntries} />
+        </span>
+
         <div className={css.entries}>
           {entries ? (
             entries.map((entry: EntryType) => (
@@ -70,7 +115,7 @@ export default function Page() {
                       {entry.title}
                     </Link>
                   </div>
-                  <p>{entry.body}</p>
+                  <p className={css.limiter}>{entry.body}</p>
                   <div style={{ fontSize: ".6em" }}>
                     {dateFromObjectId(entry._id).toLocaleDateString()}
                   </div>
@@ -297,5 +342,27 @@ function RefetchFallback() {
       <Fallback maxWidth="600px" />
       <Fallback maxWidth="600px" />
     </>
+  );
+}
+
+function ChevronDownSVG() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ verticalAlign: "-.225em", position: "relative", left: ".15em" }}
+      width="1.1em"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 512 512"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="48"
+        d="m112 184l144 144l144-144"
+      />
+    </svg>
   );
 }

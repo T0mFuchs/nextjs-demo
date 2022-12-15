@@ -11,6 +11,7 @@ export default function Append({
   position,
   style,
   width,
+  container,
   ...props
 }: {
   children: React.ReactNode;
@@ -20,11 +21,13 @@ export default function Append({
   position?: string; // declare position of component via css modules
   style?: React.CSSProperties;
   width?: number | string; // fix for width of component so it is easier to be dismissed
+  container?: HTMLElement;
 }) {
   return (
     <A.Root open={open} onOpenChange={onOpenChange}>
       <A.Portal
-        className={`${position}`}
+        container={container}
+        className={position}
         style={{ width: width, margin: "0 auto" }}
       >
         <A.Overlay className={css.Overlay} />
