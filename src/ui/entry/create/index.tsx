@@ -44,9 +44,9 @@ export default function CreateEntry() {
     });
     setShowPopup(false);
     if (visibility) {
-      router.push(`/entry/${data.title}`).then(() => router.reload());
+      router.push(`/entries`).then(() => router.reload());
     }
-    router.push(`/user/entry/${data.title}`).then(() => router.reload());
+    router.push(`/`).then(() => router.reload());
   };
   return (
     <>

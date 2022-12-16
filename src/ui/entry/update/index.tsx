@@ -3,7 +3,6 @@ import useSWR from "swr";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "ui";
-import { ObjectId } from "mongodb";
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 import * as Checkbox from "@radix-ui/react-checkbox";
@@ -27,7 +26,7 @@ export default function UpdateEntry({
   defaultVisibility: boolean;
 }) {
   const [showPopup, setShowPopup] = React.useState(false);
-  const [visibility, setVisibility] = React.useState(defaultVisibility);
+  const [visibility, setVisibility] = React.useState(defaultVisibility ? true : false);
   const { data: oldEntry } = useSWR(route, fetcher);
   const { data: verifedUser } = useSWR(
     `/api/user/get-id-with-session`,
@@ -56,9 +55,10 @@ export default function UpdateEntry({
     });
     setShowPopup(false);
     if (visibility) {
-      router.push(`/entry/${newEntry.title}`).then(() => router.reload());
+      router.push("/entries").then(() => router.reload());
+    } else {
+      router.push("/").then(() => router.reload());
     }
-    router.push(`/user/entry/${newEntry.title}`).then(() => router.reload());
   };
   if (!oldEntry || !verifedUser) return <></>;
   return (
