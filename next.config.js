@@ -1,9 +1,11 @@
+const isDev = process.env.NODE_ENV === "development";
+
 const withPWA = require("next-pwa")({
   dest: "public",
   register: true,
   skipWaiting: true,
   sw: "next-pwa-sw",
-  disable: process.env.NODE_ENV === "development"
+  disable: isDev
 });
 
 module.exports = withPWA({
@@ -20,4 +22,30 @@ module.exports = withPWA({
     }
     return config;
   },
+  async headers() {
+    if (!isDev) {
+      return [
+        {
+          source: "/(.*)",
+          headers: [
+            {
+              key: "Content-Security-Policy",
+              value: `
+                default-src 'self';
+                script-src 'self';
+                child-src ${process.env.NEXTAUTH_URL};
+                style-src 'self' 'unsafe-inline';
+                img-src *;
+                font-src 'none'; 
+              `.replace(/\s{2,}/g, ' ').trim()
+            },
+            {
+              key: "X-XSS-Protection",
+              value: "1; mode=block"
+            }
+          ]
+        }
+      ]
+    }
+  }
 });
