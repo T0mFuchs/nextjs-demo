@@ -31,7 +31,7 @@
   background-color: $bg-light;
   border-radius: .4em;
   border: 1px solid transparent;
-  padding: .5em .7em .6em .7em;
+  padding: 0 0 .6em 0;
   box-shadow: $box-shadaow 0 1em 2.3em -1em, $dark80 0 1.5em 2em -1.5em;
   box-sizing: border-box;
   margin: 0 auto;
@@ -51,13 +51,10 @@
   }
 }
 
-
 .H2{ 
-  font-size: 3em;
-  color: currentColor;
   margin: 0;
+  font-size: 3em;
 }
-
 
 .Link{
   text-decoration: 0;

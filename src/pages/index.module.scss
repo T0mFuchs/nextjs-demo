@@ -1,3 +1,5 @@
+@import "styles/colors.module";
+
 .wrapper{
   max-width: 150px;
   margin: auto;
@@ -52,7 +54,12 @@
 .opensort{
   margin-bottom: .5em;
   background-color: transparent;
-  border: .5px solid currentColor;
+  color: $bg-dark;
+  border: .5px solid $bg-dark;
+  @media (prefers-color-scheme: dark){
+    color: $color-primary;
+    border: .5px solid $color-primary;
+  }
   padding: 2px 5px;
   border-radius: .5em;
   cursor: pointer;
@@ -60,7 +67,12 @@
 .sortoption{
   margin-bottom: .5em;
   background-color: #000;
-  border: .5px solid currentColor;
+  color: $bg-dark;
+  border: .5px solid $bg-dark;
+  @media (prefers-color-scheme: dark){
+    color: $color-primary;
+    border: .5px solid $color-primary;
+  }
   padding: 2px 5px;
   border-radius: .5em;
   cursor: pointer;

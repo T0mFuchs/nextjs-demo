@@ -4,7 +4,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { signOut, useSession } from "next-auth/react";
 import useSWR from "swr";
-import { dateFromObjectId } from "lib/dateFromObjectId";
 import { Observe } from "lib/observer-toggle-visibility";
 import * as Avatar from "@radix-ui/react-avatar";
 import Separator from "ui/radix-ui/separator";
@@ -16,6 +15,7 @@ import type { EntryType } from "types/Entry";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
+import { dateFromObjectId } from "lib/dateFromObjectId";
 
 const Dialog = dynamic(() => import("ui/radix-ui/dialog"), { suspense: true });
 
@@ -161,7 +161,14 @@ export default function Page() {
                   <div key={entry.title} style={{ padding: "1em" }}>
                     {/* `hidden` for lib/observer-toggle-visibility */}
                     <div className={`${styles.Card} hidden`}>
-                      <div className={styles.H2} style={{ fontSize: "2em" }}>
+                      <div
+                        className={styles.H2}
+                        style={{
+                          fontSize: "2em",
+                          position: "relative",
+                          bottom: 7,
+                        }}
+                      >
                         <Link
                           prefetch={false}
                           href={`/user/entry/${entry.title}`}
@@ -171,8 +178,29 @@ export default function Page() {
                         </Link>
                       </div>
                       <p className={css.limiter}>{entry.body}</p>
-                      <div style={{ fontSize: ".6em" }}>
-                        {dateFromObjectId(entry._id).toLocaleDateString()}
+                      <div
+                        aria-label="date"
+                        style={{
+                          fontSize: ".6em",
+                          position: "relative",
+                          top: 9,
+                        }}
+                      >
+                        {dateFromObjectId(entry._id).getDate()}
+                        {" / "}
+                        {dateFromObjectId(entry._id).getMonth() + 1}
+                        {" / "}
+                        {dateFromObjectId(entry._id).getFullYear()}
+                        <span style={{ padding: "0 9px" }}>{"|"}</span>
+                        {dateFromObjectId(entry._id).getHours()}
+                        {" : "}
+                        {dateFromObjectId(entry._id).getMinutes() < 9
+                          ? "0" + dateFromObjectId(entry._id).getMinutes()
+                          : dateFromObjectId(entry._id).getMinutes()}
+                        {" : "}
+                        {dateFromObjectId(entry._id).getSeconds() < 9
+                          ? "0" + dateFromObjectId(entry._id).getSeconds()
+                          : dateFromObjectId(entry._id).getSeconds()}
                       </div>
                     </div>
                   </div>

@@ -1,3 +1,5 @@
+@import "styles/colors.module";
+
 .entries{
   padding: 1em 1.5em;
   @media (min-width: 600px){
@@ -29,7 +31,12 @@
 .opensort{
   margin-bottom: .5em;
   background-color: transparent;
-  border: .5px solid currentColor;
+  color: $bg-dark;
+  border: .5px solid $bg-dark;
+  @media (prefers-color-scheme: dark){
+    color: $color-primary;
+    border: .5px solid $color-primary;
+  }
   padding: 2px 5px;
   border-radius: .5em;
   font-size: 1em;
@@ -40,7 +47,12 @@
   background-color: #000;
   border-radius: .5em;
   padding: 2px 5px;
-  border: .5px solid currentColor;
+  color: $bg-dark;
+  border: .5px solid $bg-dark;
+  @media (prefers-color-scheme: dark){
+    color: $color-primary;
+    border: .5px solid $color-primary;
+  }
   font-size: 1em;
   cursor: pointer;
   &:hover, &:focus{

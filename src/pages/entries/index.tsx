@@ -116,7 +116,10 @@ export default function Page() {
               <div key={entry.title} style={{ padding: "1em" }}>
                 {/* `hidden` for lib/observer-toggle-visibility */}
                 <div className={`${styles.Card} hidden`}>
-                  <div className={styles.H2} style={{ fontSize: "2em" }}>
+                  <div
+                    className={styles.H2}
+                    style={{ fontSize: "2em", position: "relative", bottom: 7 }}
+                  >
                     <Link
                       prefetch={false}
                       href={`entry/${entry.title}`}
@@ -126,7 +129,9 @@ export default function Page() {
                     </Link>
                   </div>
                   <p className={css.limiter}>{entry.body}</p>
-                  <div style={{ fontSize: ".6em" }}>
+                  <div
+                    style={{ fontSize: ".6em", position: "relative", top: 9 }}
+                  >
                     {dateFromObjectId(entry._id).toLocaleDateString()}
                   </div>
                 </div>
