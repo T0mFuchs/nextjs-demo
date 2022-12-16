@@ -3,6 +3,7 @@ import useSWR from "swr";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "ui";
+import { ObjectId } from "mongodb";
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 import * as Checkbox from "@radix-ui/react-checkbox";
@@ -18,7 +19,13 @@ const Dialog = dynamic(() => import("ui/radix-ui/dialog"), {
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
 
-export default function UpdateEntry({ route, defaultVisibility }: { route: string, defaultVisibility: boolean }) {
+export default function UpdateEntry({
+  route,
+  defaultVisibility,
+}: {
+  route: string;
+  defaultVisibility: boolean;
+}) {
   const [showPopup, setShowPopup] = React.useState(false);
   const [visibility, setVisibility] = React.useState(defaultVisibility);
   const { data: oldEntry } = useSWR(route, fetcher);
@@ -37,8 +44,9 @@ export default function UpdateEntry({ route, defaultVisibility }: { route: strin
       title: form.title.value as string,
       body: form.body.value as string,
       visibility: visibility,
-      author: verifedUser,
+      author: verifedUser._id,
     };
+    console.log(verifedUser, oldEntry._id);
     await fetch("/api/entry/update", {
       body: JSON.stringify(newEntry),
       headers: {
@@ -103,11 +111,13 @@ export default function UpdateEntry({ route, defaultVisibility }: { route: strin
               minLength={5}
               maxLength={500}
             />
-                <div className={form.checkboxwrapper}>
+            <div className={form.checkboxwrapper}>
               <Checkbox.Root
                 className={form.checkboxroot}
-                defaultChecked={!oldEntry.visibility}
-                onClick={() => setVisibility(!visibility)}
+                defaultChecked={defaultVisibility}
+                onClick={() => {
+                  setVisibility(!visibility);
+                }}
               >
                 <Checkbox.Indicator>
                   <CheckSVG />
@@ -128,9 +138,11 @@ export default function UpdateEntry({ route, defaultVisibility }: { route: strin
                 tabIndex={0}
               >
                 save & close
-                <span style={{ paddingLeft: 4 }}><AccessibleIcon.Root label="save">
-                  <CheckSVG />
-                </AccessibleIcon.Root></span>
+                <span style={{ paddingLeft: 4 }}>
+                  <AccessibleIcon.Root label="save">
+                    <CheckSVG />
+                  </AccessibleIcon.Root>
+                </span>
               </button>
             </Label.Root>
           </form>

@@ -31,7 +31,10 @@ export default function Page({ title }: { title: string }) {
         {session ? (
           <>
             <div className={css.inline} style={{ paddingTop: "1em" }}>
-              <UpdateEntry defaultVisibility={true} route={`/api/entry/${title}`} />
+              <UpdateEntry
+                defaultVisibility={true}
+                route={`/api/entry/${title}`}
+              />
             </div>
             <div className={css.inline} style={{ paddingLeft: ".9em" }}>
               <DeleteEntry route={`/api/entry/${title}`} />

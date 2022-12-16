@@ -6,5 +6,4 @@ export type UserType = {
   email: string;
   image: string;
   emailVerified: true | null;
-  visibility: boolean;
 };

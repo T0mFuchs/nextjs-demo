@@ -24,7 +24,8 @@ export default function Page() {
   const [placeholder, setPlaceholder] = React.useState("descending");
   const { data: allPublicEntries } = useSWR(`/api/entries`, fetcher);
   const { data, error, size, setSize, isValidating } = useSWRInfinite(
-    (index) => `/api/entries/${index * 6}/${(index + 1) * 6}/${sortKey}/${sortValue}`,
+    (index) =>
+      `/api/entries/${index * 6}/${(index + 1) * 6}/${sortKey}/${sortValue}`,
     fetcher
   );
 
@@ -65,6 +66,7 @@ export default function Page() {
                 <button
                   className={css.sortoption}
                   onClick={() => {
+                    setSortKey("_id");
                     setSortValue("-1");
                     setPlaceholder("descending");
                     setOpenSort(false);
@@ -75,12 +77,24 @@ export default function Page() {
                 <button
                   className={css.sortoption}
                   onClick={() => {
+                    setSortKey("_id");
                     setSortValue("1");
                     setPlaceholder("ascending");
                     setOpenSort(false);
                   }}
                 >
                   ascending
+                </button>
+                <button
+                  className={css.sortoption}
+                  onClick={() => {
+                    setSortKey("updatedAt");
+                    setSortValue("-1");
+                    setPlaceholder("recently updated");
+                    setOpenSort(false);
+                  }}
+                >
+                  recently updated
                 </button>
               </div>
             ) : (

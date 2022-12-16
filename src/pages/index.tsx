@@ -29,7 +29,10 @@ export default function Page() {
   const [placeholder, setPlaceholder] = React.useState("descending");
   const [open, setOpen] = React.useState(false);
   const { data: session, status } = useSession();
-  const { data } = useSWR(session ? `/api/user/entries/${sortKey}/${sortValue}` : null, fetcher);
+  const { data } = useSWR(
+    session ? `/api/user/entries/${sortKey}/${sortValue}` : null,
+    fetcher
+  );
 
   React.useEffect(() => {
     Observe();
@@ -110,6 +113,7 @@ export default function Page() {
                       <button
                         className={css.sortoption}
                         onClick={() => {
+                          setSortKey("_id");
                           setSortValue("-1");
                           setPlaceholder("descending");
                           setOpenSort(false);
@@ -120,12 +124,24 @@ export default function Page() {
                       <button
                         className={css.sortoption}
                         onClick={() => {
+                          setSortKey("_id");
                           setSortValue("1");
                           setPlaceholder("ascending");
                           setOpenSort(false);
                         }}
                       >
                         ascending
+                      </button>
+                      <button
+                        className={css.sortoption}
+                        onClick={() => {
+                          setSortKey("updatedAt");
+                          setSortValue("-1");
+                          setPlaceholder("recently updated");
+                          setOpenSort(false);
+                        }}
+                      >
+                        recently updated
                       </button>
                     </div>
                   ) : (
@@ -134,8 +150,10 @@ export default function Page() {
                       onClick={() => setOpenSort(true)}
                       tabIndex={0}
                     >
-                        {placeholder}
-                        <span className={css.sorticon}><ChevronDownSVG /></span>
+                      {placeholder}
+                      <span className={css.sorticon}>
+                        <ChevronDownSVG />
+                      </span>
                     </button>
                   )}
                 </div>

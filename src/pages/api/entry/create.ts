@@ -3,6 +3,7 @@ import { authOptions } from "pages/api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
 import mongooseConnect from "lib/mongoose-connect";
 import Entry from "models/entry";
+import { ObjectId } from "mongodb";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
@@ -10,10 +11,9 @@ const handler: NextApiHandler = async (
 ) => {
   if (req.method === "POST") {
     const session = await unstable_getServerSession(req, res, authOptions);
-    const regex = new RegExp("^([^s]*[w]*(?:S+s[^s]))*[^s]*$");
     if (session) {
       const { title, body, visibility, author } = req.body;
-      if (!title || (!body && regex.test(title))) {
+      if (!title || !body || visibility === undefined || !author) {
         return res.status(400);
       }
       await mongooseConnect();
@@ -22,6 +22,7 @@ const handler: NextApiHandler = async (
         body: body,
         visibility: visibility,
         author: author,
+        updatedAt: new ObjectId(),
       });
       await entry.save().then(() => {
         res.statusCode = 200;

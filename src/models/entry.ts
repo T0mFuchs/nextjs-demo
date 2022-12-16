@@ -20,8 +20,9 @@ const entrySchema = new mongoose.Schema({
   },
   updatedAt: {
     type: mongoose.Schema.Types.ObjectId,
-    unique: [true]
-  }
+    required: [true],
+    unique: [true],
+  },
 });
 
 export default mongoose.models.entry || mongoose.model("entry", entrySchema);

@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "ui";
+
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 import * as Checkbox from "@radix-ui/react-checkbox";
@@ -32,7 +33,7 @@ export default function CreateEntry() {
       title: form.title.value as string,
       body: form.body.value as string,
       visibility: visibility,
-      author: verifedUser,
+      author: verifedUser._id,
     };
     await fetch("api/entry/create", {
       body: JSON.stringify(data),
@@ -125,9 +126,11 @@ export default function CreateEntry() {
                 type="submit"
               >
                 save & close
-                <span style={{ paddingLeft: 4 }}><AccessibleIcon.Root label="save">
-                  <CheckSVG />
-                </AccessibleIcon.Root></span>
+                <span style={{ paddingLeft: 4 }}>
+                  <AccessibleIcon.Root label="save">
+                    <CheckSVG />
+                  </AccessibleIcon.Root>
+                </span>
               </button>
             </form>
             <div style={{ padding: ".3em 0" }} />
