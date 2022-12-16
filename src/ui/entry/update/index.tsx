@@ -105,8 +105,8 @@ export default function UpdateEntry({ route }: { route: string }) {
             />
                 <div className={form.checkboxwrapper}>
               <Checkbox.Root
-                checked={visibility}
                 className={form.checkboxroot}
+                defaultChecked={!oldEntry.visibility}
                 onClick={() => setVisibility(!visibility)}
               >
                 <Checkbox.Indicator>
