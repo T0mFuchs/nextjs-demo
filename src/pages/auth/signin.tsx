@@ -1,10 +1,19 @@
+import React from "react";
+import Head from "next/head";
+import dynamic from "next/dynamic";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import Head from "next/head";
 
 import styles from "styles/main.module.scss";
+import css from "./signin.module.scss";
+
+const Alert = dynamic(() => import("ui/radix-ui/alert-dialog"), {
+  suspense: true
+})
 
 export default function SignIn() {
+  const [openCookieAlert, setOpenCookieAlert] = React.useState(false);
+  const [acceptCookies, setAcceptCookies] = React.useState(false);
   const { data: session } = useSession();
   const { push } = useRouter();
 
@@ -28,11 +37,28 @@ export default function SignIn() {
       <Head>
         <title>3rd party signin</title>
       </Head>
+      {openCookieAlert ? (<React.Suspense>
+        <Alert open={openCookieAlert} onOpenChange={setOpenCookieAlert} className={css.position}>
+          <div className={css.scale}>
+          <span className={css.svg}><CookieSVG/></span>
+          <button className={css.button} onClick={() => {
+            setAcceptCookies(true);
+            setOpenCookieAlert(false);
+          }}>accept Cookies</button>
+          </div>
+        </Alert>
+      </React.Suspense>) : null}
       <h2 style={{ paddingTop: "6em" }}>
         <div style={{ paddingTop: "1em" }}>
           <button
+            
             onClick={() => {
-              signIn("github");
+              if (!acceptCookies) {
+                setOpenCookieAlert(true);
+              } else {
+                signIn("github");
+              }
+              
             }}
             className={styles.Button}
           >
@@ -42,7 +68,12 @@ export default function SignIn() {
         <div style={{ paddingTop: "1em" }}>
           <button
             onClick={() => {
-              signIn("google");
+              if (!acceptCookies) {
+                setOpenCookieAlert(true);
+              } else {
+                signIn("google");
+              }
+              
             }}
             className={styles.Button}
           >
@@ -100,4 +131,10 @@ function GithubSVG() {
       />
     </svg>
   );
+}
+
+function CookieSVG() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M10.5 10q.625 0 1.062-.438Q12 9.125 12 8.5t-.438-1.062Q11.125 7 10.5 7t-1.062.438Q9 7.875 9 8.5t.438 1.062Q9.875 10 10.5 10Zm-2 5q.625 0 1.062-.438Q10 14.125 10 13.5t-.438-1.062Q9.125 12 8.5 12t-1.062.438Q7 12.875 7 13.5t.438 1.062Q7.875 15 8.5 15Zm6.5 1q.425 0 .713-.288Q16 15.425 16 15t-.287-.713Q15.425 14 15 14t-.712.287Q14 14.575 14 15t.288.712Q14.575 16 15 16Zm-3 6q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12q0-2.025.838-3.938Q3.675 6.15 5.163 4.7Q6.65 3.25 8.7 2.5q2.05-.75 4.5-.45q.375.05.575.312q.2.263.225.713q.05 1.6 1.188 2.737Q16.325 6.95 17.9 7q.525.025.8.3q.275.275.3.85q.05 1.05.638 1.725q.587.675 1.637 1.025q.35.125.537.362q.188.238.188.588q.05 2.075-.725 3.925q-.775 1.85-2.125 3.237q-1.35 1.388-3.2 2.188q-1.85.8-3.95.8Z"/></svg>
+  )
 }
