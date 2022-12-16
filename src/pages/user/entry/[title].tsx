@@ -23,7 +23,7 @@ export default function Page({ title }: { title: string }) {
         <ReadEntry route={`/api/user/entry/${title}`} />
         <div aria-hidden style={{ paddingBottom: "1em" }} />
         <div className={css.inline} style={{ paddingTop: "1em" }}>
-          <UpdateEntry route={`/api/user/entry/${title}`} />
+          <UpdateEntry defaultVisibility={false} route={`/api/user/entry/${title}`} />
         </div>
         <div className={css.inline} style={{ paddingLeft: ".9em" }}>
           <DeleteEntry route={`/api/user/entry/${title}`} />

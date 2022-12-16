@@ -6,4 +6,5 @@ export type EntryType = {
   body: string;
   visibility: boolean;
   author?: ObjectId;
+  updatedAt?: ObjectId;
 };

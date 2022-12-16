@@ -18,6 +18,10 @@ const entrySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: [true, "author is required"],
   },
+  updatedAt: {
+    type: mongoose.Schema.Types.ObjectId,
+    unique: [true]
+  }
 });
 
 export default mongoose.models.entry || mongoose.model("entry", entrySchema);

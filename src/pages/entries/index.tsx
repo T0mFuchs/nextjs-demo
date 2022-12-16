@@ -19,11 +19,12 @@ const fetcher = async (url: string) =>
 
 export default function Page() {
   const [openSort, setOpenSort] = React.useState(false);
-  const [sort, setSort] = React.useState("-1");
+  const [sortKey, setSortKey] = React.useState("_id");
+  const [sortValue, setSortValue] = React.useState("-1");
   const [placeholder, setPlaceholder] = React.useState("descending");
   const { data: allPublicEntries } = useSWR(`/api/entries`, fetcher);
   const { data, error, size, setSize, isValidating } = useSWRInfinite(
-    (index) => `/api/entries/${index * 6}/${(index + 1) * 6}/${sort}`,
+    (index) => `/api/entries/${index * 6}/${(index + 1) * 6}/${sortKey}/${sortValue}`,
     fetcher
   );
 
@@ -64,7 +65,7 @@ export default function Page() {
                 <button
                   className={css.sortoption}
                   onClick={() => {
-                    setSort("-1");
+                    setSortValue("-1");
                     setPlaceholder("descending");
                     setOpenSort(false);
                   }}
@@ -74,7 +75,7 @@ export default function Page() {
                 <button
                   className={css.sortoption}
                   onClick={() => {
-                    setSort("1");
+                    setSortValue("1");
                     setPlaceholder("ascending");
                     setOpenSort(false);
                   }}

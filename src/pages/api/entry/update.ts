@@ -1,8 +1,8 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
+import { ObjectId } from "mongodb";
 import mongooseConnect from "lib/mongoose-connect";
-import User from "models/user";
 import Entry from "models/entry";
 
 const handler: NextApiHandler = async (
@@ -20,7 +20,7 @@ const handler: NextApiHandler = async (
       await mongooseConnect();
       await Entry.findOneAndUpdate(
         { _id: _id, author: author },
-        { title: title, body: body, visibility: visibility },
+        { title: title, body: body, visibility: visibility, updatedAt: new ObjectId() },
         () => {
           res.statusCode = 200;
           res.end();

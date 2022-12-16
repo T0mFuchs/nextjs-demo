@@ -10,12 +10,13 @@ const handler: NextApiHandler = async (req, res: NextApiResponse) => {
     const session = await unstable_getServerSession(req, res, authOptions);
     if (session) {
       await mongooseConnect();
-      const sort: any = parseInt(req.query.sort as string); //  -1 = descending, 1 = ascending
+      const sort_key: any = req.query.sort_key as string;
+      const sort_value: any = req.query.sort_value as string;
       const user = await User.findOne({ email: session.user?.email });
       const entries = await Entry.find({
         visibility: false,
         author: user._id,
-      }).sort({ _id: sort });
+      }).sort({ [sort_key]: sort_value });
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(entries));

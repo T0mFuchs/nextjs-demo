@@ -18,9 +18,9 @@ const Dialog = dynamic(() => import("ui/radix-ui/dialog"), {
 const fetcher = (url: string) =>
   fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
 
-export default function UpdateEntry({ route }: { route: string }) {
+export default function UpdateEntry({ route, defaultVisibility }: { route: string, defaultVisibility: boolean }) {
   const [showPopup, setShowPopup] = React.useState(false);
-  const [visibility, setVisibility] = React.useState(false);
+  const [visibility, setVisibility] = React.useState(defaultVisibility);
   const { data: oldEntry } = useSWR(route, fetcher);
   const { data: verifedUser } = useSWR(
     `/api/user/get-id-with-session`,

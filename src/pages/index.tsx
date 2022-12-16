@@ -24,11 +24,12 @@ const fetcher = async (url: string) =>
 
 export default function Page() {
   const [openSort, setOpenSort] = React.useState(false);
-  const [sort, setSort] = React.useState("-1");
+  const [sortKey, setSortKey] = React.useState("_id");
+  const [sortValue, setSortValue] = React.useState("-1");
   const [placeholder, setPlaceholder] = React.useState("descending");
   const [open, setOpen] = React.useState(false);
   const { data: session, status } = useSession();
-  const { data } = useSWR(session ? `/api/user/entries/${sort}` : null, fetcher);
+  const { data } = useSWR(session ? `/api/user/entries/${sortKey}/${sortValue}` : null, fetcher);
 
   React.useEffect(() => {
     Observe();
@@ -109,7 +110,7 @@ export default function Page() {
                       <button
                         className={css.sortoption}
                         onClick={() => {
-                          setSort("-1");
+                          setSortValue("-1");
                           setPlaceholder("descending");
                           setOpenSort(false);
                         }}
@@ -119,7 +120,7 @@ export default function Page() {
                       <button
                         className={css.sortoption}
                         onClick={() => {
-                          setSort("1");
+                          setSortValue("1");
                           setPlaceholder("ascending");
                           setOpenSort(false);
                         }}
