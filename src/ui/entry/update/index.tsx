@@ -103,7 +103,7 @@ export default function UpdateEntry({ route }: { route: string }) {
               minLength={5}
               maxLength={500}
             />
-            <div className={form.checkboxwrapper}>
+                <div className={form.checkboxwrapper}>
               <Checkbox.Root
                 checked={visibility}
                 className={form.checkboxroot}
@@ -127,12 +127,10 @@ export default function UpdateEntry({ route }: { route: string }) {
                 className={form.submit}
                 tabIndex={0}
               >
-                save & close{" "}
-                <span>
-                  <AccessibleIcon.Root label="submit">
-                    <CheckSVG />
-                  </AccessibleIcon.Root>
-                </span>
+                save & close
+                <span style={{ paddingLeft: 4 }}><AccessibleIcon.Root label="save">
+                  <CheckSVG />
+                </AccessibleIcon.Root></span>
               </button>
             </Label.Root>
           </form>

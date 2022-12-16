@@ -10,6 +10,8 @@ import * as Avatar from "@radix-ui/react-avatar";
 import Separator from "ui/radix-ui/separator";
 import CreateEntry from "ui/entry/create";
 import Flicker from "ui/animated/flicker";
+import { ChevronDownSVG } from "ui";
+
 import type { EntryType } from "types/Entry";
 
 import styles from "styles/main.module.scss";
@@ -26,14 +28,13 @@ export default function Page() {
   const [placeholder, setPlaceholder] = React.useState("descending");
   const [open, setOpen] = React.useState(false);
   const { data: session, status } = useSession();
-  const { data } = useSWR(`/api/user/entries/${sort}`, fetcher);
+  const { data } = useSWR(session ? `/api/user/entries/${sort}` : null, fetcher);
 
   React.useEffect(() => {
     Observe();
   });
 
   if (status === "loading") return <></>;
-  if (!data) return <></>;
   return (
     <>
       <Head>
@@ -78,7 +79,9 @@ export default function Page() {
                     onClick={() => signOut({ redirect: false })}
                   >
                     confirm sign out
-                    <div className={css.hint1}>(press <b>esc</b> to dismiss)</div>
+                    <div className={css.hint1}>
+                      (press <b>esc</b> to dismiss)
+                    </div>
                     <div className={css.hint2}>(or click outside)</div>
                   </button>
                 </Dialog>
@@ -130,7 +133,8 @@ export default function Page() {
                       onClick={() => setOpenSort(true)}
                       tabIndex={0}
                     >
-                      {placeholder}
+                        {placeholder}
+                        <span className={css.sorticon}><ChevronDownSVG /></span>
                     </button>
                   )}
                 </div>
@@ -156,7 +160,7 @@ export default function Page() {
                 ))}
               </div>
             ) : (
-              <div>
+              <div style={{ maxWidth: 350, margin: "auto" }}>
                 <Separator orientation="horizontal" />
                 <p>you do not have any private entries yet</p>
                 <Separator orientation="horizontal" />

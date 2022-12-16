@@ -124,10 +124,10 @@ export default function CreateEntry() {
                 className={form.submit}
                 type="submit"
               >
-                save & close{" "}
-                <AccessibleIcon.Root label="save">
+                save & close
+                <span style={{ paddingLeft: 4 }}><AccessibleIcon.Root label="save">
                   <CheckSVG />
-                </AccessibleIcon.Root>
+                </AccessibleIcon.Root></span>
               </button>
             </form>
             <div style={{ padding: ".3em 0" }} />

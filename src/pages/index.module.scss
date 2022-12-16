@@ -55,12 +55,21 @@
   border: .5px solid currentColor;
   padding: 2px 5px;
   border-radius: .5em;
+  cursor: pointer;
 }
 .sortoption{
   margin-bottom: .5em;
   background-color: #000;
   border-radius: .5em;
   border: .5px solid currentColor;
+  cursor: pointer;
+  &:hover, &:focus{
+    background-image: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
+  }
+}
+.sorticon{
+  vertical-align: -.1em;
+  font-size: 1.1em;
 }
 .hint1{ // for signout button
   padding: 1px;

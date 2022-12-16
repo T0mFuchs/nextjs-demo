@@ -33,6 +33,7 @@
   padding: 2px 5px;
   border-radius: .5em;
   font-size: 1em;
+  cursor: pointer;
 }
 .sortoption{
   margin-bottom: .5em;
@@ -40,6 +41,10 @@
   border-radius: .5em;
   border: .5px solid currentColor;
   font-size: 1em;
+  cursor: pointer;
+  &:hover{
+    background-image: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
+  }
 }
 .sortposition{
   position: relative;
