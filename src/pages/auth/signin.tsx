@@ -44,7 +44,7 @@ export default function SignIn() {
           <button className={css.button} onClick={() => {
             setAcceptCookies(true);
             setOpenCookieAlert(false);
-          }}>accept Cookies</button>
+          }}>accept cookies to continue</button>
           </div>
         </Alert>
       </React.Suspense>) : null}
