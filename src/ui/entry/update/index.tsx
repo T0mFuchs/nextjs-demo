@@ -48,8 +48,10 @@ export default function UpdateEntry({
       author: verifedUser._id,
     };
     if (entries.find((entry: EntryType) => entry.title === newEntry.title)) {
-      window.alert("title already exists");
-      return 0;
+      if (newEntry.title !== oldEntry.title) {
+        window.alert("title already exists");
+        return 0;
+      }
     }
     await fetch("/api/entry/update", {
       body: JSON.stringify(newEntry),
