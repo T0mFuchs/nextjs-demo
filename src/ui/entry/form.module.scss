@@ -38,8 +38,8 @@
 .cancel{
   all: unset;
   position: absolute;
-  right: -.55em;
-  top: -1em;
+  right: -.25em;
+  top: -.65em;
   color: $color-secondary;
   font-size: 1.7em;
   width: 1.5em;
@@ -56,7 +56,7 @@
   align-items: center;
   position: relative;
   bottom: -1.35em;
-  left: -.65em;
+  left: 1px;
 }
 .checkboxroot{
   border: 0;

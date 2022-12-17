@@ -3,10 +3,10 @@ import dynamic from "next/dynamic";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "ui";
-
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 import * as Checkbox from "@radix-ui/react-checkbox";
+import type { EntryType } from "types/Entry";
 
 import styles from "styles/main.module.scss";
 import dialog from "../dialog.module.scss";
@@ -22,6 +22,7 @@ const fetcher = (url: string) =>
 export default function CreateEntry() {
   const [showPopup, setShowPopup] = React.useState(false);
   const [visibility, setVisibility] = React.useState(false);
+  const { data: entries, isLoading } = useSWR(visibility ? `/api/entries` : `/api/user/entries`, fetcher);
   const { data: verifedUser } = useSWR(`api/user/get-id-with-session`, fetcher);
   const router = useRouter();
 
@@ -35,6 +36,10 @@ export default function CreateEntry() {
       visibility: visibility,
       author: verifedUser._id,
     };
+    if (entries.find((entry: EntryType) => entry.title === data.title)) {
+      window.alert("title already exists");
+      return 0;
+    }
     await fetch("api/entry/create", {
       body: JSON.stringify(data),
       headers: {
@@ -86,7 +91,7 @@ export default function CreateEntry() {
                 required
                 minLength={3}
                 maxLength={20}
-                pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // https://www.debuggex.com/
+                pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
                 title="remove spaces at start, end & all consecutive spaces"
                 autoFocus
               />
@@ -119,11 +124,10 @@ export default function CreateEntry() {
                 )}
               </div>
               <button
-                onClick={() => {
-                  handleSubmit;
-                }}
+                onClick={() => handleSubmit}
                 className={form.submit}
                 type="submit"
+                disabled={isLoading}
               >
                 save & close
                 <span style={{ paddingLeft: 4 }}>

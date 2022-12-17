@@ -19,6 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (
 
 export default function Page({ title }: { title: string }) {
   const { data: session, status } = useSession();
+  const route = `/api/entry/${title}`;
   if (status === "loading") return <></>;
   return (
     <>
@@ -26,18 +27,18 @@ export default function Page({ title }: { title: string }) {
         <title>entry/{title}</title>
       </Head>
       <>
-        <ReadEntry route={`/api/entry/${title}`} />
+        <ReadEntry route={route} />
         <div aria-hidden style={{ paddingBottom: "1em" }} />
         {session ? (
           <>
             <div className={css.inline} style={{ paddingTop: "1em" }}>
               <UpdateEntry
                 defaultVisibility={true}
-                route={`/api/entry/${title}`}
+                route={route}
               />
             </div>
             <div className={css.inline} style={{ paddingLeft: ".9em" }}>
-              <DeleteEntry route={`/api/entry/${title}`} />
+              <DeleteEntry route={route} />
             </div>
           </>
         ) : (

@@ -51,6 +51,7 @@ export default function Page() {
       observer.observe(elem);
     }
   });
+  
   if (error) return <Error />;
   if (!data) return <PageFallback />;
   return (

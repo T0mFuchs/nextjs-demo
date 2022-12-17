@@ -6,6 +6,7 @@ import { CheckSVG, CrossSVG } from "ui";
 import * as Label from "@radix-ui/react-label";
 import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
 import * as Checkbox from "@radix-ui/react-checkbox";
+import { EntryType } from "types/Entry";
 
 import styles from "styles/main.module.scss";
 import dialog from "../dialog.module.scss";
@@ -27,6 +28,7 @@ export default function UpdateEntry({
 }) {
   const [showPopup, setShowPopup] = React.useState(false);
   const [visibility, setVisibility] = React.useState(defaultVisibility ? true : false);
+  const { data: entries, isLoading } = useSWR(visibility ? `/api/entries` : `/api/user/entries`, fetcher);
   const { data: oldEntry } = useSWR(route, fetcher);
   const { data: verifedUser } = useSWR(
     `/api/user/get-id-with-session`,
@@ -45,7 +47,10 @@ export default function UpdateEntry({
       visibility: visibility,
       author: verifedUser._id,
     };
-    console.log(verifedUser, oldEntry._id);
+    if (entries.find((entry: EntryType) => entry.title === newEntry.title)) {
+      window.alert("title already exists");
+      return 0;
+    }
     await fetch("/api/entry/update", {
       body: JSON.stringify(newEntry),
       headers: {
@@ -99,7 +104,7 @@ export default function UpdateEntry({
               defaultValue={oldEntry.title}
               minLength={3}
               maxLength={20}
-              pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s]*$" // https://www.debuggex.com/
+              pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
               title="remove spaces at start, end & all consecutive spaces"
             />
             <Label.Root htmlFor="body" />
@@ -136,6 +141,7 @@ export default function UpdateEntry({
                 }}
                 className={form.submit}
                 tabIndex={0}
+                disabled={isLoading}
               >
                 save & close
                 <span style={{ paddingLeft: 4 }}>

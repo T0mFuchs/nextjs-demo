@@ -34,9 +34,7 @@ export default function Page() {
     fetcher
   );
 
-  React.useEffect(() => {
-    Observe();
-  });
+  React.useEffect(() => Observe());
 
   if (status === "loading") return <></>;
   return (
@@ -173,13 +171,14 @@ export default function Page() {
                           prefetch={false}
                           href={`/user/entry/${entry.title}`}
                           className={styles.Link}
+                          title={entry.title}
                         >
                           {entry.title}
                         </Link>
                       </div>
-                      <p className={css.limiter}>{entry.body}</p>
+                      <p aria-label="entry.body" className={css.limiter}>{entry.body}</p>
                       <div
-                        aria-label="date"
+                        aria-label="entry.date"
                         style={{
                           fontSize: ".6em",
                           position: "relative",
