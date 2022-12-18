@@ -271,9 +271,7 @@ export default function Page() {
                   </PopoverRoot>
                 </React.Suspense>
               </div>
-              <React.Suspense>
-                <Separator orientation="horizontal" />
-              </React.Suspense>
+              <Separator orientation="horizontal" />
               <button
                 className={styles.Button}
                 onClick={() => setOpenCreate(true)}
@@ -283,20 +281,15 @@ export default function Page() {
                 </div>
               </button>
               <React.Suspense>
-                <AlertDialog open={openDelete} onOpenChange={setOpenDelete}>
+                <Dialog open={openDelete} onOpenChange={setOpenDelete}>
                   <button
                     className={styles.Button}
-                    onClick={async () =>
-                      // eslint-disable-next-line react-hooks/rules-of-hooks
-                      handleSubmitDelete()
-                    }
+                    onClick={() => handleSubmitDelete()}
                     autoFocus
                   >
                     delete
                   </button>
-                </AlertDialog>
-              </React.Suspense>
-              <React.Suspense>
+                </Dialog>
                 <AlertDialog
                   open={openCreate}
                   onOpenChange={setOpenCreate}
@@ -364,9 +357,7 @@ export default function Page() {
                   <div style={{ padding: ".3em 0" }} />
                   <button
                     className={form.cancel}
-                    onClick={() => {
-                      setOpenCreate(false);
-                    }}
+                    onClick={() => setOpenCreate(false)}
                   >
                     <AccessibleIconRoot label="cancel">
                       <CrossSVG />
@@ -427,9 +418,7 @@ export default function Page() {
                       </div>
                       <LabelRoot>
                         <button
-                          onClick={() => {
-                            handleSubmitUpdate;
-                          }}
+                          onClick={() => handleSubmitUpdate}
                           className={form.submit}
                           tabIndex={0}
                           disabled={isLoading}
@@ -446,9 +435,7 @@ export default function Page() {
                     <div style={{ padding: ".3em 0" }} />
                     <button
                       className={form.cancel}
-                      onClick={() => {
-                        setOpenUpdate(false);
-                      }}
+                      onClick={() => setOpenUpdate(false)}
                     >
                       <AccessibleIconRoot label="cancel">
                         <CrossSVG />
@@ -458,66 +445,66 @@ export default function Page() {
                 ) : null}
               </React.Suspense>
             </div>
-            {!isValidating && entries ? (
-              <div style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}>
-                <Separator
-                  orientation="horizontal"
-                  style={{ margin: "1em auto" }}
-                />
-                <div
-                  style={{
-                    display: "inline-flex",
-                    paddingTop: 15,
-                    paddingBottom: 10,
-                  }}
-                >
-                  {openSort ? (
-                    <div onMouseLeave={() => setOpenSort(false)}>
-                      <button
-                        className={css.sortoption}
-                        onClick={() => {
-                          setSortKey("_id");
-                          setSortValue("-1");
-                          setSortPlaceholder("descending");
-                          setOpenSort(false);
-                        }}
-                      >
-                        descending
-                      </button>
-                      <button
-                        className={css.sortoption}
-                        onClick={() => {
-                          setSortKey("_id");
-                          setSortValue("1");
-                          setSortPlaceholder("ascending");
-                          setOpenSort(false);
-                        }}
-                      >
-                        ascending
-                      </button>
-                      <button
-                        className={css.sortoption}
-                        onClick={() => {
-                          setSortKey("updatedAt");
-                          setSortValue("-1");
-                          setSortPlaceholder("recently updated");
-                          setOpenSort(false);
-                        }}
-                      >
-                        recently updated
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      className={css.opensort}
-                      onClick={() => setOpenSort(true)}
-                      tabIndex={0}
-                    >
-                      {sortPlaceholder}
-                    </button>
-                  )}
-                </div>
+            <div style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}>
+              <Separator
+                orientation="horizontal"
+                style={{ margin: "1em auto" }}
+              />
+              {!isValidating && entries ? (
                 <>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      paddingTop: 15,
+                      paddingBottom: 10,
+                    }}
+                  >
+                    {openSort ? (
+                      <div onMouseLeave={() => setOpenSort(false)}>
+                        <button
+                          className={css.sortoption}
+                          onClick={() => {
+                            setSortKey("_id");
+                            setSortValue("-1");
+                            setSortPlaceholder("descending");
+                            setOpenSort(false);
+                          }}
+                        >
+                          descending
+                        </button>
+                        <button
+                          className={css.sortoption}
+                          onClick={() => {
+                            setSortKey("_id");
+                            setSortValue("1");
+                            setSortPlaceholder("ascending");
+                            setOpenSort(false);
+                          }}
+                        >
+                          ascending
+                        </button>
+                        <button
+                          className={css.sortoption}
+                          onClick={() => {
+                            setSortKey("updatedAt");
+                            setSortValue("-1");
+                            setSortPlaceholder("recently updated");
+                            setOpenSort(false);
+                          }}
+                        >
+                          recently updated
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        className={css.opensort}
+                        onClick={() => setOpenSort(true)}
+                        tabIndex={0}
+                      >
+                        {sortPlaceholder}
+                      </button>
+                    )}
+                  </div>
                   {entries.map((entry: EntryType) => (
                     <div
                       key={entry.title}
@@ -631,42 +618,36 @@ export default function Page() {
                     </div>
                   ))}
                 </>
-              </div>
-            ) : (
-              <div style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}>
-                <Separator
-                  orientation="horizontal"
-                  style={{ margin: "1em auto" }}
-                />
-                <div style={{ paddingTop: 15, paddingBottom: 10 }}>
-                  <button className={css.sortoption} disabled>
-                    descending
-                  </button>
-                </div>
-                <Fallback />
-                <Fallback />
-                <Fallback />
-                <Fallback />
-                <Fallback />
-                <Fallback />
-              </div>
-            )}
+              ) : (
+                <>
+                  <div style={{ paddingTop: 15, paddingBottom: 10 }}>
+                    <button className={css.sortoption} disabled>
+                      descending
+                    </button>
+                  </div>
+                  <Fallback />
+                  <Fallback />
+                  <Fallback />
+                  <Fallback />
+                  <Fallback />
+                  <Fallback />
+                </>
+              )}
+            </div>
             <div aria-hidden style={{ padding: "1em" }} />
           </React.Suspense>
         ) : (
           <React.Suspense>
-            <React.Suspense>
-              <Flicker className={css.center} text="sign in for more">
-                <Link
-                  prefetch={false}
-                  href="/auth/signin"
-                  className={styles.Link}
-                  style={{ textDecoration: "none" }}
-                >
-                  sign in for more
-                </Link>
-              </Flicker>
-            </React.Suspense>
+            <Flicker className={css.center} text="sign in for more">
+              <Link
+                prefetch={false}
+                href="/auth/signin"
+                className={styles.Link}
+                style={{ textDecoration: "none" }}
+              >
+                sign in for more
+              </Link>
+            </Flicker>
           </React.Suspense>
         )}
       </>
