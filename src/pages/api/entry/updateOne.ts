@@ -25,12 +25,10 @@ const handler: NextApiHandler = async (
           visibility: visibility,
           author: author,
           updatedAt: new ObjectId(),
-        },
-        () => {
-          res.statusCode = 200;
-          res.end();
         }
       );
+      res.statusCode = 200;
+      res.end();
     }
   }
 };

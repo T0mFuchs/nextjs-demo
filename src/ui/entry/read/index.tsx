@@ -1,18 +1,15 @@
 import React from "react";
-import useSWR from "swr";
+import { useGetOneEntry } from "hooks/entry/getOneEntry";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import Error from "../error";
 import Fallback from "../fallback";
 
 import styles from "styles/main.module.scss";
 
-const fetcher = (url: string) =>
-  fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
-
 export default function ReadEntry({ route }: { route: string }) {
-  const { data, error } = useSWR(route, fetcher);
-  if (error) return <Error />;
-  if (!data)
+  const { data, isError, isLoading } = useGetOneEntry(route);
+  if (isError) return <Error />;
+  if (isLoading)
     return (
       <>
         <div style={{ padding: "1.475em" }} />

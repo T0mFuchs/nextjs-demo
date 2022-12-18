@@ -1,6 +1,8 @@
 import React from "react";
 import useSWR from "swr";
 import dynamic from "next/dynamic";
+import { useGetUser } from "hooks/user/getUser";
+import { useGetOneEntry } from "hooks/entry/getOneEntry";
 import { useRouter } from "next/router";
 import { CheckSVG, CrossSVG } from "ui";
 import * as Label from "@radix-ui/react-label";
@@ -11,6 +13,7 @@ import { EntryType } from "types/Entry";
 import styles from "styles/main.module.scss";
 import dialog from "../dialog.module.scss";
 import form from "../form.module.scss";
+import { useUpdateOneEntry } from "hooks/entry/updateOneEntry";
 
 const Dialog = dynamic(() => import("ui/radix-ui/dialog"), {
   suspense: true,
@@ -27,13 +30,15 @@ export default function UpdateEntry({
   defaultVisibility: boolean;
 }) {
   const [showPopup, setShowPopup] = React.useState(false);
-  const [visibility, setVisibility] = React.useState(defaultVisibility ? true : false);
-  const { data: entries, isLoading } = useSWR(visibility ? `/api/entries` : `/api/user/entries`, fetcher);
-  const { data: oldEntry } = useSWR(route, fetcher);
-  const { data: verifedUser } = useSWR(
-    `/api/user/get-id-with-session`,
+  const [visibility, setVisibility] = React.useState(
+    defaultVisibility ? true : false
+  );
+  const { data: entries, isLoading } = useSWR(
+    visibility ? `/api/entries` : `/api/user/entries`,
     fetcher
   );
+  const { data: oldEntry } = useGetOneEntry(route);
+  const { data: user } = useGetUser();
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -45,7 +50,7 @@ export default function UpdateEntry({
       title: form.title.value as string,
       body: form.body.value as string,
       visibility: visibility,
-      author: verifedUser._id,
+      author: user._id,
     };
     if (entries.find((entry: EntryType) => entry.title === newEntry.title)) {
       if (newEntry.title !== oldEntry.title) {
@@ -53,13 +58,8 @@ export default function UpdateEntry({
         return 0;
       }
     }
-    await fetch("/api/entry/update", {
-      body: JSON.stringify(newEntry),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "PUT",
-    });
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    await useUpdateOneEntry(newEntry);
     setShowPopup(false);
     if (visibility) {
       router.push("/entries").then(() => router.reload());
@@ -67,17 +67,17 @@ export default function UpdateEntry({
       router.push("/").then(() => router.reload());
     }
   };
-  if (!oldEntry || !verifedUser) return <></>;
+  if (!oldEntry || !user) return <></>;
   return (
     <>
       {!showPopup ? (
         <>
-          {oldEntry.author === verifedUser._id ? (
+          {oldEntry.author === user._id ? (
             <button
               className={styles.Button}
               onClick={() => {
                 setShowPopup(true);
-                console.log(oldEntry.author, verifedUser._id);
+                console.log(oldEntry.author, user._id);
               }}
             >
               update entry
@@ -167,7 +167,6 @@ export default function UpdateEntry({
           </button>
         </Dialog>
       </React.Suspense>
-      <div id="portal" />
     </>
   );
 }

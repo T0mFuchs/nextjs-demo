@@ -24,10 +24,7 @@ export default function Page({ title }: { title: string }) {
         <ReadEntry route={route} />
         <div aria-hidden style={{ paddingBottom: "1em" }} />
         <div className={css.inline} style={{ paddingTop: "1em" }}>
-          <UpdateEntry
-            defaultVisibility={false}
-            route={route}
-          />
+          <UpdateEntry defaultVisibility={false} route={route} />
         </div>
         <div className={css.inline} style={{ paddingLeft: ".9em" }}>
           <DeleteEntry route={route} />

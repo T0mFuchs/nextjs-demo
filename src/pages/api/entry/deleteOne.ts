@@ -1,22 +1,24 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
-import User from "models/user";
 import mongooseConnect from "lib/mongoose-connect";
+import Entry from "models/entry";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  if (req.method === "POST") {
+  if (req.method === "DELETE") {
     const session = await unstable_getServerSession(req, res, authOptions);
     if (session) {
-      const email = session.user?.email;
+      const { _id, author } = req.body;
+      if (!_id || !author) {
+        return res.status(400);
+      }
       await mongooseConnect();
-      const user_id = await User.findOne({ email: email }).select("_id");
+      await Entry.findOneAndDelete({ _id: _id, author: author });
       res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify(user_id));
+      res.end();
     }
   }
 };

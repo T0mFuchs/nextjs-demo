@@ -1,12 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Head from "next/head";
-import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 import { EntryType } from "types/Entry";
 import { Observe } from "lib/observer-toggle-visibility";
 import { dateFromObjectId } from "lib/dateFromObjectId";
-import { CrossSVG } from "ui";
+import { useGetAllEntries } from "hooks/entry/getAllEntries";
+
+import { CrossSVG, SearchSVG } from "ui";
 import Fallback from "ui/entry/fallback";
 import Error from "ui/entry/error";
 
@@ -22,7 +23,8 @@ export default function Page() {
   const [sortKey, setSortKey] = React.useState("_id");
   const [sortValue, setSortValue] = React.useState("-1");
   const [placeholder, setPlaceholder] = React.useState("descending");
-  const { data: allPublicEntries } = useSWR(`/api/entries`, fetcher);
+
+  const { data: allPublicEntries } = useGetAllEntries("/api/entries");
   const { data, error, size, setSize, isValidating } = useSWRInfinite(
     (index) =>
       `/api/entries/${index * 6}/${(index + 1) * 6}/${sortKey}/${sortValue}`,
@@ -51,7 +53,7 @@ export default function Page() {
       observer.observe(elem);
     }
   });
-  
+
   if (error) return <Error />;
   if (!data) return <PageFallback />;
   return (
@@ -188,6 +190,13 @@ function Search({ data }: { data: EntryType[] }) {
           type="text"
           value={current}
           placeholder="search all entries"
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              setCurrent("");
+              setShow([]);
+              setFiltered([]);
+            }
+          }}
         />
         <button
           className={search.current}
@@ -197,7 +206,7 @@ function Search({ data }: { data: EntryType[] }) {
             setFiltered([]);
           }}
         >
-          {current === "" ? <SearchSVG /> : <CloseSVG />}
+          {current === "" ? <SearchIcon /> : <CloseIcon />}
         </button>
       </>
       {filtered.length !== 0 ? (
@@ -255,25 +264,15 @@ function Search({ data }: { data: EntryType[] }) {
   );
 }
 
-function SearchSVG() {
+function SearchIcon() {
   return (
-    <svg
-      className={search.icon}
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="m18.9 20.3l-5.6-5.6q-.75.6-1.725.95Q10.6 16 9.5 16q-2.725 0-4.612-1.887Q3 12.225 3 9.5q0-2.725 1.888-4.613Q6.775 3 9.5 3t4.613 1.887Q16 6.775 16 9.5q0 1.1-.35 2.075q-.35.975-.95 1.725l5.625 5.625q.275.275.275.675t-.3.7q-.275.275-.7.275q-.425 0-.7-.275ZM9.5 14q1.875 0 3.188-1.312Q14 11.375 14 9.5q0-1.875-1.312-3.188Q11.375 5 9.5 5Q7.625 5 6.312 6.312Q5 7.625 5 9.5q0 1.875 1.312 3.188Q7.625 14 9.5 14Z"
-      />
-    </svg>
+    <div className={search.icon}>
+      <SearchSVG />
+    </div>
   );
 }
 
-function CloseSVG() {
+function CloseIcon() {
   return (
     <div className={search.icon}>
       <CrossSVG />

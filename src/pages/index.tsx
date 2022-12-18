@@ -2,106 +2,471 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { signOut, useSession } from "next-auth/react";
 import useSWR from "swr";
+import { signOut } from "next-auth/react";
 import { Observe } from "lib/observer-toggle-visibility";
-import * as Avatar from "@radix-ui/react-avatar";
+import { dateFromObjectId } from "lib/dateFromObjectId";
+import { CheckSVG, CreateSVG, CrossSVG, UpdateSVG } from "ui";
 import Separator from "ui/radix-ui/separator";
-import CreateEntry from "ui/entry/create";
-import Flicker from "ui/animated/flicker";
-import { ChevronDownSVG } from "ui";
+import Fallback from "ui/entry/fallback";
 
+import { useCreateOneEntry } from "hooks/entry/createOneEntry";
+import { useUpdateOneEntry } from "hooks/entry/updateOneEntry";
+import { useDeleteOneEntry } from "hooks/entry/deleteOneEntry";
+import { useGetUser } from "hooks/user/getUser";
 import type { EntryType } from "types/Entry";
+import type { PanInfo } from "framer-motion";
 
 import styles from "styles/main.module.scss";
+import dialog from "ui/entry/dialog.module.scss";
+import form from "ui/entry/form.module.scss";
 import css from "./index.module.scss";
-import { dateFromObjectId } from "lib/dateFromObjectId";
+
+const Flicker = dynamic(() => import("ui/animated/flicker"), {
+  suspense: true,
+});
 
 const Dialog = dynamic(() => import("ui/radix-ui/dialog"), { suspense: true });
+
+const AlertDialog = dynamic(() => import("ui/radix-ui/alert-dialog"), {
+  suspense: true,
+});
+
+const AvatarRoot = dynamic(() => import("ui/radix-ui/avatar/root"), {
+  suspense: true,
+});
+
+const AvatarImage = dynamic(() => import("ui/radix-ui/avatar/image"), {
+  suspense: true,
+});
+
+const AccessibleIconRoot = dynamic(
+  () => import("ui/radix-ui/accessible-icon/root"),
+  { suspense: true }
+);
+
+const CheckboxRoot = dynamic(() => import("ui/radix-ui/checkbox/root"), {
+  suspense: true,
+});
+
+const CheckboxIndicator = dynamic(
+  () => import("ui/radix-ui/checkbox/indicator"),
+  { suspense: true }
+);
+
+const LabelRoot = dynamic(() => import("ui/radix-ui/label/root"), {
+  suspense: true,
+});
+
+const ToastRoot = dynamic(() => import("ui/radix-ui/toast/root"), {
+  suspense: true,
+});
+
+const ContextMenuRoot = dynamic(() => import("ui/radix-ui/context-menu/root"), {
+  suspense: true,
+});
+
+const ContextMenuTrigger = dynamic(
+  () => import("ui/radix-ui/context-menu/trigger"),
+  {
+    suspense: true,
+  }
+);
+
+const ContextMenuPortal = dynamic(
+  () => import("ui/radix-ui/context-menu/portal"),
+  {
+    suspense: true,
+  }
+);
+
+const ContextMenuContent = dynamic(
+  () => import("ui/radix-ui/context-menu/content"),
+  {
+    suspense: true,
+  }
+);
+
+const ContextMenuItem = dynamic(() => import("ui/radix-ui/context-menu/item"), {
+  suspense: true,
+});
+
+const PopoverRoot = dynamic(() => import("ui/radix-ui/popover/root"), {
+  suspense: true,
+});
+
+const PopoverTrigger = dynamic(() => import("ui/radix-ui/popover/trigger"), {
+  suspense: true,
+});
+
+const PopoverPortal = dynamic(() => import("ui/radix-ui/popover/portal"), {
+  suspense: true,
+});
+
+const PopoverContent = dynamic(() => import("ui/radix-ui/popover/content"), {
+  suspense: true,
+});
+
+const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
+  suspense: true,
+});
 
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page() {
-  const [openSort, setOpenSort] = React.useState(false);
   const [sortKey, setSortKey] = React.useState("_id");
   const [sortValue, setSortValue] = React.useState("-1");
-  const [placeholder, setPlaceholder] = React.useState("descending");
-  const [open, setOpen] = React.useState(false);
-  const { data: session, status } = useSession();
-  const { data } = useSWR(
-    session ? `/api/user/entries/${sortKey}/${sortValue}` : null,
+  const [sortPlaceholder, setSortPlaceholder] = React.useState("descending");
+  const [openSort, setOpenSort] = React.useState(false);
+
+  const [openCreate, setOpenCreate] = React.useState(false);
+
+  const [openDelete, setOpenDelete] = React.useState(false);
+
+  const [openUpdate, setOpenUpdate] = React.useState(false);
+
+  //* set current entry for update&delelte with Object(entry)
+  const [update, setUpdate]: any = React.useState();
+
+  //* set entry.visibility
+  const [visibility, setVisibility] = React.useState(false);
+
+  const [openToast, setOpenToast] = React.useState(false);
+  const [toastMessage, setToastMessage] = React.useState("");
+
+  const [openAvatarPopover, setOpenAvatarPopover] = React.useState(false);
+
+  const { data: user, isLoading } = useGetUser();
+  const {
+    data: entries,
+    mutate,
+    isValidating,
+  } = useSWR(
+    user ? `/api/user/entries/${sortKey}/${sortValue}` : null,
     fetcher
   );
 
+  const handleSubmitCreate = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const data = {
+      // @ts-ignore (HTMLElement.title is reserverd)
+      title: form.title.value as string,
+      body: form.body.value as string,
+      visibility: visibility,
+      author: user._id,
+    };
+    if (entries.find((entry: EntryType) => entry.title === data.title)) {
+      window.alert("title already exists");
+      return 0;
+    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    await useCreateOneEntry(data);
+    mutate({ ...entries }, { revalidate: true, optimisticData: true });
+    setOpenCreate(false);
+    setToastMessage(`new entry: ${data.title} created`);
+    setOpenToast(true);
+  };
+  const handleSubmitDelete = async () => {
+    const data = {
+      _id: update._id,
+      author: user._id,
+    };
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    await useDeleteOneEntry(data);
+    mutate({ ...entries }, { revalidate: true, optimisticData: false });
+    setOpenDelete(false);
+  };
+  const handleSubmitUpdate = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const data = {
+      _id: update._id,
+      // @ts-ignore (HTMLElement.title is reserverd)
+      title: form.title.value as string,
+      body: form.body.value as string,
+      visibility: visibility,
+      author: user._id,
+    };
+    if (entries.find((entry: EntryType) => entry.title === data.title)) {
+      if (data.title !== update.title) {
+        window.alert("title already exists");
+        return 0;
+      }
+    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    await useUpdateOneEntry(data);
+    mutate({ ...entries }, { revalidate: true, optimisticData: true });
+    setOpenUpdate(false);
+  };
+
   React.useEffect(() => Observe());
 
-  if (status === "loading") return <></>;
+  if (isLoading) return <></>;
   return (
     <>
       <Head>
-        {session ? (
-          <title>Hello, {session.user?.name}</title>
+        {user ? (
+          <title>Hello, {user.name}</title>
         ) : (
           <title>not signed in</title>
         )}
       </Head>
       <>
-        {session ? (
-          <>
+        {!isLoading && user.error === undefined ? (
+          <React.Suspense>
             <div className={css.wrapper}>
-              <div style={{ paddingTop: "1em" }}>
-                Hello, {session.user?.name}
-              </div>
+              <div style={{ paddingTop: "1em" }}>Hello, {user.name}</div>
               <div className={css.topright}>
-                <Avatar.Root className={css.avatarRoot}>
-                  <Avatar.Image
-                    onClick={() => {
-                      setOpen(true);
-                    }}
-                    className={css.avatarImage}
-                    style={{ cursor: "pointer" }}
-                    src={`${session.user?.image}`}
-                    alt={`${session.user?.name}`}
-                    title={`logged in as ${session.user?.name}\nclick to sign out`}
-                  />
-                  <Avatar.Fallback delayMs={500}>
-                    <UserSVG />
-                  </Avatar.Fallback>
-                </Avatar.Root>
+                <React.Suspense>
+                  <ToastRoot
+                    className={css.ToastRoot}
+                    open={openToast}
+                    onOpenChange={setOpenToast}
+                  >
+                    <p>successfully {toastMessage}</p>
+                  </ToastRoot>
+                </React.Suspense>
+                <React.Suspense>
+                  <PopoverRoot
+                    open={openAvatarPopover}
+                    onOpenChange={setOpenAvatarPopover}
+                  >
+                    <PopoverTrigger asChild>
+                      <AvatarRoot className={css.avatarRoot}>
+                        <AvatarImage
+                          className={css.avatarImage}
+                          style={{ cursor: "pointer" }}
+                          src={user.image}
+                          alt={user.name}
+                          title={`logged in as ${user.name}\nclick to sign out`}
+                        />
+                      </AvatarRoot>
+                    </PopoverTrigger>
+                    <PopoverPortal>
+                      <PopoverContent
+                        style={{
+                          position: "fixed",
+                          top: "6em",
+                          right: "1em",
+                          background: 0,
+                          border: "1px solid currentColor",
+                          borderRadius: 6,
+                        }}
+                      >
+                        <button
+                          onClick={() => signOut()}
+                          style={{
+                            border: 0,
+                            background: 0,
+                            cursor: "pointer",
+                          }}
+                        >
+                          {" "}
+                          sign out
+                        </button>
+                      </PopoverContent>
+                    </PopoverPortal>
+                  </PopoverRoot>
+                </React.Suspense>
               </div>
-              <Separator orientation="horizontal" />
-              <CreateEntry />
-            </div>
-            {open ? (
               <React.Suspense>
-                <Dialog open={open} onOpenChange={setOpen}>
+                <Separator orientation="horizontal" />
+              </React.Suspense>
+              <button
+                className={styles.Button}
+                onClick={() => setOpenCreate(true)}
+              >
+                <div style={{ position: "relative", top: 4, fontSize: 40 }}>
+                  <CreateSVG />
+                </div>
+              </button>
+              <React.Suspense>
+                <AlertDialog open={openDelete} onOpenChange={setOpenDelete}>
                   <button
                     className={styles.Button}
-                    onClick={() => signOut({ redirect: false })}
+                    onClick={async () =>
+                      // eslint-disable-next-line react-hooks/rules-of-hooks
+                      handleSubmitDelete()
+                    }
+                    autoFocus
                   >
-                    confirm sign out
-                    <div className={css.hint1}>
-                      (press <b>esc</b> to dismiss)
-                    </div>
-                    <div className={css.hint2}>(or click outside)</div>
+                    delete
                   </button>
-                </Dialog>
+                </AlertDialog>
               </React.Suspense>
-            ) : null}
-            {data ? (
-              <div
-                id="container"
-                style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}
-              >
+              <React.Suspense>
+                <AlertDialog
+                  open={openCreate}
+                  onOpenChange={setOpenCreate}
+                  className={`${styles.Card} ${dialog.position}`}
+                >
+                  <legend className={form.legend}>new Entry</legend>
+                  <div style={{ padding: ".3em 0" }} />
+                  <form className={form.form} onSubmit={handleSubmitCreate}>
+                    <LabelRoot htmlFor="title" />
+                    <input
+                      className={form.input}
+                      name="title"
+                      type="text"
+                      placeholder="...title"
+                      required
+                      minLength={3}
+                      maxLength={20}
+                      pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
+                      title="remove spaces at start, end & all consecutive spaces"
+                      autoFocus
+                    />
+                    <LabelRoot htmlFor="body" />
+                    <textarea
+                      rows={6}
+                      className={form.textarea}
+                      name="body"
+                      placeholder="...body"
+                      required
+                      minLength={5}
+                      maxLength={500}
+                    />
+                    <div className={form.checkboxwrapper}>
+                      <CheckboxRoot
+                        checked={visibility}
+                        className={form.checkboxroot}
+                        onClick={() => setVisibility(!visibility)}
+                      >
+                        <CheckboxIndicator>
+                          <CheckSVG />
+                        </CheckboxIndicator>
+                      </CheckboxRoot>
+                      {visibility ? (
+                        <LabelRoot className={form.checkboxlabel}>
+                          public
+                        </LabelRoot>
+                      ) : (
+                        <LabelRoot className={form.checkboxlabel}>
+                          private
+                        </LabelRoot>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => handleSubmitCreate}
+                      className={form.submit}
+                      type="submit"
+                    >
+                      save & close
+                      <span style={{ paddingLeft: 4 }}>
+                        <AccessibleIconRoot label="save">
+                          <CheckSVG />
+                        </AccessibleIconRoot>
+                      </span>
+                    </button>
+                  </form>
+                  <div style={{ padding: ".3em 0" }} />
+                  <button
+                    className={form.cancel}
+                    onClick={() => {
+                      setOpenCreate(false);
+                    }}
+                  >
+                    <AccessibleIconRoot label="cancel">
+                      <CrossSVG />
+                    </AccessibleIconRoot>
+                  </button>
+                </AlertDialog>
+                {update ? (
+                  <Dialog
+                    open={openUpdate}
+                    onOpenChange={setOpenUpdate}
+                    className={`${styles.Card} ${dialog.position}`}
+                  >
+                    <legend className={form.legend}>
+                      entry: {update.title}
+                    </legend>
+                    <div style={{ padding: ".3em 0" }} />
+                    <form className={form.form} onSubmit={handleSubmitUpdate}>
+                      <LabelRoot htmlFor="title" />
+                      <input
+                        className={form.input}
+                        name="title"
+                        type="text"
+                        defaultValue={update.title}
+                        minLength={3}
+                        maxLength={20}
+                        pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
+                        title="remove spaces at start, end & all consecutive spaces"
+                      />
+                      <LabelRoot htmlFor="body" />
+                      <textarea
+                        rows={6}
+                        className={form.textarea}
+                        name="body"
+                        defaultValue={update.body}
+                        minLength={5}
+                        maxLength={500}
+                      />
+                      <div className={form.checkboxwrapper}>
+                        <CheckboxRoot
+                          className={form.checkboxroot}
+                          onClick={() => {
+                            setVisibility(!visibility);
+                          }}
+                        >
+                          <CheckboxIndicator>
+                            <CheckSVG />
+                          </CheckboxIndicator>
+                        </CheckboxRoot>
+                        {visibility ? (
+                          <LabelRoot className={form.checkboxlabel}>
+                            public
+                          </LabelRoot>
+                        ) : (
+                          <LabelRoot className={form.checkboxlabel}>
+                            private
+                          </LabelRoot>
+                        )}
+                      </div>
+                      <LabelRoot>
+                        <button
+                          onClick={() => {
+                            handleSubmitUpdate;
+                          }}
+                          className={form.submit}
+                          tabIndex={0}
+                          disabled={isLoading}
+                        >
+                          save & close
+                          <span style={{ paddingLeft: 4 }}>
+                            <AccessibleIconRoot label="save">
+                              <CheckSVG />
+                            </AccessibleIconRoot>
+                          </span>
+                        </button>
+                      </LabelRoot>
+                    </form>
+                    <div style={{ padding: ".3em 0" }} />
+                    <button
+                      className={form.cancel}
+                      onClick={() => {
+                        setOpenUpdate(false);
+                      }}
+                    >
+                      <AccessibleIconRoot label="cancel">
+                        <CrossSVG />
+                      </AccessibleIconRoot>
+                    </button>
+                  </Dialog>
+                ) : null}
+              </React.Suspense>
+            </div>
+            {!isValidating && entries ? (
+              <div style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}>
                 <Separator
                   orientation="horizontal"
-                  style={{ width: 350, margin: "1em auto" }}
+                  style={{ margin: "1em auto" }}
                 />
                 <div
                   style={{
                     display: "inline-flex",
-                    alignItems: "center",
                     paddingTop: 15,
                     paddingBottom: 10,
                   }}
@@ -113,7 +478,7 @@ export default function Page() {
                         onClick={() => {
                           setSortKey("_id");
                           setSortValue("-1");
-                          setPlaceholder("descending");
+                          setSortPlaceholder("descending");
                           setOpenSort(false);
                         }}
                       >
@@ -124,7 +489,7 @@ export default function Page() {
                         onClick={() => {
                           setSortKey("_id");
                           setSortValue("1");
-                          setPlaceholder("ascending");
+                          setSortPlaceholder("ascending");
                           setOpenSort(false);
                         }}
                       >
@@ -135,7 +500,7 @@ export default function Page() {
                         onClick={() => {
                           setSortKey("updatedAt");
                           setSortValue("-1");
-                          setPlaceholder("recently updated");
+                          setSortPlaceholder("recently updated");
                           setOpenSort(false);
                         }}
                       >
@@ -148,103 +513,163 @@ export default function Page() {
                       onClick={() => setOpenSort(true)}
                       tabIndex={0}
                     >
-                      {placeholder}
-                      <span className={css.sorticon}>
-                        <ChevronDownSVG />
-                      </span>
+                      {sortPlaceholder}
                     </button>
                   )}
                 </div>
-                {data.map((entry: EntryType) => (
-                  <div key={entry.title} style={{ padding: "1em" }}>
-                    {/* `hidden` for lib/observer-toggle-visibility */}
-                    <div className={`${styles.Card} hidden`}>
-                      <div
-                        className={styles.H2}
-                        style={{
-                          fontSize: "2em",
-                          position: "relative",
-                          bottom: 7,
-                        }}
-                      >
-                        <Link
-                          prefetch={false}
-                          href={`/user/entry/${entry.title}`}
-                          className={styles.Link}
-                          title={entry.title}
-                        >
-                          {entry.title}
-                        </Link>
-                      </div>
-                      <p aria-label="entry.body" className={css.limiter}>{entry.body}</p>
-                      <div
-                        aria-label="entry.date"
-                        style={{
-                          fontSize: ".6em",
-                          position: "relative",
-                          top: 9,
-                        }}
-                      >
-                        {dateFromObjectId(entry._id).getDate()}
-                        {" / "}
-                        {dateFromObjectId(entry._id).getMonth() + 1}
-                        {" / "}
-                        {dateFromObjectId(entry._id).getFullYear()}
-                        <span style={{ padding: "0 9px" }}>{"|"}</span>
-                        {dateFromObjectId(entry._id).getHours()}
-                        {" : "}
-                        {dateFromObjectId(entry._id).getMinutes() < 9
-                          ? "0" + dateFromObjectId(entry._id).getMinutes()
-                          : dateFromObjectId(entry._id).getMinutes()}
-                        {" : "}
-                        {dateFromObjectId(entry._id).getSeconds() < 9
-                          ? "0" + dateFromObjectId(entry._id).getSeconds()
-                          : dateFromObjectId(entry._id).getSeconds()}
-                      </div>
+                <>
+                  {entries.map((entry: EntryType) => (
+                    <div
+                      key={entry.title}
+                      className="hidden"
+                      style={{ padding: "1em" }}
+                    >
+                      <React.Suspense>
+                        <ContextMenuRoot>
+                          <ContextMenuTrigger>
+                            <MotionDiv
+                              className={styles.Card}
+                              drag="x"
+                              dragTransition={{ power: 1 }}
+                              dragSnapToOrigin
+                              onDragEnd={(event: any, info: PanInfo) => {
+                                if (info.offset.x > 150) {
+                                  setUpdate(Object(entry));
+                                  setOpenUpdate(true);
+                                }
+                                if (info.offset.x < -150) {
+                                  setUpdate(Object(entry));
+                                  setOpenDelete(true);
+                                }
+                              }}
+                            >
+                              <div
+                                className={styles.H2}
+                                style={{
+                                  fontSize: "2em",
+                                  position: "relative",
+                                  bottom: 7,
+                                }}
+                              >
+                                <Link
+                                  prefetch={false}
+                                  href={`/user/entry/${entry.title}`}
+                                  className={styles.Link}
+                                  title={entry.title}
+                                >
+                                  {entry.title}
+                                </Link>
+                              </div>
+                              <p
+                                aria-label="entry.body"
+                                className={css.limiter}
+                              >
+                                {entry.body}
+                              </p>
+                              <div
+                                aria-label="entry.date"
+                                style={{
+                                  fontSize: ".6em",
+                                  position: "relative",
+                                  top: 9,
+                                }}
+                              >
+                                {dateFromObjectId(entry._id).getDate()}
+                                {" / "}
+                                {dateFromObjectId(entry._id).getMonth() + 1}
+                                {" / "}
+                                {dateFromObjectId(entry._id).getFullYear()}
+                                <span style={{ padding: "0 9px" }}>{"|"}</span>
+                                {dateFromObjectId(entry._id).getHours()}
+                                {" : "}
+                                {dateFromObjectId(entry._id).getMinutes() < 9
+                                  ? "0" +
+                                    dateFromObjectId(entry._id).getMinutes()
+                                  : dateFromObjectId(entry._id).getMinutes()}
+                                {" : "}
+                                {dateFromObjectId(entry._id).getSeconds() < 9
+                                  ? "0" +
+                                    dateFromObjectId(entry._id).getSeconds()
+                                  : dateFromObjectId(entry._id).getSeconds()}
+                              </div>
+                            </MotionDiv>
+                          </ContextMenuTrigger>
+                          <ContextMenuPortal>
+                            <ContextMenuContent className={css.ctxmContent}>
+                              <ContextMenuItem
+                                className={css.ctxmItem}
+                                onClick={() => {
+                                  setUpdate(Object(entry));
+                                  setOpenUpdate(true);
+                                }}
+                              >
+                                <div>
+                                  <UpdateSVG />
+                                </div>
+                                edit entry
+                              </ContextMenuItem>
+                              <Separator
+                                orientation="horizontal"
+                                style={{ margin: "5px 0" }}
+                              />
+                              <ContextMenuItem
+                                className={css.ctxmItem}
+                                onClick={() => {
+                                  setUpdate(Object(entry));
+                                  setOpenDelete(true);
+                                }}
+                              >
+                                <div>
+                                  <CrossSVG />
+                                </div>
+                                delete entry
+                              </ContextMenuItem>
+                            </ContextMenuContent>
+                          </ContextMenuPortal>
+                        </ContextMenuRoot>
+                      </React.Suspense>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </>
               </div>
             ) : (
-              <div style={{ maxWidth: 350, margin: "auto" }}>
-                <Separator orientation="horizontal" />
-                <p>you do not have any private entries yet</p>
-                <Separator orientation="horizontal" />
+              <div style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}>
+                <Separator
+                  orientation="horizontal"
+                  style={{ margin: "1em auto" }}
+                />
+                <div style={{ paddingTop: 15, paddingBottom: 10 }}>
+                  <button className={css.sortoption} disabled>
+                    descending
+                  </button>
+                </div>
+                <Fallback />
+                <Fallback />
+                <Fallback />
+                <Fallback />
+                <Fallback />
+                <Fallback />
               </div>
             )}
             <div aria-hidden style={{ padding: "1em" }} />
-          </>
+          </React.Suspense>
         ) : (
-          <>
-            <Flicker className={css.center} text="sign in for more">
-              <Link
-                prefetch={false}
-                href="/auth/signin"
-                className={styles.Link}
-                style={{ textDecoration: "none" }}
-              >
-                sign in for more
-              </Link>
-            </Flicker>
-          </>
+          <React.Suspense>
+            <React.Suspense>
+              <Flicker className={css.center} text="sign in for more">
+                <Link
+                  prefetch={false}
+                  href="/auth/signin"
+                  className={styles.Link}
+                  style={{ textDecoration: "none" }}
+                >
+                  sign in for more
+                </Link>
+              </Flicker>
+            </React.Suspense>
+          </React.Suspense>
         )}
       </>
     </>
-  );
-}
-
-function UserSVG() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className={css.avatarImage}
-      preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 256 256"
-    >
-      <path
-        fill="currentColor"
-        d="M235.4 210a124.2 124.2 0 0 0-61.8-53.2a76 76 0 1 0-91.2 0A124.2 124.2 0 0 0 20.6 210a12 12 0 0 0 20.8 12a100 100 0 0 1 173.2 0a12.1 12.1 0 0 0 10.4 6a11.7 11.7 0 0 0 6-1.6a12 12 0 0 0 4.4-16.4ZM76 96a52 52 0 1 1 52 52a52 52 0 0 1-52-52Z"
-      />
-    </svg>
   );
 }

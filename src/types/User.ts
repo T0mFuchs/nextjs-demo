@@ -1,9 +1,9 @@
 import { ObjectId } from "mongodb";
 
 export type UserType = {
-  _id: ObjectId;
+  _id?: ObjectId;
   name: string;
   email: string;
   image: string;
-  emailVerified: true | null;
+  emailVerified?: true | null;
 };

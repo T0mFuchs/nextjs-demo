@@ -64,3 +64,25 @@ body{
     }
   }
 }
+
+.toast-viewport{
+  position: fixed;
+@media (max-width: 600px){
+  top: 0;
+  right: 0;
+}
+@media (min-width: 600px){
+  bottom: 0;
+  right: 0;
+}
+display: flex;
+flex-direction: column;
+padding: 1em;
+gap: 10px;
+width: 400px;
+max-width: 80vw;
+margin: 0;
+list-style: none;
+z-index: 9;
+outline: none;
+}
