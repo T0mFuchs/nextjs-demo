@@ -20,7 +20,7 @@ export default function App({
         refetchInterval={5 * 60}
         refetchOnWindowFocus={true}
       >
-        <ToastProvider swipeDirection="right" duration={5000}>
+        <ToastProvider swipeDirection="right" duration={6000}>
           <div className="layout">
             <Nav />
             <ScrollUp />

@@ -13,3 +13,4 @@ const ScrollYProgress = () => {
 };
 
 export default ScrollYProgress;
+

@@ -163,9 +163,9 @@ export default function Page() {
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
     await useCreateOneEntry(data);
+    setToastMessage(`created entry: ${data.title}`);
     mutate({ ...entries }, { revalidate: true, optimisticData: true });
     setOpenCreate(false);
-    setToastMessage(`new entry: ${data.title} created`);
     setOpenToast(true);
   };
   const handleSubmitDelete = async () => {
@@ -175,8 +175,10 @@ export default function Page() {
     };
     // eslint-disable-next-line react-hooks/rules-of-hooks
     await useDeleteOneEntry(data);
+    setToastMessage(`deleted entry: ${update.title}`);
     mutate({ ...entries }, { revalidate: true, optimisticData: false });
     setOpenDelete(false);
+    setOpenToast(true);
   };
   const handleSubmitUpdate = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -197,8 +199,10 @@ export default function Page() {
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
     await useUpdateOneEntry(data);
+    setToastMessage(`updated entry: ${update.title}`);
     mutate({ ...entries }, { revalidate: true, optimisticData: true });
     setOpenUpdate(false);
+    setOpenToast(true);
   };
 
   React.useEffect(() => Observe());
@@ -220,15 +224,6 @@ export default function Page() {
               <div style={{ paddingTop: "1em" }}>Hello, {user.name}</div>
               <div className={css.topright}>
                 <React.Suspense>
-                  <ToastRoot
-                    className={css.ToastRoot}
-                    open={openToast}
-                    onOpenChange={setOpenToast}
-                  >
-                    <p>successfully {toastMessage}</p>
-                  </ToastRoot>
-                </React.Suspense>
-                <React.Suspense>
                   <PopoverRoot
                     open={openAvatarPopover}
                     onOpenChange={setOpenAvatarPopover}
@@ -244,14 +239,34 @@ export default function Page() {
                     </PopoverTrigger>
                     <PopoverPortal>
                       <PopoverContent className={css.PopoverContent}>
-                        <button
-                          onClick={() => signOut()}
-                          className={css.PopoverSignOut}
-                          autoFocus
+                        <MotionDiv
+                          initial={{
+                            opacity: 0,
+                            scale: 0.3,
+                            position: "relative",
+                            top: -25,
+                          }}
+                          animate={{
+                            opacity: 1,
+                            scale: 1,
+                            position: "relative",
+                            top: 0,
+                          }}
+                          transition={{
+                            duration: 0.25,
+                            delay: 0,
+                            ease: [0, 0.71, 0.2, 1.01],
+                          }}
                         >
-                          {" "}
-                          sign out
-                        </button>
+                          <button
+                            onClick={() => signOut()}
+                            className={css.PopoverSignOut}
+                            autoFocus
+                          >
+                            {" "}
+                            sign out
+                          </button>
+                        </MotionDiv>
                       </PopoverContent>
                     </PopoverPortal>
                   </PopoverRoot>
@@ -260,6 +275,7 @@ export default function Page() {
               <Separator orientation="horizontal" />
               <button
                 className={styles.Button}
+                style={{ padding: "0 6px" }}
                 onClick={() => setOpenCreate(true)}
               >
                 <div style={{ position: "relative", top: 4, fontSize: 40 }}>
@@ -267,128 +283,118 @@ export default function Page() {
                 </div>
               </button>
               <React.Suspense>
-                <Dialog open={openDelete} onOpenChange={setOpenDelete}>
-                  <button
-                    className={styles.Button}
-                    onClick={() => handleSubmitDelete()}
-                    autoFocus
+                <ToastRoot
+                  className={css.ToastRoot}
+                  open={openToast}
+                  onOpenChange={setOpenToast}
+                >
+                  <MotionDiv
+                    className={css.ToastMessage}
+                    initial={{
+                      opacity: 0,
+                      scale: 0.5,
+                      position: "relative",
+                      right: "-20vw",
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      position: "relative",
+                      right: 0,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      delay: 0,
+                      ease: [0, 0.2, 0.5, 1.01],
+                    }}
                   >
-                    delete
-                  </button>
+                    {toastMessage}
+                  </MotionDiv>
+                </ToastRoot>
+                <Dialog open={openDelete} onOpenChange={setOpenDelete}>
+                  <MotionDiv
+                    initial={{
+                      opacity: 0,
+                      scale: 0.25,
+                      position: "relative",
+                      bottom: -200,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      position: "relative",
+                      bottom: 0,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0,
+                      ease: [0, 0.71, 0.2, 1.01],
+                    }}
+                  >
+                    <button
+                      className={styles.Button}
+                      onClick={() => handleSubmitDelete()}
+                      autoFocus
+                    >
+                      delete
+                    </button>
+                  </MotionDiv>
                 </Dialog>
                 <AlertDialog
                   open={openCreate}
                   onOpenChange={setOpenCreate}
                   className={`${styles.Card} ${dialog.position}`}
                 >
-                  <legend className={form.legend}>new Entry</legend>
-                  <div style={{ padding: ".3em 0" }} />
-                  <form className={form.form} onSubmit={handleSubmitCreate}>
-                    <LabelRoot htmlFor="title" />
-                    <input
-                      className={form.input}
-                      name="title"
-                      type="text"
-                      placeholder="...title"
-                      required
-                      minLength={3}
-                      maxLength={20}
-                      pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
-                      title="remove spaces at start, end & all consecutive spaces"
-                      autoFocus
-                    />
-                    <LabelRoot htmlFor="body" />
-                    <textarea
-                      rows={6}
-                      className={form.textarea}
-                      name="body"
-                      placeholder="...body"
-                      required
-                      minLength={5}
-                      maxLength={500}
-                    />
-                    <div className={form.checkboxwrapper}>
-                      <CheckboxRoot
-                        checked={visibility}
-                        className={form.checkboxroot}
-                        onClick={() => setVisibility(!visibility)}
-                      >
-                        <CheckboxIndicator>
-                          <CheckSVG />
-                        </CheckboxIndicator>
-                      </CheckboxRoot>
-                      {visibility ? (
-                        <LabelRoot className={form.checkboxlabel}>
-                          public
-                        </LabelRoot>
-                      ) : (
-                        <LabelRoot className={form.checkboxlabel}>
-                          private
-                        </LabelRoot>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => handleSubmitCreate}
-                      className={form.submit}
-                      type="submit"
-                    >
-                      save & close
-                      <span style={{ paddingLeft: 4 }}>
-                        <AccessibleIconRoot label="save">
-                          <span style={{ verticalAlign: -2, paddingRight: 1 }}>
-                            <CheckSVG />
-                          </span>
-                        </AccessibleIconRoot>
-                      </span>
-                    </button>
-                  </form>
-                  <div style={{ padding: ".3em 0" }} />
-                  <button
-                    className={form.cancel}
-                    onClick={() => setOpenCreate(false)}
+                  <MotionDiv
+                    initial={{
+                      opacity: 0,
+                      scale: 0.25,
+                      position: "relative",
+                      bottom: -200,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      position: "relative",
+                      bottom: 0,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0,
+                      ease: [0, 0.71, 0.2, 1.01],
+                    }}
                   >
-                    <AccessibleIconRoot label="cancel">
-                      <CrossSVG />
-                    </AccessibleIconRoot>
-                  </button>
-                </AlertDialog>
-                {update ? (
-                  <Dialog
-                    open={openUpdate}
-                    onOpenChange={setOpenUpdate}
-                    className={`${styles.Card} ${dialog.position}`}
-                  >
-                    <legend className={form.legend}>
-                      entry: {update.title}
-                    </legend>
+                    <legend className={form.legend}>new Entry</legend>
                     <div style={{ padding: ".3em 0" }} />
-                    <form className={form.form} onSubmit={handleSubmitUpdate}>
+                    <form className={form.form} onSubmit={handleSubmitCreate}>
                       <LabelRoot htmlFor="title" />
                       <input
                         className={form.input}
                         name="title"
                         type="text"
-                        defaultValue={update.title}
+                        placeholder="...title"
+                        required
                         minLength={3}
                         maxLength={20}
                         pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
                         title="remove spaces at start, end & all consecutive spaces"
+                        autoFocus
                       />
                       <LabelRoot htmlFor="body" />
                       <textarea
                         rows={6}
                         className={form.textarea}
                         name="body"
-                        defaultValue={update.body}
+                        placeholder="...body"
+                        required
                         minLength={5}
                         maxLength={500}
                       />
                       <div className={form.checkboxwrapper}>
                         <CheckboxRoot
+                          checked={visibility}
                           className={form.checkboxroot}
-                          onClick={() => {
-                            setVisibility(!visibility);
-                          }}
+                          onClick={() => setVisibility(!visibility)}
                         >
                           <CheckboxIndicator>
                             <CheckSVG />
@@ -404,35 +410,135 @@ export default function Page() {
                           </LabelRoot>
                         )}
                       </div>
-                      <LabelRoot>
-                        <button
-                          onClick={() => handleSubmitUpdate}
-                          className={form.submit}
-                          tabIndex={0}
-                          disabled={isLoading}
-                        >
-                          save & close
-                          <span style={{ paddingLeft: 4 }}>
-                            <AccessibleIconRoot label="save">
-                              <span
-                                style={{ verticalAlign: -2, paddingRight: 1 }}
-                              >
-                                <CheckSVG />
-                              </span>
-                            </AccessibleIconRoot>
-                          </span>
-                        </button>
-                      </LabelRoot>
+                      <button
+                        onClick={() => handleSubmitCreate}
+                        className={form.submit}
+                        type="submit"
+                      >
+                        save & close
+                        <span style={{ paddingLeft: 4 }}>
+                          <AccessibleIconRoot label="save">
+                            <span
+                              style={{ verticalAlign: -2, paddingRight: 1 }}
+                            >
+                              <CheckSVG />
+                            </span>
+                          </AccessibleIconRoot>
+                        </span>
+                      </button>
                     </form>
                     <div style={{ padding: ".3em 0" }} />
                     <button
                       className={form.cancel}
-                      onClick={() => setOpenUpdate(false)}
+                      onClick={() => setOpenCreate(false)}
                     >
                       <AccessibleIconRoot label="cancel">
                         <CrossSVG />
                       </AccessibleIconRoot>
                     </button>
+                  </MotionDiv>
+                </AlertDialog>
+                {update ? (
+                  <Dialog
+                    open={openUpdate}
+                    onOpenChange={setOpenUpdate}
+                    className={`${styles.Card} ${dialog.position}`}
+                  >
+                    <MotionDiv
+                      initial={{
+                        opacity: 0,
+                        scale: 0.25,
+                        position: "relative",
+                        bottom: -200,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        position: "relative",
+                        bottom: 0,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0,
+                        ease: [0, 0.71, 0.2, 1.01],
+                      }}
+                    >
+                      <legend className={form.legend}>
+                        entry: {update.title}
+                      </legend>
+                      <div style={{ padding: ".3em 0" }} />
+                      <form className={form.form} onSubmit={handleSubmitUpdate}>
+                        <LabelRoot htmlFor="title" />
+                        <input
+                          className={form.input}
+                          name="title"
+                          type="text"
+                          defaultValue={update.title}
+                          minLength={3}
+                          maxLength={20}
+                          pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
+                          title="remove spaces at start, end & all consecutive spaces"
+                        />
+                        <LabelRoot htmlFor="body" />
+                        <textarea
+                          rows={6}
+                          className={form.textarea}
+                          name="body"
+                          defaultValue={update.body}
+                          minLength={5}
+                          maxLength={500}
+                        />
+                        <div className={form.checkboxwrapper}>
+                          <CheckboxRoot
+                            className={form.checkboxroot}
+                            onClick={() => {
+                              setVisibility(!visibility);
+                            }}
+                          >
+                            <CheckboxIndicator>
+                              <CheckSVG />
+                            </CheckboxIndicator>
+                          </CheckboxRoot>
+                          {visibility ? (
+                            <LabelRoot className={form.checkboxlabel}>
+                              public
+                            </LabelRoot>
+                          ) : (
+                            <LabelRoot className={form.checkboxlabel}>
+                              private
+                            </LabelRoot>
+                          )}
+                        </div>
+                        <LabelRoot>
+                          <button
+                            onClick={() => handleSubmitUpdate}
+                            className={form.submit}
+                            tabIndex={0}
+                            disabled={isLoading}
+                          >
+                            save & close
+                            <span style={{ paddingLeft: 4 }}>
+                              <AccessibleIconRoot label="save">
+                                <span
+                                  style={{ verticalAlign: -2, paddingRight: 1 }}
+                                >
+                                  <CheckSVG />
+                                </span>
+                              </AccessibleIconRoot>
+                            </span>
+                          </button>
+                        </LabelRoot>
+                      </form>
+                      <div style={{ padding: ".3em 0" }} />
+                      <button
+                        className={form.cancel}
+                        onClick={() => setOpenUpdate(false)}
+                      >
+                        <AccessibleIconRoot label="cancel">
+                          <CrossSVG />
+                        </AccessibleIconRoot>
+                      </button>
+                    </MotionDiv>
                   </Dialog>
                 ) : null}
               </React.Suspense>
@@ -449,68 +555,78 @@ export default function Page() {
                       display: "inline-flex",
                       paddingTop: 15,
                       paddingBottom: 10,
-                      gap: 10,
                     }}
                   >
                     {openSort ? (
                       <>
-                        <button
-                          className={
-                            sortPlaceholder === "descending"
-                              ? `${css.sortoption} ${css.highlight}`
-                              : css.sortoption
-                          }
-                          onClick={() => {
-                            if (sortPlaceholder === "descending") {
-                              setOpenSort(false);
-                              return;
-                            }
-                            setSortKey("_id");
-                            setSortValue("-1");
-                            setSortPlaceholder("descending");
-                            setOpenSort(false);
+                        <MotionDiv
+                          style={{ display: "inline-flex", gap: 10 }}
+                          initial={{ opacity: 0, scale: 0.3 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{
+                            duration: 0.25,
+                            delay: 0,
+                            ease: [0, 0.71, 0.2, 1.01],
                           }}
                         >
-                          descending
-                        </button>
-                        <button
-                          className={
-                            sortPlaceholder === "ascending"
-                              ? `${css.sortoption} ${css.highlight}`
-                              : css.sortoption
-                          }
-                          onClick={() => {
-                            if (sortPlaceholder === "ascending") {
-                              setOpenSort(false);
-                              return;
+                          <button
+                            className={
+                              sortPlaceholder === "descending"
+                                ? `${css.sortoption} ${css.highlight}`
+                                : css.sortoption
                             }
-                            setSortKey("_id");
-                            setSortValue("1");
-                            setSortPlaceholder("ascending");
-                            setOpenSort(false);
-                          }}
-                        >
-                          ascending
-                        </button>
-                        <button
-                          className={
-                            sortPlaceholder === "recently updated"
-                              ? `${css.sortoption} ${css.highlight}`
-                              : css.sortoption
-                          }
-                          onClick={() => {
-                            if (sortPlaceholder === "recently updated") {
+                            onClick={() => {
+                              if (sortPlaceholder === "descending") {
+                                setOpenSort(false);
+                                return;
+                              }
+                              setSortKey("_id");
+                              setSortValue("-1");
+                              setSortPlaceholder("descending");
                               setOpenSort(false);
-                              return;
+                            }}
+                          >
+                            descending
+                          </button>
+                          <button
+                            className={
+                              sortPlaceholder === "ascending"
+                                ? `${css.sortoption} ${css.highlight}`
+                                : css.sortoption
                             }
-                            setSortKey("updatedAt");
-                            setSortValue("-1");
-                            setSortPlaceholder("recently updated");
-                            setOpenSort(false);
-                          }}
-                        >
-                          recently updated
-                        </button>
+                            onClick={() => {
+                              if (sortPlaceholder === "ascending") {
+                                setOpenSort(false);
+                                return;
+                              }
+                              setSortKey("_id");
+                              setSortValue("1");
+                              setSortPlaceholder("ascending");
+                              setOpenSort(false);
+                            }}
+                          >
+                            ascending
+                          </button>
+                          <button
+                            className={
+                              sortPlaceholder === "recently updated"
+                                ? `${css.sortoption} ${css.highlight}`
+                                : css.sortoption
+                            }
+                            onClick={() => {
+                              if (sortPlaceholder === "recently updated") {
+                                setOpenSort(false);
+                                return;
+                              }
+                              setSortKey("updatedAt");
+                              setSortValue("-1");
+                              setSortPlaceholder("recently updated");
+                              setOpenSort(false);
+                            }}
+                          >
+                            recently updated
+                          </button>
+                        </MotionDiv>
                       </>
                     ) : (
                       <button
@@ -533,14 +649,17 @@ export default function Page() {
                           <ContextMenuTrigger>
                             <MotionDiv
                               className={styles.Card}
-                              drag="x"
+                              drag
+                              dragConstraints={{ left: -100 , right: 100, top: 0, bottom: 0}}
+                              dragElastic={.1}
                               dragSnapToOrigin
                               onDragEnd={(event: any, info: PanInfo) => {
-                                if (info.offset.x > 200) {
+                                // todo :: make behind drag appear icon (update or delete)
+                                if (info.offset.x > 220) {
                                   setUpdate(Object(entry));
                                   setOpenUpdate(true);
                                 }
-                                if (info.offset.x < -200) {
+                                if (info.offset.x < -220) {
                                   setUpdate(Object(entry));
                                   setOpenDelete(true);
                                 }

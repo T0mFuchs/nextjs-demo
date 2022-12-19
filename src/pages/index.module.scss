@@ -85,25 +85,21 @@
   vertical-align: -.1em;
   font-size: 1.1em;
 }
-.hint1{ // for signout button
-  padding: 1px;
-  font-size: .8em;
-  color: #f77676ee
-}
-.hint2{
-  font-size: .8em;
-  color: #555555
-}
-
 .ToastRoot{
   border-radius: 6px;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
   padding: 15px;
-  display: grid;
-  grid-template-areas: "title action" "description action";
-  grid-template-columns: auto max-content;
-  column-gap: 15px;
+  display: flex;
+  gap: 15px;
   align-items: center;
+  @media(prefers-color-scheme: dark){
+    background-color: $bg-dark;
+  }
+  background-color: $bg-light;
+  line-height: 2vh;
+}
+.ToastMessage{
+  margin: auto;
 }
 .ToastRoot[data-state="open"] {
   animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -129,9 +125,6 @@
   position: relative;
   padding: 0 5px;
   height: 25px;
-  // use this when u made new hover/focus effect
-  // user-select: none;
-  // outline: none;
 }
 .ctxmContent{
   min-width: 100px;
