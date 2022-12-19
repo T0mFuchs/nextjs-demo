@@ -32,35 +32,33 @@
   margin-bottom: .5em;
   background-color: transparent;
   color: $bg-dark;
-  border: .5px solid $bg-dark;
+  border: 0;
   @media (prefers-color-scheme: dark){
     color: $color-primary;
-    border: .5px solid $color-primary;
+    background-color: $bg-dark;
   }
-  padding: 2px 5px;
+  background-color: $bg-light;
+  padding: 4px 8px;
   border-radius: .5em;
-  font-size: 1em;
   cursor: pointer;
 }
 .sortoption{
   margin-bottom: .5em;
   background-color: #000;
-  border-radius: .5em;
-  padding: 2px 5px;
   color: $bg-dark;
-  border: .5px solid $bg-dark;
+  border: 0;
   @media (prefers-color-scheme: dark){
     color: $color-primary;
-    border: .5px solid $color-primary;
+    background-color: $bg-dark;
   }
-  font-size: 1em;
+  background-color: $bg-light;
+  padding: 4px 8px;
+  border-radius: .5em;
   cursor: pointer;
-  &:hover, &:focus{
-    background-image: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
-  }
 }
-.sortposition{
-  position: relative;
-  font-size: 1em;
-  top: .3em;
+
+.highlight{
+  background: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

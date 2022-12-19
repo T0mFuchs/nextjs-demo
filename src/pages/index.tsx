@@ -237,31 +237,17 @@ export default function Page() {
                       <AvatarRoot className={css.avatarRoot}>
                         <AvatarImage
                           className={css.avatarImage}
-                          style={{ cursor: "pointer" }}
                           src={user.image}
                           alt={user.name}
-                          title={`logged in as ${user.name}\nclick to sign out`}
                         />
                       </AvatarRoot>
                     </PopoverTrigger>
                     <PopoverPortal>
-                      <PopoverContent
-                        style={{
-                          position: "fixed",
-                          top: "6em",
-                          right: "1em",
-                          background: 0,
-                          border: "1px solid currentColor",
-                          borderRadius: 6,
-                        }}
-                      >
+                      <PopoverContent className={css.PopoverContent}>
                         <button
                           onClick={() => signOut()}
-                          style={{
-                            border: 0,
-                            background: 0,
-                            cursor: "pointer",
-                          }}
+                          className={css.PopoverSignOut}
+                          autoFocus
                         >
                           {" "}
                           sign out
@@ -349,7 +335,9 @@ export default function Page() {
                       save & close
                       <span style={{ paddingLeft: 4 }}>
                         <AccessibleIconRoot label="save">
-                          <CheckSVG />
+                          <span style={{ verticalAlign: -2, paddingRight: 1 }}>
+                            <CheckSVG />
+                          </span>
                         </AccessibleIconRoot>
                       </span>
                     </button>
@@ -426,7 +414,11 @@ export default function Page() {
                           save & close
                           <span style={{ paddingLeft: 4 }}>
                             <AccessibleIconRoot label="save">
-                              <CheckSVG />
+                              <span
+                                style={{ verticalAlign: -2, paddingRight: 1 }}
+                              >
+                                <CheckSVG />
+                              </span>
                             </AccessibleIconRoot>
                           </span>
                         </button>
@@ -457,13 +449,22 @@ export default function Page() {
                       display: "inline-flex",
                       paddingTop: 15,
                       paddingBottom: 10,
+                      gap: 10,
                     }}
                   >
                     {openSort ? (
-                      <div onMouseLeave={() => setOpenSort(false)}>
+                      <>
                         <button
-                          className={css.sortoption}
+                          className={
+                            sortPlaceholder === "descending"
+                              ? `${css.sortoption} ${css.highlight}`
+                              : css.sortoption
+                          }
                           onClick={() => {
+                            if (sortPlaceholder === "descending") {
+                              setOpenSort(false);
+                              return;
+                            }
                             setSortKey("_id");
                             setSortValue("-1");
                             setSortPlaceholder("descending");
@@ -473,8 +474,16 @@ export default function Page() {
                           descending
                         </button>
                         <button
-                          className={css.sortoption}
+                          className={
+                            sortPlaceholder === "ascending"
+                              ? `${css.sortoption} ${css.highlight}`
+                              : css.sortoption
+                          }
                           onClick={() => {
+                            if (sortPlaceholder === "ascending") {
+                              setOpenSort(false);
+                              return;
+                            }
                             setSortKey("_id");
                             setSortValue("1");
                             setSortPlaceholder("ascending");
@@ -484,8 +493,16 @@ export default function Page() {
                           ascending
                         </button>
                         <button
-                          className={css.sortoption}
+                          className={
+                            sortPlaceholder === "recently updated"
+                              ? `${css.sortoption} ${css.highlight}`
+                              : css.sortoption
+                          }
                           onClick={() => {
+                            if (sortPlaceholder === "recently updated") {
+                              setOpenSort(false);
+                              return;
+                            }
                             setSortKey("updatedAt");
                             setSortValue("-1");
                             setSortPlaceholder("recently updated");
@@ -494,7 +511,7 @@ export default function Page() {
                         >
                           recently updated
                         </button>
-                      </div>
+                      </>
                     ) : (
                       <button
                         className={css.opensort}
@@ -517,14 +534,13 @@ export default function Page() {
                             <MotionDiv
                               className={styles.Card}
                               drag="x"
-                              dragTransition={{ power: 1 }}
                               dragSnapToOrigin
                               onDragEnd={(event: any, info: PanInfo) => {
-                                if (info.offset.x > 150) {
+                                if (info.offset.x > 200) {
                                   setUpdate(Object(entry));
                                   setOpenUpdate(true);
                                 }
-                                if (info.offset.x < -150) {
+                                if (info.offset.x < -200) {
                                   setUpdate(Object(entry));
                                   setOpenDelete(true);
                                 }
@@ -590,7 +606,14 @@ export default function Page() {
                                   setOpenUpdate(true);
                                 }}
                               >
-                                <div>
+                                <div
+                                  style={{
+                                    paddingRight: 10,
+                                    position: "relative",
+                                    top: 2,
+                                    left: 2,
+                                  }}
+                                >
                                   <UpdateSVG />
                                 </div>
                                 edit entry
@@ -606,7 +629,14 @@ export default function Page() {
                                   setOpenDelete(true);
                                 }}
                               >
-                                <div>
+                                <div
+                                  style={{
+                                    paddingRight: 10,
+                                    position: "relative",
+                                    top: -0.5,
+                                    left: -1,
+                                  }}
+                                >
                                   <CrossSVG />
                                 </div>
                                 delete entry

@@ -32,14 +32,13 @@
   font-weight: 600;
   font-size: 1.05em;
   height: 2em;
-  width: 8em;
   cursor: pointer;
 }
 .cancel{
   all: unset;
   position: absolute;
-  right: -.25em;
-  top: -.65em;
+  right: -.35em;
+  top: -.6em;
   color: $color-secondary;
   font-size: 1.7em;
   width: 1.5em;
@@ -48,7 +47,7 @@
 }
 .legend{
   position: absolute;
-  top: -.9em;
+  top: -1.3em;
   left: 0;
 }
 .checkboxwrapper{

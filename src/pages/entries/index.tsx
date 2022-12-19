@@ -22,7 +22,7 @@ export default function Page() {
   const [openSort, setOpenSort] = React.useState(false);
   const [sortKey, setSortKey] = React.useState("_id");
   const [sortValue, setSortValue] = React.useState("-1");
-  const [placeholder, setPlaceholder] = React.useState("descending");
+  const [sortPlaceholder, setSortPlaceholder] = React.useState("descending");
 
   const { data: allPublicEntries } = useGetAllEntries("/api/entries");
   const { data, error, size, setSize, isValidating } = useSWRInfinite(
@@ -63,50 +63,81 @@ export default function Page() {
       </Head>
       <>
         <span className={css.span}>
-          <div className={css.sortposition}>
+          <div
+            style={{
+              display: "inline-flex",
+              paddingTop: 15,
+              paddingBottom: 10,
+              gap: 10,
+            }}
+          >
             {openSort ? (
-              <div onMouseLeave={() => setOpenSort(false)}>
+              <>
                 <button
-                  className={css.sortoption}
+                  className={
+                    sortPlaceholder === "descending"
+                      ? `${css.sortoption} ${css.highlight}`
+                      : css.sortoption
+                  }
                   onClick={() => {
+                    if (sortPlaceholder === "descending") {
+                      setOpenSort(false);
+                      return;
+                    }
                     setSortKey("_id");
                     setSortValue("-1");
-                    setPlaceholder("descending");
+                    setSortPlaceholder("descending");
                     setOpenSort(false);
                   }}
                 >
                   descending
                 </button>
                 <button
-                  className={css.sortoption}
+                  className={
+                    sortPlaceholder === "ascending"
+                      ? `${css.sortoption} ${css.highlight}`
+                      : css.sortoption
+                  }
                   onClick={() => {
+                    if (sortPlaceholder === "ascending") {
+                      setOpenSort(false);
+                      return;
+                    }
                     setSortKey("_id");
                     setSortValue("1");
-                    setPlaceholder("ascending");
+                    setSortPlaceholder("ascending");
                     setOpenSort(false);
                   }}
                 >
                   ascending
                 </button>
                 <button
-                  className={css.sortoption}
+                  className={
+                    sortPlaceholder === "recently updated"
+                      ? `${css.sortoption} ${css.highlight}`
+                      : css.sortoption
+                  }
                   onClick={() => {
+                    if (sortPlaceholder === "recently updated") {
+                      setOpenSort(false);
+                      return;
+                    }
                     setSortKey("updatedAt");
                     setSortValue("-1");
-                    setPlaceholder("recently updated");
+                    setSortPlaceholder("recently updated");
                     setOpenSort(false);
                   }}
                 >
                   recently updated
                 </button>
-              </div>
+              </>
             ) : (
               <button
                 className={css.opensort}
                 onClick={() => setOpenSort(true)}
                 tabIndex={0}
               >
-                {placeholder}
+                {sortPlaceholder}
               </button>
             )}
           </div>
@@ -274,7 +305,7 @@ function SearchIcon() {
 
 function CloseIcon() {
   return (
-    <div className={search.icon}>
+    <div className={search.icon} style={{ top: -3, left: "-.3em" }}>
       <CrossSVG />
     </div>
   );
@@ -342,6 +373,8 @@ function DataFallback() {
 function PageFallback() {
   return (
     <>
+      <div style={{ paddingTop: 10 }} />
+      <button className={css.sortoption} style={{ height: 23, width: 78 }} />
       <SearchFallback />
       <DataFallback />
       <DataFallback />

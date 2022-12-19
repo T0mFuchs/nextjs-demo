@@ -1,8 +1,14 @@
 import Link from "next/link";
-import BorderRadius from "ui/animated/border-radius";
-import * as AccessibleIcon from "@radix-ui/react-accessible-icon";
+import dynamic from "next/dynamic";
+import AccessibleIconRoot from "ui/radix-ui/accessible-icon/root";
 
 import styles from "./index.module.scss";
+
+const BorderRadius = dynamic(() => import("ui/animated/border-radius"));
+
+const ScrollYProgress = dynamic(
+  () => import("ui/framer-motion/scrollYProgress")
+);
 
 export function Nav() {
   return (
@@ -16,9 +22,9 @@ export function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit" }}
             >
-              <AccessibleIcon.Root label="home link">
+              <AccessibleIconRoot label="home link">
                 <IconSVG />
-              </AccessibleIcon.Root>
+              </AccessibleIconRoot>
               <span className={styles["link-text"]}>Home</span>
             </Link>
           </li>
@@ -29,9 +35,9 @@ export function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit" }}
             >
-              <AccessibleIcon.Root label="entries link">
+              <AccessibleIconRoot label="entries link">
                 <ViewListSVG />
-              </AccessibleIcon.Root>
+              </AccessibleIconRoot>
               <span className={styles["link-text"]}>Entries</span>
             </Link>
           </li>
@@ -42,9 +48,9 @@ export function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit", paddingLeft: ".1em" }}
             >
-              <AccessibleIcon.Root label="about link">
+              <AccessibleIconRoot label="about link">
                 <QuestionSVG />
-              </AccessibleIcon.Root>
+              </AccessibleIconRoot>
               <span className={styles["link-text"]}>About</span>
             </Link>
           </li>
@@ -54,9 +60,9 @@ export function Nav() {
               className={styles["nav-link"]}
               style={{ color: "inherit", paddingLeft: ".15em" }}
             >
-              <AccessibleIcon.Root label="github link">
+              <AccessibleIconRoot label="github link">
                 <GithubSVG />
-              </AccessibleIcon.Root>
+              </AccessibleIconRoot>
               <span
                 className={styles["link-text"]}
                 style={{ paddingLeft: ".2em" }}
@@ -68,6 +74,7 @@ export function Nav() {
         </ul>
       </nav>
       <BorderRadius style={{ position: "fixed" }} className={styles.border} />
+      <ScrollYProgress />
     </>
   );
 }

@@ -2,7 +2,6 @@ export function CheckSVG() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.125em" }}
       width="1em"
       height="1em"
       preserveAspectRatio="xMidYMid meet"
@@ -54,7 +53,6 @@ export function CrossSVG() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.175em" }}
       width="1em"
       height="1em"
       preserveAspectRatio="xMidYMid meet"
@@ -89,7 +87,6 @@ export function ArrowTopSVG() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      style={{ verticalAlign: "-0.115em" }}
       width="1em"
       height="1em"
       preserveAspectRatio="xMidYMid meet"
@@ -112,7 +109,7 @@ export function ChevronDownSVG() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="1em"
-      height="100%"
+      height="1em"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 512 512"
     >
