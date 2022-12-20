@@ -239,6 +239,7 @@ export default function Page() {
                     <PopoverTrigger asChild>
                       <AvatarRoot className={css.avatarRoot}>
                         <AvatarImage
+                          //! user image as trigger
                           className={css.avatarImage}
                           src={user.image}
                           alt={user.name}
@@ -293,13 +294,18 @@ export default function Page() {
                 </div>
               </button>
               <React.Suspense>
-                <ToastRoot
-                  className={css.ToastRoot}
+                <ToastRoot //! Toast for dispatching messages with state & handlers //
                   open={openToast}
                   onOpenChange={setOpenToast}
                 >
                   <MotionDiv
-                    className={css.ToastMessage}
+                    drag="x"
+                    onDragEnd={(event: any, info: PanInfo) => {
+                      if (info.offset.x > 50) setOpenToast(false);
+                      if (info.offset.x < -50) setOpenToast(false);
+                      setTimeout(() => setOpenToast(false), 1000);
+                    }}
+                    className={css.ToastRoot}
                     initial={{
                       opacity: 0,
                       scale: 0.5,
@@ -318,295 +324,262 @@ export default function Page() {
                       ease: [0, 0.2, 0.5, 1.01],
                     }}
                   >
-                    {toastMessage}
+                    <div className={css.ToastMessage}>
+                     {toastMessage}
+                    </div>
                   </MotionDiv>
                 </ToastRoot>
-                <Dialog open={openDelete} onOpenChange={setOpenDelete}>
-                  <MotionDiv
-                    initial={{
-                      opacity: 0,
-                      scale: 0.25,
-                      position: "relative",
-                      bottom: -200,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      scale: 1,
-                      position: "relative",
-                      bottom: 0,
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0,
-                      ease: [0, 0.71, 0.2, 1.01],
-                    }}
-                  >
-                    <MotionButton
-                      whileHover={{ scale: 1.15 }}
-                      whileTap={{ scale: 0.85 }}
-                      className={styles.Button}
-                      onClick={() => handleSubmitDelete()}
-                      autoFocus
-                    >
-                      delete
-                    </MotionButton>
-                  </MotionDiv>
-                </Dialog>
-                <AlertDialog
-                  open={openCreate}
-                  onOpenChange={setOpenCreate}
-                  className={`${styles.Card} ${dialog.position}`}
-                >
-                  <MotionDiv
-                    initial={{
-                      opacity: 0,
-                      scale: 0.25,
-                      position: "relative",
-                      bottom: -200,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      scale: 1,
-                      position: "relative",
-                      bottom: 0,
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0,
-                      ease: [0, 0.71, 0.2, 1.01],
-                    }}
-                  >
-                    <legend className={form.legend}>new Entry</legend>
-                    <form className={form.form} onSubmit={handleSubmitCreate}>
-                      <LabelRoot htmlFor="title" />
-                      <input
-                        className={form.input}
-                        name="title"
-                        type="text"
-                        placeholder="...title"
-                        required
-                        minLength={3}
-                        maxLength={20}
-                        pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
-                        title="remove spaces at start, end & all consecutive spaces"
-                        autoFocus
-                      />
-                      <LabelRoot htmlFor="body" />
-                      <textarea
-                        rows={6}
-                        className={form.textarea}
-                        name="body"
-                        placeholder="...body"
-                        required
-                        minLength={5}
-                        maxLength={500}
-                      />
-                      <div className={form.checkboxwrapper}>
-                        <CheckboxRoot
-                          checked={visibility}
-                          className={form.checkboxroot}
-                          onClick={() => setVisibility(!visibility)}
-                        >
-                          <CheckboxIndicator>
-                            <CheckSVG />
-                          </CheckboxIndicator>
-                        </CheckboxRoot>
-                        <AnimatePresence
-                          initial={false}
-                          mode="wait"
-                          onExitComplete={() => null}
-                        >
-                          {visibility ? (
-                            <MotionDiv
-                              style={{ lineHeight: 2, paddingRight: 20 }}
-                              animate={{
-                                opacity: 1,
-                                scale: 1,
-                              }}
-                              exit={{
-                                opacity: 0,
-                                scale: 0.3,
-                              }}
-                              whileTap={{ scale: 0.85 }}
-                              onClick={(e) => {
-                                setVisibility(!visibility);
-                              }}
-                            >
-                              <LabelRoot className={form.checkboxlabel}>
-                                public
-                              </LabelRoot>
-                            </MotionDiv>
-                          ) : (
-                            <MotionDiv
-                              style={{ lineHeight: 2, paddingRight: 15 }}
-                              animate={{
-                                opacity: 1,
-                                scale: 1,
-                              }}
-                              exit={{
-                                opacity: 0,
-                                scale: 0.3,
-                              }}
-                              whileTap={{ scale: 0.85 }}
-                              onClick={(e) => {
-                                setVisibility(!visibility);
-                              }}
-                            >
-                              <LabelRoot className={form.checkboxlabel}>
-                                private
-                              </LabelRoot>
-                            </MotionDiv>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                      <MotionButton
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.85 }}
-                        onClick={() => handleSubmitCreate}
-                        className={form.submit}
-                        type="submit"
+              </React.Suspense>
+            </div>
+            <div style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}>
+              <Separator
+                orientation="horizontal"
+                style={{ margin: "1em auto" }}
+              />
+              {!isValidating && entries ? (
+                <React.Suspense>
+                  {update ? (
+                    <>
+                      <Dialog //! Delete Entry Popup //
+                        open={openDelete}
+                        onOpenChange={setOpenDelete}
                       >
-                        save & close
-                        <span style={{ paddingLeft: 4 }}>
-                          <AccessibleIconRoot label="save">
-                            <span
-                              style={{ verticalAlign: -2, paddingRight: 1 }}
+                        <MotionButton
+                          whileHover={{ scale: 1.15 }}
+                          whileTap={{ scale: 0.85 }}
+                          className={styles.Button}
+                          style={{ position: "relative", right: 42 }}
+                          onClick={() => handleSubmitDelete()}
+                          autoFocus
+                        >
+                          delete
+                        </MotionButton>
+                      </Dialog>
+                      <Dialog //! Edit Entry Popup //
+                        open={openUpdate}
+                        onOpenChange={setOpenUpdate}
+                        className={`${styles.Card} ${dialog.position}`}
+                      >
+                        <legend className={form.legend}>
+                          entry: {update.title}
+                        </legend>
+                        <form
+                          className={form.form}
+                          onSubmit={handleSubmitUpdate}
+                        >
+                          <LabelRoot htmlFor="title" />
+                          <input
+                            className={form.input}
+                            name="title"
+                            type="text"
+                            defaultValue={update.title}
+                            minLength={3}
+                            maxLength={20}
+                            pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
+                            title="remove spaces at start, end & all consecutive spaces"
+                          />
+                          <LabelRoot htmlFor="body" />
+                          <textarea
+                            rows={6}
+                            className={form.textarea}
+                            name="body"
+                            defaultValue={update.body}
+                            minLength={5}
+                            maxLength={500}
+                          />
+                          <div className={form.checkboxwrapper}>
+                            <CheckboxRoot
+                              className={form.checkboxroot}
+                              onClick={() => {
+                                setVisibility(!visibility);
+                              }}
                             >
-                              <CheckSVG />
-                            </span>
+                              <CheckboxIndicator>
+                                <CheckSVG />
+                              </CheckboxIndicator>
+                            </CheckboxRoot>
+                            <AnimatePresence
+                              initial={false}
+                              mode="wait"
+                              onExitComplete={() => null}
+                            >
+                              {visibility ? (
+                                <MotionDiv
+                                  style={{ lineHeight: 2, paddingRight: 20 }}
+                                  animate={{
+                                    opacity: 1,
+                                    scale: 1,
+                                  }}
+                                  exit={{
+                                    opacity: 0,
+                                    scale: 0.3,
+                                  }}
+                                  whileTap={{ scale: 0.85 }}
+                                  onClick={(e) => {
+                                    setVisibility(!visibility);
+                                  }}
+                                >
+                                  <LabelRoot className={form.checkboxlabel}>
+                                    public
+                                  </LabelRoot>
+                                </MotionDiv>
+                              ) : (
+                                <MotionDiv
+                                  style={{ lineHeight: 2, paddingRight: 15 }}
+                                  animate={{
+                                    opacity: 1,
+                                    scale: 1,
+                                  }}
+                                  exit={{
+                                    opacity: 0,
+                                    scale: 0.3,
+                                  }}
+                                  whileTap={{ scale: 0.85 }}
+                                  onClick={(e) => {
+                                    setVisibility(!visibility);
+                                  }}
+                                >
+                                  <LabelRoot className={form.checkboxlabel}>
+                                    private
+                                  </LabelRoot>
+                                </MotionDiv>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                          <LabelRoot>
+                            <MotionButton
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.85 }}
+                              onClick={() => handleSubmitUpdate}
+                              className={form.submit}
+                              tabIndex={0}
+                              disabled={isLoading}
+                            >
+                              save & close
+                              <span style={{ paddingLeft: 4 }}>
+                                <AccessibleIconRoot label="save">
+                                  <span
+                                    style={{
+                                      verticalAlign: -2,
+                                      paddingRight: 1,
+                                    }}
+                                  >
+                                    <CheckSVG />
+                                  </span>
+                                </AccessibleIconRoot>
+                              </span>
+                            </MotionButton>
+                          </LabelRoot>
+                        </form>
+                        <div style={{ padding: ".3em 0" }} />
+                        <button
+                          className={form.cancel}
+                          onClick={() => setOpenUpdate(false)}
+                        >
+                          <AccessibleIconRoot label="cancel">
+                            <CrossSVG />
                           </AccessibleIconRoot>
-                        </span>
-                      </MotionButton>
-                    </form>
-                    <div style={{ padding: ".3em 0" }} />
-                    <MotionButton
-                      whileHover={{ scale: 1.15 }}
-                      whileTap={{ scale: 0.85 }}
-                      className={form.cancel}
-                      onClick={() => setOpenCreate(false)}
-                    >
-                      <AccessibleIconRoot label="cancel">
-                        <CrossSVG />
-                      </AccessibleIconRoot>
-                    </MotionButton>
-                  </MotionDiv>
-                </AlertDialog>
-                {update ? (
-                  <Dialog
-                    open={openUpdate}
-                    onOpenChange={setOpenUpdate}
-                    className={`${styles.Card} ${dialog.position}`}
-                  >
-                    <MotionDiv
-                      initial={{
-                        opacity: 0,
-                        scale: 0.25,
-                        position: "relative",
-                        bottom: -200,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        scale: 1,
-                        position: "relative",
-                        bottom: 0,
-                      }}
-                      transition={{
-                        duration: 0.5,
-                        delay: 0,
-                        ease: [0, 0.71, 0.2, 1.01],
-                      }}
-                    >
-                      <legend className={form.legend}>
-                        entry: {update.title}
-                      </legend>
-                      <form className={form.form} onSubmit={handleSubmitUpdate}>
-                        <LabelRoot htmlFor="title" />
-                        <input
-                          className={form.input}
-                          name="title"
-                          type="text"
-                          defaultValue={update.title}
-                          minLength={3}
-                          maxLength={20}
-                          pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
-                          title="remove spaces at start, end & all consecutive spaces"
-                        />
-                        <LabelRoot htmlFor="body" />
-                        <textarea
-                          rows={6}
-                          className={form.textarea}
-                          name="body"
-                          defaultValue={update.body}
-                          minLength={5}
-                          maxLength={500}
-                        />
-                        <div className={form.checkboxwrapper}>
-                          <CheckboxRoot
-                            className={form.checkboxroot}
-                            onClick={() => {
-                              setVisibility(!visibility);
-                            }}
-                          >
-                            <CheckboxIndicator>
-                              <CheckSVG />
-                            </CheckboxIndicator>
-                          </CheckboxRoot>
-                          <AnimatePresence
-                            initial={false}
-                            mode="wait"
-                            onExitComplete={() => null}
-                          >
-                            {visibility ? (
-                              <MotionDiv
-                                style={{ lineHeight: 2, paddingRight: 20 }}
-                                animate={{
-                                  opacity: 1,
-                                  scale: 1,
-                                }}
-                                exit={{
-                                  opacity: 0,
-                                  scale: 0.3,
-                                }}
-                                whileTap={{ scale: 0.85 }}
-                                onClick={(e) => {
-                                  setVisibility(!visibility);
-                                }}
-                              >
-                                <LabelRoot className={form.checkboxlabel}>
-                                  public
-                                </LabelRoot>
-                              </MotionDiv>
-                            ) : (
-                              <MotionDiv
-                                style={{ lineHeight: 2, paddingRight: 15 }}
-                                animate={{
-                                  opacity: 1,
-                                  scale: 1,
-                                }}
-                                exit={{
-                                  opacity: 0,
-                                  scale: 0.3,
-                                }}
-                                whileTap={{ scale: 0.85 }}
-                                onClick={(e) => {
-                                  setVisibility(!visibility);
-                                }}
-                              >
-                                <LabelRoot className={form.checkboxlabel}>
-                                  private
-                                </LabelRoot>
-                              </MotionDiv>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                        <LabelRoot>
+                        </button>
+                      </Dialog>
+                    </>
+                  ) : null}
+                  <AlertDialog //! Create Entry Popup //
+                        open={openCreate}
+                        onOpenChange={setOpenCreate}
+                        className={`${styles.Card} ${dialog.position}`}
+                      >
+                        <legend className={form.legend}>new Entry</legend>
+                        <form
+                          className={form.form}
+                          onSubmit={handleSubmitCreate}
+                        >
+                          <LabelRoot htmlFor="title" />
+                          <input
+                            className={form.input}
+                            name="title"
+                            type="text"
+                            placeholder="...title"
+                            required
+                            minLength={3}
+                            maxLength={20}
+                            pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
+                            title="remove spaces at start, end & all consecutive spaces"
+                            autoFocus
+                          />
+                          <LabelRoot htmlFor="body" />
+                          <textarea
+                            rows={6}
+                            className={form.textarea}
+                            name="body"
+                            placeholder="...body"
+                            required
+                            minLength={5}
+                            maxLength={500}
+                          />
+                          <div className={form.checkboxwrapper}>
+                            <CheckboxRoot
+                              checked={visibility}
+                              className={form.checkboxroot}
+                              onClick={() => setVisibility(!visibility)}
+                            >
+                              <CheckboxIndicator>
+                                <CheckSVG />
+                              </CheckboxIndicator>
+                            </CheckboxRoot>
+                            <AnimatePresence
+                              initial={false}
+                              mode="wait"
+                              onExitComplete={() => null}
+                            >
+                              {visibility ? (
+                                <MotionDiv
+                                  style={{ lineHeight: 2, paddingRight: 20 }}
+                                  animate={{
+                                    opacity: 1,
+                                    scale: 1,
+                                  }}
+                                  exit={{
+                                    opacity: 0,
+                                    scale: 0.3,
+                                  }}
+                                  whileTap={{ scale: 0.85 }}
+                                  onClick={(e) => {
+                                    setVisibility(!visibility);
+                                  }}
+                                >
+                                  <LabelRoot className={form.checkboxlabel}>
+                                    public
+                                  </LabelRoot>
+                                </MotionDiv>
+                              ) : (
+                                <MotionDiv
+                                  style={{ lineHeight: 2, paddingRight: 15 }}
+                                  animate={{
+                                    opacity: 1,
+                                    scale: 1,
+                                  }}
+                                  exit={{
+                                    opacity: 0,
+                                    scale: 0.3,
+                                  }}
+                                  whileTap={{ scale: 0.85 }}
+                                  onClick={(e) => {
+                                    setVisibility(!visibility);
+                                  }}
+                                >
+                                  <LabelRoot className={form.checkboxlabel}>
+                                    private
+                                  </LabelRoot>
+                                </MotionDiv>
+                              )}
+                            </AnimatePresence>
+                          </div>
                           <MotionButton
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.85 }}
-                            onClick={() => handleSubmitUpdate}
+                            onClick={() => handleSubmitCreate}
                             className={form.submit}
-                            tabIndex={0}
-                            disabled={isLoading}
+                            type="submit"
                           >
                             save & close
                             <span style={{ paddingLeft: 4 }}>
@@ -619,30 +592,21 @@ export default function Page() {
                               </AccessibleIconRoot>
                             </span>
                           </MotionButton>
-                        </LabelRoot>
-                      </form>
-                      <div style={{ padding: ".3em 0" }} />
-                      <button
-                        className={form.cancel}
-                        onClick={() => setOpenUpdate(false)}
-                      >
-                        <AccessibleIconRoot label="cancel">
-                          <CrossSVG />
-                        </AccessibleIconRoot>
-                      </button>
-                    </MotionDiv>
-                  </Dialog>
-                ) : null}
-              </React.Suspense>
-            </div>
-            <div style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}>
-              <Separator
-                orientation="horizontal"
-                style={{ margin: "1em auto" }}
-              />
-              {!isValidating && entries ? (
-                <React.Suspense>
+                        </form>
+                        <div style={{ padding: ".3em 0" }} />
+                        <MotionButton
+                          whileHover={{ scale: 1.15 }}
+                          whileTap={{ scale: 0.85 }}
+                          className={form.cancel}
+                          onClick={() => setOpenCreate(false)}
+                        >
+                          <AccessibleIconRoot label="cancel">
+                            <CrossSVG />
+                          </AccessibleIconRoot>
+                        </MotionButton>
+                      </AlertDialog>
                   <div
+                    //! Sort Component
                     style={{
                       display: "inline-flex",
                       paddingTop: 15,
@@ -759,12 +723,29 @@ export default function Page() {
                     </AnimatePresence>
                   </div>
                   {entries.map((entry: EntryType) => (
-                    <div
-                      key={entry.title}
-                      style={{ padding: "1em" }}
-                    >
-                      <div style={{ position: "absolute", fontSize: "4em", paddingTop: 14, paddingLeft: 200, zIndex: -1  }}><CrossSVG/></div>
-                      <div style={{ position: "absolute", fontSize: "4.5em", paddingTop: 19, paddingLeft: 50, zIndex: -1 }}><UpdateSVG/></div>
+                    <div key={entry.title} style={{ padding: "1em" }}>
+                      <div
+                        style={{
+                          position: "absolute",
+                          fontSize: "4em",
+                          paddingTop: 14,
+                          paddingLeft: 200,
+                          zIndex: -1,
+                        }}
+                      >
+                        <CrossSVG />
+                      </div>
+                      <div
+                        style={{
+                          position: "absolute",
+                          fontSize: "4.5em",
+                          paddingTop: 19,
+                          paddingLeft: 50,
+                          zIndex: -1,
+                        }}
+                      >
+                        <UpdateSVG />
+                      </div>
                       <React.Suspense>
                         <ContextMenuRoot>
                           <ContextMenuTrigger>
@@ -888,7 +869,7 @@ export default function Page() {
                             </ContextMenuContent>
                           </ContextMenuPortal>
                         </ContextMenuRoot>
-                      </React.Suspense>    
+                      </React.Suspense>
                     </div>
                   ))}
                 </React.Suspense>
@@ -918,6 +899,7 @@ export default function Page() {
                 href="/auth/signin"
                 className={styles.Link}
                 style={{ textDecoration: "none" }}
+                title="sign in"
               >
                 sign in for more
               </Link>

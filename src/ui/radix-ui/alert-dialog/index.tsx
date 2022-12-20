@@ -1,5 +1,7 @@
 import React from "react";
 import * as A from "@radix-ui/react-alert-dialog";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 import css from "./index.module.scss";
 
@@ -28,13 +30,24 @@ export default function AlertDialog({
         style={{ width: width, margin: "0 auto" }}
       >
         <A.Overlay className={css.Overlay} />
-        <A.Content
-          className={`${css.dialog} ${className}`}
-          tabIndex={0}
-          style={{ ...style }}
-          {...props}
-        >
-          {children}
+        <A.Content>
+          <AnimatePresence initial={false}>
+            {open ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2, ease: [0, 0.2, 0.5, 1.01] }}
+              >
+                <div
+                  className={`${css.dialog} ${className}`}
+                  style={{ ...style }}
+                  {...props}
+                >
+                  {children}
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
         </A.Content>
       </A.Portal>
     </A.Root>

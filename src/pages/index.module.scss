@@ -1,5 +1,4 @@
 @import "styles/colors.module";
-@import "ui/radix-ui/keyframes.module";
 
 .wrapper{
   max-width: 150px;
@@ -26,10 +25,6 @@
   border: 1px solid currentColor;
   border-radius: 100%;
   cursor: pointer;
-  &:hover{
-    transition: 300ms ease-in-out;
-    transform: scale(1.1);
-  }
 }
 .avatarImage{
   width: 100%;
@@ -97,25 +92,6 @@
   }
   background-color: $bg-light;
   line-height: 2vh;
-}
-.ToastMessage{
-  margin: auto;
-}
-.ToastRoot[data-state="open"] {
-  animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.ToastRoot[data-state="closed"] {
-  animation: hide 100ms ease-in;
-}
-.ToastRoot[data-swipe="move"] {
-  transform: translateX(var(--radix-toast-swipe-move-x));
-}
-.ToastRoot[data-swipe="cancel"] {
-  transform: translateX(0);
-  transition: transform 200ms ease-out;
-}
-.ToastRoot[data-swipe="end"] {
-  animation: swipeOut 100ms ease-out;
 }
 .ctxmItem{
   line-height: 1;
