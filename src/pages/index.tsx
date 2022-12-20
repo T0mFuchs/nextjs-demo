@@ -4,7 +4,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
 import { signOut } from "next-auth/react";
-import { Observe } from "lib/observer-toggle-visibility";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CheckSVG, CreateSVG, CrossSVG, UpdateSVG } from "ui";
 import Separator from "ui/radix-ui/separator";
@@ -111,6 +110,17 @@ const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
   suspense: true,
 });
 
+const MotionButton = dynamic(() => import("ui/framer-motion/button"), {
+  suspense: true,
+});
+
+const AnimatePresence = dynamic(
+  () => import("ui/framer-motion/animatePresence"),
+  {
+    suspense: true,
+  }
+);
+
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
@@ -205,8 +215,6 @@ export default function Page() {
     setOpenToast(true);
   };
 
-  React.useEffect(() => Observe());
-
   if (isLoading) return <></>;
   return (
     <>
@@ -219,7 +227,7 @@ export default function Page() {
       </Head>
       <>
         {!isLoading && user.error === undefined ? (
-          <React.Suspense>
+          <>
             <div className={css.wrapper}>
               <div style={{ paddingTop: "1em" }}>Hello, {user.name}</div>
               <div className={css.topright}>
@@ -258,14 +266,16 @@ export default function Page() {
                             ease: [0, 0.71, 0.2, 1.01],
                           }}
                         >
-                          <button
+                          <MotionButton
+                            whileHover={{ scale: 1.15 }}
+                            whileTap={{ scale: 0.85 }}
                             onClick={() => signOut()}
                             className={css.PopoverSignOut}
                             autoFocus
                           >
                             {" "}
                             sign out
-                          </button>
+                          </MotionButton>
                         </MotionDiv>
                       </PopoverContent>
                     </PopoverPortal>
@@ -331,13 +341,15 @@ export default function Page() {
                       ease: [0, 0.71, 0.2, 1.01],
                     }}
                   >
-                    <button
+                    <MotionButton
+                      whileHover={{ scale: 1.15 }}
+                      whileTap={{ scale: 0.85 }}
                       className={styles.Button}
                       onClick={() => handleSubmitDelete()}
                       autoFocus
                     >
                       delete
-                    </button>
+                    </MotionButton>
                   </MotionDiv>
                 </Dialog>
                 <AlertDialog
@@ -365,7 +377,6 @@ export default function Page() {
                     }}
                   >
                     <legend className={form.legend}>new Entry</legend>
-                    <div style={{ padding: ".3em 0" }} />
                     <form className={form.form} onSubmit={handleSubmitCreate}>
                       <LabelRoot htmlFor="title" />
                       <input
@@ -400,17 +411,57 @@ export default function Page() {
                             <CheckSVG />
                           </CheckboxIndicator>
                         </CheckboxRoot>
-                        {visibility ? (
-                          <LabelRoot className={form.checkboxlabel}>
-                            public
-                          </LabelRoot>
-                        ) : (
-                          <LabelRoot className={form.checkboxlabel}>
-                            private
-                          </LabelRoot>
-                        )}
+                        <AnimatePresence
+                          initial={false}
+                          mode="wait"
+                          onExitComplete={() => null}
+                        >
+                          {visibility ? (
+                            <MotionDiv
+                              style={{ lineHeight: 2, paddingRight: 20 }}
+                              animate={{
+                                opacity: 1,
+                                scale: 1,
+                              }}
+                              exit={{
+                                opacity: 0,
+                                scale: 0.3,
+                              }}
+                              whileTap={{ scale: 0.85 }}
+                              onClick={(e) => {
+                                setVisibility(!visibility);
+                              }}
+                            >
+                              <LabelRoot className={form.checkboxlabel}>
+                                public
+                              </LabelRoot>
+                            </MotionDiv>
+                          ) : (
+                            <MotionDiv
+                              style={{ lineHeight: 2, paddingRight: 15 }}
+                              animate={{
+                                opacity: 1,
+                                scale: 1,
+                              }}
+                              exit={{
+                                opacity: 0,
+                                scale: 0.3,
+                              }}
+                              whileTap={{ scale: 0.85 }}
+                              onClick={(e) => {
+                                setVisibility(!visibility);
+                              }}
+                            >
+                              <LabelRoot className={form.checkboxlabel}>
+                                private
+                              </LabelRoot>
+                            </MotionDiv>
+                          )}
+                        </AnimatePresence>
                       </div>
-                      <button
+                      <MotionButton
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.85 }}
                         onClick={() => handleSubmitCreate}
                         className={form.submit}
                         type="submit"
@@ -425,17 +476,19 @@ export default function Page() {
                             </span>
                           </AccessibleIconRoot>
                         </span>
-                      </button>
+                      </MotionButton>
                     </form>
                     <div style={{ padding: ".3em 0" }} />
-                    <button
+                    <MotionButton
+                      whileHover={{ scale: 1.15 }}
+                      whileTap={{ scale: 0.85 }}
                       className={form.cancel}
                       onClick={() => setOpenCreate(false)}
                     >
                       <AccessibleIconRoot label="cancel">
                         <CrossSVG />
                       </AccessibleIconRoot>
-                    </button>
+                    </MotionButton>
                   </MotionDiv>
                 </AlertDialog>
                 {update ? (
@@ -466,7 +519,6 @@ export default function Page() {
                       <legend className={form.legend}>
                         entry: {update.title}
                       </legend>
-                      <div style={{ padding: ".3em 0" }} />
                       <form className={form.form} onSubmit={handleSubmitUpdate}>
                         <LabelRoot htmlFor="title" />
                         <input
@@ -499,18 +551,58 @@ export default function Page() {
                               <CheckSVG />
                             </CheckboxIndicator>
                           </CheckboxRoot>
-                          {visibility ? (
-                            <LabelRoot className={form.checkboxlabel}>
-                              public
-                            </LabelRoot>
-                          ) : (
-                            <LabelRoot className={form.checkboxlabel}>
-                              private
-                            </LabelRoot>
-                          )}
+                          <AnimatePresence
+                            initial={false}
+                            mode="wait"
+                            onExitComplete={() => null}
+                          >
+                            {visibility ? (
+                              <MotionDiv
+                                style={{ lineHeight: 2, paddingRight: 20 }}
+                                animate={{
+                                  opacity: 1,
+                                  scale: 1,
+                                }}
+                                exit={{
+                                  opacity: 0,
+                                  scale: 0.3,
+                                }}
+                                whileTap={{ scale: 0.85 }}
+                                onClick={(e) => {
+                                  setVisibility(!visibility);
+                                }}
+                              >
+                                <LabelRoot className={form.checkboxlabel}>
+                                  public
+                                </LabelRoot>
+                              </MotionDiv>
+                            ) : (
+                              <MotionDiv
+                                style={{ lineHeight: 2, paddingRight: 15 }}
+                                animate={{
+                                  opacity: 1,
+                                  scale: 1,
+                                }}
+                                exit={{
+                                  opacity: 0,
+                                  scale: 0.3,
+                                }}
+                                whileTap={{ scale: 0.85 }}
+                                onClick={(e) => {
+                                  setVisibility(!visibility);
+                                }}
+                              >
+                                <LabelRoot className={form.checkboxlabel}>
+                                  private
+                                </LabelRoot>
+                              </MotionDiv>
+                            )}
+                          </AnimatePresence>
                         </div>
                         <LabelRoot>
-                          <button
+                          <MotionButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.85 }}
                             onClick={() => handleSubmitUpdate}
                             className={form.submit}
                             tabIndex={0}
@@ -526,7 +618,7 @@ export default function Page() {
                                 </span>
                               </AccessibleIconRoot>
                             </span>
-                          </button>
+                          </MotionButton>
                         </LabelRoot>
                       </form>
                       <div style={{ padding: ".3em 0" }} />
@@ -549,7 +641,7 @@ export default function Page() {
                 style={{ margin: "1em auto" }}
               />
               {!isValidating && entries ? (
-                <>
+                <React.Suspense>
                   <div
                     style={{
                       display: "inline-flex",
@@ -557,19 +649,41 @@ export default function Page() {
                       paddingBottom: 10,
                     }}
                   >
-                    {openSort ? (
-                      <>
+                    <AnimatePresence
+                      initial={false}
+                      mode="wait"
+                      onExitComplete={() => null}
+                    >
+                      {openSort ? (
                         <MotionDiv
                           style={{ display: "inline-flex", gap: 10 }}
-                          initial={{ opacity: 0, scale: 0.3 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{
-                            duration: 0.25,
-                            delay: 0,
-                            ease: [0, 0.71, 0.2, 1.01],
+                          variants={{
+                            closed: { opacity: 0, scale: 0.3 },
+                            open: {
+                              opacity: 1,
+                              scale: 1,
+                              transition: {
+                                duration: 0.2,
+                                ease: [0, 0.71, 0.2, 1.01],
+                              },
+                            },
+                            exit: {
+                              opacity: 0,
+                              scale: 0.6,
+                              transition: {
+                                duration: 0.2,
+                                ease: [0, 0.71, 0.2, 1.01],
+                              },
+                            },
                           }}
+                          initial="closed"
+                          animate="open"
+                          exit="exit"
+                          onClick={(e) => e.stopPropagation()}
                         >
-                          <button
+                          <MotionButton
+                            whileHover={{ scale: 1.15 }}
+                            whileTap={{ scale: 0.85 }}
                             className={
                               sortPlaceholder === "descending"
                                 ? `${css.sortoption} ${css.highlight}`
@@ -587,8 +701,10 @@ export default function Page() {
                             }}
                           >
                             descending
-                          </button>
-                          <button
+                          </MotionButton>
+                          <MotionButton
+                            whileHover={{ scale: 1.15 }}
+                            whileTap={{ scale: 0.85 }}
                             className={
                               sortPlaceholder === "ascending"
                                 ? `${css.sortoption} ${css.highlight}`
@@ -606,8 +722,10 @@ export default function Page() {
                             }}
                           >
                             ascending
-                          </button>
-                          <button
+                          </MotionButton>
+                          <MotionButton
+                            whileHover={{ scale: 1.15 }}
+                            whileTap={{ scale: 0.85 }}
                             className={
                               sortPlaceholder === "recently updated"
                                 ? `${css.sortoption} ${css.highlight}`
@@ -625,41 +743,48 @@ export default function Page() {
                             }}
                           >
                             recently updated
-                          </button>
+                          </MotionButton>
                         </MotionDiv>
-                      </>
-                    ) : (
-                      <button
-                        className={css.opensort}
-                        onClick={() => setOpenSort(true)}
-                        tabIndex={0}
-                      >
-                        {sortPlaceholder}
-                      </button>
-                    )}
+                      ) : (
+                        <MotionButton
+                          whileHover={{ scale: 1.15 }}
+                          whileTap={{ scale: 0.85 }}
+                          className={css.opensort}
+                          onClick={() => setOpenSort(true)}
+                          tabIndex={0}
+                        >
+                          {sortPlaceholder}
+                        </MotionButton>
+                      )}
+                    </AnimatePresence>
                   </div>
                   {entries.map((entry: EntryType) => (
                     <div
                       key={entry.title}
-                      className="hidden"
                       style={{ padding: "1em" }}
                     >
+                      <div style={{ position: "absolute", fontSize: "4em", paddingTop: 14, paddingLeft: 200, zIndex: -1  }}><CrossSVG/></div>
+                      <div style={{ position: "absolute", fontSize: "4.5em", paddingTop: 19, paddingLeft: 50, zIndex: -1 }}><UpdateSVG/></div>
                       <React.Suspense>
                         <ContextMenuRoot>
                           <ContextMenuTrigger>
                             <MotionDiv
                               className={styles.Card}
                               drag
-                              dragConstraints={{ left: -100 , right: 100, top: 0, bottom: 0}}
-                              dragElastic={.1}
+                              dragConstraints={{
+                                left: -100,
+                                right: 100,
+                                top: 0,
+                                bottom: 0,
+                              }}
+                              dragElastic={0.1}
                               dragSnapToOrigin
                               onDragEnd={(event: any, info: PanInfo) => {
-                                // todo :: make behind drag appear icon (update or delete)
-                                if (info.offset.x > 220) {
+                                if (info.offset.x > 200) {
                                   setUpdate(Object(entry));
                                   setOpenUpdate(true);
                                 }
-                                if (info.offset.x < -220) {
+                                if (info.offset.x < -200) {
                                   setUpdate(Object(entry));
                                   setOpenDelete(true);
                                 }
@@ -763,10 +888,10 @@ export default function Page() {
                             </ContextMenuContent>
                           </ContextMenuPortal>
                         </ContextMenuRoot>
-                      </React.Suspense>
+                      </React.Suspense>    
                     </div>
                   ))}
-                </>
+                </React.Suspense>
               ) : (
                 <>
                   <div style={{ paddingTop: 15, paddingBottom: 10 }}>
@@ -784,7 +909,7 @@ export default function Page() {
               )}
             </div>
             <div aria-hidden style={{ padding: "1em" }} />
-          </React.Suspense>
+          </>
         ) : (
           <React.Suspense>
             <Flicker className={css.center} text="sign in for more">
