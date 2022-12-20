@@ -343,17 +343,17 @@ export default function Page() {
                       <Dialog //! Delete Entry Popup //
                         open={openDelete}
                         onOpenChange={setOpenDelete}
+                        className={`${styles.Button} ${dialog.position}`}
+                        style={{ minWidth: 50 }}
                       >
-                        <MotionButton
+                        <MotionDiv
                           whileHover={{ scale: 1.15 }}
                           whileTap={{ scale: 0.85 }}
-                          className={styles.Button}
-                          style={{ position: "relative", right: 42 }}
+                          
                           onClick={() => handleSubmitDelete()}
-                          autoFocus
                         >
                           delete
-                        </MotionButton>
+                        </MotionDiv>
                       </Dialog>
                       <Dialog //! Edit Entry Popup //
                         open={openUpdate}

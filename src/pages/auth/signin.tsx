@@ -44,19 +44,24 @@ export default function SignIn() {
             onOpenChange={setOpenCookieAlert}
             className={css.position}
           >
-            <div className={css.scale}>
+            <div className={styles.Button} style={{ padding: "0 15px", lineHeight: 2.5 }}>
+              <div
+                style={{ position: "relative", top: -4 }}
+              >
               <span className={css.svg}>
                 <CookieSVG />
               </span>
               <button
-                className={css.button}
+                style={{ all: "unset" }}
                 onClick={() => {
                   setAcceptCookies(true);
                   setOpenCookieAlert(false);
                 }}
+                autoFocus
               >
                 accept cookies to continue
               </button>
+              </div>
             </div>
           </Alert>
         </React.Suspense>

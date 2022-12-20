@@ -35,7 +35,7 @@ export default function Dialog({
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2, ease: [0, 0.2, 0.5, 1.01] }}
+                transition={{ duration: 0.3, ease: [0, 0.2, 0.5, 1.01] }}
               >
                 <div
                   className={`${css.dialog} ${className}`}
