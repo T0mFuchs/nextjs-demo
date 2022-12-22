@@ -145,6 +145,10 @@ const AnimatePresence = dynamic(
   }
 );
 
+const BorderRadius = dynamic(() => import("ui/animated/border-radius"), {
+  suspense: true,
+});
+
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
@@ -356,7 +360,15 @@ export default function Page() {
                       ease: [0, 0.2, 0.5, 1.01],
                     }}
                   >
-                    <div className={css.ToastMessage}>{toastMessage}</div>
+                    <div className={css.ToastMessage}>
+                      <div style={{ paddingBottom: 8 }}>{toastMessage}</div>
+                      <MotionDiv
+                        className={css.ToastBar}
+                        initial={{ scaleX: 1 }}
+                        animate={{ scaleX: 0 }}
+                        transition={{ duration: 6 }}
+                      />
+                    </div>
                   </MotionDiv>
                 </ToastRoot>
               </React.Suspense>
@@ -379,21 +391,32 @@ export default function Page() {
                             <MotionButton
                               variants={{
                                 initial: {
-                                  opacity: 0,
+                                  opacity: 0.0,
+                                  scale: 0.5,
                                 },
                                 animate: {
                                   opacity: 1,
+                                  scale: 1,
                                   transition: {
+                                    scale: {
+                                      ease: [0.05, 0.1, 0.3, 1.05],
+                                      duration: 0.1,
+                                    },
                                     opacity: {
                                       ease: [0.05, 0.1, 0.3, 1.05],
-                                      duration: 0.5,
+                                      duration: 0.2,
                                     },
                                   },
                                 },
                               }}
                               initial="initial"
                               animate="animate"
-                              className={`${styles.Button}`}
+                              className={styles.Button}
+                              style={{
+                                fontSize: "2em",
+                                position: "relative",
+                                border: "1px solid currentColor",
+                              }}
                               onClick={() => handleSubmitDelete()}
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.85 }}

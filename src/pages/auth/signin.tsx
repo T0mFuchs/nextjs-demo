@@ -21,7 +21,7 @@ const AlertContent = dynamic(() => import("ui/radix-ui/alert-dialog/content"), {
 
 const MotionButton = dynamic(() => import("ui/framer-motion/button"), {
   suspense: true,
-})
+});
 
 export default function SignIn() {
   const [openCookieAlert, setOpenCookieAlert] = React.useState(false);
@@ -51,36 +51,31 @@ export default function SignIn() {
       </Head>
       {openCookieAlert ? (
         <React.Suspense>
-          <AlertRoot
-            open={openCookieAlert}
-            onOpenChange={setOpenCookieAlert}
-          >
+          <AlertRoot open={openCookieAlert} onOpenChange={setOpenCookieAlert}>
             <AlertPortal>
-              <AlertContent
-                style={{ width: 285, margin: "auto" }}
-              >
-              <div
-              className={styles.Button}
-              style={{ padding: "0 15px", lineHeight: 2.5 }}
-            >
-              <div style={{ position: "relative", top: -4 }}>
-                <span className={css.svg}>
-                  <CookieSVG />
-                </span>
-                <MotionButton
-                  style={{ all: "unset" }}
-                  whileTap={{ scale: 0.85 }}
-                  whileHover={{ scale: 1.05 }}
-                  onClick={() => {
-                    setAcceptCookies(true);
-                    setOpenCookieAlert(false);
-                  }}
-                  autoFocus
+              <AlertContent style={{ width: 285, margin: "auto" }}>
+                <div
+                  className={styles.Button}
+                  style={{ padding: "0 15px", lineHeight: 2.5 }}
                 >
-                  accept cookies to continue
-                </MotionButton>
-              </div>
-            </div>
+                  <div style={{ position: "relative", top: -4 }}>
+                    <span className={css.svg}>
+                      <CookieSVG />
+                    </span>
+                    <MotionButton
+                      style={{ all: "unset" }}
+                      whileTap={{ scale: 0.85 }}
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => {
+                        setAcceptCookies(true);
+                        setOpenCookieAlert(false);
+                      }}
+                      autoFocus
+                    >
+                      accept cookies to continue
+                    </MotionButton>
+                  </div>
+                </div>
               </AlertContent>
             </AlertPortal>
           </AlertRoot>

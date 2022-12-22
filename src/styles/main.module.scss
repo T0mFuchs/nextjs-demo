@@ -11,10 +11,10 @@
   font-weight: 600;
   font-size: 1.2em;
   cursor: pointer;
+  outline: none;
   transition: 200ms ease;
   &:hover,
   &:focus { 
-    scale: 1.05;
     border: 1px solid $bg-dark;
   }
   @media (prefers-color-scheme: dark){

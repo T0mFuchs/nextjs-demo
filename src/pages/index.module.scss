@@ -47,7 +47,6 @@
   -webkit-line-clamp: 3; /* number of lines to show */
   -webkit-box-orient: vertical;
 }
-
 .opensort{
   margin-bottom: .5em;
   background-color: transparent;
@@ -83,7 +82,7 @@
 .ToastRoot{
   border-radius: 6px;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
-  padding: 15px;
+  padding: 3px;
   display: flex;
   gap: 15px;
   align-items: center;
@@ -92,6 +91,20 @@
   }
   background-color: $bg-light;
   line-height: 2vh;
+}
+.ToastMessage{
+  position: relative;
+  height: 2em;
+}
+.ToastBar{
+  position: absolute;
+  transform-origin: right;
+  top: -3px;
+  height: 4px;
+  width: 101%;
+  margin: auto;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
 }
 .ctxmItem{
   line-height: 1;
@@ -139,4 +152,11 @@
   background: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.Border{
+  width: 25vw;
+  height: 25vw;
+  transform: translate(-50%, -50%);
+  transition: all 1s ease-in-out;
+  z-index: -1;
 }

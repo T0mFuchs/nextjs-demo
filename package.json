@@ -7,7 +7,7 @@
     "prod": "next build && next start",
     "p": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
-  "devDependencies": {
+  "dependencies": {
     "@next-auth/mongodb-adapter": "^1.1.1",
     "@preact/compat": "17.1.2",
     "@radix-ui/react-accessible-icon": "^1.0.1",
@@ -26,7 +26,7 @@
     "@types/react-dom": "18.0.9",
     "eslint": "^8.30.0",
     "eslint-config-next": "13.0.1",
-    "framer-motion": "^7.10.3",
+    "framer-motion": "^8.0.1",
     "mongodb": "^4.13.0",
     "mongoose": "^6.8.1",
     "next": "13.0.1",

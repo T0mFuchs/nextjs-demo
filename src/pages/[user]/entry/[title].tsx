@@ -145,13 +145,13 @@ export default function Page({
         {entry ? (
           <div style={{ padding: "1em" }}>
             <MotionDiv className={styles.Card}>
-              <div
+              <h2
                 className={styles.H2}
                 style={{ fontSize: "2.5em", position: "relative", bottom: 5 }}
                 aria-label="entry title"
               >
                 {entry.title}
-              </div>
+              </h2>
               <p aria-label="entry body" className={``}>
                 {entry.body}
               </p>

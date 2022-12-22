@@ -31,13 +31,13 @@ export default function Page({ title }: { title: string }) {
         {entry ? (
           <div style={{ padding: "1em" }}>
             <div className={styles.Card}>
-              <div
+              <h2
                 className={styles.H2}
                 style={{ fontSize: "2.5em", position: "relative", bottom: 5 }}
                 aria-label="entry title"
               >
                 {entry.title}
-              </div>
+              </h2>
               <p aria-label="entry body" className={``}>
                 {entry.body}
               </p>
