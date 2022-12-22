@@ -10,6 +10,7 @@ const handler: NextApiHandler = async (
   if (req.method === "POST") {
     const session = await unstable_getServerSession(req, res, authOptions);
     if (session) {
+      const user = req.query.user;
       const { email, name } = req.body;
       if (!email || !name) {
         return res.status(400).json({ message: "Bad request" });
@@ -24,21 +25,20 @@ const handler: NextApiHandler = async (
       });
 
       try {
-        await transporter.sendMail(
+        transporter.sendMail(
           {
             from: process.env.GMAIL_USER,
             to: email,
-            subject: `New user login. Hello, ${name} 👋`,
+            subject: `Hello, ${name} 👋 this is your verification email`,
             html: `
-            <div style="padding: 2em; box-shadow: #30234d15 0 1em 2.3em -1em, #00000080 0 1.5em 2em -1.5em;">
-              <h2>Welcome, ${name} 👋</h2>
-              <p>
-                <span>🌐: </span>
-                <a href="${process.env.NEXTAUTH_URL}">${process.env.NEXTAUTH_URL}</a>
-              </p>
-              <b style="color: #707070">sent with nodemailer</b>
-            </div>
-          `,
+              <div style="padding: 2em; box-shadow: #30234d15 0 1em 2.3em -1em, #00000080 0 1.5em 2em -1.5em; display: grid; grid-template: 1fr; justify-content: center; margin: auto; width: 350px; max-width: 500px; height: 200px; max-height: 500px; border-radius: 10px;">
+                <h2 style="margin: auto">Welcome, ${name} 👋</h2>
+                <h4 style="border-radius: 6px; background-color: #efefef; margin: auto; padding: 7px;">
+                  verify your email with this link
+                  <a href="/api/${user}/verify-email">here</a>
+                </h4>
+              </div>
+            `,
           },
           () => {
             res.statusCode = 200;

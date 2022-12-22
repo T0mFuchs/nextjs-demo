@@ -5,7 +5,6 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import styles from "styles/main.module.scss";
-import css from "./signin.module.scss";
 
 const AlertRoot = dynamic(() => import("ui/radix-ui/alert-dialog/root"), {
   suspense: true,
@@ -59,7 +58,13 @@ export default function SignIn() {
                   style={{ padding: "0 15px", lineHeight: 2.5 }}
                 >
                   <div style={{ position: "relative", top: -4 }}>
-                    <span className={css.svg}>
+                    <span
+                      style={{
+                        position: "relative",
+                        top: ".7em",
+                        right: ".25em",
+                      }}
+                    >
                       <CookieSVG />
                     </span>
                     <MotionButton

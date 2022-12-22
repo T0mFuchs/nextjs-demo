@@ -62,85 +62,85 @@ export default function Page() {
         {data ? <title>entries</title> : <title>loading entries...</title>}
       </Head>
       <>
-        <span className={css.span}>
-          <div
-            style={{
-              display: "inline-flex",
-              paddingTop: 15,
-              paddingBottom: 10,
-              gap: 10,
-            }}
-          >
-            {openSort ? (
-              <>
-                <button
-                  className={
-                    sortPlaceholder === "descending"
-                      ? `${css.sortoption} ${css.highlight}`
-                      : css.sortoption
-                  }
-                  onClick={() => {
-                    if (sortPlaceholder === "descending") {
-                      setOpenSort(false);
-                      return;
-                    }
-                    setSortKey("_id");
-                    setSortValue("-1");
-                    setSortPlaceholder("descending");
-                    setOpenSort(false);
-                  }}
-                >
-                  descending
-                </button>
-                <button
-                  className={
-                    sortPlaceholder === "ascending"
-                      ? `${css.sortoption} ${css.highlight}`
-                      : css.sortoption
-                  }
-                  onClick={() => {
-                    if (sortPlaceholder === "ascending") {
-                      setOpenSort(false);
-                      return;
-                    }
-                    setSortKey("_id");
-                    setSortValue("1");
-                    setSortPlaceholder("ascending");
-                    setOpenSort(false);
-                  }}
-                >
-                  ascending
-                </button>
-                <button
-                  className={
-                    sortPlaceholder === "recently updated"
-                      ? `${css.sortoption} ${css.highlight}`
-                      : css.sortoption
-                  }
-                  onClick={() => {
-                    if (sortPlaceholder === "recently updated") {
-                      setOpenSort(false);
-                      return;
-                    }
-                    setSortKey("updatedAt");
-                    setSortValue("-1");
-                    setSortPlaceholder("recently updated");
-                    setOpenSort(false);
-                  }}
-                >
-                  recently updated
-                </button>
-              </>
-            ) : (
+        <div
+          style={{
+            display: "inline-flex",
+            paddingTop: 15,
+            paddingBottom: 10,
+            gap: 10,
+          }}
+        >
+          {openSort ? (
+            <>
               <button
-                className={css.opensort}
-                onClick={() => setOpenSort(true)}
-                tabIndex={0}
+                className={
+                  sortPlaceholder === "descending"
+                    ? `${css.sortoption} ${css.highlight}`
+                    : css.sortoption
+                }
+                onClick={() => {
+                  if (sortPlaceholder === "descending") {
+                    setOpenSort(false);
+                    return;
+                  }
+                  setSortKey("_id");
+                  setSortValue("-1");
+                  setSortPlaceholder("descending");
+                  setOpenSort(false);
+                }}
               >
-                {sortPlaceholder}
+                descending
               </button>
-            )}
-          </div>
+              <button
+                className={
+                  sortPlaceholder === "ascending"
+                    ? `${css.sortoption} ${css.highlight}`
+                    : css.sortoption
+                }
+                onClick={() => {
+                  if (sortPlaceholder === "ascending") {
+                    setOpenSort(false);
+                    return;
+                  }
+                  setSortKey("_id");
+                  setSortValue("1");
+                  setSortPlaceholder("ascending");
+                  setOpenSort(false);
+                }}
+              >
+                ascending
+              </button>
+              <button
+                className={
+                  sortPlaceholder === "recently updated"
+                    ? `${css.sortoption} ${css.highlight}`
+                    : css.sortoption
+                }
+                onClick={() => {
+                  if (sortPlaceholder === "recently updated") {
+                    setOpenSort(false);
+                    return;
+                  }
+                  setSortKey("updatedAt");
+                  setSortValue("-1");
+                  setSortPlaceholder("recently updated");
+                  setOpenSort(false);
+                }}
+              >
+                recently updated
+              </button>
+            </>
+          ) : (
+            <button
+              className={css.opensort}
+              onClick={() => setOpenSort(true)}
+              tabIndex={0}
+            >
+              {sortPlaceholder}
+            </button>
+          )}
+        </div>
+        <span className={css.span}>
           <Search data={allPublicEntries} />
         </span>
 

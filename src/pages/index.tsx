@@ -856,39 +856,39 @@ export default function Page() {
                   </div>
                   {entries.map((entry: EntryType) => (
                     <div key={entry.title} style={{ padding: "1em" }}>
-                      <div
-                        style={{
-                          position: "absolute",
-                          fontSize: "4em",
-                          paddingTop: 14,
-                          paddingLeft: 200,
-                          zIndex: -1,
-                        }}
-                      >
-                        <CrossSVG />
-                      </div>
-                      <div
-                        style={{
-                          position: "absolute",
-                          fontSize: "4.5em",
-                          paddingTop: 19,
-                          paddingLeft: 50,
-                          zIndex: -1,
-                        }}
-                      >
-                        <UpdateSVG />
-                      </div>
                       <React.Suspense>
                         <ContextMenuRoot>
                           <ContextMenuTrigger>
+                            <div
+                              aria-label="drag action icon delete"
+                              style={{
+                                position: "absolute",
+                                fontSize: "4em",
+                                paddingTop: 14,
+                                paddingLeft: 200,
+                                zIndex: -1,
+                              }}
+                            >
+                              <CrossSVG />
+                            </div>
+                            <div
+                              aria-label="drag action icon edit"
+                              style={{
+                                position: "absolute",
+                                fontSize: "4.5em",
+                                paddingTop: 19,
+                                paddingLeft: 50,
+                                zIndex: -1,
+                              }}
+                            >
+                              <UpdateSVG />
+                            </div>
                             <MotionDiv
                               className={styles.Card}
-                              drag
+                              drag="x"
                               dragConstraints={{
                                 left: -100,
                                 right: 100,
-                                top: 0,
-                                bottom: 0,
                               }}
                               dragElastic={0.1}
                               dragSnapToOrigin

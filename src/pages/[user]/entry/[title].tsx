@@ -143,7 +143,7 @@ export default function Page({
       </Head>
       <React.Suspense>
         {entry ? (
-          <div style={{ padding: "1em" }}>
+          <div className={css.p1}>
             <MotionDiv className={styles.Card}>
               <h2
                 className={styles.H2}
@@ -155,14 +155,7 @@ export default function Page({
               <p aria-label="entry body" className={``}>
                 {entry.body}
               </p>
-              <div
-                aria-label="entry date"
-                style={{
-                  fontSize: ".6em",
-                  position: "relative",
-                  top: 9,
-                }}
-              >
+              <div aria-label="entry date" className={css.Body}>
                 {dateFromObjectId(entry._id).getDate()}
                 {" / "}
                 {dateFromObjectId(entry._id).getMonth() + 1}
@@ -362,13 +355,7 @@ export default function Page({
                           save & close
                           <span style={{ paddingLeft: 4 }}>
                             <AccessibleIconRoot label="save">
-                              <span
-                                style={{
-                                  position: "relative",
-                                  top: 2,
-                                  paddingRight: 1,
-                                }}
-                              >
+                              <span className={css.span}>
                                 <CheckSVG />
                               </span>
                             </AccessibleIconRoot>
@@ -392,7 +379,7 @@ export default function Page({
             )}
           </AnimatePresence>
         </span>
-        <div aria-hidden style={{ padding: "1em" }} />
+        <div aria-hidden className={css.p1} />
       </React.Suspense>
     </>
   );

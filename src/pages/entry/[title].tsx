@@ -29,11 +29,10 @@ export default function Page({ title }: { title: string }) {
       </Head>
       <>
         {entry ? (
-          <div style={{ padding: "1em" }}>
+          <div className={css.p1}>
             <div className={styles.Card}>
               <h2
-                className={styles.H2}
-                style={{ fontSize: "2.5em", position: "relative", bottom: 5 }}
+                className={`${styles.H2} ${css.Title}`}
                 aria-label="entry title"
               >
                 {entry.title}
@@ -41,14 +40,7 @@ export default function Page({ title }: { title: string }) {
               <p aria-label="entry body" className={``}>
                 {entry.body}
               </p>
-              <div
-                aria-label="entry date"
-                style={{
-                  fontSize: ".6em",
-                  position: "relative",
-                  top: 9,
-                }}
-              >
+              <div aria-label="entry date" className={css.Body}>
                 {dateFromObjectId(entry._id).getDate()}
                 {" / "}
                 {dateFromObjectId(entry._id).getMonth() + 1}
@@ -70,7 +62,7 @@ export default function Page({ title }: { title: string }) {
         ) : (
           <Fallback />
         )}
-        <div aria-hidden style={{ padding: "1em" }} />
+        <div aria-hidden className={css.p1} />
       </>
     </>
   );

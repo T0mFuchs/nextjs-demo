@@ -1,13 +1,13 @@
-.inline{
-  display: inline-block; 
+.p1{
+  padding: 1em;
 }
-.display{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.Title{
+  position: relative;
+  font-size: 2.5em;
+  top: -5;
 }
-.flicker{
-  left: 50%;
-  transform: translate(-50%,-50%);
-  margin: 2em 0;
+.Body{
+  position: relative;
+  font-size: .6em;
+  top: 9;
 }
