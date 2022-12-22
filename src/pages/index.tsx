@@ -3,16 +3,17 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
+import { useRouter } from "next/router";
+import { useCreateOneEntry } from "hooks/entry/createOneEntry";
+import { useUpdateOneEntry } from "hooks/entry/updateOneEntry";
+import { useDeleteOneEntry } from "hooks/entry/deleteOneEntry";
+import { useGetUser } from "hooks/user/getUser";
 import { signOut } from "next-auth/react";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CheckSVG, CreateSVG, CrossSVG, UpdateSVG } from "ui";
 import Separator from "ui/radix-ui/separator";
 import Fallback from "ui/entry/fallback";
 
-import { useCreateOneEntry } from "hooks/entry/createOneEntry";
-import { useUpdateOneEntry } from "hooks/entry/updateOneEntry";
-import { useDeleteOneEntry } from "hooks/entry/deleteOneEntry";
-import { useGetUser } from "hooks/user/getUser";
 import type { EntryType } from "types/Entry";
 import type { PanInfo } from "framer-motion";
 
@@ -20,7 +21,6 @@ import styles from "styles/main.module.scss";
 import dialog from "ui/entry/dialog.module.scss";
 import form from "ui/entry/form.module.scss";
 import css from "./index.module.scss";
-import { useRouter } from "next/router";
 
 const Flicker = dynamic(() => import("ui/animated/flicker"), {
   suspense: true,
@@ -146,10 +146,6 @@ const AnimatePresence = dynamic(
   }
 );
 
-const BorderRadius = dynamic(() => import("ui/animated/border-radius"), {
-  suspense: true,
-});
-
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
@@ -175,11 +171,7 @@ export default function Page() {
   const [openAvatarPopover, setOpenAvatarPopover] = React.useState(false);
 
   const { data: user, isLoading } = useGetUser();
-  const {
-    data: entries,
-    mutate,
-    isValidating,
-  } = useSWR(
+  const { data: entries, mutate } = useSWR(
     user ? `/api/${user._id}/entries/${sortKey}/${sortValue}` : null,
     fetcher
   );
@@ -243,14 +235,18 @@ export default function Page() {
   };
 
   if (isLoading) return <></>;
-  if (user && user.emailVerified) {
+  if (user.emailVerified) {
     return (
       <>
         <Head>
-          <title>Hello, {user.name}</title>
+          {user ? (
+            <title>Hello, {user.name}</title>
+          ) : (
+            <title>not signed in</title>
+          )}
         </Head>
         <>
-          {entries ? (
+          {user ? (
             <>
               <div className={css.wrapper}>
                 <div style={{ paddingTop: "1em" }}>Hello, {user.name}</div>
@@ -376,7 +372,7 @@ export default function Page() {
                   orientation="horizontal"
                   style={{ margin: "1em auto" }}
                 />
-                {!isValidating && entries ? (
+                {entries ? (
                   <React.Suspense>
                     <AnimatePresence mode="wait" initial={false}>
                       {openDelete ? (
@@ -1054,7 +1050,8 @@ export default function Page() {
         </>
       </>
     );
-  } else {
+  }
+  if (!user || !user.emailVerified) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { push } = useRouter();
     setTimeout(() => push("/auth/new-user"), 1500);

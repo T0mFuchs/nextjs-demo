@@ -18,8 +18,8 @@ const handler: NextApiHandler = async (
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(user));
     } else {
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json");
+      res.statusCode = 400;
+      res.setHeader("Content-Type", "json");
       res.end(JSON.stringify({ error: true }));
     }
   }

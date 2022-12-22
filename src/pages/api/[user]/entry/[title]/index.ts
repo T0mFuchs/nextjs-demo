@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res: NextApiResponse) => {
   if (req.method === "POST") {
     const session = await unstable_getServerSession(req, res, authOptions);
     if (session) {
-      const user: string = req.query.user as string;
+      const user: string = req.query.user as string; //* ._id of user
       const title = req.query.title;
       await mongooseConnect();
       const entries = await Entry.findOne({

@@ -43,10 +43,25 @@ export default function Event() {
             <button
               className={styles.Button}
               onClick={async () => {
-                await fetch(`/api/${user._id}/verify-email`, {
+                const res = await fetch(`/api/${user._id}/verify-email`, {
                   method: "POST",
-                });
-                push("/");
+                })
+                if (res.status === 200) {
+                  await fetch(
+                    `/api/${user._id}/nodemailer/verification-success`,
+                    {
+                      body: JSON.stringify({
+                        email: user.email,
+                        name: user.name,
+                      }),
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      method: "POST",
+                    });
+                  push("/");
+                }
               }}
             >
               verify

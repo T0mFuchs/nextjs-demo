@@ -10,7 +10,7 @@ const handler: NextApiHandler = async (req, res: NextApiResponse) => {
     const session = await unstable_getServerSession(req, res, authOptions);
     if (session) {
       await mongooseConnect();
-      const user: string = req.query.user as string;
+      const user: string = req.query.user as string; //* ._id of user
       const entries = await Entry.find({
         visibility: false,
         author: user,

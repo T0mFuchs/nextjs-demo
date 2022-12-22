@@ -1,7 +1,7 @@
-import { StrictMode } from "react";
 import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import { StrictMode } from "react";
 import { Nav, ScrollUp } from "ui/page";
 import dynamic from "next/dynamic";
 import "styles/globals.scss";
