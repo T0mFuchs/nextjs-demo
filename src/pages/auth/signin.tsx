@@ -7,9 +7,21 @@ import { useRouter } from "next/router";
 import styles from "styles/main.module.scss";
 import css from "./signin.module.scss";
 
-const Alert = dynamic(() => import("ui/radix-ui/alert-dialog"), {
+const AlertRoot = dynamic(() => import("ui/radix-ui/alert-dialog/root"), {
   suspense: true,
 });
+
+const AlertPortal = dynamic(() => import("ui/radix-ui/alert-dialog/portal"), {
+  suspense: true,
+});
+
+const AlertContent = dynamic(() => import("ui/radix-ui/alert-dialog/content"), {
+  suspense: true,
+});
+
+const MotionButton = dynamic(() => import("ui/framer-motion/button"), {
+  suspense: true,
+})
 
 export default function SignIn() {
   const [openCookieAlert, setOpenCookieAlert] = React.useState(false);
@@ -39,31 +51,39 @@ export default function SignIn() {
       </Head>
       {openCookieAlert ? (
         <React.Suspense>
-          <Alert
+          <AlertRoot
             open={openCookieAlert}
             onOpenChange={setOpenCookieAlert}
-            className={css.position}
           >
-            <div className={styles.Button} style={{ padding: "0 15px", lineHeight: 2.5 }}>
+            <AlertPortal>
+              <AlertContent
+                style={{ width: 285, margin: "auto" }}
+              >
               <div
-                style={{ position: "relative", top: -4 }}
-              >
-              <span className={css.svg}>
-                <CookieSVG />
-              </span>
-              <button
-                style={{ all: "unset" }}
-                onClick={() => {
-                  setAcceptCookies(true);
-                  setOpenCookieAlert(false);
-                }}
-                autoFocus
-              >
-                accept cookies to continue
-              </button>
+              className={styles.Button}
+              style={{ padding: "0 15px", lineHeight: 2.5 }}
+            >
+              <div style={{ position: "relative", top: -4 }}>
+                <span className={css.svg}>
+                  <CookieSVG />
+                </span>
+                <MotionButton
+                  style={{ all: "unset" }}
+                  whileTap={{ scale: 0.85 }}
+                  whileHover={{ scale: 1.05 }}
+                  onClick={() => {
+                    setAcceptCookies(true);
+                    setOpenCookieAlert(false);
+                  }}
+                  autoFocus
+                >
+                  accept cookies to continue
+                </MotionButton>
               </div>
             </div>
-          </Alert>
+              </AlertContent>
+            </AlertPortal>
+          </AlertRoot>
         </React.Suspense>
       ) : null}
       <h2 style={{ paddingTop: "6em" }}>

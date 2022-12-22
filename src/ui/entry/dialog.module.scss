@@ -1,12 +1,23 @@
-.position{
-  left: 50%;
+.dialogCard{
+  position: fixed;
+  z-index: 9;
   @media (max-width: 600px){
-    bottom: 0;
-    transform: translate(-50%, -20%);
+    bottom: -15%;
+    left:50%;
   }
   @media (min-width: 600px){
-    top: 55%;
-    transform: translate(-50%, -50%);
-    min-width: 550px;
+    top: 50%;
+    left: 50%;
   }
+  transform: translate(-50%, -50%);
+  min-width: 85vw;
+  max-width: 550px;
+}
+.dialogButton{
+  position: fixed;
+  z-index: 9;
+  top: 50%;
+  left: 50%;
+  max-width: 100px;
+  transform: translate(-50%, -50%);
 }
