@@ -184,6 +184,7 @@ export default function Page() {
     data: entries,
     mutate,
     isValidating,
+    isLoading: isLoadingEntries,
   } = useSWR(
     user ? `/api/${user._id}/entries/${sortKey}/${sortValue}` : null,
     fetcher
@@ -980,7 +981,9 @@ export default function Page() {
                         <React.Suspense>
                           <ContextMenuRoot>
                             <ContextMenuTrigger>
-                              <div
+                              {!isValidating && !isLoadingEntries ? (
+                                <>
+                                  <div
                                 aria-label="drag action icon delete"
                                 style={{
                                   position: "absolute",
@@ -1004,6 +1007,8 @@ export default function Page() {
                               >
                                 <UpdateSVG />
                               </div>
+                                </>
+                              ): null}
                               <MotionDiv
                                 className={styles.Card}
                                 drag="x"
