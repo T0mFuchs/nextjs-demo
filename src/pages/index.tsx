@@ -515,11 +515,11 @@ export default function Page() {
                                       required: true,
                                       minLength: {
                                         value: 3,
-                                        message: "min-length: 3",
+                                        message: "atleast 3 characters",
                                       },
                                       maxLength: {
                                         value: 20,
-                                        message: "max-length: 20",
+                                        message: "maximum 20 characters",
                                       },
                                       pattern: {
                                         // https://www.debuggex.com/
