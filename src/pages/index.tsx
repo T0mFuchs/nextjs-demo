@@ -177,6 +177,8 @@ export default function Page() {
 
   const [openAvatarPopover, setOpenAvatarPopover] = React.useState(false);
 
+  const { push } = useRouter();
+
   const { data: user, isLoading } = useGetUser();
   const {
     data: entries,
@@ -201,7 +203,11 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     await useCreateOneEntry(newEntry);
     setToastMessage(`created entry: ${data.title}`);
-    mutate({ ...entries }, { revalidate: true, optimisticData: true });
+    if (visibility) {
+      push("/entries");
+    } else {
+      mutate({ ...entries }, { revalidate: true, optimisticData: true });
+    }
     setOpenCreate(false);
     setOpenToast(true);
   };
@@ -222,7 +228,11 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     await useUpdateOneEntry(updatedEntry);
     setToastMessage(`updated entry: ${data.title}`);
-    mutate({ ...entries }, { revalidate: true, optimisticData: true });
+    if (visibility) {
+      push("/entries");
+    } else {
+      mutate({ ...entries }, { revalidate: true, optimisticData: true });
+    }
     setOpenUpdate(false);
     setOpenToast(true);
   };
