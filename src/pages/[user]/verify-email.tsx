@@ -1,31 +1,43 @@
 import React from "react";
-
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { useGetUser } from "hooks/user/getUser";
 import Separator from "ui/radix-ui/separator";
-import Flicker from "ui/animated/flicker";
+
+const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
+  suspense: true,
+});
 
 import styles from "styles/main.module.scss";
-import { useGetUser } from "hooks/user/getUser";
-
-// todo :: time progress bar like with toast in src/index.tsx
+import css from "../index.module.scss";
 
 export default function Event() {
   const { data: user, isLoading, isError } = useGetUser();
   const { push } = useRouter();
 
   if (isLoading) return <></>;
-  if (isError) {
+
+  if (user.emailVerified || isError) {
     setTimeout(() => {
       push("/");
     }, 1000);
-    return <h2 style={{ paddingTop: "6em" }}>🛑 unauthenticated ...</h2>;
-  }
-  if (user.emailVerified) {
-    setTimeout(() => {
-      push("/");
-    }, 1000);
-    return <h2 style={{ paddingTop: "6em" }}>email already verified ...</h2>;
+    return (
+      <>
+        <Head>
+          <title>redirecting...</title>
+        </Head>
+        <React.Suspense>
+          <MotionDiv
+            className={css.ToastBar}
+            style={{ position: "fixed", top: "45%" }}
+            initial={{ scaleX: 1 }}
+            animate={{ scaleX: 0 }}
+            transition={{ duration: 1 }}
+          />
+        </React.Suspense>
+      </>
+    );
   }
   if (user) {
     return (

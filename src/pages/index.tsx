@@ -183,8 +183,7 @@ export default function Page() {
   const {
     data: entries,
     mutate,
-    isValidating,
-    isLoading: isLoadingEntries,
+    isValidating
   } = useSWR(
     user ? `/api/${user._id}/entries/${sortKey}/${sortValue}` : null,
     fetcher
@@ -249,6 +248,12 @@ export default function Page() {
     setOpenDelete(false);
     setOpenToast(true);
   };
+
+  // load the icons behind each entry later to prevent layout shift
+  const [wait, setWait] = React.useState(true);
+  React.useEffect(() => {
+    setTimeout(() => setWait(false), 1000);
+  })
 
   if (isLoading) return <></>;
   if (user.emailVerified) {
@@ -981,34 +986,32 @@ export default function Page() {
                         <React.Suspense>
                           <ContextMenuRoot>
                             <ContextMenuTrigger>
-                              {!isValidating && !isLoadingEntries ? (
-                                <>
+                              {!isValidating && !wait ? (<>
+                                  <div 
+                                    aria-label="drag action icon delete"
+                                    style={{
+                                      position: "absolute",
+                                      fontSize: "4em",
+                                      paddingTop: 14,
+                                      paddingLeft: 200,
+                                      zIndex: -1,
+                                    }}
+                                  >
+                                    <CrossSVG />
+                                  </div>
                                   <div
-                                aria-label="drag action icon delete"
-                                style={{
-                                  position: "absolute",
-                                  fontSize: "4em",
-                                  paddingTop: 14,
-                                  paddingLeft: 200,
-                                  zIndex: -1,
-                                }}
-                              >
-                                <CrossSVG />
-                              </div>
-                              <div
-                                aria-label="drag action icon edit"
-                                style={{
-                                  position: "absolute",
-                                  fontSize: "4.5em",
-                                  paddingTop: 19,
-                                  paddingLeft: 50,
-                                  zIndex: -1,
-                                }}
-                              >
-                                <UpdateSVG />
-                              </div>
-                                </>
-                              ): null}
+                                    aria-label="drag action icon edit"
+                                    style={{
+                                      position: "absolute",
+                                      fontSize: "4.5em",
+                                      paddingTop: 19,
+                                      paddingLeft: 50,
+                                      zIndex: -1,
+                                    }}
+                                  >
+                                    <UpdateSVG />
+                                  </div>
+                                </>) : null}
                               <MotionDiv
                                 className={styles.Card}
                                 drag="x"
@@ -1175,6 +1178,15 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { push } = useRouter();
     setTimeout(() => push("/auth/new-user"), 1500);
-    return <div style={{ paddingTop: "7em" }}>redirecting</div>;
+    return (
+      <React.Suspense>
+        <MotionDiv
+          style={{ position: "fixed", top: "45%" }}
+          initial={{ scaleX: 1 }}
+          animate={{ scaleX: 0 }}
+          transition={{ duration: 1.5 }}
+        />
+      </React.Suspense>
+    );
   }
 }

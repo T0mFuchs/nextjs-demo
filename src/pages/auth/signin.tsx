@@ -5,6 +5,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import styles from "styles/main.module.scss";
+import css from "../index.module.scss";
 
 const AlertRoot = dynamic(() => import("ui/radix-ui/alert-dialog/root"), {
   suspense: true,
@@ -19,6 +20,10 @@ const AlertContent = dynamic(() => import("ui/radix-ui/alert-dialog/content"), {
 });
 
 const MotionButton = dynamic(() => import("ui/framer-motion/button"), {
+  suspense: true,
+});
+
+const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
   suspense: true,
 });
 
@@ -37,9 +42,15 @@ export default function SignIn() {
         <Head>
           <title>redirecting...</title>
         </Head>
-        <h2 style={{ paddingTop: "6em" }}>
-          signed in with {session.user?.email}
-        </h2>
+        <React.Suspense>
+          <MotionDiv
+            className={css.ToastBar}
+            style={{ position: "fixed", top: "45%" }}
+            initial={{ scaleX: 1 }}
+            animate={{ scaleX: 0 }}
+            transition={{ duration: 1.5 }}
+          />
+        </React.Suspense>
       </>
     );
   }

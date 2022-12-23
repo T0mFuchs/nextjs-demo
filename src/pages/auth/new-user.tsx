@@ -1,9 +1,16 @@
+import React from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useGetUser } from "hooks/user/getUser";
 import Separator from "ui/radix-ui/separator";
 
 import styles from "styles/main.module.scss";
+import css from "../index.module.scss";
+
+const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
+  suspense: true,
+});
 
 export default function Event() {
   const { data: user, isLoading, isError } = useGetUser();
@@ -12,13 +19,28 @@ export default function Event() {
   if (isLoading) return <></>;
   if (isError) {
     setTimeout(() => push("/"), 1000);
-    return <h2 style={{ paddingTop: "6em" }}>🛑 unauthenticated ...</h2>;
+    return (
+      <>
+        <Head>
+          <title>redirecting...</title>
+        </Head>
+        <React.Suspense>
+          <MotionDiv
+            className={css.ToastBar}
+            style={{ position: "fixed", top: "45%" }}
+            initial={{ scaleX: 1 }}
+            animate={{ scaleX: 0 }}
+            transition={{ duration: 1 }}
+          />
+        </React.Suspense>
+      </>
+    );
   }
   if (!user.emailVerified) {
     return (
       <>
         <Head>
-          <title>...redirecting</title>
+          <title>Welcome {user.name}</title>
         </Head>
         <div
           style={{
@@ -61,8 +83,18 @@ export default function Event() {
     setTimeout(() => push("/"), 1500);
     return (
       <>
-        <Head>redirecting</Head>
-        <div style={{ paddingTop: "7em" }}>redirecting...</div>
+        <Head>
+          <title>redirecting...</title>
+        </Head>
+        <React.Suspense>
+          <MotionDiv
+            className={css.ToastBar}
+            style={{ position: "fixed", top: "45%" }}
+            initial={{ scaleX: 1 }}
+            animate={{ scaleX: 0 }}
+            transition={{ duration: 1.5 }}
+          />
+        </React.Suspense>
       </>
     );
   }
