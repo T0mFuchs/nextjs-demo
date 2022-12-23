@@ -3,6 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import { useRouter } from "next/router";
 import { useCreateOneEntry } from "hooks/entry/createOneEntry";
 import { useUpdateOneEntry } from "hooks/entry/updateOneEntry";
@@ -155,6 +157,11 @@ export default function Page() {
   const [sortPlaceholder, setSortPlaceholder] = React.useState("descending");
   const [openSort, setOpenSort] = React.useState(false);
 
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const [openCreate, setOpenCreate] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [openUpdate, setOpenUpdate] = React.useState(false);
@@ -171,18 +178,19 @@ export default function Page() {
   const [openAvatarPopover, setOpenAvatarPopover] = React.useState(false);
 
   const { data: user, isLoading } = useGetUser();
-  const { data: entries, mutate } = useSWR(
+  const {
+    data: entries,
+    mutate,
+    isValidating,
+  } = useSWR(
     user ? `/api/${user._id}/entries/${sortKey}/${sortValue}` : null,
     fetcher
   );
 
-  const handleSubmitCreate = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const data = {
-      // @ts-ignore (HTMLElement.title is reserverd)
-      title: form.title.value as string,
-      body: form.body.value as string,
+  const onSubmitCreate: SubmitHandler<any> = async (data) => {
+    const newEntry: EntryType = {
+      title: data.title,
+      body: data.body,
       visibility: visibility,
       author: user._id,
     };
@@ -191,10 +199,31 @@ export default function Page() {
       return 0;
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    await useCreateOneEntry(data);
+    await useCreateOneEntry(newEntry);
     setToastMessage(`created entry: ${data.title}`);
     mutate({ ...entries }, { revalidate: true, optimisticData: true });
     setOpenCreate(false);
+    setOpenToast(true);
+  };
+  const onSubmitUpdate: SubmitHandler<any> = async (data) => {
+    const updatedEntry = {
+      _id: update._id,
+      title: data.title,
+      body: data.body,
+      visibility: visibility,
+      author: user._id,
+    };
+    if (entries.find((entry: EntryType) => entry.title === data.title)) {
+      if (data.title !== update.title) {
+        window.alert("title already exists");
+        return 0;
+      }
+    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    await useUpdateOneEntry(updatedEntry);
+    setToastMessage(`updated entry: ${data.title}`);
+    mutate({ ...entries }, { revalidate: true, optimisticData: true });
+    setOpenUpdate(false);
     setOpenToast(true);
   };
   const handleSubmitDelete = async () => {
@@ -207,30 +236,6 @@ export default function Page() {
     setToastMessage(`deleted entry: ${update.title}`);
     mutate({ ...entries }, { revalidate: true, optimisticData: false });
     setOpenDelete(false);
-    setOpenToast(true);
-  };
-  const handleSubmitUpdate = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const data = {
-      _id: update._id,
-      // @ts-ignore (HTMLElement.title is reserverd)
-      title: form.title.value as string,
-      body: form.body.value as string,
-      visibility: visibility,
-      author: user._id,
-    };
-    if (entries.find((entry: EntryType) => entry.title === data.title)) {
-      if (data.title !== update.title) {
-        window.alert("title already exists");
-        return 0;
-      }
-    }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    await useUpdateOneEntry(data);
-    setToastMessage(`updated entry: ${update.title}`);
-    mutate({ ...entries }, { revalidate: true, optimisticData: true });
-    setOpenUpdate(false);
     setOpenToast(true);
   };
 
@@ -372,7 +377,7 @@ export default function Page() {
                   orientation="horizontal"
                   style={{ margin: "1em auto" }}
                 />
-                {entries ? (
+                {!isValidating && entries ? (
                   <React.Suspense>
                     <AnimatePresence mode="wait" initial={false}>
                       {openDelete ? (
@@ -460,7 +465,7 @@ export default function Page() {
                               >
                                 <form
                                   className={form.form}
-                                  onSubmit={handleSubmitUpdate}
+                                  onSubmit={handleSubmit(onSubmitUpdate)}
                                 >
                                   <legend className={form.legend}>
                                     entry: {update.title}
@@ -481,25 +486,77 @@ export default function Page() {
                                     </AccessibleIconRoot>
                                   </button>
                                   <LabelRoot htmlFor="title" />
+                                  <ErrorMessage
+                                    errors={errors}
+                                    name="title"
+                                    render={({ message }) => (
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          color: "#fa7070",
+                                        }}
+                                      >
+                                        {message}
+                                      </div>
+                                    )}
+                                  />
                                   <input
+                                    {...register("title", {
+                                      required: true,
+                                      minLength: {
+                                        value: 3,
+                                        message: "min-length: 3",
+                                      },
+                                      maxLength: {
+                                        value: 20,
+                                        message: "max-length: 20",
+                                      },
+                                      pattern: {
+                                        // https://www.debuggex.com/
+                                        value:
+                                          /^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!%./\\]*$/,
+                                        message: "remove special characters",
+                                      },
+                                    })}
                                     className={form.input}
                                     name="title"
                                     type="text"
                                     defaultValue={update.title}
-                                    minLength={3}
-                                    maxLength={20}
-                                    pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
-                                    title="remove spaces at start, end & all consecutive spaces"
                                   />
+
                                   <LabelRoot htmlFor="body" />
+                                  <ErrorMessage
+                                    errors={errors}
+                                    name="body"
+                                    render={({ message }) => (
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          color: "#fa7070",
+                                        }}
+                                      >
+                                        {message}
+                                      </div>
+                                    )}
+                                  />
                                   <textarea
-                                    rows={6}
+                                    {...register("body", {
+                                      required: true,
+                                      minLength: {
+                                        value: 5,
+                                        message: "atleast 5 characters",
+                                      },
+                                      maxLength: {
+                                        value: 2000,
+                                        message: "maxmium 2000 characters",
+                                      },
+                                    })}
+                                    rows={7}
                                     className={form.textarea}
                                     name="body"
                                     defaultValue={update.body}
-                                    minLength={5}
-                                    maxLength={500}
                                   />
+
                                   <div className={form.checkboxwrapper}>
                                     <CheckboxRoot
                                       className={form.checkboxroot}
@@ -563,7 +620,7 @@ export default function Page() {
                                     </AnimatePresence>
                                   </div>
                                   <button
-                                    onClick={() => handleSubmitUpdate}
+                                    onClick={() => handleSubmit(onSubmitUpdate)}
                                     className={form.submit}
                                     tabIndex={0}
                                   >
@@ -628,7 +685,7 @@ export default function Page() {
                               >
                                 <form
                                   className={form.form}
-                                  onSubmit={handleSubmitCreate}
+                                  onSubmit={handleSubmit(onSubmitCreate)}
                                 >
                                   <legend className={form.legend}>
                                     new Entry
@@ -649,28 +706,76 @@ export default function Page() {
                                     </AccessibleIconRoot>
                                   </button>
                                   <LabelRoot htmlFor="title" />
+                                  <ErrorMessage
+                                    errors={errors}
+                                    name="title"
+                                    render={({ message }) => (
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          color: "#fa7070",
+                                        }}
+                                      >
+                                        {message}
+                                      </div>
+                                    )}
+                                  />
                                   <input
+                                    {...register("title", {
+                                      required: true,
+                                      minLength: {
+                                        value: 3,
+                                        message: "min-length: 3",
+                                      },
+                                      maxLength: {
+                                        value: 20,
+                                        message: "max-length: 20",
+                                      },
+                                      pattern: {
+                                        // https://www.debuggex.com/
+                                        value:
+                                          /^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!%./\\]*$/,
+                                        message: "remove special characters",
+                                      },
+                                    })}
                                     className={form.input}
                                     name="title"
                                     type="text"
-                                    placeholder="...title"
-                                    required
-                                    minLength={3}
-                                    maxLength={20}
-                                    pattern="^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!/\\]*$" // https://www.debuggex.com/
-                                    title="remove spaces at start, end & all consecutive spaces"
-                                    autoFocus
+                                    placeholder="title"
                                   />
                                   <LabelRoot htmlFor="body" />
+                                  <ErrorMessage
+                                    errors={errors}
+                                    name="body"
+                                    render={({ message }) => (
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          color: "#fa7070",
+                                        }}
+                                      >
+                                        {message}
+                                      </div>
+                                    )}
+                                  />
                                   <textarea
-                                    rows={6}
+                                    {...register("body", {
+                                      required: true,
+                                      minLength: {
+                                        value: 5,
+                                        message: "atleast 5 characters",
+                                      },
+                                      maxLength: {
+                                        value: 2000,
+                                        message: "maxmium 2000 characters",
+                                      },
+                                    })}
+                                    rows={7}
                                     className={form.textarea}
                                     name="body"
-                                    placeholder="...body"
-                                    required
-                                    minLength={5}
-                                    maxLength={500}
+                                    placeholder="body"
                                   />
+
                                   <div className={form.checkboxwrapper}>
                                     <CheckboxRoot
                                       checked={visibility}
@@ -731,7 +836,7 @@ export default function Page() {
                                     </AnimatePresence>
                                   </div>
                                   <button
-                                    onClick={() => handleSubmitCreate}
+                                    onClick={() => handleSubmit(onSubmitCreate)}
                                     className={form.submit}
                                     type="submit"
                                   >
@@ -1051,7 +1156,7 @@ export default function Page() {
       </>
     );
   }
-  if (!user || !user.emailVerified) {
+  if (user && !user.emailVerified) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { push } = useRouter();
     setTimeout(() => push("/auth/new-user"), 1500);

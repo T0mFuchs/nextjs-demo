@@ -45,7 +45,7 @@ export default function Event() {
               onClick={async () => {
                 const res = await fetch(`/api/${user._id}/verify-email`, {
                   method: "POST",
-                })
+                });
                 if (res.status === 200) {
                   await fetch(
                     `/api/${user._id}/nodemailer/verification-success`,
@@ -59,7 +59,8 @@ export default function Event() {
                         Accept: "application/json",
                       },
                       method: "POST",
-                    });
+                    }
+                  );
                   push("/");
                 }
               }}
