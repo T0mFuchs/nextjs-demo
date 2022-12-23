@@ -183,7 +183,7 @@ export default function Page() {
   const {
     data: entries,
     mutate,
-    isValidating
+    isValidating,
   } = useSWR(
     user ? `/api/${user._id}/entries/${sortKey}/${sortValue}` : null,
     fetcher
@@ -253,7 +253,7 @@ export default function Page() {
   const [wait, setWait] = React.useState(true);
   React.useEffect(() => {
     setTimeout(() => setWait(false), 1000);
-  })
+  });
 
   if (isLoading) return <></>;
   if (user.emailVerified) {
@@ -986,8 +986,9 @@ export default function Page() {
                         <React.Suspense>
                           <ContextMenuRoot>
                             <ContextMenuTrigger>
-                              {!isValidating && !wait ? (<>
-                                  <div 
+                              {!isValidating && !wait ? (
+                                <>
+                                  <div
                                     aria-label="drag action icon delete"
                                     style={{
                                       position: "absolute",
@@ -1011,7 +1012,8 @@ export default function Page() {
                                   >
                                     <UpdateSVG />
                                   </div>
-                                </>) : null}
+                                </>
+                              ) : null}
                               <MotionDiv
                                 className={styles.Card}
                                 drag="x"
@@ -1181,6 +1183,7 @@ export default function Page() {
     return (
       <React.Suspense>
         <MotionDiv
+          className={css.ToastBar}
           style={{ position: "fixed", top: "45%" }}
           initial={{ scaleX: 1 }}
           animate={{ scaleX: 0 }}

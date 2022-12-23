@@ -189,9 +189,27 @@ export default function Page({
             </MotionDiv>
           </div>
         ) : (
-          <Fallback />
+          <Fallback maxWidth={"600px"} />
         )}
         <span style={{ display: "flex", justifyContent: "center", gap: 10 }}>
+          <button
+            className={styles.Button}
+            onClick={() => {
+              setUpdate(Object(entry));
+              setOpenDelete(true);
+            }}
+          >
+            delete
+          </button>
+          <button
+            className={styles.Button}
+            onClick={() => {
+              setUpdate(Object(entry));
+              setOpenUpdate(true);
+            }}
+          >
+            update
+          </button>
           <React.Suspense>
             <AnimatePresence mode="wait" initial={false}>
               {openUpdate ? (
@@ -397,17 +415,7 @@ export default function Page({
                     </DialogContent>
                   </DialogPortal>
                 </DialogRoot>
-              ) : (
-                <button
-                  className={styles.Button}
-                  onClick={() => {
-                    setUpdate(Object(entry));
-                    setOpenDelete(true);
-                  }}
-                >
-                  delete
-                </button>
-              )}
+              ) : null}
             </AnimatePresence>
 
             <AnimatePresence mode="wait" initial={false}>
@@ -457,17 +465,7 @@ export default function Page({
                     </DialogContent>
                   </DialogPortal>
                 </DialogRoot>
-              ) : (
-                <button
-                  className={styles.Button}
-                  onClick={() => {
-                    setUpdate(Object(entry));
-                    setOpenUpdate(true);
-                  }}
-                >
-                  update
-                </button>
-              )}
+              ) : null}
             </AnimatePresence>
           </React.Suspense>
         </span>

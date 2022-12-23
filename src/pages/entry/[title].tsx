@@ -182,13 +182,31 @@ export default function Page({ title }: { title: string }) {
             </div>
           </div>
         ) : (
-          <Fallback />
+          <Fallback maxWidth={"600px"} />
         )}
         {user && entry && user._id === entry.author ? (
           <>
             <span
               style={{ display: "flex", justifyContent: "center", gap: 10 }}
             >
+              <button
+                className={styles.Button}
+                onClick={() => {
+                  setUpdate(Object(entry));
+                  setOpenDelete(true);
+                }}
+              >
+                delete
+              </button>
+              <button
+                className={styles.Button}
+                onClick={() => {
+                  setUpdate(Object(entry));
+                  setOpenUpdate(true);
+                }}
+              >
+                update
+              </button>
               <React.Suspense>
                 <AnimatePresence mode="wait" initial={false}>
                   {openUpdate ? (
@@ -394,17 +412,7 @@ export default function Page({ title }: { title: string }) {
                         </DialogContent>
                       </DialogPortal>
                     </DialogRoot>
-                  ) : (
-                    <button
-                      className={styles.Button}
-                      onClick={() => {
-                        setUpdate(Object(entry));
-                        setOpenDelete(true);
-                      }}
-                    >
-                      delete
-                    </button>
-                  )}
+                  ) : null}
                 </AnimatePresence>
 
                 <AnimatePresence mode="wait" initial={false}>
@@ -454,23 +462,13 @@ export default function Page({ title }: { title: string }) {
                         </DialogContent>
                       </DialogPortal>
                     </DialogRoot>
-                  ) : (
-                    <button
-                      className={styles.Button}
-                      onClick={() => {
-                        setUpdate(Object(entry));
-                        setOpenUpdate(true);
-                      }}
-                    >
-                      update
-                    </button>
-                  )}
+                  ) : null}
                 </AnimatePresence>
               </React.Suspense>
             </span>
           </>
         ) : null}
-        {!user && !isLoading ? (
+        {!user && !isLoading ? ( //* user is not signed in //
           <React.Suspense>
             <Flicker style={{}} text="sign in">
               <Link
