@@ -191,288 +191,286 @@ export default function Page({
         ) : (
           <Fallback />
         )}
-        <span
-              style={{ display: "flex", justifyContent: "center", gap: 10 }}
-            >
-              <React.Suspense>
-                <AnimatePresence mode="wait" initial={false}>
-                  {openUpdate ? (
-                    <DialogRoot //* Edit Entry Popup //
-                      open={openUpdate}
-                      onOpenChange={setOpenUpdate}
-                    >
-                      <DialogPortal>
-                        <DialogContent className={`${dialog.dialogCard}`}>
-                          <MotionDiv
-                            className={`${styles.Card}`}
-                            style={{ padding: 0 }}
-                            variants={{
-                              initial: {
-                                opacity: 0,
-                                y: "-25vh",
+        <span style={{ display: "flex", justifyContent: "center", gap: 10 }}>
+          <React.Suspense>
+            <AnimatePresence mode="wait" initial={false}>
+              {openUpdate ? (
+                <DialogRoot //* Edit Entry Popup //
+                  open={openUpdate}
+                  onOpenChange={setOpenUpdate}
+                >
+                  <DialogPortal>
+                    <DialogContent className={`${dialog.dialogCard}`}>
+                      <MotionDiv
+                        className={`${styles.Card}`}
+                        style={{ padding: 0 }}
+                        variants={{
+                          initial: {
+                            opacity: 0,
+                            y: "-25vh",
+                          },
+                          animate: {
+                            opacity: 1,
+                            y: 0,
+                            transition: {
+                              y: {
+                                ease: [0.05, 0.1, 0.3, 1.05],
+                                duration: 0.35,
                               },
-                              animate: {
-                                opacity: 1,
-                                y: 0,
-                                transition: {
-                                  y: {
-                                    ease: [0.05, 0.1, 0.3, 1.05],
-                                    duration: 0.35,
-                                  },
-                                  opacity: {
-                                    ease: [0.05, 0.1, 0.3, 1.05],
-                                    duration: 0.45,
-                                  },
-                                },
+                              opacity: {
+                                ease: [0.05, 0.1, 0.3, 1.05],
+                                duration: 0.45,
                               },
-                            }}
-                            initial="initial"
-                            animate="animate"
+                            },
+                          },
+                        }}
+                        initial="initial"
+                        animate="animate"
+                      >
+                        <form
+                          className={form.form}
+                          onSubmit={handleSubmit(onSubmitUpdate)}
+                        >
+                          <legend className={form.legend}>
+                            entry: {update.title}
+                          </legend>
+                          <button
+                            className={form.cancel}
+                            onClick={() => setOpenUpdate(false)}
                           >
-                            <form
-                              className={form.form}
-                              onSubmit={handleSubmit(onSubmitUpdate)}
-                            >
-                              <legend className={form.legend}>
-                                entry: {update.title}
-                              </legend>
-                              <button
-                                className={form.cancel}
-                                onClick={() => setOpenUpdate(false)}
+                            <AccessibleIconRoot label="cancel">
+                              <div
+                                style={{
+                                  position: "relative",
+                                  top: -8,
+                                }}
                               >
-                                <AccessibleIconRoot label="cancel">
-                                  <div
-                                    style={{
-                                      position: "relative",
-                                      top: -8,
-                                    }}
-                                  >
-                                    <CrossSVG />
-                                  </div>
-                                </AccessibleIconRoot>
-                              </button>
-                              <LabelRoot htmlFor="title" />
-                              <ErrorMessage
-                                errors={errors}
-                                name="title"
-                                render={({ message }) => (
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      color: "#fa7070",
-                                    }}
-                                  >
-                                    {message}
-                                  </div>
-                                )}
-                              />
-                              <input
-                                {...register("title", {
-                                  required: true,
-                                  minLength: {
-                                    value: 3,
-                                    message: "atleast 3 characters",
-                                  },
-                                  maxLength: {
-                                    value: 20,
-                                    message: "maximum 20 characters",
-                                  },
-                                  pattern: {
-                                    // https://www.debuggex.com/
-                                    value:
-                                      /^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!%./\\]*$/,
-                                    message: "remove special characters",
-                                  },
-                                })}
-                                className={form.input}
-                                name="title"
-                                type="text"
-                                defaultValue={update.title}
-                              />
-
-                              <LabelRoot htmlFor="body" />
-                              <ErrorMessage
-                                errors={errors}
-                                name="body"
-                                render={({ message }) => (
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      color: "#fa7070",
-                                    }}
-                                  >
-                                    {message}
-                                  </div>
-                                )}
-                              />
-                              <textarea
-                                {...register("body", {
-                                  required: true,
-                                  minLength: {
-                                    value: 5,
-                                    message: "atleast 5 characters",
-                                  },
-                                  maxLength: {
-                                    value: 2000,
-                                    message: "maxmium 2000 characters",
-                                  },
-                                })}
-                                rows={7}
-                                className={form.textarea}
-                                name="body"
-                                defaultValue={update.body}
-                              />
-
-                              <div className={form.checkboxwrapper}>
-                                <CheckboxRoot
-                                  className={form.checkboxroot}
-                                  onClick={() => {
-                                    setVisibility(!visibility);
-                                  }}
-                                >
-                                  <CheckboxIndicator>
-                                    <CheckSVG />
-                                  </CheckboxIndicator>
-                                </CheckboxRoot>
-                                <AnimatePresence initial={false} mode="wait">
-                                  {visibility ? (
-                                    <MotionDiv
-                                      style={{
-                                        lineHeight: 2,
-                                        paddingRight: 20,
-                                        cursor: "pointer",
-                                      }}
-                                      animate={{
-                                        opacity: 1,
-                                        scale: 1,
-                                      }}
-                                      whileTap={{ scale: 0.85 }}
-                                      onClick={() => setVisibility(!visibility)}
-                                    >
-                                      <LabelRoot className={form.checkboxlabel}>
-                                        public
-                                      </LabelRoot>
-                                    </MotionDiv>
-                                  ) : (
-                                    <MotionDiv
-                                      style={{
-                                        lineHeight: 2,
-                                        paddingRight: 15,
-                                        cursor: "pointer",
-                                      }}
-                                      animate={{
-                                        opacity: 1,
-                                        scale: 1,
-                                      }}
-                                      whileTap={{ scale: 0.85 }}
-                                      onClick={() => setVisibility(!visibility)}
-                                    >
-                                      <LabelRoot className={form.checkboxlabel}>
-                                        private
-                                      </LabelRoot>
-                                    </MotionDiv>
-                                  )}
-                                </AnimatePresence>
+                                <CrossSVG />
                               </div>
-                              <button
-                                onClick={() => handleSubmit(onSubmitUpdate)}
-                                className={form.submit}
-                                tabIndex={0}
+                            </AccessibleIconRoot>
+                          </button>
+                          <LabelRoot htmlFor="title" />
+                          <ErrorMessage
+                            errors={errors}
+                            name="title"
+                            render={({ message }) => (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  color: "#fa7070",
+                                }}
                               >
-                                save & close
-                                <span style={{ paddingLeft: 4 }}>
-                                  <AccessibleIconRoot label="save">
-                                    <span
-                                      style={{
-                                        position: "relative",
-                                        top: 2,
-                                        paddingRight: 1,
-                                      }}
-                                    >
-                                      <CheckSVG />
-                                    </span>
-                                  </AccessibleIconRoot>
-                                </span>
-                              </button>
-                            </form>
-                          </MotionDiv>
-                        </DialogContent>
-                      </DialogPortal>
-                    </DialogRoot>
-                  ) : (
-                    <button
-                      className={styles.Button}
-                      onClick={() => {
-                        setUpdate(Object(entry));
-                        setOpenDelete(true);
-                      }}
-                    >
-                      delete
-                    </button>
-                  )}
-                </AnimatePresence>
+                                {message}
+                              </div>
+                            )}
+                          />
+                          <input
+                            {...register("title", {
+                              required: true,
+                              minLength: {
+                                value: 3,
+                                message: "atleast 3 characters",
+                              },
+                              maxLength: {
+                                value: 20,
+                                message: "maximum 20 characters",
+                              },
+                              pattern: {
+                                // https://www.debuggex.com/
+                                value:
+                                  /^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!%./\\]*$/,
+                                message: "remove special characters",
+                              },
+                            })}
+                            className={form.input}
+                            name="title"
+                            type="text"
+                            defaultValue={update.title}
+                          />
 
-                <AnimatePresence mode="wait" initial={false}>
-                  {openDelete ? (
-                    <DialogRoot //* Delete Entry Dialog //
-                      open={openDelete}
-                      onOpenChange={setOpenDelete}
-                    >
-                      <DialogPortal>
-                        <DialogContent className={`${dialog.dialogButton}`}>
-                          <MotionButton
-                            variants={{
-                              initial: {
-                                opacity: 0.0,
-                                scale: 0.5,
+                          <LabelRoot htmlFor="body" />
+                          <ErrorMessage
+                            errors={errors}
+                            name="body"
+                            render={({ message }) => (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  color: "#fa7070",
+                                }}
+                              >
+                                {message}
+                              </div>
+                            )}
+                          />
+                          <textarea
+                            {...register("body", {
+                              required: true,
+                              minLength: {
+                                value: 5,
+                                message: "atleast 5 characters",
                               },
-                              animate: {
-                                opacity: 1,
-                                scale: 1,
-                                transition: {
-                                  scale: {
-                                    ease: [0.05, 0.1, 0.3, 1.05],
-                                    duration: 0.1,
-                                  },
-                                  opacity: {
-                                    ease: [0.05, 0.1, 0.3, 1.05],
-                                    duration: 0.2,
-                                  },
-                                },
+                              maxLength: {
+                                value: 2000,
+                                message: "maxmium 2000 characters",
                               },
-                            }}
-                            initial="initial"
-                            animate="animate"
-                            className={styles.Button}
-                            style={{
-                              fontSize: "2em",
-                              position: "relative",
-                              border: "1px solid currentColor",
-                            }}
-                            onClick={() => handleSubmitDelete()}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.85 }}
+                            })}
+                            rows={7}
+                            className={form.textarea}
+                            name="body"
+                            defaultValue={update.body}
+                          />
+
+                          <div className={form.checkboxwrapper}>
+                            <CheckboxRoot
+                              className={form.checkboxroot}
+                              onClick={() => {
+                                setVisibility(!visibility);
+                              }}
+                            >
+                              <CheckboxIndicator>
+                                <CheckSVG />
+                              </CheckboxIndicator>
+                            </CheckboxRoot>
+                            <AnimatePresence initial={false} mode="wait">
+                              {visibility ? (
+                                <MotionDiv
+                                  style={{
+                                    lineHeight: 2,
+                                    paddingRight: 20,
+                                    cursor: "pointer",
+                                  }}
+                                  animate={{
+                                    opacity: 1,
+                                    scale: 1,
+                                  }}
+                                  whileTap={{ scale: 0.85 }}
+                                  onClick={() => setVisibility(!visibility)}
+                                >
+                                  <LabelRoot className={form.checkboxlabel}>
+                                    public
+                                  </LabelRoot>
+                                </MotionDiv>
+                              ) : (
+                                <MotionDiv
+                                  style={{
+                                    lineHeight: 2,
+                                    paddingRight: 15,
+                                    cursor: "pointer",
+                                  }}
+                                  animate={{
+                                    opacity: 1,
+                                    scale: 1,
+                                  }}
+                                  whileTap={{ scale: 0.85 }}
+                                  onClick={() => setVisibility(!visibility)}
+                                >
+                                  <LabelRoot className={form.checkboxlabel}>
+                                    private
+                                  </LabelRoot>
+                                </MotionDiv>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                          <button
+                            onClick={() => handleSubmit(onSubmitUpdate)}
+                            className={form.submit}
                             tabIndex={0}
                           >
-                            delete
-                          </MotionButton>
-                        </DialogContent>
-                      </DialogPortal>
-                    </DialogRoot>
-                  ) : (
-                    <button
-                      className={styles.Button}
-                      onClick={() => {
-                        setUpdate(Object(entry));
-                        setOpenUpdate(true);
-                      }}
-                    >
-                      update
-                    </button>
-                  )}
-                </AnimatePresence>
-              </React.Suspense>
-            </span>
+                            save & close
+                            <span style={{ paddingLeft: 4 }}>
+                              <AccessibleIconRoot label="save">
+                                <span
+                                  style={{
+                                    position: "relative",
+                                    top: 2,
+                                    paddingRight: 1,
+                                  }}
+                                >
+                                  <CheckSVG />
+                                </span>
+                              </AccessibleIconRoot>
+                            </span>
+                          </button>
+                        </form>
+                      </MotionDiv>
+                    </DialogContent>
+                  </DialogPortal>
+                </DialogRoot>
+              ) : (
+                <button
+                  className={styles.Button}
+                  onClick={() => {
+                    setUpdate(Object(entry));
+                    setOpenDelete(true);
+                  }}
+                >
+                  delete
+                </button>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence mode="wait" initial={false}>
+              {openDelete ? (
+                <DialogRoot //* Delete Entry Dialog //
+                  open={openDelete}
+                  onOpenChange={setOpenDelete}
+                >
+                  <DialogPortal>
+                    <DialogContent className={`${dialog.dialogButton}`}>
+                      <MotionButton
+                        variants={{
+                          initial: {
+                            opacity: 0.0,
+                            scale: 0.5,
+                          },
+                          animate: {
+                            opacity: 1,
+                            scale: 1,
+                            transition: {
+                              scale: {
+                                ease: [0.05, 0.1, 0.3, 1.05],
+                                duration: 0.1,
+                              },
+                              opacity: {
+                                ease: [0.05, 0.1, 0.3, 1.05],
+                                duration: 0.2,
+                              },
+                            },
+                          },
+                        }}
+                        initial="initial"
+                        animate="animate"
+                        className={styles.Button}
+                        style={{
+                          fontSize: "2em",
+                          position: "relative",
+                          border: "1px solid currentColor",
+                        }}
+                        onClick={() => handleSubmitDelete()}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.85 }}
+                        tabIndex={0}
+                      >
+                        delete
+                      </MotionButton>
+                    </DialogContent>
+                  </DialogPortal>
+                </DialogRoot>
+              ) : (
+                <button
+                  className={styles.Button}
+                  onClick={() => {
+                    setUpdate(Object(entry));
+                    setOpenUpdate(true);
+                  }}
+                >
+                  update
+                </button>
+              )}
+            </AnimatePresence>
+          </React.Suspense>
+        </span>
         <div aria-hidden className={css.p1} />
       </React.Suspense>
     </>

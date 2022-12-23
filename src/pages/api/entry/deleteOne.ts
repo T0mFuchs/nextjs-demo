@@ -13,7 +13,7 @@ const handler: NextApiHandler = async (
     if (session) {
       const { _id, author } = req.body;
       if (!_id || !author) {
-        return res.status(400);
+        return res.status(400).end();
       }
       await mongooseConnect();
       await Entry.findOneAndDelete({ _id: _id, author: author });

@@ -14,21 +14,27 @@ const handler: NextApiHandler = async (
     if (session) {
       const { _id, title, body, visibility, author } = req.body;
       if (!_id || !title || !body || visibility === undefined || !author) {
-        return res.status(400);
+        return res.status(400).end();
       }
-      await mongooseConnect();
-      await Entry.findOneAndUpdate(
-        { _id: _id, author: author },
-        {
-          title: title,
-          body: body,
-          visibility: visibility,
-          author: author,
-          updatedAt: new ObjectId(),
-        }
-      );
-      res.statusCode = 200;
-      res.end();
+      const regex = new RegExp(/^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!%./\\]*$/);
+      // if pattern matches
+      if (regex.test(title)) {
+        await mongooseConnect();
+        await Entry.findOneAndUpdate(
+          { _id: _id, author: author },
+          {
+            title: title,
+            body: body,
+            visibility: visibility,
+            author: author,
+            updatedAt: new ObjectId(),
+          }
+        );
+        res.statusCode = 200;
+        res.end();
+      } else {
+        return res.status(400).end();
+      }
     }
   }
 };
