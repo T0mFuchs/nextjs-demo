@@ -3,14 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import { useRouter } from "next/router";
-import { useCreateOneEntry } from "hooks/entry/createOneEntry";
-import { useUpdateOneEntry } from "hooks/entry/updateOneEntry";
-import { useDeleteOneEntry } from "hooks/entry/deleteOneEntry";
 import { useGetUser } from "hooks/user/getUser";
-import { signOut } from "next-auth/react";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CheckSVG, CreateSVG, CrossSVG, UpdateSVG } from "ui";
 import Separator from "ui/radix-ui/separator";
@@ -20,41 +14,33 @@ import type { EntryType } from "types/Entry";
 import type { PanInfo } from "framer-motion";
 
 import styles from "styles/main.module.scss";
-import dialog from "ui/entry/dialog.module.scss";
-import form from "ui/entry/form.module.scss";
 import css from "./index.module.scss";
 
 const Flicker = dynamic(() => import("ui/animated/flicker"), {
   suspense: true,
 });
 
-const AvatarRoot = dynamic(() => import("ui/radix-ui/avatar/root"), {
+const CreateEntry = dynamic(() => import("ui/entry/create"), {
   suspense: true,
 });
 
-const AvatarImage = dynamic(() => import("ui/radix-ui/avatar/image"), {
+const UpdateEntry = dynamic(() => import("ui/entry/update"), {
   suspense: true,
 });
 
-const AccessibleIconRoot = dynamic(
-  () => import("ui/radix-ui/accessible-icon/root"),
-  { suspense: true }
-);
-
-const CheckboxRoot = dynamic(() => import("ui/radix-ui/checkbox/root"), {
+const DeleteEntry = dynamic(() => import("ui/entry/delete"), {
   suspense: true,
 });
 
-const CheckboxIndicator = dynamic(
-  () => import("ui/radix-ui/checkbox/indicator"),
-  { suspense: true }
-);
-
-const LabelRoot = dynamic(() => import("ui/radix-ui/label/root"), {
+const Settings = dynamic(() => import("ui/page/settings"), {
   suspense: true,
 });
 
-const ToastRoot = dynamic(() => import("ui/radix-ui/toast/root"), {
+const Sort = dynamic(() => import("ui/entry/sort"), {
+  suspense: true,
+});
+
+const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
   suspense: true,
 });
 
@@ -87,67 +73,6 @@ const ContextMenuItem = dynamic(() => import("ui/radix-ui/context-menu/item"), {
   suspense: true,
 });
 
-const PopoverRoot = dynamic(() => import("ui/radix-ui/popover/root"), {
-  suspense: true,
-});
-
-const PopoverTrigger = dynamic(() => import("ui/radix-ui/popover/trigger"), {
-  suspense: true,
-});
-
-const PopoverPortal = dynamic(() => import("ui/radix-ui/popover/portal"), {
-  suspense: true,
-});
-
-const PopoverContent = dynamic(() => import("ui/radix-ui/popover/content"), {
-  suspense: true,
-});
-
-const DialogRoot = dynamic(() => import("ui/radix-ui/dialog/root"), {
-  suspense: true,
-});
-
-const DialogPortal = dynamic(() => import("ui/radix-ui/dialog/portal"), {
-  suspense: true,
-});
-
-const DialogContent = dynamic(() => import("ui/radix-ui/dialog/content"), {
-  suspense: true,
-});
-
-const AlertDialogRoot = dynamic(() => import("ui/radix-ui/alert-dialog/root"), {
-  suspense: true,
-});
-
-const AlertDialogPortal = dynamic(
-  () => import("ui/radix-ui/alert-dialog/portal"),
-  {
-    suspense: true,
-  }
-);
-
-const AlertDialogContent = dynamic(
-  () => import("ui/radix-ui/alert-dialog/content"),
-  {
-    suspense: true,
-  }
-);
-
-const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
-  suspense: true,
-});
-
-const MotionButton = dynamic(() => import("ui/framer-motion/button"), {
-  suspense: true,
-});
-
-const AnimatePresence = dynamic(
-  () => import("ui/framer-motion/animatePresence"),
-  {
-    suspense: true,
-  }
-);
-
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
@@ -157,26 +82,13 @@ export default function Page() {
   const [sortPlaceholder, setSortPlaceholder] = React.useState("descending");
   const [openSort, setOpenSort] = React.useState(false);
 
-  //* set current entry for update&delelte with Object(entry)
+  //? set current entry
   const [update, setUpdate]: any = React.useState(null);
-
-  //* set entry.visibility
   const [visibility, setVisibility] = React.useState(false);
-
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    setValue,
-    reset, //* https://react-hook-form.com/api/useform/reset
-  } = useForm();
 
   const [openCreate, setOpenCreate] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [openUpdate, setOpenUpdate] = React.useState(false);
-
-  const [openToast, setOpenToast] = React.useState(false);
-  const [toastMessage, setToastMessage] = React.useState("");
 
   const [openAvatarPopover, setOpenAvatarPopover] = React.useState(false);
 
@@ -192,65 +104,8 @@ export default function Page() {
     fetcher
   );
 
-  const onSubmitCreate: SubmitHandler<any> = async (data) => {
-    const newEntry: EntryType = {
-      title: data.title,
-      body: data.body,
-      visibility: visibility,
-      author: user._id,
-    };
-    if (entries.find((entry: EntryType) => entry.title === data.title)) {
-      window.alert("title already exists");
-      return 0;
-    }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    await useCreateOneEntry(newEntry);
-    setToastMessage(`created entry: ${data.title}`);
-    if (visibility) {
-      push("/entries");
-    } else {
-      mutate({ ...entries }, { revalidate: true, optimisticData: true });
-    }
-    setOpenCreate(false);
-    setOpenToast(true);
-  };
-  const onSubmitUpdate: SubmitHandler<any> = async (data) => {
-    const updatedEntry = {
-      _id: update._id,
-      title: data.title,
-      body: data.body,
-      visibility: visibility,
-      author: user._id,
-    };
-    if (entries.find((entry: EntryType) => entry.title === data.title)) {
-      if (data.title !== update.title) {
-        window.alert("title already exists");
-        return 0;
-      }
-    }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    await useUpdateOneEntry(updatedEntry);
-    setToastMessage(`updated entry: ${data.title}`);
-    if (visibility) {
-      push("/entries");
-    } else {
-      mutate({ ...entries }, { revalidate: true, optimisticData: true });
-    }
-    setOpenUpdate(false);
-    setOpenToast(true);
-  };
-  const handleSubmitDelete = async () => {
-    const data = {
-      _id: update._id,
-      author: user._id,
-    };
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    await useDeleteOneEntry(data);
-    setToastMessage(`deleted entry: ${update.title}`);
-    mutate({ ...entries }, { revalidate: true, optimisticData: false });
-    setOpenDelete(false);
-    setOpenToast(true);
-  };
+  const refresh = () =>
+    mutate({ ...entries }, { revalidate: true, optimisticData: true });
 
   if (isLoading) return <></>;
   if (user && !user.emailVerified) {
@@ -267,6 +122,16 @@ export default function Page() {
       </React.Suspense>
     );
   }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [wait, setWait] = React.useState(true);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  React.useEffect(() => {
+    setTimeout(() => {
+      setWait(false);
+    }, 1000);
+  });
+
   return (
     <>
       <Head>
@@ -283,120 +148,25 @@ export default function Page() {
               <div style={{ paddingTop: "1em" }}>Hello, {user.name}</div>
               <div className={css.topright}>
                 <React.Suspense>
-                  <PopoverRoot
+                  <Settings
                     open={openAvatarPopover}
                     onOpenChange={setOpenAvatarPopover}
-                  >
-                    <PopoverTrigger
-                      asChild
-                      onClick={() => setOpenAvatarPopover(!openAvatarPopover)}
-                    >
-                      <AvatarRoot className={css.avatarRoot}>
-                        <AvatarImage
-                          //* user image as trigger
-                          className={css.avatarImage}
-                          src={user.image}
-                          alt={user.name}
-                        />
-                      </AvatarRoot>
-                    </PopoverTrigger>
-                    <PopoverPortal>
-                      <PopoverContent className={css.PopoverContent}>
-                        <AnimatePresence mode="wait">
-                          {openAvatarPopover ? (
-                            <MotionDiv
-                              variants={{
-                                initial: {
-                                  y: -25,
-                                  opacity: 0,
-                                },
-                                animate: {
-                                  y: 0,
-                                  opacity: 1,
-                                  transition: {
-                                    y: {
-                                      duration: 0.25,
-                                    },
-                                    opacity: {
-                                      duration: 0.25,
-                                    },
-                                  },
-                                },
-                              }}
-                              initial="initial"
-                              animate="animate"
-                            >
-                              <MotionButton
-                                whileHover={{ scale: 1.15 }}
-                                whileTap={{ scale: 0.85 }}
-                                onClick={() => signOut()}
-                                className={css.PopoverSignOut}
-                                autoFocus
-                              >
-                                {" "}
-                                sign out
-                              </MotionButton>
-                            </MotionDiv>
-                          ) : null}
-                        </AnimatePresence>
-                      </PopoverContent>
-                    </PopoverPortal>
-                  </PopoverRoot>
+                    user={user}
+                  />
                 </React.Suspense>
               </div>
               <Separator orientation="horizontal" />
               <button
                 className={styles.Button}
                 style={{ padding: "0 6px" }}
-                onClick={() => setOpenCreate(true)}
+                onClick={() => {
+                  setOpenCreate(true);
+                }}
               >
                 <div style={{ position: "relative", top: 4, fontSize: 40 }}>
                   <CreateSVG />
                 </div>
               </button>
-              <React.Suspense>
-                <ToastRoot //* Toast for dispatching messages with state & handlers //
-                  open={openToast}
-                  onOpenChange={setOpenToast}
-                >
-                  <MotionDiv
-                    drag="x"
-                    onDragEnd={(event: any, info: PanInfo) => {
-                      if (info.offset.x > 50) setOpenToast(false);
-                      if (info.offset.x < -50) setOpenToast(false);
-                      setTimeout(() => setOpenToast(false), 1000);
-                    }}
-                    className={css.ToastRoot}
-                    initial={{
-                      opacity: 0,
-                      scale: 0.5,
-                      position: "relative",
-                      right: "-20vw",
-                    }}
-                    animate={{
-                      opacity: 1,
-                      scale: 1,
-                      position: "relative",
-                      right: 0,
-                    }}
-                    transition={{
-                      duration: 0.2,
-                      delay: 0,
-                      ease: [0, 0.2, 0.5, 1.01],
-                    }}
-                  >
-                    <div className={css.ToastMessage}>
-                      <div style={{ paddingBottom: 8 }}>{toastMessage}</div>
-                      <MotionDiv
-                        className={css.ToastBar}
-                        initial={{ scaleX: 1 }}
-                        animate={{ scaleX: 0 }}
-                        transition={{ duration: 6 }}
-                      />
-                    </div>
-                  </MotionDiv>
-                </ToastRoot>
-              </React.Suspense>
             </div>
             <div style={{ maxWidth: 350, margin: "auto", paddingTop: 15 }}>
               <Separator
@@ -405,590 +175,50 @@ export default function Page() {
               />
               {!isValidating && entries ? (
                 <React.Suspense>
-                  <AnimatePresence mode="wait" initial={false}>
-                    {openCreate ? (
-                      <AlertDialogRoot //* Create Entry Popup //
-                        open={openCreate}
-                        onOpenChange={setOpenCreate}
-                      >
-                        <AlertDialogPortal>
-                          <AlertDialogContent
-                            className={`${dialog.dialogCard}`}
-                          >
-                            <MotionDiv
-                              className={`${styles.Card} `}
-                              style={{ padding: 0 }}
-                              variants={{
-                                initial: {
-                                  opacity: 0,
-                                  y: "-25vh",
-                                },
-                                animate: {
-                                  opacity: 1,
-                                  y: 0,
-                                  transition: {
-                                    y: {
-                                      ease: [0.05, 0.1, 0.3, 1.05],
-                                      duration: 0.35,
-                                    },
-                                    opacity: {
-                                      ease: [0.05, 0.1, 0.3, 1.05],
-                                      duration: 0.45,
-                                    },
-                                  },
-                                },
-                              }}
-                              initial="initial"
-                              animate="animate"
-                            >
-                              <form
-                                className={form.form}
-                                onSubmit={handleSubmit(onSubmitCreate)}
-                              >
-                                <legend className={form.legend}>
-                                  new Entry
-                                </legend>
-                                <button
-                                  className={form.cancel}
-                                  onClick={() => setOpenCreate(false)}
-                                >
-                                  <AccessibleIconRoot label="cancel">
-                                    <div
-                                      style={{
-                                        position: "relative",
-                                        top: -8,
-                                      }}
-                                    >
-                                      <CrossSVG />
-                                    </div>
-                                  </AccessibleIconRoot>
-                                </button>
-                                <LabelRoot htmlFor="title" />
-                                <ErrorMessage
-                                  errors={errors}
-                                  name="title"
-                                  render={({ message }) => (
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        color: "#fa7070",
-                                      }}
-                                    >
-                                      {message}
-                                    </div>
-                                  )}
-                                />
-                                <input
-                                  {...register("title", {
-                                    required: true,
-                                    minLength: {
-                                      value: 3,
-                                      message: "min-length: 3",
-                                    },
-                                    maxLength: {
-                                      value: 20,
-                                      message: "max-length: 20",
-                                    },
-                                    pattern: {
-                                      // https://www.debuggex.com/
-                                      value:
-                                        /^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!%./\\]*$/,
-                                      message: "remove special characters",
-                                    },
-                                  })}
-                                  className={form.input}
-                                  name="title"
-                                  type="text"
-                                  placeholder="title"
-                                />
-                                <LabelRoot htmlFor="body" />
-                                <ErrorMessage
-                                  errors={errors}
-                                  name="body"
-                                  render={({ message }) => (
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        color: "#fa7070",
-                                      }}
-                                    >
-                                      {message}
-                                    </div>
-                                  )}
-                                />
-                                <textarea
-                                  {...register("body", {
-                                    required: true,
-                                    minLength: {
-                                      value: 5,
-                                      message: "atleast 5 characters",
-                                    },
-                                    maxLength: {
-                                      value: 2000,
-                                      message: "maxmium 2000 characters",
-                                    },
-                                  })}
-                                  rows={7}
-                                  className={form.textarea}
-                                  name="body"
-                                  placeholder="body"
-                                />
+                  <CreateEntry
+                    open={openCreate}
+                    onOpenChange={setOpenCreate}
+                    visibility={visibility}
+                    setVisibility={setVisibility}
+                    userId={user._id}
+                    allEntries={entries}
+                    callback={refresh}
+                  />
 
-                                <div className={form.checkboxwrapper}>
-                                  <CheckboxRoot
-                                    checked={visibility}
-                                    className={form.checkboxroot}
-                                    onClick={() => setVisibility(!visibility)}
-                                  >
-                                    <CheckboxIndicator>
-                                      <CheckSVG />
-                                    </CheckboxIndicator>
-                                  </CheckboxRoot>
-                                  <AnimatePresence initial={false} mode="wait">
-                                    {visibility ? (
-                                      <MotionDiv
-                                        style={{
-                                          lineHeight: 2,
-                                          paddingRight: 20,
-                                        }}
-                                        animate={{
-                                          opacity: 1,
-                                          scale: 1,
-                                        }}
-                                        whileTap={{ scale: 0.85 }}
-                                        onClick={() =>
-                                          setVisibility(!visibility)
-                                        }
-                                      >
-                                        <LabelRoot
-                                          className={form.checkboxlabel}
-                                        >
-                                          public
-                                        </LabelRoot>
-                                      </MotionDiv>
-                                    ) : (
-                                      <MotionDiv
-                                        style={{
-                                          lineHeight: 2,
-                                          paddingRight: 15,
-                                        }}
-                                        animate={{
-                                          opacity: 1,
-                                          scale: 1,
-                                        }}
-                                        whileTap={{ scale: 0.85 }}
-                                        onClick={() =>
-                                          setVisibility(!visibility)
-                                        }
-                                      >
-                                        <LabelRoot
-                                          className={form.checkboxlabel}
-                                        >
-                                          private
-                                        </LabelRoot>
-                                      </MotionDiv>
-                                    )}
-                                  </AnimatePresence>
-                                </div>
-                                <button
-                                  onClick={() => handleSubmit(onSubmitCreate)}
-                                  className={form.submit}
-                                  type="submit"
-                                >
-                                  save & close
-                                  <span style={{ paddingLeft: 4 }}>
-                                    <AccessibleIconRoot label="save">
-                                      <span
-                                        style={{
-                                          position: "relative",
-                                          top: 2,
-                                          paddingRight: 1,
-                                        }}
-                                      >
-                                        <CheckSVG />
-                                      </span>
-                                    </AccessibleIconRoot>
-                                  </span>
-                                </button>
-                              </form>
-                            </MotionDiv>
-                          </AlertDialogContent>
-                        </AlertDialogPortal>
-                      </AlertDialogRoot>
-                    ) : null}
-                  </AnimatePresence>
+                  <DeleteEntry
+                    open={openDelete}
+                    onOpenChange={setOpenDelete}
+                    entry={update}
+                    userId={user._id}
+                    callback={refresh}
+                  />
 
-                  <AnimatePresence mode="wait" initial={false}>
-                    {openDelete ? (
-                      <DialogRoot //* Delete Entry Dialog //
-                        open={openDelete}
-                        onOpenChange={setOpenDelete}
-                      >
-                        <DialogPortal>
-                          <DialogContent className={`${dialog.dialogButton}`}>
-                            <MotionButton
-                              variants={{
-                                initial: {
-                                  opacity: 0.0,
-                                  scale: 0.5,
-                                },
-                                animate: {
-                                  opacity: 1,
-                                  scale: 1,
-                                  transition: {
-                                    scale: {
-                                      ease: [0.05, 0.1, 0.3, 1.05],
-                                      duration: 0.1,
-                                    },
-                                    opacity: {
-                                      ease: [0.05, 0.1, 0.3, 1.05],
-                                      duration: 0.2,
-                                    },
-                                  },
-                                },
-                              }}
-                              initial="initial"
-                              animate="animate"
-                              className={styles.Button}
-                              style={{
-                                fontSize: "2em",
-                                position: "relative",
-                                border: "1px solid currentColor",
-                              }}
-                              onClick={() => handleSubmitDelete()}
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.85 }}
-                              tabIndex={0}
-                            >
-                              delete
-                            </MotionButton>
-                          </DialogContent>
-                        </DialogPortal>
-                      </DialogRoot>
-                    ) : null}
-                  </AnimatePresence>
+                  <UpdateEntry
+                    open={openUpdate}
+                    onOpenChange={setOpenUpdate}
+                    visibility={visibility}
+                    setVisibility={setVisibility}
+                    userId={user._id}
+                    entry={update}
+                    allEntries={entries}
+                    callback={refresh}
+                  />
 
-                  <AnimatePresence mode="wait" initial={false}>
-                    {openUpdate ? (
-                      <DialogRoot //* Edit Entry Popup //
-                        open={openUpdate}
-                        onOpenChange={setOpenUpdate}
-                      >
-                        <DialogPortal>
-                          <DialogContent className={`${dialog.dialogCard}`}>
-                            <MotionDiv
-                              className={`${styles.Card}`}
-                              style={{ padding: 0 }}
-                              variants={{
-                                initial: {
-                                  opacity: 0,
-                                  y: "-25vh",
-                                },
-                                animate: {
-                                  opacity: 1,
-                                  y: 0,
-                                  transition: {
-                                    y: {
-                                      ease: [0.05, 0.1, 0.3, 1.05],
-                                      duration: 0.35,
-                                    },
-                                    opacity: {
-                                      ease: [0.05, 0.1, 0.3, 1.05],
-                                      duration: 0.45,
-                                    },
-                                  },
-                                },
-                              }}
-                              initial="initial"
-                              animate="animate"
-                            >
-                              <form
-                                className={form.form}
-                                onSubmit={handleSubmit(onSubmitUpdate)}
-                              >
-                                <legend className={form.legend}>
-                                  entry: {update.title}
-                                </legend>
-                                <button
-                                  className={form.cancel}
-                                  onClick={() => setOpenUpdate(false)}
-                                >
-                                  <AccessibleIconRoot label="cancel">
-                                    <div
-                                      style={{
-                                        position: "relative",
-                                        top: -8,
-                                      }}
-                                    >
-                                      <CrossSVG />
-                                    </div>
-                                  </AccessibleIconRoot>
-                                </button>
-                                <LabelRoot htmlFor="title" />
-                                <ErrorMessage
-                                  errors={errors}
-                                  name="title"
-                                  render={({ message }) => (
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        color: "#fa7070",
-                                      }}
-                                    >
-                                      {message}
-                                    </div>
-                                  )}
-                                />
-                                <input
-                                  {...register("title", {
-                                    required: true,
-                                    minLength: {
-                                      value: 3,
-                                      message: "atleast 3 characters",
-                                    },
-                                    maxLength: {
-                                      value: 20,
-                                      message: "maximum 20 characters",
-                                    },
-                                    pattern: {
-                                      // https://www.debuggex.com/
-                                      value:
-                                        /^([^\s]*[\w]*(?:\S+\s[^\s]))*[^\s=?!%./\\]*$/,
-                                      message: "remove special characters",
-                                    },
-                                  })}
-                                  className={form.input}
-                                  name="title"
-                                  type="text"
-                                />
+                  <Sort
+                    open={openSort}
+                    onOpenChange={setOpenSort}
+                    sortPlaceholder={sortPlaceholder}
+                    setSortPlaceholder={setSortPlaceholder}
+                    setSortKey={setSortKey}
+                    setSortValue={setSortValue}
+                  />
 
-                                <LabelRoot htmlFor="body" />
-                                <ErrorMessage
-                                  errors={errors}
-                                  name="body"
-                                  render={({ message }) => (
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        color: "#fa7070",
-                                      }}
-                                    >
-                                      {message}
-                                    </div>
-                                  )}
-                                />
-                                <textarea
-                                  {...register("body", {
-                                    required: true,
-                                    minLength: {
-                                      value: 5,
-                                      message: "atleast 5 characters",
-                                    },
-                                    maxLength: {
-                                      value: 2000,
-                                      message: "maxmium 2000 characters",
-                                    },
-                                  })}
-                                  rows={7}
-                                  className={form.textarea}
-                                  name="body"
-                                />
-
-                                <div className={form.checkboxwrapper}>
-                                  <CheckboxRoot
-                                    className={form.checkboxroot}
-                                    onClick={() => {
-                                      setVisibility(!visibility);
-                                    }}
-                                  >
-                                    <CheckboxIndicator>
-                                      <CheckSVG />
-                                    </CheckboxIndicator>
-                                  </CheckboxRoot>
-                                  <AnimatePresence initial={false} mode="wait">
-                                    {visibility ? (
-                                      <MotionDiv
-                                        style={{
-                                          lineHeight: 2,
-                                          paddingRight: 20,
-                                          cursor: "pointer",
-                                        }}
-                                        animate={{
-                                          opacity: 1,
-                                          scale: 1,
-                                        }}
-                                        whileTap={{ scale: 0.85 }}
-                                        onClick={() =>
-                                          setVisibility(!visibility)
-                                        }
-                                      >
-                                        <LabelRoot
-                                          className={form.checkboxlabel}
-                                        >
-                                          public
-                                        </LabelRoot>
-                                      </MotionDiv>
-                                    ) : (
-                                      <MotionDiv
-                                        style={{
-                                          lineHeight: 2,
-                                          paddingRight: 15,
-                                          cursor: "pointer",
-                                        }}
-                                        animate={{
-                                          opacity: 1,
-                                          scale: 1,
-                                        }}
-                                        whileTap={{ scale: 0.85 }}
-                                        onClick={() =>
-                                          setVisibility(!visibility)
-                                        }
-                                      >
-                                        <LabelRoot
-                                          className={form.checkboxlabel}
-                                        >
-                                          private
-                                        </LabelRoot>
-                                      </MotionDiv>
-                                    )}
-                                  </AnimatePresence>
-                                </div>
-                                <button
-                                  onClick={() => handleSubmit(onSubmitUpdate)}
-                                  className={form.submit}
-                                  tabIndex={0}
-                                >
-                                  save & close
-                                  <span style={{ paddingLeft: 4 }}>
-                                    <AccessibleIconRoot label="save">
-                                      <span
-                                        style={{
-                                          position: "relative",
-                                          top: 2,
-                                          paddingRight: 1,
-                                        }}
-                                      >
-                                        <CheckSVG />
-                                      </span>
-                                    </AccessibleIconRoot>
-                                  </span>
-                                </button>
-                              </form>
-                            </MotionDiv>
-                          </DialogContent>
-                        </DialogPortal>
-                      </DialogRoot>
-                    ) : null}
-                  </AnimatePresence>
-                  <div
-                    //! Sort Component
-                    style={{
-                      display: "inline-flex",
-                      paddingTop: 15,
-                      paddingBottom: 10,
-                    }}
-                  >
-                    <AnimatePresence initial={false} mode="wait">
-                      {openSort ? (
-                        <MotionDiv
-                          style={{ display: "inline-flex", gap: 10 }}
-                          variants={{
-                            closed: { opacity: 0, scale: 0.3 },
-                            open: {
-                              opacity: 1,
-                              scale: 1,
-                              transition: {
-                                duration: 0.2,
-                                ease: [0, 0.71, 0.2, 1.01],
-                              },
-                            },
-                          }}
-                          initial="closed"
-                          animate="open"
-                        >
-                          <MotionButton
-                            whileHover={{ scale: 1.15 }}
-                            whileTap={{ scale: 0.85 }}
-                            className={
-                              sortPlaceholder === "descending"
-                                ? `${css.sortoption} ${css.highlight}`
-                                : css.sortoption
-                            }
-                            onClick={() => {
-                              if (sortPlaceholder === "descending") {
-                                setOpenSort(false);
-                                return;
-                              }
-                              setSortKey("_id");
-                              setSortValue("-1");
-                              setSortPlaceholder("descending");
-                              setOpenSort(false);
-                            }}
-                          >
-                            descending
-                          </MotionButton>
-                          <MotionButton
-                            whileHover={{ scale: 1.15 }}
-                            whileTap={{ scale: 0.85 }}
-                            className={
-                              sortPlaceholder === "ascending"
-                                ? `${css.sortoption} ${css.highlight}`
-                                : css.sortoption
-                            }
-                            onClick={() => {
-                              if (sortPlaceholder === "ascending") {
-                                setOpenSort(false);
-                                return;
-                              }
-                              setSortKey("_id");
-                              setSortValue("1");
-                              setSortPlaceholder("ascending");
-                              setOpenSort(false);
-                            }}
-                          >
-                            ascending
-                          </MotionButton>
-                          <MotionButton
-                            whileHover={{ scale: 1.15 }}
-                            whileTap={{ scale: 0.85 }}
-                            className={
-                              sortPlaceholder === "recently updated"
-                                ? `${css.sortoption} ${css.highlight}`
-                                : css.sortoption
-                            }
-                            onClick={() => {
-                              if (sortPlaceholder === "recently updated") {
-                                setOpenSort(false);
-                                return;
-                              }
-                              setSortKey("updatedAt");
-                              setSortValue("-1");
-                              setSortPlaceholder("recently updated");
-                              setOpenSort(false);
-                            }}
-                          >
-                            recently updated
-                          </MotionButton>
-                        </MotionDiv>
-                      ) : (
-                        <MotionButton
-                          whileHover={{ scale: 1.15 }}
-                          whileTap={{ scale: 0.85 }}
-                          className={css.opensort}
-                          onClick={() => setOpenSort(true)}
-                          tabIndex={0}
-                        >
-                          {sortPlaceholder}
-                        </MotionButton>
-                      )}
-                    </AnimatePresence>
-                  </div>
                   {entries.map((entry: EntryType) => (
                     <div key={entry.title} style={{ padding: "1em" }}>
                       <React.Suspense>
                         <ContextMenuRoot>
                           <ContextMenuTrigger>
-                            {!isValidating ? (
+                            {!isValidating && !wait ? (
                               <>
                                 <div
                                   aria-label="drag action icon delete"
@@ -1028,8 +258,6 @@ export default function Page() {
                               onDragEnd={(event: any, info: PanInfo) => {
                                 if (info.offset.x > 200) {
                                   setUpdate(entry);
-                                  setValue("title", entry.title);
-                                  setValue("body", entry.body);
                                   setOpenUpdate(true);
                                 }
                                 if (info.offset.x < -200) {
@@ -1096,8 +324,6 @@ export default function Page() {
                                 className={css.ctxmItem}
                                 onClick={() => {
                                   setUpdate(entry);
-                                  setValue("title", entry.title);
-                                  setValue("body", entry.body);
                                   setOpenUpdate(true);
                                 }}
                               >
