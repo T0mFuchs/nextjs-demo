@@ -36,7 +36,7 @@ export default function Event() {
       </>
     );
   }
-  if (!user.emailVerified) {
+  if (user && user.emailVerified !== true) {
     return (
       <>
         <Head>
@@ -60,6 +60,7 @@ export default function Event() {
           <button
             className={styles.Button}
             onClick={async () => {
+              console.log(user._id);
               await fetch(`/api/${user._id}/nodemailer/new-user`, {
                 body: JSON.stringify({
                   email: user.email,

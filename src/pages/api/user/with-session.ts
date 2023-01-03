@@ -19,8 +19,7 @@ const handler: NextApiHandler = async (
       res.end(JSON.stringify(user));
     } else {
       res.statusCode = 400;
-      res.setHeader("Content-Type", "json");
-      res.end(JSON.stringify({ error: true }));
+      res.end();
     }
   }
 };
