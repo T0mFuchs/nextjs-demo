@@ -30,7 +30,7 @@ Route (pages)                                            Size     First Load JS
 ├ ○ /auth/new-user                                       1.66 kB          62 kB
 ├ ○ /auth/signin                                         2.83 kB        58.6 kB
 ├   └ css/98aa419b5d62cee0.css                           601 B
-├ ○ /entries                                             4.24 kB        64.6 kB
+├ ○ /entries                                             4.21 kB        64.5 kB
 ├   └ css/199165df6d738883.css                           1.21 kB
 └ λ /entry/[title]                                       1.73 kB        62.1 kB
     └ css/7cf2f1d7293cd875.css                           386 B

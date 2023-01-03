@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import useSWRInfinite from "swr/infinite";
 import { EntryType } from "types/Entry";
 import { Observe } from "lib/observer-toggle-visibility";
@@ -14,6 +15,8 @@ import Error from "ui/entry/error";
 import styles from "styles/main.module.scss";
 import search from "./search.module.scss";
 import css from "./index.module.scss";
+
+const Sort = dynamic(() => import("ui/entry/sort"), { suspense: true});
 
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
@@ -64,81 +67,19 @@ export default function Page() {
       <>
         <div
           style={{
-            display: "inline-flex",
-            paddingTop: 15,
-            paddingBottom: 10,
             gap: 10,
           }}
         >
-          {openSort ? (
-            <>
-              <button
-                className={
-                  sortPlaceholder === "descending"
-                    ? `${css.sortoption} ${css.highlight}`
-                    : css.sortoption
-                }
-                onClick={() => {
-                  if (sortPlaceholder === "descending") {
-                    setOpenSort(false);
-                    return;
-                  }
-                  setSortKey("_id");
-                  setSortValue("-1");
-                  setSortPlaceholder("descending");
-                  setOpenSort(false);
-                }}
-              >
-                descending
-              </button>
-              <button
-                className={
-                  sortPlaceholder === "ascending"
-                    ? `${css.sortoption} ${css.highlight}`
-                    : css.sortoption
-                }
-                onClick={() => {
-                  if (sortPlaceholder === "ascending") {
-                    setOpenSort(false);
-                    return;
-                  }
-                  setSortKey("_id");
-                  setSortValue("1");
-                  setSortPlaceholder("ascending");
-                  setOpenSort(false);
-                }}
-              >
-                ascending
-              </button>
-              <button
-                className={
-                  sortPlaceholder === "recently updated"
-                    ? `${css.sortoption} ${css.highlight}`
-                    : css.sortoption
-                }
-                onClick={() => {
-                  if (sortPlaceholder === "recently updated") {
-                    setOpenSort(false);
-                    return;
-                  }
-                  setSortKey("updatedAt");
-                  setSortValue("-1");
-                  setSortPlaceholder("recently updated");
-                  setOpenSort(false);
-                }}
-              >
-                recently updated
-              </button>
-            </>
-          ) : (
-            <button
-              className={css.opensort}
-              onClick={() => setOpenSort(true)}
-              tabIndex={0}
-            >
-              {sortPlaceholder}
-            </button>
-          )}
+          <React.Suspense>
+            <Sort
+              open={openSort}
+              onOpenChange={setOpenSort}
+              sortPlaceholder={sortPlaceholder}
+              setSortPlaceholder={setSortPlaceholder}
+              setSortKey={setSortKey}
+              setSortValue={setSortValue}
+            />
+          </React.Suspense>
         </div>
         <span className={css.span}>
           <Search data={allPublicEntries} />
