@@ -2,7 +2,7 @@
   position: fixed;
   z-index: 9;
   @media (max-width: 600px){
-    bottom: -15%;
+    bottom: 0;
     left:50%;
   }
   @media (min-width: 600px){
@@ -19,4 +19,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.overlay{
+  position: fixed;
+  inset: 0;
+  background-color: #0000009f;
+  animation: overlayShow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -57,3 +57,14 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.md{
+  position: absolute;
+  transform-origin: right;
+  top: -3px;
+  height: 4px;
+  width: 101%;
+  margin: auto;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
+}

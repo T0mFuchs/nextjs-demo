@@ -1,5 +1,5 @@
 import React from "react";
-import { Dialog, DialogPortal, DialogContent } from "@radix-ui/react-dialog";
+import { Dialog, DialogPortal, DialogContent, DialogOverlay } from "@radix-ui/react-dialog";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDeleteOneEntry } from "hooks/entry/deleteOneEntry";
@@ -40,6 +40,7 @@ export default function DeleteEntry({
           onOpenChange={onOpenChange}
         >
           <DialogPortal>
+            <DialogOverlay className={`${dialog.overlay}`} />
             <DialogContent className={`${dialog.dialogButton}`}>
               <motion.button
                 variants={{

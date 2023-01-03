@@ -44,35 +44,6 @@ const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
   suspense: true,
 });
 
-const ContextMenuRoot = dynamic(() => import("ui/radix-ui/context-menu/root"), {
-  suspense: true,
-});
-
-const ContextMenuTrigger = dynamic(
-  () => import("ui/radix-ui/context-menu/trigger"),
-  {
-    suspense: true,
-  }
-);
-
-const ContextMenuPortal = dynamic(
-  () => import("ui/radix-ui/context-menu/portal"),
-  {
-    suspense: true,
-  }
-);
-
-const ContextMenuContent = dynamic(
-  () => import("ui/radix-ui/context-menu/content"),
-  {
-    suspense: true,
-  }
-);
-
-const ContextMenuItem = dynamic(() => import("ui/radix-ui/context-menu/item"), {
-  suspense: true,
-});
-
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
@@ -113,7 +84,7 @@ export default function Page() {
     return (
       <React.Suspense>
         <MotionDiv
-          className={css.ToastBar}
+          className={css.md}
           style={{ position: "fixed", top: "45%" }}
           initial={{ scaleX: 1 }}
           animate={{ scaleX: 0 }}
@@ -122,15 +93,6 @@ export default function Page() {
       </React.Suspense>
     );
   }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [wait, setWait] = React.useState(true);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  React.useEffect(() => {
-    setTimeout(() => {
-      setWait(false);
-    }, 1000);
-  });
 
   return (
     <>
@@ -216,9 +178,7 @@ export default function Page() {
                   {entries.map((entry: EntryType) => (
                     <div key={entry.title} style={{ padding: "1em" }}>
                       <React.Suspense>
-                        <ContextMenuRoot>
-                          <ContextMenuTrigger>
-                            {!isValidating && !wait ? (
+                            {!isValidating ? (
                               <>
                                 <div
                                   aria-label="drag action icon delete"
@@ -317,54 +277,6 @@ export default function Page() {
                                   : dateFromObjectId(entry._id).getSeconds()}
                               </div>
                             </MotionDiv>
-                          </ContextMenuTrigger>
-                          <ContextMenuPortal>
-                            <ContextMenuContent className={css.ctxmContent}>
-                              <ContextMenuItem
-                                className={css.ctxmItem}
-                                onClick={() => {
-                                  setUpdate(entry);
-                                  setOpenUpdate(true);
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    paddingRight: 10,
-                                    position: "relative",
-                                    top: 2,
-                                    left: 2,
-                                  }}
-                                >
-                                  <UpdateSVG />
-                                </div>
-                                edit entry
-                              </ContextMenuItem>
-                              <Separator
-                                orientation="horizontal"
-                                style={{ margin: "5px 0" }}
-                              />
-                              <ContextMenuItem
-                                className={css.ctxmItem}
-                                onClick={() => {
-                                  setUpdate(entry);
-                                  setOpenDelete(true);
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    paddingRight: 10,
-                                    position: "relative",
-                                    top: -0.5,
-                                    left: -1,
-                                  }}
-                                >
-                                  <CrossSVG />
-                                </div>
-                                delete entry
-                              </ContextMenuItem>
-                            </ContextMenuContent>
-                          </ContextMenuPortal>
-                        </ContextMenuRoot>
                       </React.Suspense>
                     </div>
                   ))}

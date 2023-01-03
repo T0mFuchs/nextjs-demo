@@ -3,6 +3,7 @@ import {
   AlertDialog,
   AlertDialogPortal,
   AlertDialogContent,
+  AlertDialogOverlay,
 } from "@radix-ui/react-alert-dialog";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 import { Checkbox, CheckboxIndicator } from "@radix-ui/react-checkbox";
@@ -75,6 +76,7 @@ export default function CreateEntry({
           onOpenChange={onOpenChange}
         >
           <AlertDialogPortal>
+            <AlertDialogOverlay className={`${dialog.overlay}`} />
             <AlertDialogContent className={`${dialog.dialogCard}`}>
               <motion.div
                 className={`${styles.Card} `}
@@ -183,8 +185,8 @@ export default function CreateEntry({
                         message: "maxmium 2000 characters",
                       },
                     })}
-                    minRows={6}
-                    maxRows={12}
+                    minRows={10}
+                    maxRows={20}
                     className={form.textarea}
                     name="body"
                     placeholder="body"

@@ -1,5 +1,5 @@
 import React from "react";
-import { Dialog, DialogPortal, DialogContent } from "@radix-ui/react-dialog";
+import { Dialog, DialogPortal, DialogContent, DialogOverlay } from "@radix-ui/react-dialog";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 import { Checkbox, CheckboxIndicator } from "@radix-ui/react-checkbox";
 import { motion, AnimatePresence } from "framer-motion";
@@ -84,6 +84,7 @@ export default function UpdateEntry({
             onOpenChange={onOpenChange}
           >
             <DialogPortal>
+              <DialogOverlay className={`${dialog.overlay}`} />
               <DialogContent className={`${dialog.dialogCard}`}>
                 <motion.div
                   className={`${styles.Card}`}
@@ -194,8 +195,8 @@ export default function UpdateEntry({
                           message: "maxmium 2000 characters",
                         },
                       })}
-                      minRows={6}
-                      maxRows={12}
+                      minRows={10}
+                      maxRows={20}
                       className={form.textarea}
                       name="body"
                     />
