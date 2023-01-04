@@ -34,7 +34,7 @@ const handler: NextApiHandler = async (
       } else {
         return res.status(400).end();
       }
-    } else res.status(401).json({ message: "unauthorized" });
+    } else res.status(400).end("no session");
   }
 };
 

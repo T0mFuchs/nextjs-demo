@@ -73,7 +73,7 @@ export default function Page({
   };
 
   if (isLoading) return <></>;
-  if (user && user._id !== userId || isError) return <>not authorized</>; // todo : add not authorized page
+  if ((user && user._id !== userId) || isError) return <>not authorized</>; // todo : add not authorized page
   return (
     <>
       <Head>

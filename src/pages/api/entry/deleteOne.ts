@@ -19,7 +19,7 @@ const handler: NextApiHandler = async (
       await Entry.findOneAndDelete({ _id: _id, author: author });
       res.statusCode = 200;
       res.end();
-    } else res.status(401).json({ message: "unauthorized" });
+    } else res.status(400).end("no session");
   }
 };
 

@@ -18,7 +18,7 @@ export default function Event() {
 
   if (isLoading) return <></>;
 
-  if (user && user.emailVerified || isError) {
+  if ((user && user.emailVerified) || isError) {
     setTimeout(() => {
       push("/");
     }, 1000);

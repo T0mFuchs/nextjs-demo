@@ -85,8 +85,8 @@ export default function Page() {
         </div>
         {allPublicEntries ? (
           <React.Suspense>
-          <Search data={allPublicEntries} />
-        </React.Suspense>
+            <Search data={allPublicEntries} />
+          </React.Suspense>
         ) : null}
 
         <div className={css.entries}>

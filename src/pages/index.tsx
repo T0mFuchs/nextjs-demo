@@ -76,7 +76,7 @@ export default function Page() {
 
   const { push } = useRouter();
 
-  const { data: user, isLoading } = useGetUser();
+  const { data: user, isLoading, isError } = useGetUser();
   const {
     data: entries,
     mutate,

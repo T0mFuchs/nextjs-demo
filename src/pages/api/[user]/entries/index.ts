@@ -18,7 +18,7 @@ const handler: NextApiHandler = async (req, res: NextApiResponse) => {
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(entries));
-    } else res.status(401).json({ message: "unauthorized" });
+    } else res.status(400).end("no session");
   }
 };
 
