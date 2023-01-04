@@ -83,9 +83,11 @@ export default function Page() {
             />
           </React.Suspense>
         </div>
+        {allPublicEntries ? (
           <React.Suspense>
-            <Search data={allPublicEntries} />
-          </React.Suspense>
+          <Search data={allPublicEntries} />
+        </React.Suspense>
+        ) : null}
 
         <div className={css.entries}>
           {entries ? (
@@ -94,7 +96,6 @@ export default function Page() {
                 {/* `hidden` for lib/observer-toggle-visibility */}
                 <div className={`${styles.Card} hidden`}>
                   <div
-                    
                     className={styles.H2}
                     style={{ fontSize: "2em", position: "relative", bottom: 7 }}
                   >

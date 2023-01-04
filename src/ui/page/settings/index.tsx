@@ -35,42 +35,41 @@ export default function Settings({
       </PopoverTrigger>
       <PopoverPortal>
         <PopoverContent className={css.PopoverContent}>
-              <motion.div
-                variants={{
-                  initial: {
-                    y: -25,
-                    opacity: 0,
+          <motion.div
+            variants={{
+              initial: {
+                y: -25,
+                opacity: 0,
+              },
+              animate: {
+                y: 0,
+                opacity: 1,
+                transition: {
+                  y: {
+                    duration: 0.25,
                   },
-                  animate: {
-                    y: 0,
-                    opacity: 1,
-                    transition: {
-                      y: {
-                        duration: 0.25,
-                      },
-                      opacity: {
-                        duration: 0.25,
-                      },
-                    },
+                  opacity: {
+                    duration: 0.25,
                   },
-                  
-                }}
-                key="modal"
-                initial="initial"
-                animate="animate"
-                exit="exit"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.85 }}
-                  onClick={() => signOut()}
-                  className={css.PopoverSignOut}
-                  autoFocus
-                >
-                  {" "}
-                  sign out
-                </motion.button>
-              </motion.div>
+                },
+              },
+            }}
+            key="modal"
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <motion.button
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.85 }}
+              onClick={() => signOut()}
+              className={css.PopoverSignOut}
+              autoFocus
+            >
+              {" "}
+              sign out
+            </motion.button>
+          </motion.div>
         </PopoverContent>
       </PopoverPortal>
     </Popover>

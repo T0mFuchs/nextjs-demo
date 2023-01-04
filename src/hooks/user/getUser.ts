@@ -1,6 +1,8 @@
 import useSWR from "swr";
+import type { Fetcher } from "swr";
+import type { UserType } from "types/User";
 
-const fetcher = (url: string) =>
+const fetcher: Fetcher<UserType, string> = (url: string) =>
   fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
 
 export function useGetUser() {

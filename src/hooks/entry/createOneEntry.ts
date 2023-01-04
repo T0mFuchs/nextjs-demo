@@ -1,13 +1,6 @@
-import { ObjectId } from "mongodb";
+import type { EntryType } from "types/Entry";
 
-type Entry = {
-  title: string;
-  body: string;
-  visibility: boolean;
-  author: ObjectId;
-};
-
-export async function useCreateOneEntry(entry: Entry) {
+export async function useCreateOneEntry(entry: EntryType) {
   await fetch(`/api/entry/createOne`, {
     body: JSON.stringify(entry),
     headers: {

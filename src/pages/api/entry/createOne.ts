@@ -3,6 +3,7 @@ import { authOptions } from "pages/api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
 import mongooseConnect from "lib/mongoose-connect";
 import Entry from "models/entry";
+import type { EntryType } from "types/Entry";
 import { ObjectId } from "mongodb";
 
 const handler: NextApiHandler = async (
@@ -20,7 +21,7 @@ const handler: NextApiHandler = async (
       // if pattern matches
       if (regex.test(title)) {
         await mongooseConnect();
-        const entry = new Entry({
+        const entry: EntryType = new Entry({
           title: title,
           body: body,
           visibility: visibility,
@@ -34,7 +35,7 @@ const handler: NextApiHandler = async (
       } else {
         return res.status(400).end();
       }
-    }
+    } else res.status(401).json({ message: "unauthorized" });
   }
 };
 

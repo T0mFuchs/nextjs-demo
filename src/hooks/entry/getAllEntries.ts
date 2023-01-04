@@ -1,6 +1,8 @@
 import useSWR from "swr";
+import type { Fetcher } from "swr";
+import type { EntryType } from "types/Entry";
 
-const fetcher = (url: string) =>
+const fetcher: Fetcher<EntryType[], string> = (url: string) =>
   fetch(url, { cache: "no-store", method: "POST" }).then((res) => res.json());
 
 export function useGetAllEntries(route: string) {

@@ -2,11 +2,11 @@
 
 ```
 Route (pages)                                            Size     First Load JS
-┌ ○ /                                                    2.32 kB        62.8 kB
+┌ ○ /                                                    2.27 kB        62.7 kB
 ├   /_app                                                0 B            55.9 kB
 ├ λ /[user]/entry/[title]                                1.7 kB         62.1 kB
 ├   └ css/e343da1735bbc06f.css                           413 B
-├ ○ /[user]/verify-email                                 1.59 kB          62 kB
+├ ○ /[user]/verify-email                                 1.6 kB           62 kB
 ├ ○ /404                                                 859 B          56.7 kB
 ├ ○ /500                                                 859 B          56.7 kB
 ├ ○ /about                                               4.67 kB        60.6 kB
@@ -38,6 +38,6 @@ Route (pages)                                            Size     First Load JS
   ├ chunks/webpack-594205ab0e14e2b0.js                   2.62 kB
   └ css/d8e576cb4b83ef1c.css                             1.35 kB
 
-λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps) 
+λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
 ○  (Static)  automatically rendered as static HTML (uses no initial props)
 ```

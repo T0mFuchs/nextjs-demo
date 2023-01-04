@@ -17,10 +17,7 @@ const handler: NextApiHandler = async (
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(user));
-    } else {
-      res.statusCode = 400;
-      res.end();
-    }
+    } else res.status(401).json({ message: "unauthorized" });
   }
 };
 

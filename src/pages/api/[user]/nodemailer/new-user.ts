@@ -46,7 +46,7 @@ const handler: NextApiHandler = async (
       } catch (e) {
         console.error(e);
       }
-    }
+    } else res.status(401).json({ message: "unauthorized" });
   }
 };
 

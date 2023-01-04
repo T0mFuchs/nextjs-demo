@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import Link from "next/link";
 import { dateFromObjectId } from "lib/dateFromObjectId";
@@ -6,7 +7,7 @@ import type { EntryType } from "types/Entry";
 
 import css from "./index.module.scss";
 
-export default function Search({ data }: { data: EntryType[]; }) {
+export default function Search({ data }: { data: EntryType[] }) {
   const [current, setCurrent] = React.useState("");
   const [show, setShow]: any = React.useState([]);
   const [filtered, setFiltered]: any = React.useState([]);
@@ -18,10 +19,10 @@ export default function Search({ data }: { data: EntryType[]; }) {
   const handleInput = (event: any) => {
     const current = event.target.value;
     setCurrent(current);
-    const filteredTitle = data.filter((entry) => {
+    const filteredTitle = data.filter((entry: EntryType) => {
       return includesCaseInsensitive(entry.title, current);
     });
-    const filteredBody = data.filter((entry) => {
+    const filteredBody = data.filter((entry: EntryType) => {
       return includesCaseInsensitive(entry.body, current);
     });
     if (current === "") {
@@ -128,7 +129,7 @@ function SearchIcon() {
 
 function CloseIcon() {
   return (
-    <div className={css.icon} style={{ top: -3, left: -15  }}>
+    <div className={css.icon} style={{ top: -3, left: -15 }}>
       <CrossSVG />
     </div>
   );

@@ -4,6 +4,7 @@ import { unstable_getServerSession } from "next-auth/next";
 import mongooseConnect from "lib/mongoose-connect";
 import Entry from "models/entry";
 import { ObjectId } from "mongodb";
+import type { EntryType } from "types/Entry";
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
@@ -20,22 +21,20 @@ const handler: NextApiHandler = async (
       // if pattern matches
       if (regex.test(title)) {
         await mongooseConnect();
-        await Entry.findOneAndUpdate(
-          { _id: _id, author: author },
-          {
-            title: title,
-            body: body,
-            visibility: visibility,
-            author: author,
-            updatedAt: new ObjectId(),
-          }
-        );
+        const entry: EntryType = {
+          title: title,
+          body: body,
+          visibility: visibility,
+          author: author,
+          updatedAt: new ObjectId(),
+        };
+        await Entry.findOneAndUpdate({ _id: _id, author: author }, entry);
         res.statusCode = 200;
         res.end();
       } else {
         return res.status(400).end();
       }
-    }
+    } else res.status(401).json({ message: "unauthorized" });
   }
 };
 

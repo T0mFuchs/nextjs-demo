@@ -1,14 +1,6 @@
-import { ObjectId } from "mongodb";
+import type { EntryType } from "types/Entry";
 
-type Entry = {
-  _id: ObjectId;
-  title: string;
-  body: string;
-  visibility: boolean;
-  author: ObjectId;
-};
-
-export async function useUpdateOneEntry(entry: Entry) {
+export async function useUpdateOneEntry(entry: EntryType) {
   await fetch("/api/entry/updateOne", {
     body: JSON.stringify(entry),
     headers: {

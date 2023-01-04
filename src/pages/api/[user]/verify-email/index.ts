@@ -19,7 +19,7 @@ const handler: NextApiHandler = async (
       await User.findOneAndUpdate({ _id: user }, { emailVerified: true });
       res.statusCode = 200;
       res.end();
-    }
+    } else res.status(401).json({ message: "unauthorized" });
   }
 };
 

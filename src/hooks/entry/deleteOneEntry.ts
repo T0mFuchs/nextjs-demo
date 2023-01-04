@@ -1,11 +1,6 @@
-import { ObjectId } from "mongodb";
+import { EntryType } from "types/Entry";
 
-type Entry = {
-  _id: ObjectId;
-  author: ObjectId;
-};
-
-export async function useDeleteOneEntry(entry: Entry) {
+export async function useDeleteOneEntry(entry: EntryType) {
   await fetch("/api/entry/deleteOne", {
     body: JSON.stringify(entry),
     headers: {

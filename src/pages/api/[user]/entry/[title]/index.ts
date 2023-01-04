@@ -11,14 +11,14 @@ const handler: NextApiHandler = async (req, res: NextApiResponse) => {
       const user: string = req.query.user as string; //* ._id of user
       const title = req.query.title;
       await mongooseConnect();
-      const entries = await Entry.findOne({
+      const entry = await Entry.findOne({
         title: title,
         author: user,
       });
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify(entries));
-    }
+      res.end(JSON.stringify(entry));
+    } else res.status(401).json({ message: "unauthorized" });
   }
 };
 

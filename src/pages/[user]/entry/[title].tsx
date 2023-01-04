@@ -59,7 +59,7 @@ export default function Page({
     fetcher
   );
   const { data: compareAllEntries } = useSWR(
-    update && openUpdate ? `/api/${user._id}/entries` : null,
+    user && update && openUpdate ? `/api/${user._id}/entries` : null,
     fetcher
   );
 
@@ -73,7 +73,7 @@ export default function Page({
   };
 
   if (isLoading) return <></>;
-  if (user._id !== userId || isError) return <>not authorized</>; // todo : add not authorized page
+  if (user && user._id !== userId || isError) return <>not authorized</>; // todo : add not authorized page
   return (
     <>
       <Head>

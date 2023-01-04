@@ -4,10 +4,14 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
+
 import { useRouter } from "next/router";
 import { useGetUser } from "hooks/user/getUser";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import Fallback from "ui/entry/fallback";
+
+import type { Fetcher } from "swr";
+import type { EntryType } from "types/Entry";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
@@ -33,7 +37,10 @@ export const getServerSideProps: GetServerSideProps = async (
 
 // todo :: fix page initial loading fallback background is off
 
-const fetcher = async (url: string) =>
+const fetchEntry: Fetcher<EntryType, string> = async (url: string) =>
+  await fetch(url, { method: "POST" }).then((res) => res.json());
+
+const fetchEntries: Fetcher<EntryType[], string> = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page({ title }: { title: string }) {
@@ -46,10 +53,14 @@ export default function Page({ title }: { title: string }) {
 
   const { push } = useRouter();
 
-  const { data: entry, mutate, error } = useSWR(`/api/entry/${title}`, fetcher);
+  const {
+    data: entry,
+    mutate,
+    error,
+  } = useSWR(`/api/entry/${title}`, fetchEntry);
   const { data: compareAllEntries } = useSWR(
     update ? "/api/entries" : null,
-    fetcher
+    fetchEntries
   );
   const { data: user, isLoading } = useGetUser();
 
@@ -124,26 +135,28 @@ export default function Page({ title }: { title: string }) {
               >
                 update
               </button>
-              <React.Suspense>
-                <UpdateEntry
-                  open={openUpdate}
-                  onOpenChange={setOpenUpdate}
-                  visibility={visibility}
-                  setVisibility={setVisibility}
-                  userId={user._id}
-                  entry={update}
-                  allEntries={compareAllEntries}
-                  callback={refresh}
-                />
+              {compareAllEntries ? (
+                <React.Suspense>
+                  <UpdateEntry
+                    open={openUpdate}
+                    onOpenChange={setOpenUpdate}
+                    visibility={visibility}
+                    setVisibility={setVisibility}
+                    userId={user._id}
+                    entry={update}
+                    allEntries={compareAllEntries}
+                    callback={refresh}
+                  />
 
-                <DeleteEntry
-                  open={openDelete}
-                  onOpenChange={setOpenDelete}
-                  userId={user._id}
-                  entry={update}
-                  callback={refresh}
-                />
-              </React.Suspense>
+                  <DeleteEntry
+                    open={openDelete}
+                    onOpenChange={setOpenDelete}
+                    userId={user._id}
+                    entry={update}
+                    callback={refresh}
+                  />
+                </React.Suspense>
+              ) : null}
             </span>
           </>
         ) : null}

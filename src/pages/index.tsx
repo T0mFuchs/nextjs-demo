@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import useSWR from "swr";
+import useSWR, { Fetcher } from "swr";
 import { useRouter } from "next/router";
 import { useGetUser } from "hooks/user/getUser";
 import { dateFromObjectId } from "lib/dateFromObjectId";
@@ -50,10 +50,12 @@ const DeleteEntry = dynamic(() => import("ui/entry/delete"), {
   suspense: true,
 });
 
-const Search = dynamic(() => import("ui/entry/search"), {suspense: true});
-const SearchFallback = dynamic(() => import("ui/entry/search/fallback"), {suspense: true});
+const Search = dynamic(() => import("ui/entry/search"), { suspense: true });
+const SearchFallback = dynamic(() => import("ui/entry/search/fallback"), {
+  suspense: true,
+});
 
-const fetcher = async (url: string) =>
+const fetcher: Fetcher<EntryType[], string> = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page() {
@@ -83,9 +85,6 @@ export default function Page() {
     user ? `/api/${user._id}/entries/${sortKey}/${sortValue}` : null,
     fetcher
   );
-
-  const refresh = () =>
-    mutate({ ...entries }, { revalidate: true, optimisticData: true });
 
   if (isLoading) return <></>;
   if (user && !user.emailVerified) {
@@ -151,7 +150,7 @@ export default function Page() {
                     setVisibility={setVisibility}
                     userId={user._id}
                     allEntries={entries}
-                    callback={refresh}
+                    callback={mutate}
                   />
 
                   <DeleteEntry
@@ -159,7 +158,7 @@ export default function Page() {
                     onOpenChange={setOpenDelete}
                     entry={update}
                     userId={user._id}
-                    callback={refresh}
+                    callback={mutate}
                   />
 
                   <UpdateEntry
@@ -170,19 +169,20 @@ export default function Page() {
                     userId={user._id}
                     entry={update}
                     allEntries={entries}
-                    callback={refresh}
+                    callback={mutate}
                   />
 
                   <span>
-                  <Sort
-                    open={openSort}
-                    onOpenChange={setOpenSort}
-                    sortPlaceholder={sortPlaceholder}
-                    setSortPlaceholder={setSortPlaceholder}
-                    setSortKey={setSortKey}
-                    setSortValue={setSortValue}
-                  />
-                  <Search data={entries}/>
+                    <Sort
+                      open={openSort}
+                      onOpenChange={setOpenSort}
+                      sortPlaceholder={sortPlaceholder}
+                      setSortPlaceholder={setSortPlaceholder}
+                      setSortKey={setSortKey}
+                      setSortValue={setSortValue}
+                    />
+
+                    <Search data={entries} />
                   </span>
 
                   {entries.map((entry: EntryType) => (
@@ -293,7 +293,7 @@ export default function Page() {
                       descending
                     </button>
                   </div>
-                  <SearchFallback/>
+                  <SearchFallback />
                   <Fallback />
                   <Fallback />
                   <Fallback />
