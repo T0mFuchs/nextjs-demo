@@ -21,6 +21,7 @@ import { CheckSVG, CrossSVG } from "ui";
 import form from "ui/entry/form.module.scss";
 import dialog from "ui/entry/dialog.module.scss";
 import styles from "styles/main.module.scss";
+import css from "./index.module.scss";
 
 export default function CreateEntry({
   open,
@@ -111,12 +112,7 @@ export default function CreateEntry({
                     onClick={() => onOpenChange(false)}
                   >
                     <AccessibleIcon label="cancel">
-                      <div
-                        style={{
-                          position: "relative",
-                          top: -8,
-                        }}
-                      >
+                      <div className={css.cancelicon}>
                         <CrossSVG />
                       </div>
                     </AccessibleIcon>
@@ -126,14 +122,7 @@ export default function CreateEntry({
                     errors={errors}
                     name="title"
                     render={({ message }) => (
-                      <div
-                        style={{
-                          display: "flex",
-                          color: "#fa7070",
-                        }}
-                      >
-                        {message}
-                      </div>
+                      <div className={css.errormsg}>{message}</div>
                     )}
                   />
                   <input
@@ -163,14 +152,7 @@ export default function CreateEntry({
                     errors={errors}
                     name="body"
                     render={({ message }) => (
-                      <div
-                        style={{
-                          display: "flex",
-                          color: "#fa7070",
-                        }}
-                      >
-                        {message}
-                      </div>
+                      <div className={css.errormsg}>{message}</div>
                     )}
                   />
                   <TextareaAutosize
@@ -205,10 +187,7 @@ export default function CreateEntry({
                     <AnimatePresence initial={false} mode="wait">
                       {visibility ? (
                         <motion.div
-                          style={{
-                            lineHeight: 2,
-                            paddingRight: 20,
-                          }}
+                          className={css.public}
                           animate={{
                             opacity: 1,
                             scale: 1,
@@ -220,10 +199,7 @@ export default function CreateEntry({
                         </motion.div>
                       ) : (
                         <motion.div
-                          style={{
-                            lineHeight: 2,
-                            paddingRight: 15,
-                          }}
+                          className={css.private}
                           animate={{
                             opacity: 1,
                             scale: 1,
@@ -244,13 +220,7 @@ export default function CreateEntry({
                     save & close
                     <span style={{ paddingLeft: 4 }}>
                       <AccessibleIcon label="save">
-                        <span
-                          style={{
-                            position: "relative",
-                            top: 2,
-                            paddingRight: 1,
-                          }}
-                        >
+                        <span className={css.submiticon}>
                           <CheckSVG />
                         </span>
                       </AccessibleIcon>

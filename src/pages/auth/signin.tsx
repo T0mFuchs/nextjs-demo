@@ -1,134 +1,130 @@
 import React from "react";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 import styles from "styles/main.module.scss";
 import css from "../index.module.scss";
 
-const AlertRoot = dynamic(() => import("ui/radix-ui/alert-dialog/root"), {
+const AlertDialog = dynamic(() => import("ui/radix-ui/alert-dialog/root"), {
   suspense: true,
 });
-
-const AlertPortal = dynamic(() => import("ui/radix-ui/alert-dialog/portal"), {
+const AlertDialogPortal = dynamic(
+  () => import("ui/radix-ui/alert-dialog/portal"),
+  { suspense: true }
+);
+const AlertDialogContent = dynamic(
+  () => import("ui/radix-ui/alert-dialog/content"),
+  { suspense: true }
+);
+const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
   suspense: true,
 });
-
-const AlertContent = dynamic(() => import("ui/radix-ui/alert-dialog/content"), {
-  suspense: true,
-});
-
 const MotionButton = dynamic(() => import("ui/framer-motion/button"), {
   suspense: true,
 });
 
-const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
-  suspense: true,
-});
+//! this page triggers hydration error ((the dialog component))
 
 export default function SignIn() {
-  const [openCookieAlert, setOpenCookieAlert] = React.useState(false);
+  const [openCookieAlert, setOpenCookieAlert] = React.useState(true);
   const [acceptCookies, setAcceptCookies] = React.useState(false);
   const { data: session } = useSession();
   const { push } = useRouter();
+
+  function handleSignIn(provider: string) {
+    if (!acceptCookies) {
+      setOpenCookieAlert(true);
+    } else {
+      signIn(provider);
+    }
+  }
 
   if (session) {
     setTimeout(() => {
       push("/");
     }, 1500);
     return (
-      <>
+      <React.Suspense>
         <Head>
           <title>redirecting...</title>
         </Head>
-        <React.Suspense>
-          <MotionDiv
-            className={css.ToastBar}
-            style={{ position: "fixed", top: "45%" }}
-            initial={{ scaleX: 1 }}
-            animate={{ scaleX: 0 }}
-            transition={{ duration: 1.5 }}
-          />
-        </React.Suspense>
-      </>
+        <MotionDiv
+          className={css.md}
+          style={{ position: "fixed", top: "45%" }}
+          initial={{ scaleX: 1 }}
+          animate={{ scaleX: 0 }}
+          transition={{ duration: 1.5 }}
+        />
+      </React.Suspense>
     );
   }
-  return (
-    <>
-      <Head>
-        <title>3rd party signin</title>
-      </Head>
-      {openCookieAlert ? (
-        <React.Suspense>
-          <AlertRoot open={openCookieAlert} onOpenChange={setOpenCookieAlert}>
-            <AlertPortal>
-              <AlertContent style={{ width: 285, margin: "auto" }}>
-                <div
-                  className={styles.Button}
-                  style={{ padding: "0 15px", lineHeight: 2.5 }}
-                >
-                  <div style={{ position: "relative", top: -4 }}>
-                    <span
-                      style={{
-                        position: "relative",
-                        top: ".7em",
-                        right: ".25em",
-                      }}
-                    >
-                      <CookieSVG />
-                    </span>
-                    <MotionButton
-                      style={{ all: "unset" }}
-                      whileTap={{ scale: 0.85 }}
-                      whileHover={{ scale: 1.05 }}
-                      onClick={() => {
-                        setAcceptCookies(true);
-                        setOpenCookieAlert(false);
-                      }}
-                      autoFocus
-                    >
-                      accept cookies to continue
-                    </MotionButton>
-                  </div>
+  if (!session) {
+    return (
+      <React.Suspense>
+        <Head>
+          <title>3rd party signin</title>
+        </Head>
+        <h2 style={{ paddingTop: "6em" }}>
+          <div>
+            <MotionButton
+              whileTap={{ scale: 0.85 }}
+              whileHover={{ scale: 1.05 }}
+              onClick={() => handleSignIn("github")}
+              className={styles.Button}
+            >
+              <GithubSVG /> sign in with Github
+            </MotionButton>
+          </div>
+          <div style={{ paddingTop: 20 }}>
+            <MotionButton
+              whileTap={{ scale: 0.85 }}
+              whileHover={{ scale: 1.05 }}
+              onClick={() => handleSignIn("google")}
+              className={styles.Button}
+            >
+              <GoogleSVG /> sign in with Google
+            </MotionButton>
+          </div>
+        </h2>
+        <AlertDialog open={openCookieAlert} onOpenChange={setOpenCookieAlert}>
+          <AlertDialogPortal>
+            <AlertDialogContent style={{ width: 285, margin: "auto" }}>
+              <div
+                className={styles.Button}
+                style={{ padding: "0 15px", lineHeight: 2.5 }}
+              >
+                <div style={{ position: "relative", top: -4 }}>
+                  <span
+                    style={{
+                      position: "relative",
+                      top: ".7em",
+                      right: ".25em",
+                    }}
+                  >
+                    <CookieSVG />
+                  </span>
+                  <MotionButton
+                    style={{ all: "unset" }}
+                    whileTap={{ scale: 0.85 }}
+                    whileHover={{ scale: 1.05 }}
+                    onClick={() => {
+                      setAcceptCookies(true);
+                      setOpenCookieAlert(false);
+                    }}
+                    autoFocus
+                  >
+                    accept cookies to continue
+                  </MotionButton>
                 </div>
-              </AlertContent>
-            </AlertPortal>
-          </AlertRoot>
-        </React.Suspense>
-      ) : null}
-      <h2 style={{ paddingTop: "6em" }}>
-        <div style={{ paddingTop: "1em" }}>
-          <button
-            onClick={() => {
-              if (!acceptCookies) {
-                setOpenCookieAlert(true);
-              } else {
-                signIn("github");
-              }
-            }}
-            className={styles.Button}
-          >
-            <GithubSVG /> sign in with Github
-          </button>
-        </div>
-        <div style={{ paddingTop: "1em" }}>
-          <button
-            onClick={() => {
-              if (!acceptCookies) {
-                setOpenCookieAlert(true);
-              } else {
-                signIn("google");
-              }
-            }}
-            className={styles.Button}
-          >
-            <GoogleSVG /> sign in with Google
-          </button>
-        </div>
-      </h2>
-    </>
-  );
+              </div>
+            </AlertDialogContent>
+          </AlertDialogPortal>
+        </AlertDialog>
+      </React.Suspense>
+    );
+  }
 }
 
 function GoogleSVG() {

@@ -6,7 +6,7 @@ import {
   PopoverContent,
 } from "@radix-ui/react-popover";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { signOut } from "next-auth/react";
 
 import css from "./index.module.scss";
@@ -35,8 +35,6 @@ export default function Settings({
       </PopoverTrigger>
       <PopoverPortal>
         <PopoverContent className={css.PopoverContent}>
-          <AnimatePresence>
-            {open ? (
               <motion.div
                 variants={{
                   initial: {
@@ -55,9 +53,12 @@ export default function Settings({
                       },
                     },
                   },
+                  
                 }}
+                key="modal"
                 initial="initial"
                 animate="animate"
+                exit="exit"
               >
                 <motion.button
                   whileHover={{ scale: 1.15 }}
@@ -70,8 +71,6 @@ export default function Settings({
                   sign out
                 </motion.button>
               </motion.div>
-            ) : null}
-          </AnimatePresence>
         </PopoverContent>
       </PopoverPortal>
     </Popover>

@@ -1,13 +1,18 @@
 import React from "react";
-import { Dialog, DialogPortal, DialogContent, DialogOverlay } from "@radix-ui/react-dialog";
+import {
+  Dialog,
+  DialogPortal,
+  DialogContent,
+  DialogOverlay,
+} from "@radix-ui/react-dialog";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDeleteOneEntry } from "hooks/entry/deleteOneEntry";
 import { CheckSVG, CrossSVG } from "ui";
+import type { EntryType } from "types/Entry";
 
 import dialog from "ui/entry/dialog.module.scss";
 import styles from "styles/main.module.scss";
-import { EntryType } from "types/Entry";
 
 export default function DeleteEntry({
   open,

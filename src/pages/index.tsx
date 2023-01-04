@@ -7,8 +7,6 @@ import { useRouter } from "next/router";
 import { useGetUser } from "hooks/user/getUser";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CheckSVG, CreateSVG, CrossSVG, UpdateSVG } from "ui";
-import Separator from "ui/radix-ui/separator";
-import Fallback from "ui/entry/fallback";
 
 import type { EntryType } from "types/Entry";
 import type { PanInfo } from "framer-motion";
@@ -17,6 +15,26 @@ import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
 
 const Flicker = dynamic(() => import("ui/animated/flicker"), {
+  suspense: true,
+});
+
+const Separator = dynamic(() => import("ui/radix-ui/separator"), {
+  suspense: true,
+});
+
+const Fallback = dynamic(() => import("ui/entry/fallback"), {
+  suspense: true,
+});
+
+const Settings = dynamic(() => import("ui/page/settings"), {
+  suspense: true,
+});
+
+const Sort = dynamic(() => import("ui/entry/sort"), {
+  suspense: true,
+});
+
+const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
   suspense: true,
 });
 
@@ -32,17 +50,8 @@ const DeleteEntry = dynamic(() => import("ui/entry/delete"), {
   suspense: true,
 });
 
-const Settings = dynamic(() => import("ui/page/settings"), {
-  suspense: true,
-});
-
-const Sort = dynamic(() => import("ui/entry/sort"), {
-  suspense: true,
-});
-
-const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
-  suspense: true,
-});
+const Search = dynamic(() => import("ui/entry/search"), {suspense: true});
+const SearchFallback = dynamic(() => import("ui/entry/search/fallback"), {suspense: true});
 
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
@@ -61,7 +70,7 @@ export default function Page() {
   const [openDelete, setOpenDelete] = React.useState(false);
   const [openUpdate, setOpenUpdate] = React.useState(false);
 
-  const [openAvatarPopover, setOpenAvatarPopover] = React.useState(false);
+  const [openSettings, setOpenSettings] = React.useState(false);
 
   const { push } = useRouter();
 
@@ -105,17 +114,15 @@ export default function Page() {
       </Head>
       <>
         {user ? (
-          <>
+          <React.Suspense>
             <div className={css.wrapper}>
               <div style={{ paddingTop: "1em" }}>Hello, {user.name}</div>
               <div className={css.topright}>
-                <React.Suspense>
-                  <Settings
-                    open={openAvatarPopover}
-                    onOpenChange={setOpenAvatarPopover}
-                    user={user}
-                  />
-                </React.Suspense>
+                <Settings
+                  open={openSettings}
+                  onOpenChange={setOpenSettings}
+                  user={user}
+                />
               </div>
               <Separator orientation="horizontal" />
               <button
@@ -166,6 +173,7 @@ export default function Page() {
                     callback={refresh}
                   />
 
+                  <span>
                   <Sort
                     open={openSort}
                     onOpenChange={setOpenSort}
@@ -174,131 +182,129 @@ export default function Page() {
                     setSortKey={setSortKey}
                     setSortValue={setSortValue}
                   />
+                  <Search data={entries}/>
+                  </span>
 
                   {entries.map((entry: EntryType) => (
                     <div key={entry.title} style={{ padding: "1em" }}>
                       <React.Suspense>
-                            {!isValidating ? (
-                              <>
-                                <div
-                                  aria-label="drag action icon delete"
-                                  style={{
-                                    position: "absolute",
-                                    fontSize: "4em",
-                                    paddingTop: 14,
-                                    paddingLeft: 200,
-                                    zIndex: -1,
-                                  }}
-                                >
-                                  <CrossSVG />
-                                </div>
-                                <div
-                                  aria-label="drag action icon edit"
-                                  style={{
-                                    position: "absolute",
-                                    fontSize: "4.5em",
-                                    paddingTop: 19,
-                                    paddingLeft: 50,
-                                    zIndex: -1,
-                                  }}
-                                >
-                                  <UpdateSVG />
-                                </div>
-                              </>
-                            ) : null}
-                            <MotionDiv
-                              className={styles.Card}
-                              drag="x"
-                              dragConstraints={{
-                                left: -100,
-                                right: 100,
-                              }}
-                              dragElastic={0.1}
-                              dragSnapToOrigin
-                              onDragEnd={(event: any, info: PanInfo) => {
-                                if (info.offset.x > 200) {
-                                  setUpdate(entry);
-                                  setOpenUpdate(true);
-                                }
-                                if (info.offset.x < -200) {
-                                  setUpdate(entry);
-                                  setOpenDelete(true);
-                                }
+                        {!isValidating ? (
+                          <>
+                            <div
+                              aria-label="drag action icon delete"
+                              style={{
+                                position: "absolute",
+                                fontSize: "4em",
+                                paddingTop: 14,
+                                paddingLeft: 200,
+                                zIndex: -1,
                               }}
                             >
-                              <div
-                                className={styles.H2}
-                                style={{
-                                  fontSize: "2em",
-                                  position: "relative",
-                                  bottom: 7,
-                                }}
-                                aria-label="entry title"
-                              >
-                                <Link
-                                  prefetch={false}
-                                  href={`/${user._id}/entry/${entry.title}`}
-                                  className={styles.Link}
-                                  title={entry.title}
-                                >
-                                  {entry.title}
-                                </Link>
-                              </div>
-                              <p
-                                aria-label="entry body"
-                                className={css.limiter}
-                              >
-                                {entry.body}
-                              </p>
-                              <div
-                                aria-label="entry date"
-                                style={{
-                                  fontSize: ".6em",
-                                  position: "relative",
-                                  top: 9,
-                                }}
-                              >
-                                {dateFromObjectId(entry._id).getDate()}
-                                {" / "}
-                                {dateFromObjectId(entry._id).getMonth() + 1}
-                                {" / "}
-                                {dateFromObjectId(entry._id).getFullYear()}
-                                <span style={{ padding: "0 9px" }}>{"|"}</span>
-                                {dateFromObjectId(entry._id).getHours()}
-                                {" : "}
-                                {dateFromObjectId(entry._id).getMinutes() < 9
-                                  ? "0" +
-                                    dateFromObjectId(entry._id).getMinutes()
-                                  : dateFromObjectId(entry._id).getMinutes()}
-                                {" : "}
-                                {dateFromObjectId(entry._id).getSeconds() < 9
-                                  ? "0" +
-                                    dateFromObjectId(entry._id).getSeconds()
-                                  : dateFromObjectId(entry._id).getSeconds()}
-                              </div>
-                            </MotionDiv>
+                              <CrossSVG />
+                            </div>
+                            <div
+                              aria-label="drag action icon edit"
+                              style={{
+                                position: "absolute",
+                                fontSize: "4.5em",
+                                paddingTop: 19,
+                                paddingLeft: 50,
+                                zIndex: -1,
+                              }}
+                            >
+                              <UpdateSVG />
+                            </div>
+                          </>
+                        ) : null}
+                        <MotionDiv
+                          className={styles.Card}
+                          drag="x"
+                          dragConstraints={{
+                            left: -100,
+                            right: 100,
+                          }}
+                          dragElastic={0.1}
+                          dragSnapToOrigin
+                          onDragEnd={(event: any, info: PanInfo) => {
+                            if (info.offset.x > 200) {
+                              setUpdate(entry);
+                              setOpenUpdate(true);
+                            }
+                            if (info.offset.x < -200) {
+                              setUpdate(entry);
+                              setOpenDelete(true);
+                            }
+                          }}
+                        >
+                          <div
+                            className={styles.H2}
+                            style={{
+                              fontSize: "2em",
+                              position: "relative",
+                              bottom: 7,
+                            }}
+                            aria-label="entry title"
+                          >
+                            <Link
+                              prefetch={false}
+                              href={`/${user._id}/entry/${entry.title}`}
+                              className={styles.Link}
+                              title={entry.title}
+                            >
+                              {entry.title}
+                            </Link>
+                          </div>
+                          <p aria-label="entry body" className={css.limiter}>
+                            {entry.body}
+                          </p>
+                          <div
+                            aria-label="entry date"
+                            style={{
+                              fontSize: ".6em",
+                              position: "relative",
+                              top: 9,
+                            }}
+                          >
+                            {dateFromObjectId(entry._id).getDate()}
+                            {" / "}
+                            {dateFromObjectId(entry._id).getMonth() + 1}
+                            {" / "}
+                            {dateFromObjectId(entry._id).getFullYear()}
+                            <span style={{ padding: "0 9px" }}>{"|"}</span>
+                            {dateFromObjectId(entry._id).getHours()}
+                            {" : "}
+                            {dateFromObjectId(entry._id).getMinutes() < 9
+                              ? "0" + dateFromObjectId(entry._id).getMinutes()
+                              : dateFromObjectId(entry._id).getMinutes()}
+                            {" : "}
+                            {dateFromObjectId(entry._id).getSeconds() < 9
+                              ? "0" + dateFromObjectId(entry._id).getSeconds()
+                              : dateFromObjectId(entry._id).getSeconds()}
+                          </div>
+                        </MotionDiv>
                       </React.Suspense>
                     </div>
                   ))}
                 </React.Suspense>
               ) : (
-                <>
+                <React.Suspense>
                   <div style={{ paddingTop: 15, paddingBottom: 10 }}>
                     <button className={css.sortoption} disabled>
                       descending
                     </button>
                   </div>
+                  <SearchFallback/>
                   <Fallback />
                   <Fallback />
                   <Fallback />
                   <Fallback />
                   <Fallback />
                   <Fallback />
-                </>
+                </React.Suspense>
               )}
             </div>
             <div aria-hidden style={{ padding: "1em" }} />
-          </>
+          </React.Suspense>
         ) : (
           <React.Suspense>
             <Flicker className={css.center} text="sign in for more">

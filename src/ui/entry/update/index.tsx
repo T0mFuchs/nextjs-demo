@@ -1,5 +1,10 @@
 import React from "react";
-import { Dialog, DialogPortal, DialogContent, DialogOverlay } from "@radix-ui/react-dialog";
+import {
+  Dialog,
+  DialogPortal,
+  DialogContent,
+  DialogOverlay,
+} from "@radix-ui/react-dialog";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 import { Checkbox, CheckboxIndicator } from "@radix-ui/react-checkbox";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,6 +21,7 @@ import { CheckSVG, CrossSVG } from "ui";
 import form from "ui/entry/form.module.scss";
 import dialog from "ui/entry/dialog.module.scss";
 import styles from "styles/main.module.scss";
+import css from "./index.module.scss";
 
 export default function UpdateEntry({
   open,
@@ -121,12 +127,7 @@ export default function UpdateEntry({
                       onClick={() => onOpenChange(false)}
                     >
                       <AccessibleIcon label="cancel">
-                        <div
-                          style={{
-                            position: "relative",
-                            top: -8,
-                          }}
-                        >
+                        <div className={css.cancelicon}>
                           <CrossSVG />
                         </div>
                       </AccessibleIcon>
@@ -136,14 +137,7 @@ export default function UpdateEntry({
                       errors={errors}
                       name="title"
                       render={({ message }) => (
-                        <div
-                          style={{
-                            display: "flex",
-                            color: "#fa7070",
-                          }}
-                        >
-                          {message}
-                        </div>
+                        <div className={css.errormsg}>{message}</div>
                       )}
                     />
                     <input
@@ -173,14 +167,7 @@ export default function UpdateEntry({
                       errors={errors}
                       name="body"
                       render={({ message }) => (
-                        <div
-                          style={{
-                            display: "flex",
-                            color: "#fa7070",
-                          }}
-                        >
-                          {message}
-                        </div>
+                        <div className={css.errormsg}>{message}</div>
                       )}
                     />
                     <TextareaAutosize
@@ -213,11 +200,7 @@ export default function UpdateEntry({
                       <AnimatePresence initial={false} mode="wait">
                         {visibility ? (
                           <motion.div
-                            style={{
-                              lineHeight: 2,
-                              paddingRight: 20,
-                              cursor: "pointer",
-                            }}
+                            className={css.public}
                             animate={{
                               opacity: 1,
                               scale: 1,
@@ -229,11 +212,7 @@ export default function UpdateEntry({
                           </motion.div>
                         ) : (
                           <motion.div
-                            style={{
-                              lineHeight: 2,
-                              paddingRight: 15,
-                              cursor: "pointer",
-                            }}
+                            className={css.private}
                             animate={{
                               opacity: 1,
                               scale: 1,
@@ -256,13 +235,7 @@ export default function UpdateEntry({
                       save & close
                       <span style={{ paddingLeft: 4 }}>
                         <AccessibleIcon label="save">
-                          <span
-                            style={{
-                              position: "relative",
-                              top: 2,
-                              paddingRight: 1,
-                            }}
-                          >
+                          <span className={css.submiticon}>
                             <CheckSVG />
                           </span>
                         </AccessibleIcon>

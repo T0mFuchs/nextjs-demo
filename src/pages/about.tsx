@@ -34,10 +34,7 @@ export default function Page() {
               <Image
                 src={lighthousePNG}
                 alt="google lighthouse picture"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto",
-                }}
+                className={css.img}
               />
             </div>
           </div>
@@ -47,10 +44,7 @@ export default function Page() {
               <Image
                 src={webvitalsPNG}
                 alt="web vitalis picture"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto",
-                }}
+                className={css.img}
               />
             </div>
           </div>

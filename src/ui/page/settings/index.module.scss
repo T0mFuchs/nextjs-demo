@@ -19,9 +19,9 @@
   border-radius: inherit;
 }
 .PopoverContent{
-  position: fixed;
-  top: 6em;
-  right: 1em;
+  position: relative;
+  top: 1em;
+  right: .5em;
   border-radius: 6px;
   border: 0;
   @media (prefers-color-scheme: dark) {

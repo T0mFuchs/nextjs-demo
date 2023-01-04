@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 import css from "./index.module.scss";
 
@@ -19,8 +19,7 @@ export default function Sort({
   setSortValue: (sortValue: string) => void;
 }) {
   return (
-    <div className={css.wrapper}>
-      <AnimatePresence>
+    <span className={css.wrapper}>
         {open ? (
           <motion.div
             style={{ display: "inline-flex", gap: 10 }}
@@ -113,7 +112,6 @@ export default function Sort({
             {sortPlaceholder}
           </motion.button>
         )}
-      </AnimatePresence>
-    </div>
+    </span>
   );
 }
