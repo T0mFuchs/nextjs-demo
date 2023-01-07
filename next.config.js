@@ -2,16 +2,14 @@ const isDev = process.env.NODE_ENV === "development";
 
 const withPWA = require("next-pwa")({
   dest: "public",
-  register: true,
   skipWaiting: true,
-  sw: "next-pwa-sw",
   disable: isDev
 });
 
 module.exports = withPWA({
   reactStrictMode: true,
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
+  webpack: (config, { isServer }) => {
+    if (!isDev && !isServer) {
       config.resolve.alias = {
         ...config.resolve.alias,
         "react/jsx-runtime.js": "preact/compat/jsx-runtime",
@@ -31,7 +29,7 @@ module.exports = withPWA({
             {
               key: "Content-Security-Policy",
               value: `
-                default-src 'self' vitals.vercel-insights.com;
+                default-src 'self' vitals.vercel-insights.com https:;
                 script-src 'self' 'unsafe-inline';
                 child-src ${process.env.NEXTAUTH_URL};
                 style-src 'self' 'unsafe-inline';

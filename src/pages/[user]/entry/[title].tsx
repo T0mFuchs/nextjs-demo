@@ -3,11 +3,12 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import { useGetUser } from "hooks/user/getUser";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import Fallback from "ui/entry/fallback";
 
 import type { GetServerSideProps, GetServerSidePropsContext } from "next";
+import type { Fetcher } from "swr";
+import type { UserType } from "types/User";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
@@ -35,6 +36,9 @@ export const getServerSideProps: GetServerSideProps = async (
 const fetcher = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
+  const userFetcher: Fetcher<UserType, string> = async (url: string) =>
+  await fetch(url, { method: "POST" }).then((res) => res.json());
+
 export default function Page({
   userId,
   title,
@@ -49,11 +53,10 @@ export default function Page({
   const [update, setUpdate]: any = React.useState();
   const [visibility, setVisibility] = React.useState(false);
 
-  const { data: user, isLoading, isError } = useGetUser();
+  const { data: user, error, isLoading } = useSWR(`/api/user/with-session`, userFetcher);
   const {
     data: entry,
     mutate,
-    isValidating,
   } = useSWR(
     user && user._id === userId ? `/api/${user._id}/entry/${title}` : null,
     fetcher
@@ -73,7 +76,7 @@ export default function Page({
   };
 
   if (isLoading) return <></>;
-  if ((user && user._id !== userId) || isError) return <>not authorized</>; // todo : add not authorized page
+  if ((user && user._id !== userId) || error) return <>not authorized</>; // todo : add not authorized page
   return (
     <>
       <Head>

@@ -2,8 +2,11 @@ import React from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useGetUser } from "hooks/user/getUser";
+import useSWR from "swr";
 import Separator from "ui/radix-ui/separator";
+
+import type { Fetcher } from "swr";
+import type { UserType } from "types/User";
 
 import styles from "styles/main.module.scss";
 import css from "../index.module.scss";
@@ -12,12 +15,15 @@ const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
   suspense: true,
 });
 
+const userFetcher: Fetcher<UserType, string> = async (url: string) =>
+  await fetch(url, { method: "POST" }).then((res) => res.json());
+
 export default function Event() {
-  const { data: user, isLoading, isError } = useGetUser();
+  const { data: user, error, isLoading } = useSWR(`/api/user/with-session`, userFetcher);
   const { push } = useRouter();
 
   if (isLoading) return <></>;
-  if (isError) {
+  if (error) {
     setTimeout(() => push("/"), 1000);
     return (
       <>

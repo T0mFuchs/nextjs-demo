@@ -1,6 +1,6 @@
 .next
 node_modules
-next-pwa-sw.js
+sw.js
 workbox-7028bf80.js
 .env
 .gitignore

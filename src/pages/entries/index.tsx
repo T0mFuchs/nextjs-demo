@@ -2,11 +2,11 @@ import React from "react";
 import Link from "next/link";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 import { EntryType } from "types/Entry";
 import { Observe } from "lib/observer-toggle-visibility";
 import { dateFromObjectId } from "lib/dateFromObjectId";
-import { useGetAllEntries } from "hooks/entry/getAllEntries";
 
 import Fallback from "ui/entry/fallback";
 import Error from "ui/entry/error";
@@ -29,7 +29,7 @@ export default function Page() {
   const [sortValue, setSortValue] = React.useState("-1");
   const [sortPlaceholder, setSortPlaceholder] = React.useState("descending");
 
-  const { data: allPublicEntries } = useGetAllEntries("/api/entries");
+  const { data: allPublicEntries } = useSWR("/api/entries", fetcher);
   const { data, error, size, setSize, isValidating } = useSWRInfinite(
     (index) =>
       `/api/entries/${index * 6}/${(index + 1) * 6}/${sortKey}/${sortValue}`,

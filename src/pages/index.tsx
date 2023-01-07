@@ -2,12 +2,13 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import useSWR, { Fetcher } from "swr";
+import useSWR from "swr";
 import { useRouter } from "next/router";
-import { useGetUser } from "hooks/user/getUser";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import { CheckSVG, CreateSVG, CrossSVG, UpdateSVG } from "ui";
 
+import type { Fetcher } from "swr";
+import type { UserType } from "types/User";
 import type { EntryType } from "types/Entry";
 import type { PanInfo } from "framer-motion";
 
@@ -35,7 +36,7 @@ const Sort = dynamic(() => import("ui/entry/sort"), {
 });
 
 const MotionDiv = dynamic(() => import("ui/framer-motion/div"), {
-  suspense: true,
+  ssr: false,
 });
 
 const CreateEntry = dynamic(() => import("ui/entry/create"), {
@@ -51,11 +52,15 @@ const DeleteEntry = dynamic(() => import("ui/entry/delete"), {
 });
 
 const Search = dynamic(() => import("ui/entry/search"), { suspense: true });
+
 const SearchFallback = dynamic(() => import("ui/entry/search/fallback"), {
   suspense: true,
 });
 
-const fetcher: Fetcher<EntryType[], string> = async (url: string) =>
+const entriesFetcher: Fetcher<EntryType[], string> = async (url: string) =>
+  await fetch(url, { method: "POST" }).then((res) => res.json());
+
+const userFetcher: Fetcher<UserType, string> = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page() {
@@ -76,14 +81,21 @@ export default function Page() {
 
   const { push } = useRouter();
 
-  const { data: user, isLoading } = useGetUser();
+  const { data: user, isLoading } = useSWR(
+    `/api/user/with-session`,
+    userFetcher,
+    {
+      loadingTimeout: 1500,
+      onLoadingSlow: () => <div className={css.center}>`cluster starting`</div>,
+    }
+  );
   const {
     data: entries,
     mutate,
     isValidating,
   } = useSWR(
     user ? `/api/${user._id}/entries/${sortKey}/${sortValue}` : null,
-    fetcher
+    entriesFetcher
   );
 
   if (isLoading) return <></>;

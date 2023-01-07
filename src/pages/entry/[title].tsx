@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import useSWR from "swr";
 
 import { useRouter } from "next/router";
-import { useGetUser } from "hooks/user/getUser";
 import { dateFromObjectId } from "lib/dateFromObjectId";
 import Fallback from "ui/entry/fallback";
 
@@ -15,6 +14,7 @@ import type { EntryType } from "types/Entry";
 
 import styles from "styles/main.module.scss";
 import css from "./index.module.scss";
+import { UserType } from "types/User";
 
 const Flicker = dynamic(() => import("ui/animated/flicker"), {
   suspense: true,
@@ -37,10 +37,13 @@ export const getServerSideProps: GetServerSideProps = async (
 
 // todo :: fix page initial loading fallback background is off
 
-const fetchEntry: Fetcher<EntryType, string> = async (url: string) =>
+const userFetcher: Fetcher<UserType, string> = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
-const fetchEntries: Fetcher<EntryType[], string> = async (url: string) =>
+const entryFetcher: Fetcher<EntryType, string> = async (url: string) =>
+  await fetch(url, { method: "POST" }).then((res) => res.json());
+
+const entriesFetcher: Fetcher<EntryType[], string> = async (url: string) =>
   await fetch(url, { method: "POST" }).then((res) => res.json());
 
 export default function Page({ title }: { title: string }) {
@@ -57,12 +60,12 @@ export default function Page({ title }: { title: string }) {
     data: entry,
     mutate,
     error,
-  } = useSWR(`/api/entry/${title}`, fetchEntry);
+  } = useSWR(`/api/entry/${title}`, entryFetcher);
   const { data: compareAllEntries } = useSWR(
     update ? "/api/entries" : null,
-    fetchEntries
+    entriesFetcher
   );
-  const { data: user, isLoading } = useGetUser();
+  const { data: user, isLoading } = useSWR("/api/user/with-session", userFetcher);
 
   const refresh = () => {
     if (visibility) {
