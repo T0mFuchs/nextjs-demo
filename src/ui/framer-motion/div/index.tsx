@@ -1,3 +1,3 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
-export default motion.div;
+export default m.div;

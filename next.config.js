@@ -35,7 +35,6 @@ module.exports = withPWA({
                 script-src 'self' 'unsafe-inline';
                 child-src ${process.env.NEXTAUTH_URL};
                 style-src 'self' 'unsafe-inline';
-                img-src *;
                 font-src 'none'; 
               `.replace(/\s{2,}/g, ' ').trim()
             },

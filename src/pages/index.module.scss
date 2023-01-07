@@ -68,3 +68,17 @@
   border-radius: 6px 6px 0 0;
   background: linear-gradient(to right, #ff0055 0%, #0059ff 100%);
 }
+
+.sortoption{
+  margin-bottom: .5em;
+  background-color: #000;
+  color: $bg-dark;
+  border: 0;
+  @media (prefers-color-scheme: dark){
+    color: $color-primary;
+    background-color: $bg-dark;
+  }
+  background-color: $bg-light;
+  padding: 4px 8px;
+  border-radius: .5em;
+}
