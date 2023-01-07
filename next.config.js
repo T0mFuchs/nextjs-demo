@@ -31,8 +31,8 @@ module.exports = withPWA({
             {
               key: "Content-Security-Policy",
               value: `
-                default-src 'self';
-                script-src 'self';
+                default-src 'self' vitals.vercel-insights.com;
+                script-src 'self' 'unsafe-inline';
                 child-src ${process.env.NEXTAUTH_URL};
                 style-src 'self' 'unsafe-inline';
                 img-src *;
@@ -42,10 +42,6 @@ module.exports = withPWA({
             {
               key: "X-XSS-Protection",
               value: "1; mode=block"
-            },
-            {
-              key: "Strict-Transport-Security",
-              value: "max-age=63072000; includeSubDomains; preload"
             },
             {
               key: "Referrer-Policy",
