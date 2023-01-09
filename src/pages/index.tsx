@@ -88,7 +88,14 @@ export default function Page() {
     {
       loadingTimeout: 750,
       onLoadingSlow: () => (
-        <div className={css.center}>cluster starting...</div>
+        <div
+          className={css.center}
+          style={{
+            position: "fixed",
+          }}
+        >
+          cluster starting...
+        </div>
       ),
     }
   );
@@ -118,11 +125,9 @@ export default function Page() {
   if (isLoading) {
     return (
       <React.Suspense>
-        <div className={css.center}>
           <Flicker className={css.center} text="loading">
             loading
           </Flicker>
-        </div>
       </React.Suspense>
     );
   }
@@ -243,7 +248,7 @@ export default function Page() {
           </React.Suspense>
         ) : (
           <React.Suspense>
-            <Flicker className={css.center} text="sign in for more">
+            <Flicker className={css.center} style={{ width: "3em" }} text="sign in for more">
               <Link
                 prefetch={false}
                 href="/auth/signin"
